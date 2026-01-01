@@ -49,7 +49,7 @@
   animation: patternMove 20s linear infinite;
 }
 
-.auth-btn{
+.auth-btn {
   padding: 10px 30px;
   border: none;
   cursor: pointer;
@@ -61,7 +61,7 @@
   transition: all 0.3s ease;
 }
 
-.auth-btn:hover{
+.auth-btn:hover {
   background-color: #004d40;
 }
 
@@ -69,6 +69,7 @@
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(30px, 30px);
   }
@@ -90,10 +91,12 @@
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -329,6 +332,7 @@
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -412,7 +416,13 @@
   outline: none;
   border-color: #2e7d32;
   background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible {
+  outline: 3px solid #2e7d32;
+  outline-offset: 2px;
 }
 
 .form-group input.error {
@@ -590,7 +600,11 @@
 }
 
 .interest-item input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 
 .interest-item span {
@@ -627,11 +641,17 @@
   background: #f1f8e9;
 }
 
-.interest-item input:checked + span {
+.interest-item input:checked+span {
   background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
   border-color: #2e7d32;
   transform: scale(1.02);
   box-shadow: 0 4px 15px rgba(46, 125, 50, 0.2);
+}
+
+.interest-item input:focus-visible+span {
+  outline: 3px solid #2e7d32;
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
 /* Agreements / Checkboxes */
@@ -649,7 +669,11 @@
 }
 
 .checkbox-item input[type="checkbox"] {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 
 .custom-checkbox {
@@ -675,13 +699,18 @@
   transition: transform 0.2s ease;
 }
 
-.checkbox-item input:checked + .custom-checkbox {
+.checkbox-item input:checked+.custom-checkbox {
   background: #2e7d32;
   border-color: #2e7d32;
 }
 
-.checkbox-item input:checked + .custom-checkbox::after {
+.checkbox-item input:checked+.custom-checkbox::after {
   transform: translate(-50%, -50%) scale(1);
+}
+
+.checkbox-item input:focus-visible+.custom-checkbox {
+  outline: 3px solid #2e7d32;
+  outline-offset: 2px;
 }
 
 .checkbox-text {
@@ -931,9 +960,11 @@
   0% {
     transform: scale(0);
   }
+
   50% {
     transform: scale(1.2);
   }
+
   100% {
     transform: scale(1);
   }

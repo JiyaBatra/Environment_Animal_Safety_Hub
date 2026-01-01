@@ -1,36 +1,48 @@
   /* Report Form */
-        .report-form {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+  .report-form {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  }
 
-        .report-form input,
-        .report-form textarea {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
-        }
+  .report-form input,
+  .report-form textarea {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+  }
 
-        .report-form .btn {
-            width: 150px;
-            background-color: #ff4500;
-            border: none;
-            cursor: pointer;
-        }
+  .report-form input:focus-visible,
+  .report-form textarea:focus-visible {
+      outline: 3px solid #ff4500;
+      outline-offset: 2px;
+  }
 
-        .report-form .btn:hover {
-            background-color: #ff6347;
-        }
+  .report-form .btn {
+      width: 150px;
+      background-color: #ff4500;
+      border: none;
+      cursor: pointer;
+  }
 
-        /* Report List */
-        .report-list {
-            max-width: 600px;
-            margin: 0 auto;
-            list-style: disc;
-            padding-left: 20px;
-            color: #333;
-        }
+  .report-form .btn:hover,
+  .report-form .btn:focus-visible {
+      background-color: #ff6347;
+  }
+
+  .report-form .btn:focus-visible {
+      outline: 3px solid #ff4500;
+      outline-offset: 4px;
+  }
+
+  /* Report List */
+  .report-list {
+      max-width: 600px;
+      margin: 0 auto;
+      list-style: disc;
+      padding-left: 20px;
+      color: #333;
+  }
