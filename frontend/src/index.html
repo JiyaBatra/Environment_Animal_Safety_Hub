@@ -839,150 +839,126 @@
 
     <!-- Report Section -->
     <section id="report" class="report-section">
-      <div class="section-container">
-        <div class="report-content">
-          <div class="report-info" data-aos="fade-right">
-            <span class="section-tag">
-              <i class="fa-solid fa-bullhorn"></i> Report Issues
-            </span>
-            <h2 class="section-title">Report Pollution & Trash Dumping</h2>
-            <p class="section-desc">
-              Spotted illegal dumping or pollution in your area? Report it here
-              and we'll work with local authorities to resolve the issue.
-            </p>
+    <div class="section-container">
+      <div class="report-content">
+        <div class="report-info">
+          <span class="section-tag">
+            <i class="fa-solid fa-bullhorn"></i> Report Issues
+          </span>
+          <h2 class="section-title">Report Pollution & Trash Dumping</h2>
+          <p class="section-desc">
+            Spotted illegal dumping or pollution in your area? Report it here
+            and we'll work with local authorities to resolve the issue.
+          </p>
 
-            <div class="report-stats">
-              <div class="report-stat">
-                <i class="fa-solid fa-file-alt"></i>
-                <div>
-                  <span class="stat-num">2,500+</span>
-                  <span class="stat-text">Reports Filed</span>
-                </div>
-              </div>
-              <div class="report-stat">
-                <i class="fa-solid fa-check-circle"></i>
-                <div>
-                  <span class="stat-num">85%</span>
-                  <span class="stat-text">Issues Resolved</span>
-                </div>
+          <div class="report-stats">
+            <div class="report-stat">
+              <i class="fa-solid fa-file-alt"></i>
+              <div>
+                <span class="stat-num" data-target="2500">0</span>
+                <span class="stat-text">Reports Filed</span>
               </div>
             </div>
-
-            <div class="recent-reports">
-              <h4><i class="fa-solid fa-clock"></i> Recent Reports</h4>
-              <ul class="report-list">
-                <li>
-                  <span class="report-status resolved"></span>
-                  Trash dumped near River Park – <strong>Raj</strong>
-                  <span class="report-badge">Resolved</span>
-                </li>
-                <li>
-                  <span class="report-status pending"></span>
-                  Plastic waste at Main Street – <strong>Ananya</strong>
-                  <span class="report-badge pending">In Progress</span>
-                </li>
-                <li>
-                  <span class="report-status resolved"></span>
-                  Illegal dumping near school – <strong>Sneha</strong>
-                  <span class="report-badge">Resolved</span>
-                </li>
-              </ul>
+            <div class="report-stat">
+              <i class="fa-solid fa-check-circle"></i>
+              <div>
+                <span class="stat-num" data-target="85">0</span>
+                <span class="stat-text">Issues Resolved</span>
+              </div>
             </div>
           </div>
 
-          <div class="report-form-wrapper" data-aos="fade-left">
-            <form class="report-form" id="reportForm">
-              <h3><i class="fa-solid fa-pen-to-square"></i> Submit a Report</h3>
-
-              <div class="form-group">
-                <label for="name">
-                  <i class="fa-solid fa-user"></i> Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="email">
-                  <i class="fa-solid fa-envelope"></i> Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="location">
-                  <i class="fa-solid fa-location-dot"></i> Location
-                </label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  placeholder="Enter location of issue"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="issueType">
-                  <i class="fa-solid fa-list"></i> Issue Type
-                </label>
-                <select id="issueType" name="issueType" required>
-                  <option value="">Select issue type</option>
-                  <option value="garbage">Garbage Dumping</option>
-                  <option value="plastic">Plastic Pollution</option>
-                  <option value="water">Water Pollution</option>
-                  <option value="air">Air Pollution</option>
-                  <option value="noise">Noise Pollution</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="description">
-                  <i class="fa-solid fa-message"></i> Description
-                </label>
-                <textarea
-                  id="description"
-                  name="description"
-                  rows="4"
-                  placeholder="Describe the issue in detail..."
-                  required
-                ></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="photo">
-                  <i class="fa-solid fa-camera"></i> Upload Photo (Optional)
-                </label>
-                <div class="file-upload">
-                  <input type="file" id="photo" name="photo" accept="image/*" />
-                  <div class="file-upload-label">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <span>Click to upload or drag and drop</span>
-                  </div>
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-block">
-                <i class="fa-solid fa-paper-plane"></i> Submit Report
-              </button>
-            </form>
+          <div class="recent-reports">
+            <h4><i class="fa-solid fa-clock"></i> Recent Reports</h4>
+            <ul class="report-list">
+              <li>
+                <span class="report-status resolved"></span>
+                Trash dumped near River Park – <strong>Raj</strong>
+                <span class="report-badge">Resolved</span>
+              </li>
+              <li>
+                <span class="report-status pending"></span>
+                Plastic waste at Main Street – <strong>Ananya</strong>
+                <span class="report-badge pending">In Progress</span>
+              </li>
+              <li>
+                <span class="report-status resolved"></span>
+                Illegal dumping near school – <strong>Sneha</strong>
+                <span class="report-badge">Resolved</span>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
 
+        <div class="report-form-wrapper">
+          <form class="report-form" id="reportForm">
+            <h3><i class="fa-solid fa-pen-to-square"></i> Submit a Report</h3>
+
+            <div class="form-group">
+              <label for="name">
+                <i class="fa-solid fa-user"></i> Your Name
+              </label>
+              <input type="text" id="name" name="name" placeholder="Enter your name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">
+                <i class="fa-solid fa-envelope"></i> Email Address
+              </label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="location">
+                <i class="fa-solid fa-location-dot"></i> Location
+              </label>
+              <input type="text" id="location" name="location" placeholder="Enter location of issue" required />
+            </div>
+
+            <div class="form-group">
+              <label for="issueType">
+                <i class="fa-solid fa-list"></i> Issue Type
+              </label>
+              <select id="issueType" name="issueType" required>
+                <option value="">Select issue type</option>
+                <option value="garbage">Garbage Dumping</option>
+                <option value="plastic">Plastic Pollution</option>
+                <option value="water">Water Pollution</option>
+                <option value="air">Air Pollution</option>
+                <option value="noise">Noise Pollution</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="description">
+                <i class="fa-solid fa-message"></i> Description
+              </label>
+              <textarea id="description" name="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="photo">
+                <i class="fa-solid fa-camera"></i> Upload Photo (Optional)
+              </label>
+              <div class="file-upload" id="fileUpload">
+                <input type="file" id="photo" name="photo" accept="image/*" />
+                <div class="file-upload-label">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <span>Click to upload or drag and drop</span>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn">
+              <i class="fa-solid fa-paper-plane"></i> Submit Report
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
     <!-- Newsletter Section -->
     <section class="newsletter-section">
       <div class="newsletter-container" data-aos="zoom-in">
