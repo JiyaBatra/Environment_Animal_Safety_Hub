@@ -823,3 +823,65 @@ document.getElementById("carbonForm").addEventListener("submit", function (e) {
 
   document.getElementById("carbonResult").style.display = "block";
 });
+
+const glossaryData = [
+  {
+    term: "Biodiversity",
+    definition: "The variety of plants, animals, and living organisms on Earth."
+  },
+  {
+    term: "Carbon Footprint",
+    definition: "The amount of greenhouse gases released due to human activities."
+  },
+  {
+    term: "Climate Change",
+    definition: "Long-term changes in temperature and weather patterns."
+  },
+  {
+    term: "Renewable Energy",
+    definition: "Energy that comes from natural sources like sunlight and wind."
+  },
+  {
+    term: "Sustainability",
+    definition: "Using resources wisely so future generations can meet their needs."
+  },
+  {
+    term: "Recycling",
+    definition: "The process of converting waste into reusable materials."
+  },
+  {
+    term: "Deforestation",
+    definition: "Cutting down trees on a large scale, harming the environment."
+  }
+];
+
+const glossaryList = document.getElementById("glossaryList");
+const searchInput = document.getElementById("glossarySearch");
+
+function renderGlossary(filter = "") {
+  glossaryList.innerHTML = "";
+
+  glossaryData
+    .filter(item =>
+      item.term.toLowerCase().startsWith(filter.toLowerCase()) ||
+      item.term.toLowerCase().includes(filter.toLowerCase())
+    )
+    .sort((a, b) => a.term.localeCompare(b.term))
+    .forEach(item => {
+      const div = document.createElement("div");
+      div.className = "glossary-item";
+      div.innerHTML = `
+        <h4>${item.term}</h4>
+        <p>${item.definition}</p>
+      `;
+      glossaryList.appendChild(div);
+    });
+}
+
+// Initial render
+renderGlossary();
+
+// Live search
+searchInput.addEventListener("input", e => {
+  renderGlossary(e.target.value);
+});

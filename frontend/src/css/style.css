@@ -496,3 +496,40 @@ body {
 .carbon-result li {
   margin-bottom: 8px;
 }
+.glossary-section {
+  padding: 80px 20px;
+  background: #f4fbf7;
+}
+
+.glossary-search {
+  max-width: 400px;
+  width: 100%;
+  padding: 12px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+
+.glossary-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.glossary-item {
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.glossary-item h4 {
+  margin-bottom: 6px;
+  color: #2e7d32;
+}
+
+.glossary-item p {
+  font-size: 15px;
+  color: #333;
+}
