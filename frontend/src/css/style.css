@@ -583,3 +583,42 @@ body {
 .myth-card.flipped .card-back {
   transform: rotateY(360deg);
 }
+
+.eco-facts-section {
+  padding: 80px 20px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.eco-fact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 16px;
+  background: #f4fbf7;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  animation: fade 1s ease-in-out;
+}
+
+.fact-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.eco-fact-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.fact-category {
+  font-size: 14px;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -888,3 +888,53 @@ searchInput.addEventListener("input", e => {
 function toggleCard(card) {
   card.classList.toggle("flipped");
 }
+
+const ecoFacts = [
+  {
+    text: "Elephants can recognize themselves in mirrors, showing high intelligence.",
+    category: "Animal Fact",
+    icon: "🐘"
+  },
+  {
+    text: "Recycling one aluminum can saves enough energy to run a TV for 3 hours.",
+    category: "Recycling Tip",
+    icon: "♻️"
+  },
+  {
+    text: "Planting trees helps absorb carbon dioxide and fight climate change.",
+    category: "Climate Fact",
+    icon: "🌱"
+  },
+  {
+    text: "Plastic waste can take up to 1000 years to decompose.",
+    category: "Recycling Tip",
+    icon: "🧴"
+  },
+  {
+    text: "Bees are responsible for pollinating nearly 75% of the world’s crops.",
+    category: "Animal Fact",
+    icon: "🐝"
+  },
+  {
+    text: "Turning off unused lights can significantly reduce your carbon footprint.",
+    category: "Climate Tip",
+    icon: "💡"
+  }
+];
+
+let factIndex = 0;
+
+function showEcoFact() {
+  const fact = ecoFacts[factIndex];
+  document.getElementById("ecoFactText").innerText = fact.text;
+  document.getElementById("factCategory").innerText = fact.category;
+  document.getElementById("factIcon").innerText = fact.icon;
+
+  factIndex = (factIndex + 1) % ecoFacts.length;
+}
+
+// Initial call
+showEcoFact();
+
+// Change fact every 5 seconds
+setInterval(showEcoFact, 5000);
