@@ -554,6 +554,68 @@
       </div>
     </section>
 
+    <section id="carbon" class="carbon-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">
+        <i class="fa-solid fa-cloud"></i> Carbon Calculator
+      </span>
+      <h2 class="section-title">Know Your Carbon Footprint</h2>
+      <p class="section-subtitle">
+        Answer a few questions and see how eco-friendly your lifestyle is 🌍
+      </p>
+    </div>
+
+    <form class="carbon-form" id="carbonForm">
+      <!-- Transport -->
+      <div class="form-group">
+        <label>Primary Transport</label>
+        <select id="transport" required>
+          <option value="">Select</option>
+          <option value="walk">Walking / Cycling</option>
+          <option value="public">Public Transport</option>
+          <option value="bike">Bike</option>
+          <option value="car">Car</option>
+        </select>
+      </div>
+
+      <!-- Electricity -->
+      <div class="form-group">
+        <label>Monthly Electricity Usage</label>
+        <select id="electricity" required>
+          <option value="">Select</option>
+          <option value="low">Low (≤ 100 units)</option>
+          <option value="medium">Medium (100–300 units)</option>
+          <option value="high">High (300+ units)</option>
+        </select>
+      </div>
+
+      <!-- Plastic -->
+      <div class="form-group">
+        <label>Plastic Usage</label>
+        <select id="plastic" required>
+          <option value="">Select</option>
+          <option value="low">Rarely (Reusable items)</option>
+          <option value="medium">Sometimes</option>
+          <option value="high">Frequently</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-calculator"></i> Calculate Footprint
+      </button>
+    </form>
+
+    <!-- Result -->
+    <div class="carbon-result" id="carbonResult">
+      <h3>Your Carbon Score: <span id="carbonScore"></span></h3>
+      <p id="carbonLevel"></p>
+      <ul id="carbonTips"></ul>
+    </div>
+  </div>
+</section>
+
+
     <!-- How It Works Section -->
     <section class="how-it-works-section">
       <div class="section-container">

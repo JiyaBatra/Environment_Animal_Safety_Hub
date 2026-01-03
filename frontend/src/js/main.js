@@ -763,3 +763,63 @@ document.addEventListener("DOMContentLoaded", function () {
     // ... existing init calls ...
     initModalSystem(); // Add this line
 });
+
+document.getElementById("carbonForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  let score = 0;
+  const tips = [];
+
+  const transport = document.getElementById("transport").value;
+  const electricity = document.getElementById("electricity").value;
+  const plastic = document.getElementById("plastic").value;
+
+  // Transport score
+  if (transport === "walk") score += 5;
+  else if (transport === "public") score += 15;
+  else if (transport === "bike") score += 25;
+  else if (transport === "car") {
+    score += 40;
+    tips.push("Use public transport or carpool whenever possible.");
+  }
+
+  // Electricity score
+  if (electricity === "low") score += 10;
+  else if (electricity === "medium") {
+    score += 25;
+    tips.push("Switch to LED bulbs and turn off unused appliances.");
+  } else if (electricity === "high") {
+    score += 40;
+    tips.push("Reduce AC usage and use energy-efficient appliances.");
+  }
+
+  // Plastic score
+  if (plastic === "low") score += 10;
+  else if (plastic === "medium") {
+    score += 20;
+    tips.push("Carry a cloth bag and avoid plastic packaging.");
+  } else if (plastic === "high") {
+    score += 35;
+    tips.push("Replace single-use plastics with reusable alternatives.");
+  }
+
+  // Result level
+  let level = "";
+  if (score <= 40) level = "🌱 Low Footprint – Great job!";
+  else if (score <= 80) level = "🌿 Medium Footprint – You can improve!";
+  else level = "🔥 High Footprint – Time to take action!";
+
+  // Display result
+  document.getElementById("carbonScore").innerText = score;
+  document.getElementById("carbonLevel").innerText = level;
+
+  const tipsList = document.getElementById("carbonTips");
+  tipsList.innerHTML = "";
+  tips.forEach(tip => {
+    const li = document.createElement("li");
+    li.innerText = tip;
+    tipsList.appendChild(li);
+  });
+
+  document.getElementById("carbonResult").style.display = "block";
+});

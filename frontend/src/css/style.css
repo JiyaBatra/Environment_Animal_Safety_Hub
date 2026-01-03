@@ -465,3 +465,34 @@ body {
   background: #2e7d32;
   cursor: default;
 }
+
+.carbon-section {
+  padding: 80px 20px;
+  background: #f4fbf7;
+}
+
+.carbon-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.carbon-result {
+  margin-top: 30px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  display: none;
+}
+
+.carbon-result h3 {
+  color: #2e7d32;
+}
+
+.carbon-result ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.carbon-result li {
+  margin-bottom: 8px;
+}
