@@ -52,7 +52,7 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   order: 2;
 }
 
@@ -60,10 +60,11 @@
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 10px 16px;
+  padding: 8px 12px;
   border-radius: var(--radius-md);
   transition: var(--transition-normal);
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -94,18 +95,20 @@
 .nav-auth {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-left: 20px;
+  gap: 6px;
+  margin-left: 8px;
+  flex-shrink: 0;
 }
 
 .btn-login {
-  padding: 10px 22px;
+  padding: 6px 12px;
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: var(--radius-xl);
   color: #fff;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: var(--transition-normal);
+  white-space: nowrap;
 }
 
 .btn-login:hover {
@@ -116,14 +119,15 @@
 }
 
 .btn-signup {
-  padding: 10px 22px;
+  padding: 6px 12px;
   background: #fff;
   color: var(--primary-color);
   border-radius: var(--radius-xl);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: var(--transition-normal);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
 }
 
 .btn-signup:hover {
@@ -166,8 +170,21 @@
 /* ===== RESPONSIVE NAVBAR ===== */
 @media (max-width: 1200px) {
   .nav-link {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+
+  .btn-login,
+  .btn-signup {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .theme-toggle-btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 4px 6px;
+    font-size: 0.95rem;
   }
 }
 
@@ -285,14 +302,17 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--navbar-text);
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 5px 8px;
   border-radius: var(--radius-md);
   transition: var(--transition-normal);
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
 .theme-toggle-btn:hover {
