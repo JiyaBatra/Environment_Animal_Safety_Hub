@@ -1,0 +1,12 @@
+/*i am a contributor want to add leaf-styling in cursor */
+.leaf {
+  position: fixed;
+  font-size: 20px;      /* size of the leaf emoji */
+  pointer-events: none; /* so it doesn’t block clicks */
+  transform: translate(-50%, -50%) rotate(0deg);
+  transition: transform 1s linear, opacity 1s ease-out;
+  z-index: 9999;
+  opacity: 0.8;
+}
+
+
