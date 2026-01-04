@@ -116,64 +116,180 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
         
+/* Card Image Wrapper */
+        .card-image-wrapper {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
         .animal-image {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        
+
+        .animal-card:hover .animal-image {
+            transform: scale(1.1);
+        }
+
+        /* Status Overlay Badge */
+        .status-badge {
+             display: inline-block;
+             padding: 0.4rem 1rem;
+             border-radius: 30px;
+             font-size: 0.8rem;
+             font-weight: 700;
+             color: #ffffff;
+             margin-bottom: 1rem;
+             text-transform: uppercase;
+             letter-spacing: 0.5px;
+        }
+
+        .status-badge-overlay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        /* Card Content layout */
         .animal-content {
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
         }
-        
+
         .animal-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #1a1a2e;
-            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            margin: 0;
+            line-height: 1.2;
         }
-        
+
         .scientific-name {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
             font-style: italic;
-            color: #555555;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
         }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .status-CR { background: linear-gradient(135deg, #dc2626, #b91c1c); }
-        .status-EN { background: linear-gradient(135deg, #ea580c, #c2410c); }
-        .status-VU { background: linear-gradient(135deg, #d97706, #b45309); }
-        .status-NT { background: linear-gradient(135deg, #ca8a04, #a16207); }
-        .status-LC { background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 50%, #004d40 100%); }
-        
-        .animal-description {
-            color: #555555;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-        
-        .animal-population {
+
+        /* Info Items (Habitat) */
+        .card-info {
+            display: flex;
+            gap: 0.5rem;
             font-size: 0.9rem;
-            color: #888888;
-            margin-bottom: 1rem;
+            color: #444;
+            align-items: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Tags (Threats) */
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .threat-tag {
+            background: #ffebee;
+            color: #c62828;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 600;
         }
         
-        .animal-population strong {
+        /* Footer link */
+        .card-footer {
+            margin-top: auto;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .learn-more {
             color: #2e7d32;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .animal-description {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Status Colors */
+        .status-CR { background: #d32f2f; }
+        .status-EN { background: #f57c00; }
+        .status-VU { background: #fbc02d; color: #333 !important; }
+        .status-NT { background: #8d6e63; }
+        .status-LC { background: #388e3c; }
+
+        /* How to Help Section */
+        .help-section {
+            background: #f1f8e9;
+            padding: 4rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .help-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .help-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .help-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .help-card h3 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .help-card p {
+            color: #555;
+            line-height: 1.6;
         }
         
         .modal {
@@ -332,16 +448,133 @@
                 padding: 1rem;
             }
         }
+        /* Hero Section Revamp */
+        .hero-section {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            background-color: #000;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            transition: transform 0.5s ease-out;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .icon-animate {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.6);
+            background: linear-gradient(135deg, #388e3c, #2e7d32);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
     <nav id="navbar"></nav>
 
     <main>
-        <section class="hero-section">
+        <section class="hero-section" id="heroSection">
+            <div class="hero-bg" id="heroBg"></div>
+            <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1>🌍 Endangered Animals Database</h1>
-                <p>Learn about endangered species and how you can help protect them</p>
+                <h1 class="hero-title">
+                    <span class="icon-animate">🌍</span> 
+                    <span class="text-gradient">Endangered Animals</span> 
+                    Database
+                </h1>
+                <p class="hero-subtitle">Discover the beauty of our planet's rarest species and join the mission to protect them before it's too late.</p>
             </div>
         </section>
 
@@ -364,6 +597,41 @@
             <h3>No animals found</h3>
             <p>Try adjusting your search or filters</p>
         </div>
+
+        <section class="help-section">
+            <div class="help-container">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2 style="font-size: 2.5rem; color: #1a1a2e; margin-bottom: 1rem;">How You Can Help</h2>
+                    <p style="color: #666; max-width: 600px; margin: 0 auto;">Small actions can make a big difference in protecting endangered species and their habitats.</p>
+                </div>
+                
+                <div class="help-grid">
+                    <div class="help-card">
+                        <span class="help-icon">🌿</span>
+                        <h3>Restore Habitats</h3>
+                        <p>Participate in local tree planting and cleanup drives to restore natural habitats for wildlife.</p>
+                    </div>
+                    
+                    <div class="help-card">
+                        <span class="help-icon">🚫</span>
+                        <h3>Stop Illegal Trade</h3>
+                        <p>Never buy products made from endangered animals, such as ivory, tortoise shell, or coral.</p>
+                    </div>
+                    
+                    <div class="help-card">
+                        <span class="help-icon">📢</span>
+                        <h3>Spread Awareness</h3>
+                        <p>Educate others about endangered species and advocate for stronger conservation laws.</p>
+                    </div>
+
+                    <div class="help-card">
+                        <span class="help-icon">🤝</span>
+                        <h3>Adopt or Donate</h3>
+                        <p>Support reputable conservation organizations through donations or animal adoption programs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Modal -->

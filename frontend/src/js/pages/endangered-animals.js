@@ -2,6 +2,16 @@ let animalsData = [];
 let filteredAnimals = [];
 let currentFilter = 'all';
 
+// Parallax Effect for Hero
+document.addEventListener('mousemove', (e) => {
+    const heroBg = document.getElementById('heroBg');
+    if (heroBg) {
+        const x = (window.innerWidth - e.pageX * 5) / 100;
+        const y = (window.innerHeight - e.pageY * 5) / 100;
+        heroBg.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    }
+});
+
 // Load animals data
 async function loadAnimalsData() {
     try {
@@ -19,25 +29,47 @@ async function loadAnimalsData() {
 function displayAnimals(animals) {
     const grid = document.getElementById('animalsGrid');
     const noResults = document.getElementById('noResults');
-    
+
     if (animals.length === 0) {
         grid.innerHTML = '';
         noResults.style.display = 'block';
         return;
     }
-    
+
     noResults.style.display = 'none';
-    
+
     grid.innerHTML = animals.map(animal => `
         <div class="animal-card" onclick="openModal(${animal.id})">
-            <img src="${animal.image}" alt="${animal.name}" class="animal-image" 
-                 onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+            <div class="card-image-wrapper">
+                <img src="${animal.image}" alt="${animal.name}" class="animal-image" 
+                     onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+                <span class="status-badge-overlay status-${animal.status}">${animal.status}</span>
+            </div>
             <div class="animal-content">
-                <h3 class="animal-name">${animal.name}</h3>
-                <p class="scientific-name">${animal.scientificName}</p>
-                <span class="status-badge status-${animal.status}">${animal.statusText}</span>
-                <p class="animal-description">${truncateText(animal.description, 120)}</p>
-                <p class="animal-population"><strong>Population:</strong> ${animal.population}</p>
+                <div class="card-header">
+                    <h3 class="animal-name">${animal.name}</h3>
+                    <p class="scientific-name">${animal.scientificName}</p>
+                </div>
+                
+                <div class="card-info">
+                    <div class="info-item">
+                        <span class="info-icon">🏠</span>
+                        <span class="info-text">${animal.habitat}</span>
+                    </div>
+                </div>
+
+                <div class="card-tags">
+                    ${animal.threats.slice(0, 2).map(threat =>
+        `<span class="threat-tag">${threat}</span>`
+    ).join('')}
+                    ${animal.threats.length > 2 ? `<span class="threat-tag">+${animal.threats.length - 2}</span>` : ''}
+                </div>
+
+                <p class="animal-description">${truncateText(animal.description, 80)}</p>
+                
+                <div class="card-footer">
+                    <span class="learn-more">Learn More →</span>
+                </div>
             </div>
         </div>
     `).join('');
@@ -46,37 +78,37 @@ function displayAnimals(animals) {
 // Search functionality with debouncing
 function searchAnimals() {
     const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    
+
     if (!query) {
-        filteredAnimals = currentFilter === 'all' ? [...animalsData] : 
-                         animalsData.filter(animal => animal.status === currentFilter);
+        filteredAnimals = currentFilter === 'all' ? [...animalsData] :
+            animalsData.filter(animal => animal.status === currentFilter);
     } else {
-        const searchResults = animalsData.filter(animal => 
+        const searchResults = animalsData.filter(animal =>
             animal.name.toLowerCase().includes(query) ||
             animal.scientificName.toLowerCase().includes(query) ||
             animal.description.toLowerCase().includes(query)
         );
-        
+
         filteredAnimals = currentFilter === 'all' ? searchResults :
-                         searchResults.filter(animal => animal.status === currentFilter);
+            searchResults.filter(animal => animal.status === currentFilter);
     }
-    
+
     displayAnimals(filteredAnimals);
 }
 
 // Filter by conservation status
 function filterByStatus(status) {
     currentFilter = status;
-    
+
     // Update active filter button
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
-    
+
     const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    
+
     if (status === 'all') {
-        filteredAnimals = query ? 
-            animalsData.filter(animal => 
+        filteredAnimals = query ?
+            animalsData.filter(animal =>
                 animal.name.toLowerCase().includes(query) ||
                 animal.scientificName.toLowerCase().includes(query) ||
                 animal.description.toLowerCase().includes(query)
@@ -84,13 +116,13 @@ function filterByStatus(status) {
     } else {
         const statusFiltered = animalsData.filter(animal => animal.status === status);
         filteredAnimals = query ?
-            statusFiltered.filter(animal => 
+            statusFiltered.filter(animal =>
                 animal.name.toLowerCase().includes(query) ||
                 animal.scientificName.toLowerCase().includes(query) ||
                 animal.description.toLowerCase().includes(query)
             ) : statusFiltered;
     }
-    
+
     displayAnimals(filteredAnimals);
 }
 
@@ -98,7 +130,7 @@ function filterByStatus(status) {
 function openModal(animalId) {
     const animal = animalsData.find(a => a.id === animalId);
     if (!animal) return;
-    
+
     const modalContent = document.getElementById('modalContent');
     modalContent.innerHTML = `
         <img src="${animal.image}" alt="${animal.name}" class="modal-image"
@@ -157,7 +189,7 @@ function openModal(animalId) {
             </div>
         </div>
     `;
-    
+
     document.getElementById('animalModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
@@ -175,14 +207,14 @@ function truncateText(text, maxLength) {
 
 // Event listeners
 document.getElementById('searchInput').addEventListener('input', debounce(searchAnimals, 300));
-document.getElementById('searchInput').addEventListener('keypress', function(e) {
+document.getElementById('searchInput').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         searchAnimals();
     }
 });
 
 // Close modal when clicking outside
-document.getElementById('animalModal').addEventListener('click', function(e) {
+document.getElementById('animalModal').addEventListener('click', function (e) {
     if (e.target === this) {
         closeModal();
     }
