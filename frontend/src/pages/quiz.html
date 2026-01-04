@@ -1,1 +1,314 @@
-<!-- quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kids Eco Quiz | EcoLife</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --green:#2e7d32;
+  --green-light:#4caf50;
+  --bg:#f4fbf6;
+  --white:#ffffff;
+  --shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+
+*{
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+  transition:all .25s ease;
+}
+
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#f2fbf5,#eaf7ef);
+  color:#1a1a1a;
+  min-height:100vh;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding:90px 20px 70px;
+  text-align:center;
+  background:linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);
+  color:white;
+  border-bottom-left-radius:45px;
+  border-bottom-right-radius:45px;
+}
+
+.hero h1{
+  font-size:3rem;
+  animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+.hero p{opacity:.95}
+
+/* ---------- CARD ---------- */
+.card{
+  max-width:800px;
+  margin:-60px auto 80px;
+  background:var(--white);
+  padding:40px;
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+
+/* ---------- START ---------- */
+#startScreen{text-align:center}
+
+select,button{
+  padding:12px 20px;
+  border-radius:30px;
+  border:none;
+  font-size:1rem;
+}
+
+select{border:1px solid #ccc}
+
+button{
+  background:var(--green);
+  color:white;
+  cursor:pointer;
+}
+
+button:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(46,125,50,.35);
+}
+
+/* ---------- QUIZ ---------- */
+#quizScreen{display:none}
+
+.timer{
+  background:#e8f5e9;
+  display:inline-block;
+  padding:8px 16px;
+  border-radius:30px;
+  font-weight:600;
+  margin-bottom:15px;
+}
+
+.question{
+  font-size:1.3rem;
+  margin-bottom:20px;
+}
+
+.option{
+  background:#f7faf8;
+  padding:14px 18px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#e8f5e9;
+  transform:translateX(6px);
+}
+
+.option.selected{
+  border-color:var(--green);
+  background:#e8f5e9;
+}
+
+.nextBtn{margin-top:20px}
+
+/* ---------- RESULT ---------- */
+#resultScreen{display:none;text-align:center}
+
+.score{
+  font-size:3rem;
+  color:var(--green);
+  animation:pop .5s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* ---------- REVIEW ---------- */
+#reviewScreen{display:none;text-align:left}
+
+.review-item{
+  background:#f8fdf9;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:12px;
+  border-left:5px solid var(--green);
+}
+
+.correct{color:green;font-weight:600}
+.wrong{color:red;font-weight:600}
+
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:.9rem;
+  color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+  <h1>🌱 Kids Eco Quiz</h1>
+  <p>Learn & protect nature while having fun 🌍</p>
+</div>
+
+<div class="card">
+
+  <!-- START -->
+  <div id="startScreen">
+    <h2>Start Eco Quiz 🌿</h2>
+    <p>Select time limit</p>
+    <select id="timeSelect">
+      <option value="120">2 Minutes</option>
+      <option value="180">3 Minutes</option>
+    </select>
+    <br><br>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen">
+    <div class="timer">⏳ Time Left: <span id="time">00:00</span></div>
+    <div class="question" id="question"></div>
+    <div id="options"></div>
+    <button class="nextBtn" onclick="nextQuestion()">Next</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen">
+    <h2>🎉 Quiz Completed!</h2>
+    <div class="score" id="finalScore"></div>
+    <p id="remark"></p>
+    <br>
+    <button onclick="showReview()">Review Answers</button>
+    <br><br>
+    <button onclick="location.reload()">Play Again</button>
+  </div>
+
+  <!-- REVIEW -->
+  <div id="reviewScreen">
+    <h2>📖 Review Answers</h2>
+    <div id="reviewList"></div>
+    <button onclick="location.reload()">Play Again</button>
+  </div>
+
+</div>
+
+<footer>© 2026 EcoLife • Learn Green 💚</footer>
+
+<script>
+const questions=[
+{q:"What helps reduce pollution?",o:["Planting trees","Burning waste","Cutting forests","Throwing trash"],a:0},
+{q:"Which energy is renewable?",o:["Coal","Solar","Oil","Gas"],a:1},
+{q:"Why recycle waste?",o:["Increase trash","Save resources","Pollute water","Waste money"],a:1},
+{q:"Which animal is endangered?",o:["Dog","Cat","Tiger","Cow"],a:2},
+{q:"Best way to save water?",o:["Leave taps open","Fix leaks","Waste water","Ignore"],a:1},
+{q:"What gas causes global warming?",o:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:1},
+{q:"What protects wildlife?",o:["Deforestation","Conservation","Hunting","Pollution"],a:1},
+{q:"Which bin for plastic?",o:["Green","Blue","Red","Black"],a:1},
+{q:"What harms oceans?",o:["Clean water","Plastic waste","Fish","Coral"],a:1},
+{q:"Best transport to reduce pollution?",o:["Car","Bus","Cycle","Plane"],a:2},
+{q:"Why plant trees?",o:["Decoration","Oxygen","Noise","Heat"],a:1},
+{q:"Which saves electricity?",o:["Lights on","Switch off","Overuse","Ignore"],a:1},
+{q:"What is climate change?",o:["Weather change","Long-term warming","Rain only","Wind"],a:1},
+{q:"Animal care means?",o:["Love","Abuse","Ignore","Harm"],a:0},
+{q:"Clean energy example?",o:["Coal","Petrol","Wind","Diesel"],a:2}
+];
+
+let quiz=[],index=0,score=0,seconds=0,timer;
+let answers=[];
+
+function startQuiz(){
+  quiz=[...questions].sort(()=>0.5-Math.random()).slice(0,10);
+  seconds=parseInt(timeSelect.value);
+  startScreen.style.display="none";
+  quizScreen.style.display="block";
+  loadQuestion();
+  startTimer();
+}
+
+function startTimer(){
+  updateTime();
+  timer=setInterval(()=>{
+    seconds--;
+    updateTime();
+    if(seconds<=0) showResult();
+  },1000);
+}
+
+function updateTime(){
+  let m=Math.floor(seconds/60);
+  let s=seconds%60;
+  time.textContent=`${m}:${s<10?'0':''}${s}`;
+}
+
+function loadQuestion(){
+  let q=quiz[index];
+  question.textContent=`Q${index+1}. ${q.q}`;
+  options.innerHTML="";
+  q.o.forEach((opt,i)=>{
+    let div=document.createElement("div");
+    div.className="option";
+    div.textContent=opt;
+    div.onclick=()=>selectOption(div,i);
+    options.appendChild(div);
+  });
+}
+
+function selectOption(el,i){
+  document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+  el.classList.add("selected");
+  answers[index]=i;
+}
+
+function nextQuestion(){
+  if(answers[index]==null) return alert("Select an option 😊");
+  if(answers[index]===quiz[index].a) score++;
+  index++;
+  index<quiz.length ? loadQuestion() : showResult();
+}
+
+function showResult(){
+  clearInterval(timer);
+  quizScreen.style.display="none";
+  resultScreen.style.display="block";
+  finalScore.textContent=`${score} / 10`;
+  remark.textContent= score>=8 ? "🌟 Eco Hero!" : score>=5 ? "👍 Good Job!" : "🌱 Keep Learning!";
+}
+
+function showReview(){
+  resultScreen.style.display="none";
+  reviewScreen.style.display="block";
+  reviewList.innerHTML="";
+  quiz.forEach((q,i)=>{
+    let div=document.createElement("div");
+    div.className="review-item";
+    div.innerHTML=`
+      <strong>Q${i+1}: ${q.q}</strong><br>
+      Your Answer: <span class="${answers[i]===q.a?'correct':'wrong'}">
+        ${q.o[answers[i]] || "Not Answered"}
+      </span><br>
+      Correct Answer: <span class="correct">${q.o[q.a]}</span>
+    `;
+    reviewList.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
