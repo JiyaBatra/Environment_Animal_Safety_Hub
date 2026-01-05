@@ -1,0 +1,214 @@
+/* ===========================
+   EXTINCT ANIMALS – FINAL UI
+   =========================== */
+
+:root {
+  --ancient-gold: #fbbf24;
+  --dark-earth: #0f172a;
+  --deep-brown: #3f2a1d;
+  --fog: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- BODY BACKDROP ---------- */
+body {
+  background: radial-gradient(circle at top, #1a120b, #050505);
+  color: #e5e7eb;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ancient dust overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+  opacity: 0.08;
+  pointer-events: none;
+  animation: dustMove 70s linear infinite;
+  z-index: 0;
+}
+
+@keyframes dustMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(-300px); }
+}
+
+/* ---------- HERO ---------- */
+.extinct-hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.extinct-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  background: linear-gradient(90deg, #fde68a, var(--ancient-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 0 25px rgba(251,191,36,0.25),
+    0 0 50px rgba(251,191,36,0.15);
+  animation: glowPulse 6s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { text-shadow: 0 0 15px rgba(251,191,36,0.25); }
+  to { text-shadow: 0 0 35px rgba(251,191,36,0.45); }
+}
+
+.extinct-subtitle {
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #d1d5db;
+}
+
+/* ---------- GRID ---------- */
+.extinct-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  padding: 4rem 6vw;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- CARD ---------- */
+.extinct-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.05),
+    rgba(0,0,0,0.7)
+  );
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+  transform-style: preserve-3d;
+  transition: all 0.6s cubic-bezier(.22,1,.36,1);
+}
+
+.extinct-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(251,191,36,0.25),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.extinct-card:hover::before {
+  opacity: 1;
+}
+
+.extinct-card:hover {
+  transform: translateY(-16px) scale(1.05);
+  box-shadow:
+    0 40px 90px rgba(0,0,0,0.85),
+    inset 0 0 40px rgba(251,191,36,0.15);
+}
+
+/* ---------- IMAGE ---------- */
+.extinct-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  filter: grayscale(40%) contrast(110%);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+.extinct-card:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+
+/* ---------- CONTENT ---------- */
+.extinct-content {
+  padding: 1.6rem;
+}
+
+.extinct-era {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(251,191,36,0.15);
+  color: var(--ancient-gold);
+  margin-bottom: 0.8rem;
+}
+
+.extinct-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.extinct-desc {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #d1d5db;
+}
+
+/* ---------- SCROLL REVEAL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- CTA SECTION ---------- */
+.extinct-warning {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0),
+    rgba(180,83,9,0.15)
+  );
+}
+
+.extinct-warning h2 {
+  font-size: 2rem;
+  color: var(--ancient-gold);
+  margin-bottom: 1rem;
+}
+
+.extinct-warning p {
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.9;
+  color: #e5e7eb;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .extinct-grid {
+    padding: 3rem 1.5rem;
+  }
+
+  .extinct-card img {
+    height: 200px;
+  }
+}
