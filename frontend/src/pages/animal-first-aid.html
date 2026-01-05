@@ -1,228 +1,135 @@
-<!-- animal-first-aid.html -->
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Animal First Aid | EcoLife</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLife | Animal First Aid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+        /* ===== GLOBAL ===== */
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right,#f1f8e9,#d0f0c0);
+            color: #1a1a2e;
+        }
+        section {padding:3rem 1rem; max-width:1200px; margin:0 auto;}
+        h2 {font-size:2.5rem; background: linear-gradient(135deg,#4ade80,#22c55e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; margin-bottom:1rem;}
+        p.subtitle {text-align:center;color:#333;margin-bottom:3rem;font-size:1.1rem;}
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+        /* ===== ANIMAL TYPE BUTTONS ===== */
+        .animal-types {display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:2rem;}
+        .animal-type-btn {
+            padding:0.6rem 1.2rem;
+            border:2px solid #2e7d32;
+            border-radius:30px;
+            cursor:pointer;
+            font-weight:600;
+            background:transparent;
+            color:#2e7d32;
+            transition:all 0.3s ease;
+        }
+        .animal-type-btn.active, .animal-type-btn:hover {
+            background:linear-gradient(135deg,#2e7d32,#1b5e20);
+            color:#fff;
+            border-color:#2e7d32;
+            box-shadow:0 5px 20px rgba(46,125,50,0.3);
+        }
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+        /* ===== FIRST AID GRID ===== */
+        .first-aid-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
+        .aid-card {
+            background:#fff;
+            border-radius:16px;
+            padding:1.5rem;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align:center;
+        }
+        .aid-card:hover {transform:translateY(-8px); box-shadow:0 15px 50px rgba(0,0,0,0.2);}
+        .aid-icon {font-size:3rem; margin-bottom:1rem; color:#2e7d32;}
+        .aid-card h4 {margin-bottom:0.5rem;}
+        .aid-card p {font-size:0.9rem; color:#555; line-height:1.4;}
 
-  <style>
-    :root {
-      --green:#2e7d32;
-      --green-dark:#1b5e20;
-      --light:#e8f5e9;
-      --bg:#f4fbf6;
-      --card:#ffffff;
-      --shadow:0 15px 35px rgba(0,0,0,0.12);
-    }
-
-    *{
-      box-sizing:border-box;
-      font-family:"Poppins",sans-serif;
-    }
-
-    body{
-      margin:0;
-      background:radial-gradient(circle at top,#f2fbf5,#eaf7ef);
-      color:#1a1a1a;
-    }
-
-    /* ---------- HERO ---------- */
-    .hero{
-      padding:90px 20px 70px;
-      text-align:center;
-      background:linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);
-      color:#fff;
-      border-bottom-left-radius:40px;
-      border-bottom-right-radius:40px;
-    }
-
-    .hero h1{
-      font-size:3rem;
-      margin-bottom:10px;
-    }
-
-    .hero p{
-      max-width:720px;
-      margin:auto;
-      opacity:.95;
-      line-height:1.6;
-    }
-
-    /* ---------- CONTAINER ---------- */
-    .container{
-      max-width:1100px;
-      margin:50px auto 30px;
-      padding:20px;
-      display:grid;
-      gap:30px;
-    }
-
-    /* ---------- CARDS ---------- */
-    .card{
-      background:var(--card);
-      padding:35px;
-      border-radius:22px;
-      box-shadow:var(--shadow);
-      transition:transform .3s ease, box-shadow .3s ease;
-    }
-
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 25px 50px rgba(0,0,0,.15);
-    }
-
-    .card h2{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      color:var(--green);
-      margin-bottom:15px;
-    }
-
-    .card i{
-      font-size:1.5rem;
-      color:var(--green);
-    }
-
-    .card p{
-      color:#555;
-      line-height:1.7;
-    }
-
-    .card ul{
-      padding-left:18px;
-      margin:0;
-    }
-
-    .card li{
-      margin-bottom:10px;
-      line-height:1.6;
-    }
-
-    /* ---------- GRID ---------- */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:25px;
-    }
-
-    /* ---------- BACK HOME ---------- */
-    .back-home-wrapper{
-      display:flex;
-      justify-content:center;
-      margin-top:30px;
-    }
-
-    .back-home-btn{
-      padding:14px 32px;
-      background:var(--green);
-      color:#fff;
-      border:none;
-      border-radius:30px;
-      font-size:1rem;
-      cursor:pointer;
-      transition:all .3s ease;
-    }
-
-    .back-home-btn:hover{
-      background:var(--green-dark);
-      transform:translateY(-3px);
-      box-shadow:0 10px 25px rgba(46,125,50,.35);
-    }
-
-    /* ---------- FOOTER ---------- */
-    footer{
-      text-align:center;
-      padding:25px;
-      font-size:.9rem;
-      color:#666;
-    }
-
-    /* ---------- RESPONSIVE ---------- */
-    @media(max-width:768px){
-      .hero h1{font-size:2.2rem;}
-      .hero p{font-size:.95rem;}
-    }
-  </style>
+        @media(max-width:768px){
+            .aid-card {padding:1rem;}
+        }
+    </style>
 </head>
-
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>🐾 Animal First Aid</h1>
-    <p>
-      Learn basic first-aid steps and emergency care tips to help animals in need.
-      Your small action can save a life 💚
-    </p>
-  </section>
+<section data-aos="fade-up">
+    <h2>🩺 Animal First Aid</h2>
+    <p class="subtitle">Select an animal type to see recommended first aid tips in an interactive way.</p>
 
-  <!-- CONTENT -->
-  <section class="container">
-
-    <!-- INTRO -->
-    <div class="card">
-      <h2><i class="fa-solid fa-heart-pulse"></i> Why Animal First Aid Matters</h2>
-      <p>
-        Animals often face injuries, accidents, or health emergencies. Knowing
-        basic first-aid can help stabilize them until professional veterinary
-        care is available.
-      </p>
+    <div class="animal-types">
+        <button class="animal-type-btn active" data-type="bird">Birds</button>
+        <button class="animal-type-btn" data-type="mammal">Mammals</button>
+        <button class="animal-type-btn" data-type="reptile">Reptiles</button>
+        <button class="animal-type-btn" data-type="amphibian">Amphibians</button>
     </div>
 
-    <!-- FIRST AID STEPS -->
-    <div class="grid">
-      <div class="card">
-        <h2><i class="fa-solid fa-kit-medical"></i> Basic First-Aid Steps</h2>
-        <ul>
-          <li>Stay calm and ensure your safety first</li>
-          <li>Check for breathing and visible injuries</li>
-          <li>Stop bleeding using clean cloth or bandage</li>
-          <li>Keep the animal warm and comfortable</li>
-        </ul>
-      </div>
+    <div class="first-aid-grid" id="firstAidGrid"></div>
+</section>
 
-      <div class="card">
-        <h2><i class="fa-solid fa-truck-medical"></i> Emergency Care Tips</h2>
-        <ul>
-          <li>Move injured animals carefully</li>
-          <li>Avoid giving human medicines</li>
-          <li>Contact a nearby veterinarian or animal rescue</li>
-          <li>Transport the animal safely if needed</li>
-        </ul>
-      </div>
-    </div>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
 
-    <!-- DOS & DONTS -->
-    <div class="card">
-      <h2><i class="fa-solid fa-triangle-exclamation"></i> Do’s & Don’ts</h2>
-      <ul>
-        <li>✅ Do approach injured animals gently</li>
-        <li>✅ Do seek professional help immediately</li>
-        <li>❌ Don’t panic or act aggressively</li>
-        <li>❌ Don’t force food or water</li>
-      </ul>
-    </div>
+    const firstAidData = {
+        bird: [
+            {icon:'🪶', title:'Wing Injury', desc:'Keep the bird calm, gently immobilize the wing, and consult a vet.'},
+            {icon:'🍃', title:'Hypothermia', desc:'Provide warmth using a soft cloth or heating pad at low temperature.'},
+            {icon:'💧', title:'Dehydration', desc:'Offer water using a shallow dish or syringe carefully.'}
+        ],
+        mammal: [
+            {icon:'🐾', title:'Fractures', desc:'Immobilize the injured limb and keep the animal calm until professional help arrives.'},
+            {icon:'🩹', title:'Cuts & Wounds', desc:'Clean gently, apply antiseptic, and monitor for infection.'},
+            {icon:'💊', title:'Poisoning', desc:'Do not induce vomiting. Contact a wildlife vet immediately.'}
+        ],
+        reptile: [
+            {icon:'🦎', title:'Burns', desc:'Cool the burn with lukewarm water and avoid applying creams meant for humans.'},
+            {icon:'🌡️', title:'Temperature Shock', desc:'Move to a suitable temperature environment and hydrate carefully.'},
+            {icon:'🩺', title:'Infections', desc:'Clean wounds gently and monitor. Seek vet assistance.'}
+        ],
+        amphibian: [
+            {icon:'🐸', title:'Skin Damage', desc:'Keep skin moist and avoid handling unnecessarily.'},
+            {icon:'💧', title:'Dehydration', desc:'Provide shallow water and mist environment to maintain humidity.'},
+            {icon:'🍂', title:'Contamination', desc:'Remove from polluted areas and clean habitat gently.'}
+        ]
+    };
 
-    <!-- BACK HOME -->
-    <div class="back-home-wrapper">
-      <button class="back-home-btn" onclick="window.location.href='../index.html'">
-        ⬅ Back to Home
-      </button>
-    </div>
+    const firstAidGrid = document.getElementById('firstAidGrid');
+    const buttons = document.querySelectorAll('.animal-type-btn');
 
-  </section>
+    function populateFirstAid(type){
+        firstAidGrid.innerHTML='';
+        firstAidData[type].forEach(aid=>{
+            const card = document.createElement('div');
+            card.className='aid-card';
+            card.setAttribute('data-aos','fade-up');
+            card.innerHTML=`
+                <div class="aid-icon">${aid.icon}</div>
+                <h4>${aid.title}</h4>
+                <p>${aid.desc}</p>
+            `;
+            firstAidGrid.appendChild(card);
+        });
+    }
 
-  <footer>
-    © 2026 EcoLife • Care for Animals 💚
-  </footer>
+    buttons.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            buttons.forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            populateFirstAid(btn.dataset.type);
+        });
+    });
+
+    // Initialize with birds
+    populateFirstAid('bird');
+</script>
 
 </body>
 </html>
