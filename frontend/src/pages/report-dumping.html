@@ -1,1 +1,250 @@
 <!-- report-dumping.html -->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Report Waste Dumping | EcoLife</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --green: #2e7d32;
+      --green-dark: #1b5e20;
+      --green-light: #e8f5e9;
+      --bg: #f4fbf6;
+      --white: #ffffff;
+      --shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #1a1a1a;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      text-align: center;
+      padding: 90px 20px 70px;
+      background: linear-gradient(135deg, #1b5e20, #2e7d32, #388e3c);
+      color: white;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      opacity: 0.95;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    /* ---------- CARD ---------- */
+    .card {
+      max-width: 900px;
+      margin: 50px auto 80px;
+      background: var(--white);
+      padding: 40px;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .info {
+      background: var(--green-light);
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+    }
+
+    .info h3 {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    /* ---------- FORM ---------- */
+    form {
+      display: grid;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+
+    button {
+      padding: 14px 28px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      background: var(--green);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: var(--green-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(46,125,50,0.35);
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background: #e8f5e9;
+      border-radius: 16px;
+      color: var(--green);
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    /* ---------- BACK HOME ---------- */
+    .back-home-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .back-home-btn {
+      padding: 12px 28px;
+      background: var(--green);
+      color: #ffffff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .back-home-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(46,125,50,0.35);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      .card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>🚯 Report Waste Dumping</h1>
+    <p>
+      Help us protect nature by reporting illegal waste dumping.
+      Your small action can make a big environmental impact 🌍
+    </p>
+  </section>
+
+  <!-- CONTENT -->
+  <div class="card">
+
+    <div class="info">
+      <h3>Why report waste dumping?</h3>
+      <p>
+        Illegal waste dumping pollutes land, water, and harms animals.
+        Reporting such activities helps authorities take action and
+        keeps our environment clean and safe.
+      </p>
+    </div>
+
+    <form id="reportForm">
+      <div>
+        <label>📍 Location of Dumping</label>
+        <input type="text" placeholder="Enter location" required>
+      </div>
+
+      <div>
+        <label>📝 Description</label>
+        <textarea placeholder="Describe the issue in detail" required></textarea>
+      </div>
+
+      <div>
+        <label>📷 Upload Image (optional)</label>
+        <input type="file" accept="image/*">
+      </div>
+
+      <button type="submit">Submit Report</button>
+    </form>
+
+    <div class="success" id="successMsg">
+      ✅ Thank you! Your report has been submitted successfully.
+    </div>
+
+    <!-- BACK HOME -->
+    <div class="back-home-wrapper">
+      <button class="back-home-btn" onclick="window.location.href='../index.html'">
+        ⬅ Back to Home
+      </button>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 EcoLife • Protect Nature, Protect Future 🌱
+  </footer>
+
+  <script>
+    const form = document.getElementById("reportForm");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      form.reset();
+      window.scrollTo({ top: successMsg.offsetTop - 100, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>
