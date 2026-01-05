@@ -65,19 +65,28 @@ activities through education and quizzes.
 
 ## 📸 UI Preview
 
-![alt text](IMG_3146.jpeg)
-![alt text](IMG_3147.jpeg)  
-![alt text](IMG_3148.jpeg)
+![alt text](IMG_1.png)
+![alt text](IMG_2.png)  
+![alt text](IMG_3.png)
 
 ---
 
 ## 👥 Contributors
 
+We thank all our contributors for their valuable contributions to making EcoLife better!
+
+### Core Team
+
 | Name | Role |
 |------|------|
 | Jagrati | Project Owner & Developer |
-| MENTORS NAME | 
-| ContributorS NAME |
+| Nikhil Singh | Mentor |
+
+### All Contributors
+
+<a href="https://github.com/Jagrati3/Environment_Animal_Safety_Hub/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Jagrati3/Environment_Animal_Safety_Hub" />
+</a>
 
 _Thanks to everyone supporting this initiative!_ 💚
 

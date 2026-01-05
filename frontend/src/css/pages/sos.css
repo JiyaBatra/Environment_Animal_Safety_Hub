@@ -1,0 +1,371 @@
+:root {
+    --green: #2e7d32;
+    --green-light: #e8f5e9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+body {
+  background:
+    radial-gradient(circle at 20% 20%, #0bf937 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, #d400ff 0%, transparent 25%),
+    linear-gradient(180deg, #f15e5e 0%, #e2f6e8 100%);
+  color: #1f2933;
+  overflow-x: hidden;
+  position: relative;
+}
+
+
+
+
+
+/* Floating Icons */
+.floating-icons {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-icons i {
+  position: absolute;
+  font-size: 42px;
+  opacity: 1;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+  animation: floatIcon 8s ease-in-out infinite;
+}
+
+/* Individual positions */
+.floating-icons .danger {
+  top: 12%;
+  left: 6%;
+  color: #ff0000;
+}
+
+.floating-icons .paw {
+  top: 65%;
+  right: 8%;
+  color: #00ff0d;
+  animation-delay: 1s;
+}
+
+.floating-icons .heart {
+  bottom: 12%;
+  left: 10%;
+  color: #e40035;
+  animation-delay: 2s;
+}
+
+.floating-icons .bell {
+  top: 22%;
+  right: 10%;
+  color: #ffbf00;
+  animation-delay: 3s;
+}
+
+@keyframes floatIcon {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+
+
+/* Header */
+.sos-header {
+    text-align: center;
+    padding: 40px 20px;
+    
+}
+
+.sos-header h1 {
+    font-size: 2.8rem;
+    color: var(--green);
+    text-shadow: 3px 0px 0px rgb(0, 0, 0);
+}
+.hero-text {
+  display: inline-block;
+  padding: 28px 42px;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(240, 255, 244, 0.95)
+  );
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 4px rgba(46, 125, 50, 0.12);
+  backdrop-filter: blur(6px);
+  text-align: center;
+}
+
+/* BIG TITLE */
+.hero-text h1 {
+  font-size: 3.4rem;
+  font-weight: 900;
+  margin: 8px 0;
+  letter-spacing: 1px;
+  color: #1b5e20;
+  text-shadow:
+    0 2px 0 #c8e6c9,
+    0 6px 18px rgba(0, 0, 0, 0.35);
+    -webkit-text-stroke: 2px #2e7d32;
+}
+
+/* Subtitle */
+.hero-text p {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #355f3c;
+}
+
+/* SOS Badge */
+.sos-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff5252, #ff1744);
+  color: white;
+  font-weight: 900;
+  padding: 8px 18px;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  box-shadow:
+    0 6px 0 #c62828,
+    0 12px 20px rgba(0, 0, 0, 0.35);
+  animation: sosPulse 1.8s infinite;
+}
+
+/* Pulse animation */
+@keyframes sosPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* Grid */
+.sos-grid {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.sos-card {
+    background: linear-gradient(180deg, #ffffff, #f9fff9);
+    padding: 30px;
+    border-radius: 22px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow:
+        0 20px 40px rgba(46, 125, 50, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: 0.3s;
+    border: 3px solid transparent;
+}
+
+
+.sos-card.selected {
+    border-color: var(--green);
+    background: var(--green-light);
+}
+
+.sos-card i {
+    font-size: 45px;
+    color: var(--green);
+    margin-bottom: 15px;
+}
+
+/* Extra Info */
+.extra-info {
+    display: flex;
+    justify-content: center;
+    margin: 40px 20px;
+}
+
+.info-box {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.info-box label {
+    font-weight: 600;
+    margin-top: 15px;
+    display: block;
+}
+
+textarea,
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    border: 2px solid #c8e6c9;
+    margin-top: 8px;
+    outline: none;
+}
+
+textarea {
+    min-height: 90px;
+    resize: none;
+}
+
+/* Button */
+.sos-btn {
+    width: 100%;
+    margin-top: 25px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+    border: none;
+    padding: 18px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.hint {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Popup */
+.sos-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-box {
+    background: white;
+    padding: 35px;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.close-btn {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
+@keyframes blobFloat {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        transform: translateY(-40px) scale(1.15);
+    }
+}
+
+.bg-shapes {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 40%;
+    opacity: 0.35;
+}
+
+.shape1 {
+    width: 500px;
+    height: 500px;
+    background: #a5d6a7;
+    top: -150px;
+    left: -150px;
+}
+
+.shape2 {
+    width: 420px;
+    height: 420px;
+    background: #81c784;
+    bottom: -120px;
+    right: -120px;
+}
+
+.shape3 {
+    width: 300px;
+    height: 300px;
+    background: #66bb6a;
+    top: 40%;
+    left: 60%;
+}
+
+.sos-wrapper {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f3fff5 100%
+  );
+  border-radius: 36px;
+  padding: 50px 40px;
+  margin: 50px auto;
+  max-width: 1200px;
+  box-shadow: 0 40px 80px rgba(46, 125, 50, 0.22);
+}
+
+
+
+
+@keyframes slowFloat {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-25px);
+    }
+}
+
+.shape {
+    animation: slowFloat 10s ease-in-out infinite alternate;
+}
+.sos-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1b5e20;
+}
+
+.sos-header p {
+  font-size: 1.1rem;
+  color: #355f3c;
+}
+
+.floating-icons i {
+  opacity: 0.35;
+  font-size: 42px;
+}

@@ -30,7 +30,7 @@
 
 .report-info .section-desc {
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color:#fff;
   line-height: 1.7;
   margin-bottom: 30px;
 }

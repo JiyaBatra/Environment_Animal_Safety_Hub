@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Animal SOS | EcoLife</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/pages/sos.css">
+</head>
+
+<body>
+    <div class="bg-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="bg-blobs">
+        <span class="blob blob1"></span>
+        <span class="blob blob2"></span>
+        <span class="blob blob3"></span>
+    </div>
+
+
+    <!-- Floating Icons -->
+    <div class="floating-icons">
+        <i class="fa-solid fa-triangle-exclamation danger"></i>
+        <i class="fa-solid fa-paw paw"></i>
+        <i class="fa-solid fa-heart heart"></i>
+        <i class="fa-solid fa-bell bell"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="sos-header">
+        <div class="hero-text">
+            <span class="sos-badge">SOS</span>
+            <h1>Animal SOS</h1>
+            <p>Help animals in danger by calling for help!</p>
+        </div>
+    </header>
+
+    <section class="sos-wrapper">
+        <!-- Emergency Cards -->
+        <section class="sos-grid">
+            <div class="sos-card" data-type="Injured Animal">
+                <i class="fa-solid fa-truck-medical"></i>
+                <h3>Injured Animal</h3>
+                <p>Animal hurt or bleeding</p>
+            </div>
+
+            <div class="sos-card" data-type="Hungry / Thirsty">
+                <i class="fa-solid fa-bowl-food"></i>
+                <h3>Hungry / Thirsty</h3>
+                <p>No food or water</p>
+            </div>
+
+            <div class="sos-card" data-type="Animal Trapped">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3>Animal Trapped</h3>
+                <p>Stuck or cannot move</p>
+            </div>
+
+            <div class="sos-card" data-type="Baby Animal Alone">
+                <i class="fa-solid fa-paw"></i>
+                <h3>Baby Animal</h3>
+                <p>Lost or abandoned</p>
+            </div>
+
+            <div class="sos-card" data-type="Other Emergency">
+                <i class="fa-solid fa-question"></i>
+                <h3>Other</h3>
+                <p>Something else</p>
+            </div>
+        </section>
+    </section>
+
+    <!-- Extra Info -->
+    <section class="extra-info">
+        <div class="info-box">
+            <label>
+                📝 What happened?
+            </label>
+            <textarea id="description" placeholder="Write what you see (simple words are okay)"></textarea>
+
+            <label>
+                📍 Where should we come?
+            </label>
+            <input type="text" id="location" placeholder="Street, park, landmark, city">
+
+            <button class="sos-btn" id="sosBtn">
+                📞 SEND SOS
+            </button>
+
+            <p class="hint">Don't worry! Help will come 💚</p>
+        </div>
+    </section>
+
+    <!-- Popup -->
+    <div class="sos-popup" id="sosPopup">
+        <div class="popup-box">
+            <h2>🚨 SOS Sent!</h2>
+            <p id="popupText"></p>
+            <button class="close-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="../js/pages/sos.js"></script>
+</body>
+
+</html>

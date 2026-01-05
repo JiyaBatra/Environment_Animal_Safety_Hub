@@ -1,0 +1,123 @@
+/* Import Variables if needed, assuming style.css handles global vars */
+
+.game-section {
+    padding: 100px 20px 50px;
+    background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-primary, #333);
+    margin-bottom: 15px;
+}
+
+/* Game Area where items fall */
+.game-area {
+    height: 400px;
+    background: #f4f4f4;
+    border: 2px dashed #ccc;
+    border-radius: 15px;
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+/* Draggable Items */
+.waste-item {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    cursor: grab;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: transform 0.1s;
+    z-index: 10;
+}
+
+.waste-item:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+/* Bins */
+.bins-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.bin {
+    flex: 1;
+    height: 120px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.bin i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    pointer-events: none; /* Let drop event hit the bin div */
+}
+
+.bin.recycle { background-color: #2196f3; }
+.bin.compost { background-color: #4caf50; }
+.bin.trash { background-color: #757575; }
+
+.bin.hovered {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    animation: popIn 0.3s ease;
+}
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}

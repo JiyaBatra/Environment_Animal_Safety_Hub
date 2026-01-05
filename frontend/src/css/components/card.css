@@ -104,7 +104,7 @@
 
 .card-content p {
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: rgb(71, 45, 45);
   line-height: 1.6;
   margin-bottom: 20px;
 }

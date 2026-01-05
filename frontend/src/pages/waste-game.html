@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Sorting Game - EcoLife</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/global/variables.css">
+    <link rel="stylesheet" href="../css/pages/waste-game.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Game Page Layout */
+body {
+    background-color: #e0f7fa;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.game-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 80vh;
+}
+
+.game-container {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Score */
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-start {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-start:hover {
+    transform: scale(1.05);
+}
+
+/* Game Area (Canvas for falling items) */
+.game-area {
+    height: 350px;
+    background: #f0f4f8;
+    border: 3px dashed #b0bec5;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+/* Falling Items */
+.waste-item {
+    width: 60px;
+    height: 60px;
+    font-size: 3rem;
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: transform 0.1s;
+}
+
+.waste-item:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+
+/* Bins Container */
+.bins-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-top: auto;
+}
+
+/* Individual Bins */
+.bin {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.bin.hovered {
+    transform: scale(1.1);
+}
+
+.bin-lid {
+    width: 100%;
+    height: 15px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 2px;
+}
+
+.bin-body {
+    width: 100%;
+    height: 120px;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.bin-body i {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+/* Bin Colors */
+.bin.recycle .bin-body { background-color: #2196f3; }  /* Blue */
+.bin.compost .bin-body { background-color: #4caf50; }  /* Green */
+.bin.trash .bin-body { background-color: #757575; }    /* Grey */
+
+/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    animation: popIn 0.3s ease;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-restart {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-exit {
+    padding: 10px 20px;
+    background: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" style="position: relative; background: var(--primary-color);">
+        <div class="nav-container">
+            <a href="../index.html" class="logo" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Home</span>
+            </a>
+            <h2 style="color: white; margin: 0;">Waste Sorting Hero 🌍</h2>
+        </div>
+    </nav>
+
+    <section class="game-section">
+        <div class="game-container">
+            <div class="game-header">
+                <div class="score-board">
+                    <span>Score: <b id="score">0</b></span>
+                    <span>Time: <b id="timer">60s</b></span>
+                </div>
+                <p>Drag the falling items to the correct bin!</p>
+                <button id="startGameBtn" class="btn-start">Start Game</button>
+            </div>
+
+            <div class="game-area" id="gameArea">
+                </div>
+
+            <div class="bins-container">
+                <div class="bin recycle" data-type="recycle">
+                    <div class="bin-lid"></div>
+                    <div class="bin-body">
+                        <i class="fa-solid fa-recycle"></i>
+                        <span>Recycle</span>
+                    </div>
+                </div>
+                
+                <div class="bin compost" data-type="compost">
+                    <div class="bin-lid"></div>
+                    <div class="bin-body">
+                        <i class="fa-solid fa-apple-whole"></i>
+                        <span>Compost</span>
+                    </div>
+                </div>
+
+                <div class="bin trash" data-type="trash">
+                    <div class="bin-lid"></div>
+                    <div class="bin-body">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Trash</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="gameOverModal" class="modal-overlay">
+        <div class="modal-box">
+            <h2>Game Over! 🎮</h2>
+            <p>You scored: <span id="finalScore">0</span> points</p>
+            <div class="modal-actions">
+                <button onclick="location.reload()" class="btn-restart">Play Again</button>
+                <a href="../index.html" class="btn-exit">Exit</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/pages/waste-game.js"></script>
+    <script>
+        /* Data for Falling Items */
+const wasteItems = [
+    // Recyclables
+    { id: 'bottle', icon: '🥤', type: 'recycle' },
+    { id: 'paper', icon: '📰', type: 'recycle' },
+    { id: 'can', icon: '🥫', type: 'recycle' },
+    { id: 'box', icon: '📦', type: 'recycle' },
+    // Compost
+    { id: 'apple', icon: '🍎', type: 'compost' },
+    { id: 'banana', icon: '🍌', type: 'compost' },
+    { id: 'leaf', icon: '🍂', type: 'compost' },
+    { id: 'egg', icon: '🥚', type: 'compost' },
+    // Trash
+    { id: 'wrapper', icon: '🍬', type: 'trash' },
+    { id: 'chipbag', icon: '🥡', type: 'trash' },
+    { id: 'battery', icon: '🔋', type: 'trash' }
+];
+
+let score = 0;
+let timeLeft = 60;
+let isPlaying = false;
+let spawnInterval;
+let gameTimer;
+
+// DOM Elements
+const gameArea = document.getElementById('gameArea');
+const scoreEl = document.getElementById('score');
+const timerEl = document.getElementById('timer');
+const bins = document.querySelectorAll('.bin');
+const startBtn = document.getElementById('startGameBtn');
+const modal = document.getElementById('gameOverModal');
+const finalScoreEl = document.getElementById('finalScore');
+
+// Start Game Listener
+startBtn.addEventListener('click', startGame);
+
+function startGame() {
+    if(isPlaying) return;
+    
+    // Reset State
+    isPlaying = true;
+    score = 0;
+    timeLeft = 60;
+    scoreEl.innerText = score;
+    timerEl.innerText = timeLeft + 's';
+    gameArea.innerHTML = ''; // Clear board
+    startBtn.style.display = 'none';
+    modal.style.display = 'none';
+
+    // Start Timer
+    gameTimer = setInterval(() => {
+        timeLeft--;
+        timerEl.innerText = timeLeft + 's';
+        if (timeLeft <= 0) endGame();
+    }, 1000);
+
+    // Start Spawning Items
+    spawnItem();
+    spawnInterval = setInterval(spawnItem, 1500); // New item every 1.5s
+}
+
+function spawnItem() {
+    if (!isPlaying) return;
+
+    // Create Item Element
+    const randomItem = wasteItems[Math.floor(Math.random() * wasteItems.length)];
+    const itemEl = document.createElement('div');
+    itemEl.classList.add('waste-item');
+    itemEl.innerText = randomItem.icon;
+    itemEl.setAttribute('draggable', true);
+    itemEl.dataset.type = randomItem.type;
+
+    // Random Position
+    const maxLeft = gameArea.clientWidth - 60;
+    itemEl.style.left = Math.floor(Math.random() * maxLeft) + 'px';
+    itemEl.style.top = '-60px';
+
+    // Drag Events
+    itemEl.addEventListener('dragstart', dragStart);
+    itemEl.addEventListener('touchstart', touchStart, {passive: false});
+    itemEl.addEventListener('touchmove', touchMove, {passive: false});
+    itemEl.addEventListener('touchend', touchEnd);
+
+    gameArea.appendChild(itemEl);
+
+    // Falling Logic
+    let topPos = -60;
+    const fallSpeed = 2 + (Math.random() * 2); // Random speed between 2 and 4
+
+    const fallInterval = setInterval(() => {
+        if (!isPlaying) { clearInterval(fallInterval); return; }
+        
+        if (!itemEl.classList.contains('dragging')) {
+            topPos += fallSpeed;
+            itemEl.style.top = topPos + 'px';
+        }
+
+        // Remove if hits bottom
+        if (topPos > gameArea.clientHeight) {
+            clearInterval(fallInterval);
+            if(gameArea.contains(itemEl)) {
+                itemEl.remove();
+                score -= 2; // Penalty for missing
+                updateScore();
+            }
+        }
+    }, 20);
+    
+    // Attach interval to element so we can clear it if needed
+    itemEl.dataset.intervalId = fallInterval;
+}
+
+/* ===== DRAG & DROP LOGIC ===== */
+function dragStart(e) {
+    e.dataTransfer.setData('type', e.target.dataset.type);
+    e.target.classList.add('dragging');
+}
+
+bins.forEach(bin => {
+    bin.addEventListener('dragover', e => {
+        e.preventDefault();
+        bin.classList.add('hovered');
+    });
+
+    bin.addEventListener('dragleave', () => {
+        bin.classList.remove('hovered');
+    });
+
+    bin.addEventListener('drop', e => {
+        e.preventDefault();
+        bin.classList.remove('hovered');
+        const type = e.dataTransfer.getData('type');
+        const draggedItem = document.querySelector('.waste-item.dragging');
+        
+        if(draggedItem) {
+            checkMatch(bin.dataset.type, type, draggedItem);
+        }
+    });
+});
+
+/* ===== TOUCH LOGIC (Mobile Support) ===== */
+let activeTouchItem = null;
+
+function touchStart(e) {
+    e.preventDefault();
+    if(isPlaying) {
+        activeTouchItem = e.target;
+        activeTouchItem.classList.add('dragging');
+    }
+}
+
+function touchMove(e) {
+    e.preventDefault();
+    if (activeTouchItem) {
+        const touch = e.touches[0];
+        const rect = gameArea.getBoundingClientRect();
+        activeTouchItem.style.left = (touch.clientX - rect.left - 30) + 'px';
+        activeTouchItem.style.top = (touch.clientY - rect.top - 30) + 'px';
+    }
+}
+
+function touchEnd(e) {
+    if (!activeTouchItem) return;
+
+    // Check if dropped on a bin
+    const touch = e.changedTouches[0];
+    const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+    const bin = elemBelow ? elemBelow.closest('.bin') : null;
+
+    if (bin) {
+        checkMatch(bin.dataset.type, activeTouchItem.dataset.type, activeTouchItem);
+    } else {
+        activeTouchItem.classList.remove('dragging');
+    }
+    activeTouchItem = null;
+}
+
+/* ===== GAME UTILS ===== */
+function checkMatch(binType, itemType, itemElement) {
+    if (binType === itemType) {
+        score += 10;
+        showFeedback(itemElement, '+10', 'green');
+    } else {
+        score -= 5;
+        showFeedback(itemElement, '-5', 'red');
+    }
+    updateScore();
+    itemElement.remove();
+}
+
+function updateScore() {
+    scoreEl.innerText = score;
+}
+
+function showFeedback(element, text, color) {
+    // Basic feedback logic (optional enhancement)
+}
+
+function endGame() {
+    isPlaying = false;
+    clearInterval(spawnInterval);
+    clearInterval(gameTimer);
+    
+    // Clear all items
+    document.querySelectorAll('.waste-item').forEach(el => el.remove());
+    
+    // Show Modal
+    finalScoreEl.innerText = score;
+    modal.style.display = 'flex';
+}
+    </script>
+</body>
+</html>

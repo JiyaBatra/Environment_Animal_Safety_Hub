@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/FAVICON.png">
+  <title>EcoLife | Protect Our Planet & Animals</title>
+  <meta name="description"
+    content="Join EcoLife to protect animals, save the environment, and create a greener future for all." />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../css/global/variables.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/components/navbar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/pages/report.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+<button id="scrollBottomBtn" title="Scroll to Bottom">
+  ⬇️
+</button>
+
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="EcoLife Logo" class="logo-img" />
+                <span>EcoLife</span>
+            </a>
+
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#animal" class="nav-link">Animals</a></li>
+                <li><a href="../pages/endangered-animals.html" class="nav-link">🐾 Endangered Animals</a></li>
+                <li><a href="../pages/sos.html" class="nav-link">🆘 SOS Emergency</a></li>
+                <li><a href="#environment" class="nav-link">Environment</a></li>
+                <li><a href="../pages/quiz.html" class="nav-link">Kids Zone</a></li>
+                <li><a href="#" class="nav-link active">Report</a></li>
+                <li><a href="../pages/contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-auth">
+                <a href="/frontend/src/pages/Login.html" class="btn-login">Login</a>
+                <a href="/frontend/src/pages/Signup.html" class="btn-signup">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="report-page">
+        <!--  HEADER  -->
+        <div class="container hero">
+            <div class="hero-image" data-aos="fade-right"></div>
+
+            <div class="hero-content" data-aos="fade-left">
+            <h1>🐾 Report a Stray Pet</h1>
+            <p>
+                Be the voice for those who cannot speak.  
+                Your kindness can save a life 💚
+            </p>
+            </div>
+        </div>
+
+        <!--  STEPS  -->
+        <div class="container steps-section">
+            <h2 data-aos="fade-up">🔄 How It Works</h2>
+
+            <div class="steps">
+
+            <div class="step-card" data-aos="zoom-in">
+                <div class="step-circle">🐕</div>
+                <p>Found a stray pet</p>
+            </div>
+
+            <div class="step-card" data-aos="zoom-in">
+                <div class="step-circle">📝</div>
+                <p>Fill the report form</p>
+            </div>
+
+            <div class="step-card" data-aos="zoom-in">
+                <div class="step-circle">📍</div>
+                <p>Add details & location</p>
+            </div>
+
+            <div class="step-card" data-aos="zoom-in">
+                <div class="step-circle">📸</div>
+                <p>Upload pet photos</p>
+            </div>
+
+            <div class="step-card" data-aos="zoom-in">
+                <div class="step-circle">❤️</div>
+                <p>Submit & help arrives</p>
+            </div>
+
+            </div>
+        </div>
+
+        <!--  FORM  -->
+        <div class="form-bg">
+            <div class="container">
+            <div class="form-card" data-aos="fade-up">
+                <h2>🧾 Report a Stray Pet</h2>
+
+                <form id="reportForm">
+
+                <div class="field">
+                    <label>🐾 Pet Type</label>
+                    <select required>
+                    <option value="">Select</option>
+                    <option>Dog</option>
+                    <option>Cat</option>
+                    <option>Other</option>
+                    </select>
+                </div>
+                
+                <div class="field">
+                    <label>🪪 Name</label>
+                    <input type="text" placeholder="Mark">
+                </div>
+                
+                <div class="field">
+                    <label>⚧️ Gender</label>
+                    <select required>
+                    <option value="">Select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>🎨 Color / Markings</label>
+                    <input type="text" placeholder="Brown with white spots">
+                </div>
+
+                <div class="field">
+                    <label>📍 Location Found</label>
+                    <input type="text" placeholder="Street / Area / City" required>
+                </div>
+
+                <div class="field">
+                    <label>⚕️ Condition</label>
+                    <select>
+                    <option>Healthy</option>
+                    <option>Injured</option>
+                    <option>Sick</option>
+                    <option>Urgent help needed</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>📝 Additional Details</label>
+                    <textarea placeholder="Describe behavior, injuries, or urgency"></textarea>
+                </div>
+
+                <div class="field">
+                    <label>📸 Upload Photos</label>
+                    <input type="file" multiple>
+                </div>
+
+                <button type="submit">🚀 Submit Report</button>
+
+                </form>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="eco-footer">
+      <div class="footer-top">
+        <div class="footer-container">
+          <!-- Logo & About -->
+          <div class="footer-col footer-about">
+            <div class="footer-logo-wrapper">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/616/616408.png"
+                class="footer-logo"
+                alt="Eco Logo"
+              />
+              <span class="footer-brand">EcoLife</span>
+            </div>
+            <p class="footer-desc">
+              EcoLife is dedicated to spreading awareness for animals, plants,
+              and creating a cleaner environment for future generations.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social" aria-label="Twitter">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+              <a href="#" class="social" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="#" class="social" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="social" aria-label="GitHub">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#animal">Animal Welfare</a></li>
+              <li><a href="#environment">Environment</a></li>
+              <li><a href="#quiz">Kids Quiz</a></li>
+              <li><a href="#report">Report Issue</a></li>
+            </ul>
+          </div>
+
+          <!-- Animals -->
+          <div class="footer-col">
+            <h4>Animals</h4>
+            <ul>
+              <li><a href="#">Missing Pets</a></li>
+              <li><a href="#">Recently Found</a></li>
+              <li><a href="#">Pet Adoption</a></li>
+              <li><a href="#">Animal Safety Tips</a></li>
+              <li><a href="#">Shelter Locations</a></li>
+            </ul>
+          </div>
+
+          <!-- Environment -->
+          <div class="footer-col">
+            <h4>Environment</h4>
+            <ul>
+              <li><a href="#">Climate Awareness</a></li>
+              <li><a href="#">Plant Care Guide</a></li>
+              <li><a href="#">Waste Segregation</a></li>
+              <li><a href="#">Recycling Tips</a></li>
+              <li><a href="#">Join Clean-Up Drives</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="footer-col">
+            <h4>Contact Us</h4>
+            <ul class="footer-contact">
+              <li>
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Rajasthan, India</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-phone"></i>
+                <span>+91 123 456 789</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-envelope"></i>
+                <span>info@ecolife.com</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-clock"></i>
+                <span>Mon - Sat: 9AM - 6PM</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-container">
+          <p>
+            Made with ❤️ by <strong>Jagrati</strong> | © 2026 EcoLife. All
+            rights reserved.
+          </p>
+          <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/global/theme-toggle.js"></script>
+    <script src="../js/pages/report.js"></script>
+
+  </body>
+</html>

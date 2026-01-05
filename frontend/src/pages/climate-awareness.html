@@ -1,1 +1,233 @@
-<!-- climate-awareness.html -->
+<!-- climate-awareness.html --><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Climate Awareness | EcoLife</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --green: #2e7d32;
+      --green-dark: #1b5e20;
+      --green-light: #e8f5e9;
+      --bg: #f4fbf6;
+      --card-bg: #ffffff;
+      --shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #f2fbf5, #eaf7ef);
+      color: #1a1a1a;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      padding: 90px 20px 70px;
+      text-align: center;
+      background: linear-gradient(135deg, #1b5e20, #2e7d32, #388e3c);
+      color: white;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      opacity: 0.95;
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* ---------- CONTAINER ---------- */
+    .container {
+      max-width: 1100px;
+      margin: 50px auto 80px;
+      padding: 20px;
+      display: grid;
+      gap: 30px;
+    }
+
+    /* ---------- CARDS ---------- */
+    .card {
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .card i {
+      font-size: 1.5rem;
+      color: var(--green);
+    }
+
+    .card p {
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .card li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    /* ---------- GRID ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* ---------- BACK HOME ---------- */
+    .back-home-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .back-home-btn {
+      padding: 14px 32px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .back-home-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(46,125,50,0.35);
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      text-align: center;
+      padding: 5px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>🌍 Climate Awareness</h1>
+    <p>
+      Learn about climate change, its impact on our planet, and how small actions
+      can make a big difference for a greener future 💚
+    </p>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="container">
+
+    <!-- INTRO -->
+    <div class="card">
+      <h2><i class="fa-solid fa-earth-americas"></i> What is Climate Change?</h2>
+      <p>
+        Climate change refers to long-term changes in Earth’s temperature and
+        weather patterns. These changes are largely driven by human activities
+        such as burning fossil fuels, deforestation, and industrial pollution.
+      </p>
+    </div>
+
+    <!-- CAUSES & EFFECTS -->
+    <div class="grid">
+      <div class="card">
+        <h2><i class="fa-solid fa-industry"></i> Causes of Global Warming</h2>
+        <ul>
+          <li>Burning fossil fuels (coal, oil, gas)</li>
+          <li>Deforestation and loss of green cover</li>
+          <li>Industrial emissions and pollution</li>
+          <li>Excessive use of plastic and waste</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><i class="fa-solid fa-temperature-high"></i> Effects on Our Planet</h2>
+        <ul>
+          <li>Rising global temperatures</li>
+          <li>Melting glaciers and rising sea levels</li>
+          <li>Extreme weather events (floods, droughts)</li>
+          <li>Loss of wildlife and biodiversity</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="card">
+      <h2><i class="fa-solid fa-leaf"></i> How You Can Help</h2>
+      <ul>
+        <li>Save electricity and water</li>
+        <li>Use public transport, walk, or cycle</li>
+        <li>Reduce, reuse, and recycle waste</li>
+        <li>Plant trees and protect green spaces</li>
+        <li>Spread awareness in your community</li>
+      </ul>
+    </div>
+
+    <!-- BACK HOME -->
+    <div class="back-home-wrapper">
+      <button class="back-home-btn" onclick="window.location.href='../index.html'">
+        ⬅ Back to Home
+      </button>
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 EcoLife • Act for Climate 💚
+  </footer>
+
+</body>
+</html>

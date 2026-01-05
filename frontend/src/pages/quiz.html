@@ -1,1 +1,93 @@
-<!-- quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Eco Quiz | EcoLife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/pages/quiz.css">
+</head>
+<body>
+
+    <div id="floating-container"></div>
+
+    <div class="hero" id="heroScene">
+        <div class="scene-layer sky">
+            <div class="sun"></div>
+            <div class="cloud c1"></div>
+            <div class="cloud c2"></div>
+            <div class="cloud c3"></div>
+        </div>
+
+        <div class="scene-layer hills-back"></div>
+        <div class="scene-layer hills-front"></div>
+
+        <div class="scene-layer vegetation">
+            <div class="tree t1"></div>
+            <div class="tree t2"></div>
+            <div class="tree t3"></div>
+            <div class="flower f1">🌻</div>
+            <div class="flower f2">🌷</div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="bounce-title">🌱 Kids Eco Quiz</h1>
+            <p>Learn & protect nature while having fun 🌍</p>
+        </div>
+    </div>
+
+    <div class="card slide-up">
+        
+        <div id="startScreen">
+            <div class="icon-header">🌿</div>
+            <h2>Ready to be an Eco Hero?</h2>
+            <p>Select your challenge time:</p>
+            <div class="select-wrapper">
+                <select id="timeSelect">
+                    <option value="120">2 Minutes</option>
+                    <option value="180">3 Minutes</option>
+                    <option value="60">1 Minute (Turbo!)</option>
+                </select>
+            </div>
+            <br>
+            <button class="btn-primary pulse-btn" onclick="startQuiz()">Start Adventure! 🚀</button>
+        </div>
+
+        <div id="quizScreen">
+            <div class="quiz-header">
+                <div class="timer-badge">⏳ <span id="time">00:00</span></div>
+                <div class="progress-text" id="progressText">Question 1/10</div>
+            </div>
+            <div class="question-box">
+                <h3 class="question" id="question">Loading...</h3>
+            </div>
+            <div id="options" class="options-grid"></div>
+            <button class="btn-primary nextBtn" onclick="nextQuestion()">Next Question ➡️</button>
+        </div>
+
+        <div id="resultScreen">
+            <h2>🎉 Adventure Complete!</h2>
+            <div class="score-circle">
+                <span id="finalScore">0</span>
+                <span class="total">/ 10</span>
+            </div>
+            <h3 id="remark"></h3>
+            <div class="action-buttons">
+                <button class="btn-secondary" onclick="showReview()">📖 Review Answers</button>
+                <button class="btn-primary" onclick="location.reload()">🔄 Play Again</button>
+            </div>
+        </div>
+
+        <div id="reviewScreen">
+            <h2>📖 Answer Key</h2>
+            <div id="reviewList" class="custom-scroll"></div>
+            <button class="btn-primary sticky-btn" onclick="location.reload()">🔄 Play Again</button>
+        </div>
+
+    </div>
+
+    <footer>© 2026 EcoLife • Learn Green 💚</footer>
+
+    <script src="../js/pages/quiz.js"></script>
+</body>
+</html>

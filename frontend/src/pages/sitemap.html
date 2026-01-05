@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sitemap | EcoLife</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Font & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --green-dark: #1b5e20;
+      --green-main: #2e7d32;
+      --green-light: #4caf50;
+      --bg-main: #f4fbf6;
+      --card-bg: #ffffff;
+      --text-dark: #1a1a1a;
+      --text-muted: #555;
+      --shadow: 0 12px 30px rgba(0,0,0,0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-main);
+      color: var(--text-dark);
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      text-align: center;
+      padding: 90px 20px 80px;
+      background: linear-gradient(135deg, #1b5e20, #2e7d32);
+      color: #fff;
+      border-bottom-left-radius: 45px;
+      border-bottom-right-radius: 45px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    /* ================= CONTAINER ================= */
+    .container {
+      max-width: 1100px;
+      margin: 50px auto 90px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 26px;
+    }
+
+    /* ================= CARD ================= */
+    .card {
+      position: relative;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px 28px 28px 36px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* Green side strip */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        var(--green-light),
+        var(--green-main)
+      );
+      border-top-left-radius: var(--radius);
+      border-bottom-left-radius: var(--radius);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    }
+
+    .card h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--green-main);
+      margin-bottom: 16px;
+      font-size: 1.3rem;
+    }
+
+    .card h2 i {
+      color: var(--green-light);
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .card li {
+      margin-bottom: 12px;
+    }
+
+    .card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .card a i {
+      color: var(--green-light);
+      min-width: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .card a:hover {
+      color: var(--green-main);
+      transform: translateX(4px);
+    }
+
+    .card a:hover i {
+      color: var(--green-main);
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1><i class="fa-solid fa-sitemap"></i> Website Sitemap</h1>
+    <p>Explore all sections of EcoLife easily 🌱</p>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="container">
+
+    <!-- Main Pages -->
+    <div class="card">
+      <h2><i class="fa-solid fa-house"></i> Main Pages</h2>
+      <ul>
+        <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+        <li><a href="report-dumping.html"><i class="fa-solid fa-triangle-exclamation"></i> Report an Issue</a></li>
+      </ul>
+    </div>
+
+    <!-- Awareness -->
+    <div class="card">
+      <h2><i class="fa-solid fa-leaf"></i> Awareness Sections</h2>
+      <ul>
+        <li><a href="animal-first-aid.html"><i class="fa-solid fa-paw"></i> Animal Protection & Adoption</a></li>
+        <li><a href="waste-segregation.html"><i class="fa-solid fa-recycle"></i> Waste Segregation</a></li>
+        <li><a href="climate-awareness.html"><i class="fa-solid fa-temperature-high"></i> Climate Change Awareness</a></li>
+        <li><a href="plant-care.html"><i class="fa-solid fa-seedling"></i> Plant Care & Animal Feeding</a></li>
+      </ul>
+    </div>
+
+    <!-- Kids Zone -->
+    <div class="card">
+      <h2><i class="fa-solid fa-child-reaching"></i> Kids Zone</h2>
+      <ul>
+        <li><a href="kids-learning.html"><i class="fa-solid fa-book-open"></i> Kids Learning</a></li>
+        <li><a href="quiz.html"><i class="fa-solid fa-gamepad"></i> Quiz Game</a></li>
+      </ul>
+    </div>
+
+    <!-- Policies -->
+    <div class="card">
+      <h2><i class="fa-solid fa-file-contract"></i> Policies</h2>
+      <ul>
+        <li><a href="privacy-policy.html"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a></li>
+        <li><a href="terms-and-conditions.html"><i class="fa-solid fa-scale-balanced"></i> Terms & Conditions</a></li>
+        <li><a href="cookie-policy.html"><i class="fa-solid fa-cookie-bite"></i> Cookie Policy</a></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 EcoLife • Helping You Navigate Responsibly 🌍
+  </footer>
+
+</body>
+</html>
