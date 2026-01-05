@@ -1,17 +1,20 @@
 /* ===== ECOLIFE MAIN JAVASCRIPT ===== */
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize all components
-  initNavbar();
-  initSmoothScroll();
-  initBackToTop();
-  initAOS();
-  initCounterAnimation();
-  initParticles();
-  initFormHandlers();
-  initNavbarActiveState();
-  initScrollProgress()
-  initEcoChallenges();
+  // Wait for components to load before initializing
+  document.addEventListener('componentsLoaded', function() {
+    // Initialize all components
+    initNavbar();
+    initSmoothScroll();
+    initBackToTop();
+    initAnimateOnScroll();
+    initCounterAnimation();
+    initParticles();
+    initFormHandlers();
+    initNavbarActiveState();
+    initScrollProgress()
+    initEcoChallenges();
+  });
 });
 
 /* ===== NAVBAR ===== */
