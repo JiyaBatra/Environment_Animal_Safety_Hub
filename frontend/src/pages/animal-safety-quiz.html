@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animal Safety Quiz | EcoLife</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root{
+      --green:#2e7d32;
+      --dark:#1b5e20;
+      --light:#e8f5e9;
+      --shadow:0 18px 35px rgba(0,0,0,0.15);
+    }
+
+    *{
+      box-sizing:border-box;
+      font-family:"Poppins",sans-serif;
+    }
+
+    body{
+      margin:0;
+      background:#f4fbf6;
+      color:#1a1a1a;
+      text-align:center;
+    }
+
+    /* HERO */
+    .hero{
+      padding:80px 20px 60px;
+      background:linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);
+      color:white;
+      border-bottom-left-radius:40px;
+      border-bottom-right-radius:40px;
+    }
+
+    .hero h1{
+      font-size:2.6rem;
+      margin-bottom:10px;
+    }
+
+    .hero p{
+      opacity:0.9;
+    }
+
+    /* CARD */
+    .quiz-container{
+      max-width:720px;
+      margin:40px auto 60px;
+      background:white;
+      padding:40px 25px;
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .question{
+      font-size:1.4rem;
+      margin-bottom:25px;
+    }
+
+    .options{
+      display:grid;
+      gap:14px;
+    }
+
+    .option{
+      padding:14px 18px;
+      border-radius:30px;
+      border:2px solid var(--green);
+      background:#fff;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:1rem;
+    }
+
+    .option:hover{
+      background:var(--light);
+      transform:translateY(-3px);
+    }
+
+    .option.correct{
+      background:#c8e6c9;
+      border-color:var(--green);
+    }
+
+    .option.wrong{
+      background:#ffcdd2;
+      border-color:#c62828;
+    }
+
+    .feedback{
+      margin-top:18px;
+      font-weight:600;
+    }
+
+    .next-btn{
+      margin-top:22px;
+      padding:12px 30px;
+      background:var(--green);
+      color:white;
+      border:none;
+      border-radius:30px;
+      cursor:pointer;
+      font-size:1rem;
+      display:none;
+      transition:0.3s;
+    }
+
+    .next-btn:hover{
+      background:var(--dark);
+      transform:translateY(-2px);
+    }
+
+    /* RESULT */
+    .result{
+      display:none;
+    }
+
+    .score{
+      font-size:3rem;
+      color:var(--green);
+      margin:15px 0;
+    }
+
+    /* BACK */
+    .back-wrapper{
+      display:flex;
+      justify-content:center;
+      margin-top:35px;
+    }
+
+    .back-btn{
+      padding:12px 30px;
+      background:var(--green);
+      color:white;
+      border:none;
+      border-radius:30px;
+      cursor:pointer;
+      font-size:1rem;
+      transition:0.3s;
+    }
+
+    .back-btn:hover{
+      background:var(--dark);
+      transform:translateY(-3px);
+      box-shadow:0 10px 25px rgba(46,125,50,.35);
+    }
+
+    footer{
+      padding:20px;
+      color:#666;
+      font-size:.9rem;
+    }
+
+    @media(max-width:600px){
+      .hero h1{font-size:2.1rem;}
+      .question{font-size:1.2rem;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>🐾 Animal Safety Quiz</h1>
+    <p>Learn kindness, safety & care for animals</p>
+  </section>
+
+  <!-- QUIZ -->
+  <div class="quiz-container">
+
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn" id="nextBtn">Next</button>
+    </div>
+
+    <div class="result" id="result">
+      <h2>🎉 Quiz Completed!</h2>
+      <div class="score" id="score"></div>
+      <p id="remark"></p>
+    </div>
+
+    <div class="back-wrapper">
+      <button class="back-btn" onclick="window.location.href='kids-quiz-dashboard.html'">
+        ← Back to Dashboard
+      </button>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 EcoLife • Protect Animals 💚
+  </footer>
+
+<script>
+  const questions = [
+    {
+      q: "What should you do if you see an injured animal?",
+      options: ["Ignore it", "Help safely or call an adult/vet"],
+      correct: 1,
+      msg: "Helping safely or calling an adult is the right choice."
+    },
+    {
+      q: "Is it safe to tease animals?",
+      options: ["Yes, it's fun", "No, it can hurt them"],
+      correct: 1,
+      msg: "Animals feel fear and pain too."
+    },
+    {
+      q: "What food should you give stray animals?",
+      options: ["Spicy food", "Safe & suitable food"],
+      correct: 1,
+      msg: "Unsafe food can make animals sick."
+    },
+    {
+      q: "How should you approach an unknown animal?",
+      options: ["Run towards it", "Stay calm and keep distance"],
+      correct: 1,
+      msg: "Calm behavior keeps both you and animals safe."
+    },
+    {
+      q: "Should animals be treated with kindness?",
+      options: ["Yes, always", "No, it doesn't matter"],
+      correct: 0,
+      msg: "Kindness builds a safer world for all."
+    }
+  ];
+
+  let index = 0;
+  let score = 0;
+
+  const questionEl = document.getElementById("question");
+  const optionsEl = document.getElementById("options");
+  const feedbackEl = document.getElementById("feedback");
+  const nextBtn = document.getElementById("nextBtn");
+  const resultEl = document.getElementById("result");
+  const scoreEl = document.getElementById("score");
+  const remarkEl = document.getElementById("remark");
+
+  function loadQuestion(){
+    feedbackEl.textContent="";
+    nextBtn.style.display="none";
+    optionsEl.innerHTML="";
+
+    const q = questions[index];
+    questionEl.textContent = `Q${index+1}. ${q.q}`;
+
+    q.options.forEach((opt,i)=>{
+      const btn=document.createElement("button");
+      btn.className="option";
+      btn.textContent=opt;
+      btn.onclick=()=>selectOption(btn,i);
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function selectOption(btn,choice){
+    const q = questions[index];
+    document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+
+    if(choice===q.correct){
+      btn.classList.add("correct");
+      score++;
+      feedbackEl.textContent="✅ Correct! "+q.msg;
+    }else{
+      btn.classList.add("wrong");
+      feedbackEl.textContent="❌ Not correct. "+q.msg;
+    }
+    nextBtn.style.display="inline-block";
+  }
+
+  nextBtn.onclick=()=>{
+    index++;
+    if(index<questions.length){
+      loadQuestion();
+    }else{
+      showResult();
+    }
+  };
+
+  function showResult(){
+    document.getElementById("quiz").style.display="none";
+    resultEl.style.display="block";
+    scoreEl.textContent = `${score} / ${questions.length}`;
+    remarkEl.textContent =
+      score>=4 ? "🌟 Animal Hero!" :
+      score>=2 ? "👍 Good job, keep learning!" :
+      "🌱 Learn more & try again!";
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
