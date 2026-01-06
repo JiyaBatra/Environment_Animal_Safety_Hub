@@ -91,6 +91,26 @@
 </style>
 
 <body>
+
+  <!-- 🌤️ Background Animations -->
+<div class="eco-sky">
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+</div>
+
+<!-- 🕊️ Birds -->
+<div class="birds-layer"></div>
+
+<!-- 🌧️ Rain -->
+<div class="rain-layer"></div>
+
+<!-- 🍃 Floating Leaves -->
+<div class="leaves-layer"></div>
+
+<!-- 🌞 Sun Glow -->
+<div class="sun-glow"></div>
+
   <div class="scroll-progress" id="scrollProgress"></div>
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
@@ -2096,6 +2116,64 @@ document.addEventListener("DOMContentLoaded", () => {
     displayDictionary(filtered);
   });
 </script>
+
+<script>
+/* ===== 🕊️ BIRDS ===== */
+function spawnBirds() {
+  const birdsLayer = document.querySelector('.birds-layer');
+  const bird = document.createElement('div');
+  bird.className = 'bird';
+  bird.textContent = '🕊️';
+  bird.style.top = Math.random() * 50 + '%';
+  birdsLayer.appendChild(bird);
+  setTimeout(() => bird.remove(), 15000);
+}
+setInterval(spawnBirds, 8000);
+
+/* ===== 🌧️ RAIN ===== */
+function startRain(intensity = 80) {
+  const rainLayer = document.querySelector('.rain-layer');
+  rainLayer.innerHTML = '';
+  for (let i = 0; i < intensity; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'rain-drop';
+    drop.style.left = Math.random() * 100 + 'vw';
+    drop.style.animationDelay = Math.random() + 's';
+    rainLayer.appendChild(drop);
+  }
+}
+
+/* ===== 🍃 LEAVES ===== */
+function startLeaves(count = 20) {
+  const layer = document.querySelector('.leaves-layer');
+  layer.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.textContent = '🍃';
+    leaf.style.left = Math.random() * 100 + 'vw';
+    leaf.style.animationDelay = Math.random() * 10 + 's';
+    layer.appendChild(leaf);
+  }
+}
+
+/* ===== 🌞 DAY MODE ===== */
+function enableSunlight() {
+  document.querySelector('.sun-glow').classList.add('active');
+}
+
+/* ===== 🌙 NIGHT MODE ===== */
+function disableSunlight() {
+  document.querySelector('.sun-glow').classList.remove('active');
+}
+
+/* ===== PAGE CONTROLS ===== */
+// Example usage:
+enableSunlight();      // sunny pages
+startLeaves(25);       // forest pages
+// startRain(120);     // climate pages (enable only when needed)
+</script>
+
 </body>
 
 </html>

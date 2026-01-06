@@ -2271,3 +2271,101 @@ body.dark-theme .bot-message {
       transform:translateY(0);
     }
   }
+
+  /* ===== GLOBAL ANIMATION LAYERS ===== */
+.eco-sky,
+.birds-layer,
+.rain-layer,
+.leaves-layer,
+.sun-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== ☁️ CLOUDS ===== */
+.cloud {
+  position: absolute;
+  top: 10%;
+  width: 220px;
+  height: 80px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50px;
+  filter: blur(2px);
+  animation: moveClouds 80s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -40px;
+}
+
+.cloud::before { left: 30px; }
+.cloud::after { right: 30px; }
+
+.cloud1 { top: 15%; left: -300px; animation-duration: 90s; }
+.cloud2 { top: 30%; left: -400px; animation-duration: 110s; }
+.cloud3 { top: 45%; left: -500px; animation-duration: 130s; }
+
+@keyframes moveClouds {
+  to { transform: translateX(120vw); }
+}
+
+/* ===== 🕊️ BIRDS ===== */
+.bird {
+  position: absolute;
+  font-size: 22px;
+  animation: flyBird 15s linear forwards;
+}
+
+@keyframes flyBird {
+  from { transform: translateX(-50px) translateY(0); }
+  to { transform: translateX(110vw) translateY(-40px); }
+}
+
+/* ===== 🌧️ RAIN ===== */
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  background: rgba(255,255,255,0.6);
+  animation: rainFall 1s linear infinite;
+}
+
+@keyframes rainFall {
+  from { transform: translateY(-100px); }
+  to { transform: translateY(110vh); }
+}
+
+/* ===== 🍃 LEAVES ===== */
+.leaf {
+  position: absolute;
+  font-size: 18px;
+  animation: leafFloat 12s linear infinite;
+}
+
+@keyframes leafFloat {
+  0% { transform: translateY(-50px) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* ===== 🌞 SUN GLOW ===== */
+.sun-glow {
+  background: radial-gradient(circle at top right, rgba(255,223,128,0.35), transparent 60%);
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.sun-glow.active {
+  opacity: 1;
+}
