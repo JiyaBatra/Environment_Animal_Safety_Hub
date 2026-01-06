@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <title>Kids Quiz Dashboard | EcoLife</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="/envirnoment-logo.png">
+
+  <link rel="icon" type="image/png" href="/envirnoment-logo.png">
+
   <!-- Icons -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
@@ -33,7 +35,7 @@
       min-height: 100vh;
     }
 
-    /* ---------- HERO ---------- */
+    /* HERO */
     .hero {
       text-align: center;
       padding: 90px 20px 70px;
@@ -46,7 +48,6 @@
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 10px;
-      animation: float 3s ease-in-out infinite;
     }
 
     .hero p {
@@ -55,19 +56,14 @@
       opacity: 0.95;
     }
 
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    /* ---------- CONTAINER ---------- */
+    /* CONTAINER */
     .container {
       max-width: 1200px;
       margin: 50px auto 80px;
       padding: 20px;
     }
 
-    /* ---------- FILTER ---------- */
+    /* FILTER */
     .filters {
       display: flex;
       justify-content: center;
@@ -95,22 +91,22 @@
       transform: translateY(-2px);
     }
 
-    /* ---------- GRID ---------- */
+    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 30px;
     }
 
-    /* ---------- CARD ---------- */
+    /* CARD */
     .card {
       background: var(--white);
       border-radius: 20px;
       box-shadow: var(--shadow);
-      overflow: hidden;
       text-decoration: none;
       color: inherit;
       transition: transform 0.35s ease, box-shadow 0.35s ease;
+      overflow: hidden;
     }
 
     .card:hover {
@@ -124,6 +120,7 @@
       align-items: center;
       justify-content: center;
       font-size: 3.2rem;
+      color: white;
     }
 
     .card-content {
@@ -153,18 +150,23 @@
     .desc {
       font-size: 0.95rem;
       color: #555;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
     }
 
-    .tech span {
-      font-size: 0.7rem;
-      background: #f1f1f1;
-      padding: 4px 8px;
-      border-radius: 8px;
-      margin-right: 5px;
+    .play-btn {
+      display: inline-block;
+      padding: 8px 18px;
+      background: var(--green);
+      color: white;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      transition: 0.3s;
     }
 
-    /* ---------- FOOTER ---------- */
+    .card:hover .play-btn {
+      background: #1b5e20;
+    }
+
     footer {
       text-align: center;
       padding: 25px;
@@ -172,7 +174,6 @@
       color: #666;
     }
 
-    /* ---------- RESPONSIVE ---------- */
     @media(max-width: 600px) {
       .hero h1 { font-size: 2.2rem; }
     }
@@ -181,70 +182,129 @@
 
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>🎯 Kids Quiz Dashboard</h1>
-    <p>
-      Welcome to the Kids Learning Zone!  
-      Play fun quizzes & games to learn about animals, environment, plants, and sustainability 🌍
-    </p>
-  </section>
+<!-- HERO -->
+<section class="hero">
+  <h1>🎯 Kids Quiz Dashboard</h1>
+  <p>
+    Learn about Animals, Environment, Plants & Sustainability  
+    through fun quizzes and games 🌍
+  </p>
+</section>
 
-  <div class="container">
+<div class="container">
 
-    <!-- FILTERS -->
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="quiz">Quizzes</button>
-      <button class="filter-btn" data-filter="game">Games</button>
-    </div>
-
-    <!-- GRID -->
-    <div class="grid" id="grid">
-
-      <!-- Eco Quiz -->
-      <a href="quiz.html" class="card" data-category="quiz">
-        <div class="card-cover" style="background:#2e7d32;color:white">
-          <i class="ri-leaf-line"></i>
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <h3>Eco Quiz</h3>
-            <span class="tag">Quiz</span>
-          </div>
-          <p class="desc">Test your knowledge about environment & nature.</p>
-    
-        </div>
-      </a>
-
-    
-    </div>
+  <!-- FILTERS -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="quiz">Quizzes</button>
+    <button class="filter-btn" data-filter="game">Games</button>
   </div>
 
-  <footer>
-    © 2026 EcoLife • Learn, Play & Protect Nature 💚
-  </footer>
+  <!-- GRID -->
+  <div class="grid">
 
-  <script>
-    const filterBtns = document.querySelectorAll(".filter-btn");
-    const cards = document.querySelectorAll(".card");
+    <!-- QUIZZES -->
+    <a href="animal-safety-scenario-game.html" class="card" data-category="quiz">
+      <div class="card-cover" style="background:#2e7d32"><i class="ri-bear-smile-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Animal Safety Quiz</h3><span class="tag">Quiz</span></div>
+        <p class="desc">Learn how to treat animals with kindness and safety.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        filterBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+    <a href="environment-game.html" class="card" data-category="quiz">
+      <div class="card-cover" style="background:#388e3c"><i class="ri-earth-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Environment Awareness Quiz</h3><span class="tag">Quiz</span></div>
+        <p class="desc">Test your knowledge about protecting Earth.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
 
-        const filter = btn.dataset.filter;
+    <a href="waste-game.html" class="card" data-category="quiz">
+      <div class="card-cover" style="background:#4caf50"><i class="ri-delete-bin-6-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Waste Management Quiz</h3><span class="tag">Quiz</span></div>
+        <p class="desc">Learn waste segregation and recycling habits.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
 
-        cards.forEach(card => {
-          card.style.display =
-            filter === "all" || card.dataset.category === filter
-              ? "block"
-              : "none";
-        });
+    <a href="plant-care-quiz.html" class="card" data-category="quiz">
+      <div class="card-cover" style="background:#66bb6a"><i class="ri-plant-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Plant Care Quiz</h3><span class="tag">Quiz</span></div>
+        <p class="desc">Check how well you know plant care basics.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
+
+    <a href="climate-change-quiz.html" class="card" data-category="quiz">
+      <div class="card-cover" style="background:#1b5e20"><i class="ri-cloud-windy-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Climate Change Quiz</h3><span class="tag">Quiz</span></div>
+        <p class="desc">Understand climate change in a simple way.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
+
+    <!-- GAMES -->
+    <a href="memory-card-game.html" class="card" data-category="game">
+      <div class="card-cover" style="background:#8bc34a"><i class="ri-brain-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Memory Card Flip</h3><span class="tag">Game</span></div>
+        <p class="desc">Match eco icons and boost memory.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
+
+
+    <a href="climate-action-game.html" class="card" data-category="game">
+      <div class="card-cover" style="background:#558b2f"><i class="ri-leaf-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Climate Action Game</h3><span class="tag">Game</span></div>
+        <p class="desc">Make eco-friendly daily choices.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
+
+    <a href="plant-care-simulation.html" class="card" data-category="game">
+      <div class="card-cover" style="background:#33691e"><i class="ri-seedling-line"></i></div>
+      <div class="card-content">
+        <div class="card-header"><h3>Plant Care Simulation</h3><span class="tag">Game</span></div>
+        <p class="desc">Grow and care for a virtual plant.</p>
+        <span class="play-btn">Play Now</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 EcoLife • Learn, Play & Protect Nature 💚
+</footer>
+
+<script>
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const cards = document.querySelectorAll(".card");
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        card.style.display =
+          filter === "all" || card.dataset.category === filter
+            ? "block"
+            : "none";
       });
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
