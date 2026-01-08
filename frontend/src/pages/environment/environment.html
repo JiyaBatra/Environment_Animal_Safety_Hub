@@ -10,11 +10,11 @@
     content="Join EcoLife to protect animals, save the environment, and create a greener future for all." />
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="../css/global/variables.css" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/components/navbar.css" />
-  <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/pages/environment.css" />
+  <link rel="stylesheet" href="../../css/global/variables.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/components/navbar.css" />
+  <link rel="stylesheet" href="../../css/components/footer.css" />
+  <link rel="stylesheet" href="../../css/pages/environment/environment.css" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,18 +44,24 @@
       </div>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../../index.html" class="nav-link">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#animal" class="nav-link">Animals</a></li>
-        <li><a href="../pages/animal-safety/endangered-animals.html" class="nav-link">🐾 Endangered Animals</a></li>
-        <li><a href="./sos.html" class="nav-link">🆘 SOS Emergency</a></li>
+        <li><a href="../../pages/animal-safety/endangered-animals.html" class="nav-link">🐾 Endangered Animals</a></li>
+        <li><a href="../sos.html" class="nav-link">🆘 SOS Emergency</a></li>
         <li><a href="#" class="nav-link active">Environment</a></li>
+<<<<<<< HEAD:frontend/src/pages/environment.html
         <li><a href="./kids-zone.html" class="nav-link">Kids Zone</a></li>
         <li><a href="./report/report.html" class="nav-link">Report</a></li>
         <li><a href="./contact.html" class="nav-link">Contact</a></li>
+=======
+        <li><a href="../games/kids-zone.html" class="nav-link">Kids Zone</a></li>
+        <li><a href="../report.html" class="nav-link">Report</a></li>
+        <li><a href="../contact.html" class="nav-link">Contact</a></li>
+>>>>>>> df670df6d3be30a8b0a8b390730c364ab23f61ab:frontend/src/pages/environment/environment.html
         <li class="nav-auth">
-          <a href="./Login.html" class="btn-login">Login</a>
-          <a href="./Signup.html" class="btn-signup">Sign Up</a>
+          <a href="../Login.html" class="btn-login">Login</a>
+          <a href="../Signup.html" class="btn-signup">Sign Up</a>
           <div class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
           </div>
         </li>
@@ -100,7 +106,7 @@
   <div class="quiz-content" data-aos="fade-right">
     <h2>Test Your Eco Knowledge</h2>
     <p>Play our environment quiz and become an Eco Champion.</p>
-    <a href="./environment-game.html" class="btn-alt">Play Quiz</a>
+    <a href="../games/environment-game.html" class="btn-alt">Play Quiz</a>
   </div>
   <div class="quiz-img" data-aos="fade-left">
     <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1" alt="Quiz">
@@ -174,7 +180,7 @@
   <div class="community-content" data-aos="fade-left">
     <h2>Join the Movement</h2>
     <p>Become part of EcoLife and connect with people working for a greener future.</p>
-    <a href="./community.html" target="_blank" class="btn">Join EcoLife</a>
+    <a href="../community.html" target="_blank" class="btn">Join EcoLife</a>
   </div>
 </section>
 
@@ -246,7 +252,7 @@
         <div class="footer-col">
           <h4>Tools</h4>
           <ul>
-            <li><a href="pages/impact-calculator.html">Impact Calculator</a></li>
+            <li><a href="../pages/impact-calculator.html">Impact Calculator</a></li>
             <li><a href="#carbon">Carbon Footprint</a></li>
             <li><a href="#quiz">Kids Quiz</a></li>
             <li><a href="#">Eco Challenges</a></li>
@@ -320,9 +326,9 @@
           rights reserved.
         </p>
         <div class="footer-links">
-          <a href="./privacy-policy.html">Privacy Policy</a> |
-          <a href="./terms-and-conditions.html">Terms of Service</a> |
-          <a href="./cookie-policy.html">Cookie Policy</a>
+          <a href="../privacy-policy.html">Privacy Policy</a> |
+          <a href="../terms-and-conditions.html">Terms of Service</a> |
+          <a href="../cookie-policy.html">Cookie Policy</a>
         </div>
 
   </footer>
@@ -334,9 +340,9 @@
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/global/theme-toggle.js"></script>
-  <script src="../js/components/navbar.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/global/theme-toggle.js"></script>
+  <script src="../../js/components/navbar.js"></script>
   <script>
     (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
   </script>
