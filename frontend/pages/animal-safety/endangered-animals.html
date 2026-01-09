@@ -4,16 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="assets/FAVICON.png"> 
-    <title>EcoLife | Protect Our Planet & Animals</title>
+    <title>EcoLife | Endangered Species Protection</title>
     <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-    <meta
-      name="description"
-      content="Join EcoLife to protect animals, save the environment, and create a greener future for all."
-    />
-
+    <meta name="description" content="Explore endangered species, learn about conservation efforts, and discover how you can help protect our planet's most vulnerable animals." />
+    
     <!-- CSS Files -->
-     <link rel="stylesheet" href="../../css/global/variables.css">
-   
+    <link rel="stylesheet" href="../../css/global/variables.css">
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/components/navbar.css" /> 
     <link rel="stylesheet" href="../../css/components/footer.css" />
@@ -23,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
 
@@ -35,105 +31,963 @@
 
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <style>
+      /* ========== ENHANCED STYLES ========== */
+      body {
+        background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+        font-family: 'Poppins', sans-serif;
+        color: #1a1a2e;
+      }
+
+      /* ========== HERO SECTION ========== */
+      .hero-section {
+        position: relative;
+        height: 85vh;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0 20px;
+      }
+
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center/cover no-repeat;
+        filter: brightness(0.6) saturate(1.2);
+        animation: slowZoom 25s infinite alternate;
+      }
+
+      @keyframes slowZoom {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(5, 46, 22, 0.8) 0%, rgba(0, 0, 0, 0.7) 100%);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 900px;
+        padding: 2rem;
+        animation: fadeInUp 1s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+      }
+
+      .title-gradient {
+        background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+      }
+
+      .hero-subtitle {
+        font-size: 1.4rem;
+        color: #d1fae5;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #4ade80;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: #a7f3d0;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* ========== SEARCH & FILTERS ========== */
+      .search-section {
+        position: relative;
+        margin-top: -80px;
+        z-index: 10;
+        padding: 0 20px;
+      }
+
+      .search-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 1.5rem;
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 1rem 1.5rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #22c55e;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+      }
+
+      .search-btn {
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .search-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+      }
+
+      .filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 0.6rem 1.5rem;
+        background: #f3f4f6;
+        border: 2px solid transparent;
+        border-radius: 25px;
+        color: #4b5563;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .filter-btn:hover {
+        background: #e5e7eb;
+        transform: translateY(-1px);
+      }
+
+      .filter-btn.active {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        border-color: #22c55e;
+        box-shadow: 0 5px 15px rgba(34, 197, 94, 0.2);
+      }
+
+      /* ========== ANIMALS GRID ========== */
+      .animals-section {
+        padding: 5rem 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-title {
+        font-size: 2.8rem;
+        color: #1a1a2e;
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: #6b7280;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .animals-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 4rem;
+      }
+
+      .animal-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s ease;
+        position: relative;
+        height: 100%;
+      }
+
+      .animal-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-image {
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .animal-card:hover .card-image img {
+        transform: scale(1.05);
+      }
+
+      .status-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .status-CR {
+        background: #ef4444;
+        color: white;
+      }
+
+      .status-EN {
+        background: #f97316;
+        color: white;
+      }
+
+      .status-VU {
+        background: #eab308;
+        color: white;
+      }
+
+      .card-content {
+        padding: 1.8rem;
+      }
+
+      .card-content h3 {
+        font-size: 1.5rem;
+        color: #1a1a2e;
+        margin-bottom: 0.5rem;
+      }
+
+      .scientific-name {
+        color: #6b7280;
+        font-style: italic;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .card-description {
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .card-stats {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .stat {
+        text-align: center;
+        flex: 1;
+      }
+
+      .stat-value {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #22c55e;
+        margin-bottom: 0.3rem;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .learn-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 0.9rem;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .learn-more-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+      }
+
+      /* ========== NO RESULTS ========== */
+      .no-results {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .no-results i {
+        font-size: 4rem;
+        color: #22c55e;
+        margin-bottom: 1.5rem;
+        opacity: 0.5;
+      }
+
+      .no-results h3 {
+        font-size: 1.8rem;
+        color: #1a1a2e;
+        margin-bottom: 0.5rem;
+      }
+
+      .no-results p {
+        color: #6b7280;
+        margin-bottom: 2rem;
+      }
+
+      .suggestions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .suggestion-btn {
+        padding: 0.6rem 1.2rem;
+        background: #f3f4f6;
+        border: none;
+        border-radius: 8px;
+        color: #4b5563;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .suggestion-btn:hover {
+        background: #e5e7eb;
+        transform: translateY(-1px);
+      }
+
+      /* ========== MODAL ========== */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 20px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        animation: modalSlide 0.3s ease;
+      }
+
+      @keyframes modalSlide {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #1a1a2e;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      /* ========== RESPONSIVE DESIGN ========== */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+        
+        .search-container {
+          padding: 1.5rem;
+        }
+        
+        .animals-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .section-title {
+          font-size: 2.2rem;
+        }
+        
+        .hero-stats {
+          gap: 2rem;
+        }
+        
+        .stat-number {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 2rem;
+        }
+        
+        .search-box {
+          flex-direction: column;
+        }
+        
+        .search-btn {
+          width: 100%;
+        }
+        
+        .filters {
+          justify-content: center;
+        }
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Using original navbar structure -->
     <div id="navbar-container"></div>
 
-<main>
-        <section class="hero-section" id="heroSection">
-            <div class="hero-bg" id="heroBg"></div>
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="icon-animate">🌍</span> 
-                    <span class="text-gradient">Endangered Animals</span> 
-                    Database
-                </h1>
-                <p class="hero-subtitle">Discover the beauty of our planet's rarest species and join the mission to protect them before it's too late.</p>
-            </div>
-        </section>
+    <!-- Hero Section -->
+    <main>
+      <section class="hero-section" id="heroSection">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Protect Our Planet's <span class="title-gradient">Precious Wildlife</span>
+          </h1>
+          <p class="hero-subtitle">
+            Explore endangered species from around the world, learn about their habitats, 
+            and discover how you can contribute to conservation efforts that save lives.
+          </p>
+          </div>
+        </div>
+      </section>
 
+      <!-- Search Section -->
+      <div class="search-section">
         <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search animals by name or scientific name...">
-                <button class="search-btn" onclick="searchAnimals()">🔍</button>
-            </div>
-            
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterByStatus('all')">All</button>
-                <button class="filter-btn" onclick="filterByStatus('CR')">Critically Endangered</button>
-                <button class="filter-btn" onclick="filterByStatus('EN')">Endangered</button>
-                <button class="filter-btn" onclick="filterByStatus('VU')">Vulnerable</button>
-            </div>
+          <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for endangered species...">
+            <button class="search-btn" onclick="searchAnimals()">
+              <i class="fas fa-search"></i> Search
+            </button>
+          </div>
+          <div class="filters">
+            <button class="filter-btn active" onclick="filterAnimals('all')">All Species</button>
+            <button class="filter-btn" onclick="filterAnimals('CR')">Critically Endangered</button>
+            <button class="filter-btn" onclick="filterAnimals('EN')">Endangered</button>
+            <button class="filter-btn" onclick="filterAnimals('VU')">Vulnerable</button>
+            <button class="filter-btn" onclick="filterAnimals('mammals')">Mammals</button>
+            <button class="filter-btn" onclick="filterAnimals('birds')">Birds</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animals Section -->
+      <section class="animals-section">
+        <div class="section-header">
+          <h2 class="section-title">Meet Our Endangered Species</h2>
+          <p class="section-subtitle">Each animal plays a vital role in our ecosystem. Learn about their struggles and how we can help them survive.</p>
         </div>
 
-        <div id="animalsGrid" class="animals-grid"></div>
+        <div class="animals-grid" id="animalsGrid">
+          <!-- Animal cards will be generated by JavaScript -->
+        </div>
+
         <div id="noResults" class="no-results" style="display: none;">
-            <h3>No animals found</h3>
-            <p>Try adjusting your search or filters</p>
+          <i class="fas fa-search"></i>
+          <h3>No Species Found</h3>
+          <p>Try a different search term or browse all species</p>
+          <div class="suggestions">
+            <button class="suggestion-btn" onclick="filterAnimals('all')">Show All</button>
+            <button class="suggestion-btn" onclick="filterAnimals('CR')">Critically Endangered</button>
+            <button class="suggestion-btn" onclick="filterAnimals('mammals')">Mammals</button>
+          </div>
         </div>
-
-        <section class="help-section">
-            <div class="help-container">
-                <div style="text-align: center; margin-bottom: 3rem;">
-                    <h2 style="font-size: 2.5rem; color: #1a1a2e; margin-bottom: 1rem;">How You Can Help</h2>
-                    <p style="color: #666; max-width: 600px; margin: 0 auto;">Small actions can make a big difference in protecting endangered species and their habitats.</p>
-                </div>
-                
-                <div class="help-grid">
-                    <div class="help-card">
-                        <span class="help-icon">🌿</span>
-                        <h3>Restore Habitats</h3>
-                        <p>Participate in local tree planting and cleanup drives to restore natural habitats for wildlife.</p>
-                    </div>
-                    
-                    <div class="help-card">
-                        <span class="help-icon">🚫</span>
-                        <h3>Stop Illegal Trade</h3>
-                        <p>Never buy products made from endangered animals, such as ivory, tortoise shell, or coral.</p>
-                    </div>
-                    
-                    <div class="help-card">
-                        <span class="help-icon">📢</span>
-                        <h3>Spread Awareness</h3>
-                        <p>Educate others about endangered species and advocate for stronger conservation laws.</p>
-                    </div>
-
-                    <div class="help-card">
-                        <span class="help-icon">🤝</span>
-                        <h3>Adopt or Donate</h3>
-                        <p>Support reputable conservation organizations through donations or animal adoption programs.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+      </section>
     </main>
 
     <!-- Modal -->
     <div id="animalModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div id="modalContent"></div>
-        </div>
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div id="modalContent"></div>
+      </div>
     </div>
 
-    <!-- Footer placeholder -->
-  <div id="footer-placeholder"></div>
-<!-- Back to Top Button -->
+    <!-- Using original footer structure -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" aria-label="Back to Top">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      // Animal data
+      const animals = [
+        {
+          id: 1,
+          name: "Amur Leopard",
+          scientific: "Panthera pardus orientalis",
+          image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "CR",
+          category: "mammals",
+          population: "84",
+          location: "Russian Far East & China",
+          description: "The Amur leopard is one of the rarest big cats in the world, with only about 84 individuals remaining in the wild.",
+          threats: "Habitat loss, poaching, climate change"
+        },
+        {
+          id: 2,
+          name: "Sumatran Orangutan",
+          scientific: "Pongo abelii",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLWIMk2iWjSG1hwxSOM9fo8rtz1yXQzb-URQ&s",
+          status: "CR",
+          category: "mammals",
+          population: "14,600",
+          location: "Sumatra, Indonesia",
+          description: "These intelligent great apes are losing their forest homes to palm oil plantations and agriculture.",
+          threats: "Deforestation, illegal pet trade, hunting"
+        },
+        {
+          id: 3,
+          name: "Javan Rhino",
+          scientific: "Rhinoceros sondaicus",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi1tQbNYcnhageqSSCD1gNw2TZC5vt2eQDOHBrpFbQfGgX1T_5iYnmePGth8vSIGi6JpJmn7t_A1J4GyPVqamy-qHZ7AirjG8ui5B5Gws&s=10",
+          status: "CR",
+          category: "mammals",
+          population: "76",
+          location: "Java, Indonesia",
+          description: "One of the rarest large mammals on Earth, surviving only in Ujung Kulon National Park.",
+          threats: "Poaching, habitat loss, natural disasters"
+        },
+        {
+          id: 4,
+          name: "Vaquita",
+          scientific: "Phocoena sinus",
+          image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "CR",
+          category: "mammals",
+          population: "10",
+          location: "Gulf of California",
+          description: "The world's most endangered marine mammal, with fewer than 10 individuals remaining.",
+          threats: "Illegal fishing, bycatch, pollution"
+        },
+        {
+          id: 5,
+          name: "Mountain Gorilla",
+          scientific: "Gorilla beringei beringei",
+          image: "https://images.unsplash.com/photo-1551085254-e96b210db58a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "EN",
+          category: "mammals",
+          population: "1,063",
+          location: "Central Africa",
+          description: "These gentle giants have made a remarkable recovery thanks to intense conservation efforts.",
+          threats: "Habitat loss, poaching, disease"
+        },
+        {
+          id: 6,
+          name: "Snow Leopard",
+          scientific: "Panthera uncia",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY1GuDu1T34lsQQ__OXTXMpxvAfrUaYSxj3pRp7pyIFWrC-uaClIpoqhFo78QNz9xcmAi14jQ0XP6p_qmjkRZpw3Pl_Vey6Y5XPOR7cA&s=10",
+          status: "VU",
+          category: "mammals",
+          population: "4,000-6,500",
+          location: "Central & South Asia",
+          description: "The elusive 'ghost of the mountains' faces threats from climate change and poaching.",
+          threats: "Climate change, poaching, habitat fragmentation"
+        },
+        {
+          id: 7,
+          name: "California Condor",
+          scientific: "Gymnogyps californianus",
+          image: "https://images.unsplash.com/photo-1551085254-e96b210db58a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "CR",
+          category: "birds",
+          population: "500",
+          location: "California, Arizona, Utah",
+          description: "North America's largest flying bird was brought back from the brink of extinction.",
+          threats: "Lead poisoning, habitat loss, power lines"
+        },
+        {
+          id: 8,
+          name: "African Penguin",
+          scientific: "Spheniscus demersus",
+          image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "EN",
+          category: "birds",
+          population: "41,700",
+          location: "Southern Africa",
+          description: "These charismatic penguins face threats from overfishing and oil spills.",
+          threats: "Overfishing, oil pollution, climate change"
+        },
+        {
+          id: 9,
+          name: "Hawksbill Sea Turtle",
+          scientific: "Eretmochelys imbricata",
+          image: "https://images.unsplash.com/photo-1551085254-e96b210db58a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "CR",
+          category: "reptiles",
+          population: "15,000-25,000",
+          location: "Tropical oceans worldwide",
+          description: "These beautiful turtles are critically endangered due to the illegal tortoiseshell trade.",
+          threats: "Illegal trade, habitat loss, climate change"
+        },
+        {
+          id: 10,
+          name: "Blue Whale",
+          scientific: "Balaenoptera musculus",
+          image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "EN",
+          category: "mammals",
+          population: "10,000-25,000",
+          location: "World's oceans",
+          description: "The largest animal ever to live on Earth is slowly recovering from commercial whaling.",
+          threats: "Ship strikes, climate change, ocean noise"
+        },
+        {
+          id: 11,
+          name: "Giant Panda",
+          scientific: "Ailuropoda melanoleuca",
+          image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          status: "VU",
+          category: "mammals",
+          population: "1,864",
+          location: "China",
+          description: "A conservation success story, giant pandas have been upgraded from Endangered to Vulnerable.",
+          threats: "Habitat fragmentation, climate change"
+        },
+        {
+          id: 12,
+          name: "Philippine Eagle",
+          scientific: "Pithecophaga jefferyi",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRufcSuc-elLxXdlLfRdl15UQQ1l5hB6ZFtD-p3bfakTTJwWZ40BwMh3I3AAtKR0gXDpJvfoyBVq213wkoaVwaKg8DZQ1SeZVyPzKceKHKonA&s=10",
+          status: "CR",
+          category: "birds",
+          population: "400",
+          location: "Philippines",
+          description: "One of the world's largest and most powerful eagles, endemic to the Philippines.",
+          threats: "Deforestation, hunting, mining"
+        }
+      ];
+
+      // Initialize page
+      document.addEventListener('DOMContentLoaded', function() {
+        displayAnimals(animals);
+        initializeFilters();
+        
+        // Initialize AOS
+        if (typeof AOS !== 'undefined') {
+          AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+          });
+        }
+      });
+
+      // Display animals function
+      function displayAnimals(animalsArray) {
+        const grid = document.getElementById('animalsGrid');
+        const noResults = document.getElementById('noResults');
+        
+        if (animalsArray.length === 0) {
+          grid.innerHTML = '';
+          noResults.style.display = 'block';
+          return;
+        }
+        
+        noResults.style.display = 'none';
+        grid.innerHTML = '';
+        
+        animalsArray.forEach(animal => {
+          const card = document.createElement('div');
+          card.className = 'animal-card';
+          card.dataset.id = animal.id;
+          card.dataset.status = animal.status;
+          card.dataset.category = animal.category;
+          
+          const statusText = getStatusText(animal.status);
+          const statusClass = `status-${animal.status}`;
+          
+          card.innerHTML = `
+            <div class="card-image">
+              <img src="${animal.image}" alt="${animal.name}" loading="lazy">
+              <div class="status-badge ${statusClass}">${statusText}</div>
+            </div>
+            <div class="card-content">
+              <h3>${animal.name}</h3>
+              <p class="scientific-name">${animal.scientific}</p>
+              <p class="card-description">${animal.description}</p>
+              <div class="card-stats">
+                <div class="stat">
+                  <span class="stat-value">${animal.population}</span>
+                  <span class="stat-label">Population</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">${animal.location.split(',')[0]}</span>
+                  <span class="stat-label">Location</span>
+                </div>
+              </div>
+              <button class="learn-more-btn" onclick="showAnimalDetails(${animal.id})">
+                Learn More <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          `;
+          
+          grid.appendChild(card);
+        });
+      }
+
+      // Search function
+      function searchAnimals() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = animals.filter(animal => 
+          animal.name.toLowerCase().includes(searchTerm) ||
+          animal.scientific.toLowerCase().includes(searchTerm) ||
+          animal.location.toLowerCase().includes(searchTerm) ||
+          animal.description.toLowerCase().includes(searchTerm)
+        );
+        displayAnimals(filtered);
+      }
+
+      // Filter function
+      let currentFilter = 'all';
+      
+      function filterAnimals(filter) {
+        currentFilter = filter;
+        
+        // Update active button
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        let filtered;
+        
+        if (filter === 'all') {
+          filtered = animals;
+        } else if (['CR', 'EN', 'VU'].includes(filter)) {
+          filtered = animals.filter(animal => animal.status === filter);
+        } else if (filter === 'mammals') {
+          filtered = animals.filter(animal => animal.category === 'mammals');
+        } else if (filter === 'birds') {
+          filtered = animals.filter(animal => animal.category === 'birds');
+        } else {
+          filtered = animals;
+        }
+        
+        displayAnimals(filtered);
+      }
+
+      // Initialize filters
+      function initializeFilters() {
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keyup', function(event) {
+          if (event.key === 'Enter') {
+            searchAnimals();
+          }
+        });
+      }
+
+      // Get status text
+      function getStatusText(status) {
+        const statusMap = {
+          'CR': 'Critically Endangered',
+          'EN': 'Endangered',
+          'VU': 'Vulnerable'
+        };
+        return statusMap[status] || status;
+      }
+
+      // Show animal details modal
+      function showAnimalDetails(id) {
+        const animal = animals.find(a => a.id === id);
+        if (!animal) return;
+        
+        const modal = document.getElementById('animalModal');
+        const content = document.getElementById('modalContent');
+        
+        content.innerHTML = `
+          <div style="padding: 2rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+              <div>
+                <img src="${animal.image}" alt="${animal.name}" style="width: 100%; border-radius: 15px;">
+              </div>
+              <div>
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">${animal.name}</h2>
+                <p style="color: #6b7280; margin-bottom: 1rem;">${animal.scientific}</p>
+                <div class="status-badge status-${animal.status}" style="display: inline-block; margin-bottom: 1rem;">
+                  ${getStatusText(animal.status)}
+                </div>
+                <p style="line-height: 1.6; margin-bottom: 1.5rem;">${animal.description}</p>
+              </div>
+            </div>
+            
+            <div style="background: #f9fafb; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
+              <h3 style="margin-bottom: 1rem;">Quick Facts</h3>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                <div>
+                  <strong>Population:</strong> ${animal.population}
+                </div>
+                <div>
+                  <strong>Location:</strong> ${animal.location}
+                </div>
+                <div>
+                  <strong>Category:</strong> ${animal.category.charAt(0).toUpperCase() + animal.category.slice(1)}
+                </div>
+                <div>
+                  <strong>Status:</strong> ${getStatusText(animal.status)}
+                </div>
+              </div>
+            </div>
+            
+            <div style="background: #fef2f2; padding: 1.5rem; border-radius: 15px;">
+              <h3 style="margin-bottom: 1rem; color: #dc2626;">Major Threats</h3>
+              <p>${animal.threats}</p>
+            </div>
+          </div>
+        `;
+        
+        modal.style.display = 'flex';
+      }
+
+      // Close modal
+      function closeModal() {
+        document.getElementById('animalModal').style.display = 'none';
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+        const modal = document.getElementById('animalModal');
+        if (event.target === modal) {
+          closeModal();
+        }
+      }
+    </script>
+
+    <!-- Your original scripts -->
     <script src="../../js/main.js"></script>
     <script src="../../js/global/theme-toggle.js"></script>
     <script src="../../js/components/navbar-loader.js"></script>
     <script src="../../js/pages/animal-safety/endangered-animals.js"></script>
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+    <script>
+      (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
     <script src="../../js/components/footer-loader.js"></script>
-</body>
+  </body>
 </html>
