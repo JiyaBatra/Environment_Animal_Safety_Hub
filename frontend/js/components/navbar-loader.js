@@ -36,14 +36,47 @@ async function loadNavbar() {
 
     const navbarPath = prefix + 'components/navbar.html';
 
+    // Load theme-toggle.js if not already present
+    if (!window.initThemeToggle && !document.querySelector('script[src*="theme-toggle.js"]')) {
+        const themeScript = document.createElement('script');
+        themeScript.src = prefix + 'js/global/theme-toggle.js';
+        document.head.appendChild(themeScript);
+    }
+
     try {
         const response = await fetch(navbarPath);
         if (!response.ok) throw new Error('Failed to load navbar');
         const html = await response.text();
         navbarContainer.innerHTML = html;
 
+        // Check Login State
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        navbarContainer.setAttribute('data-logged-in', isLoggedIn);
+
+        // Hide Login/Signup button if already on that page
+        if (!isLoggedIn) {
+            const currentPage = window.location.pathname.toLowerCase();
+            if (currentPage.includes('login.html')) {
+                const navLoginBtn = navbarContainer.querySelector('.btn-login');
+                if (navLoginBtn) navLoginBtn.style.display = 'none';
+            } else if (currentPage.includes('signup.html')) {
+                const navSignupBtn = navbarContainer.querySelector('.btn-signup');
+                if (navSignupBtn) navSignupBtn.style.display = 'none';
+            }
+        }
+
         // Initialize navbar core logic
-        initNavbarLogic();
+        initNavbarLogic(isLoggedIn);
+        
+        // Initialize theme toggle
+        if (typeof initThemeToggle === 'function') {
+            initThemeToggle();
+        } else {
+            // Wait for script to load if it was dynamic
+            setTimeout(() => {
+                if (typeof initThemeToggle === 'function') initThemeToggle();
+            }, 500);
+        }
         
         // Update paths for sub-pages
         updateNavbarPaths(prefix);
@@ -56,7 +89,7 @@ async function loadNavbar() {
     }
 }
 
-function initNavbarLogic() {
+function initNavbarLogic(isLoggedIn) {
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     const navbar = document.getElementById('navbar');
@@ -77,19 +110,31 @@ function initNavbarLogic() {
         }
     });
 
-    // Profile Dropdown
-    const profileMenu = document.getElementById('profileMenu');
-    const profileDropdown = document.querySelector('.profile-dropdown');
-    
-    if (profileMenu && profileDropdown) {
-        profileMenu.addEventListener('click', (e) => {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('active');
-        });
+    // Profile Dropdown & Logout
+    if (isLoggedIn) {
+        const profileMenu = document.getElementById('profileMenu');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (profileMenu && profileDropdown) {
+            profileMenu.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
+            });
 
-        document.addEventListener('click', () => {
-            profileDropdown.classList.remove('active');
-        });
+            document.addEventListener('click', () => {
+                profileDropdown.classList.remove('active');
+            });
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userName');
+                window.location.reload();
+            });
+        }
     }
 }
 

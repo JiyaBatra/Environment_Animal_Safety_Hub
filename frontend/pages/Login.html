@@ -174,8 +174,12 @@
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
           e.preventDefault();
-          // Add your login logic here
-          alert("Login functionality will be implemented with backend!");
+            // Simulate Login
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', 'Eco Warrior');
+            
+            alert("Success! Welcome back to EcoLife.");
+            window.location.href = "../index.html";
         });
     </script>
     <script>

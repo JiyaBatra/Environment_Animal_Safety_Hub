@@ -977,11 +977,17 @@
             return;
           }
 
+          // Simulate Signup
+          localStorage.setItem('isLoggedIn', 'true');
+          const firstName = document.getElementById('firstName').value || 'Eco';
+          localStorage.setItem('userName', firstName + ' Warrior');
+
           // Show success modal
           document.getElementById("successModal").classList.add("show");
-
-          // You can add your actual signup logic here
-          console.log("Form submitted successfully!");
+          
+          setTimeout(() => {
+            window.location.href = "../index.html";
+          }, 2000);
         });
 
       // Close modal on outside click

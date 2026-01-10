@@ -59,20 +59,24 @@
           <i class="fa-solid fa-moon"></i>
         </div>
 
-        <!-- Auth Buttons -->
-        <a href="pages/Login.html" class="btn-login">Login</a>
-        <a href="pages/Signup.html" class="btn-signup">Sign Up</a>
+        <!-- Auth Buttons (Hidden when logged in) -->
+        <div class="auth-guest-only">
+          <a href="pages/Login.html" class="btn-login">Login</a>
+          <a href="pages/Signup.html" class="btn-signup">Sign Up</a>
+        </div>
 
-        <!-- Profile -->
-        <div class="nav-profile">
+        <!-- Profile Section (Hidden when logged out) -->
+        <div class="nav-profile auth-user-only" style="display: none;">
           <div class="profile-menu" id="profileMenu">
-            <img src="https://i.pravatar.cc/40" class="profile-pic" alt="Profile" />
+            <div class="profile-icon">
+              <i class="fa-solid fa-user"></i>
+            </div>
             <i class="fa-solid fa-chevron-down profile-arrow"></i>
           </div>
           <ul class="profile-dropdown">
-            <li><a href="pages/profile.html">Profile</a></li>
-            <li><a href="pages/community/index.html">Community</a></li>
-            <li><a href="#" id="logoutBtn">Logout</a></li>
+            <li><a href="pages/profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a></li>
+            <li><a href="pages/community/index.html"><i class="fa-solid fa-users"></i> Community</a></li>
+            <li><a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
           </ul>
         </div>
       </li>

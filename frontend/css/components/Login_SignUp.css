@@ -1,13 +1,45 @@
 /* ===== AUTH SECTION STYLES ===== */
 
 .auth-section {
-  min-height: calc(100vh);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 80px 20px 20px; /* Aligned with navbar height */
   background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+  margin-top: 0 !important;
+  box-sizing: border-box;
 }
+
+/* Fix navbar look on auth pages */
+#navbar {
+  background: #2e7d32 !important; /* solid dark green for better visibility */
+  backdrop-filter: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Ensure links are white on the green background */
+#navbar .nav-link, 
+#navbar .logo span {
+  color: #ffffff !important;
+}
+
+#navbar .btn-login {
+  border-color: rgba(255,255,255,0.8);
+}
+
+.auth-guest-only {
+  display: flex !important;
+}
+
+#navbar-container[data-logged-in="true"] .auth-guest-only {
+  display: none !important;
+}
+
+#navbar-container[data-logged-in="true"] .auth-user-only {
+  display: flex !important;
+}
+
 
 .auth-container {
   display: flex;
