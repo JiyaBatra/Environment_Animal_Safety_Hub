@@ -32,9 +32,11 @@
     />
   
   <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/components/navbar.css" />
 </head>
 
   <body>
+  <div id="navbar-container"></div>
     
     <section class="auth-section">
       <div class="auth-container">
@@ -172,8 +174,12 @@
         .getElementById("loginForm")
         .addEventListener("submit", function (e) {
           e.preventDefault();
-          // Add your login logic here
-          alert("Login functionality will be implemented with backend!");
+            // Simulate Login
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', 'Eco Warrior');
+            
+            alert("Success! Welcome back to EcoLife.");
+            window.location.href = "../index.html";
         });
     </script>
     <script>
@@ -182,5 +188,6 @@
   <!-- Footer placeholder -->
   <div id="footer-placeholder"></div>
 <script src="../js/components/footer-loader.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
 </body>
 </html>

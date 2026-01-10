@@ -1,43 +1,62 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.createElement('button');
-    toggleButton.id = 'theme-toggle';
-    toggleButton.className = 'theme-toggle-btn';
-    toggleButton.innerHTML = '<i class="fas fa-moon"></i>'; // Default icon
-    toggleButton.setAttribute('aria-label', 'Toggle Dark Mode');
+/**
+ * Theme Toggle Logic
+ * Handles switching between light and dark modes
+ */
 
-    // Append to nav-auth (inside nav-links)
-    const navAuth = document.querySelector('.nav-auth');
-    if (navAuth) {
-        navAuth.appendChild(toggleButton);
-    } else {
-        // Fallback to nav-container if nav-auth not found
-        const navContainer = document.querySelector('.nav-container');
-        if (navContainer) {
-            navContainer.appendChild(toggleButton);
-        }
-    }
+function initThemeToggle() {
+    const themeToggle = document.getElementById("themeToggle");
+    if (!themeToggle) return;
 
     // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateIcon(savedTheme);
+    const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
 
-    toggleButton.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateIcon(newTheme);
+    // Toggle event listener
+    themeToggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        applyTheme(newTheme);
     });
+}
 
-    function updateIcon(theme) {
-        if (theme === 'dark') {
-            toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
-            toggleButton.style.color = '#ffd700'; // Yellow sun
+function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    
+    // Toggle body class for legacy support
+    if (theme === "dark") {
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
+    }
+    
+    updateThemeIcon(theme);
+}
+
+function updateThemeIcon(theme) {
+    const themeToggle = document.getElementById("themeToggle");
+    if (!themeToggle) return;
+
+    const icon = themeToggle.querySelector("i");
+    if (icon) {
+        if (theme === "dark") {
+            icon.className = "fa-solid fa-sun";
+            themeToggle.style.color = "#ffd700"; // Sun color
         } else {
-            toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
-            toggleButton.style.color = '#ffffff'; // White moon
+            icon.className = "fa-solid fa-moon";
+            themeToggle.style.color = "#ffffff"; // Moon color
         }
     }
-});
+}
+
+// Initial check (non-blocking)
+(function() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    // Note: body might not exist yet if this runs in head
+    document.addEventListener("DOMContentLoaded", () => {
+        if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+        }
+    });
+})();

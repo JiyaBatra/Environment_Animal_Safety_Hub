@@ -423,19 +423,12 @@
   </style>
 
   <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/components/navbar.css" />
 </head>
 
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar-placeholder">
-    <div class="logo">🌿 EcoLife</div>
-    <div class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="extinct-animals.html">Extinct Animals</a>
-      <a href="feeding-awareness.html" class="active">Feeding Awareness</a>
-    </div>
-  </nav>
+  <div id="navbar-container"></div>
 
   <!-- HERO -->
   <section class="hero">
@@ -542,6 +535,7 @@
     (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
   </script>
   <script src="../js/components/footer-loader.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
 </body>
 
 </html>

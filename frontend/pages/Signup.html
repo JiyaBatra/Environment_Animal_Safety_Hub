@@ -32,9 +32,11 @@
     />
   
   <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/components/navbar.css" />
 </head>
 
   <body>
+  <div id="navbar-container"></div>
     <!-- Signup Section -->
     <section class="auth-section">
       <div class="auth-container signup-stepper">
@@ -975,11 +977,17 @@
             return;
           }
 
+          // Simulate Signup
+          localStorage.setItem('isLoggedIn', 'true');
+          const firstName = document.getElementById('firstName').value || 'Eco';
+          localStorage.setItem('userName', firstName + ' Warrior');
+
           // Show success modal
           document.getElementById("successModal").classList.add("show");
-
-          // You can add your actual signup logic here
-          console.log("Form submitted successfully!");
+          
+          setTimeout(() => {
+            window.location.href = "../index.html";
+          }, 2000);
         });
 
       // Close modal on outside click
@@ -997,5 +1005,6 @@
   <!-- Footer placeholder -->
   <div id="footer-placeholder"></div>
 <script src="../js/components/footer-loader.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
 </body>
 </html>
