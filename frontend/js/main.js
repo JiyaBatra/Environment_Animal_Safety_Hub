@@ -16,54 +16,71 @@ document.addEventListener("DOMContentLoaded", function () {
   initParticles();
   initFormHandlers();
   initNavbarActiveState();
-  initScrollProgress()
+  initScrollProgress();
   initEcoChallenges();
+  initModalSystem();
+  initTestimonialSlider();
+  initLazyLoading();
+  initPreloader();
 });
 
 /* ===== NAVBAR ===== */
 function initNavbar() {
-  const navbar = document.getElementById("navbar");
-  const navToggle = document.getElementById("navToggle");
-  const navLinks = document.getElementById("navLinks");
-
-  // Scroll effect
-  window.addEventListener("scroll", function () {
-    if (window.scrollY > 50) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-  });
-
-  // Mobile toggle
-  if (navToggle) {
-    navToggle.addEventListener("click", function () {
-      navToggle.classList.toggle("active");
-      navLinks.classList.toggle("active");
-      document.body.classList.toggle("nav-open");
+  // Navbar toggler for mobile
+  const navbarToggler = document.querySelector('.navbar-toggler');
+  const navbarCollapse = document.querySelector('.navbar-collapse');
+  
+  if (navbarToggler && navbarCollapse) {
+    navbarToggler.addEventListener('click', function() {
+      navbarCollapse.classList.toggle('show');
+    });
+    
+    // Close navbar when clicking on a nav link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navbarCollapse.classList.contains('show')) {
+          navbarCollapse.classList.remove('show');
+        }
+      });
     });
   }
+}
 
-  // Close mobile nav on link click
-  const navLinkItems = document.querySelectorAll(".nav-link");
-  navLinkItems.forEach((link) => {
-    link.addEventListener("click", function () {
-      navToggle.classList.remove("active");
-      navLinks.classList.remove("active");
-      document.body.classList.remove("nav-open");
+/* ===== NAVBAR ACTIVE STATE ===== */
+function initNavbarActiveState() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  // Check if elements exist before adding event listener
+  if (sections.length === 0 || navLinks.length === 0) return;
+
+  window.addEventListener("scroll", function () {
+    let current = "";
+    const scrollY = window.pageYOffset;
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        current = section.getAttribute("id");
+      }
     });
-  });
 
-  // Close on outside click
-  document.addEventListener("click", function (e) {
-    if (!navbar.contains(e.target) && navLinks.classList.contains("active")) {
-      navToggle.classList.remove("active");
-      navLinks.classList.remove("active");
-      document.body.classList.remove("nav-open");
-    }
+    navLinks.forEach((link) => {
+      // Check if link exists before manipulating it
+      if (link) {
+        link.classList.remove("active");
+        if (current && link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      }
+    });
   });
 }
 
+/* ===== SCROLL PROGRESS ===== */
 function initScrollProgress() {
     const scrollProgress = document.getElementById('scrollProgress');
     
@@ -75,6 +92,7 @@ function initScrollProgress() {
         scrollProgress.style.width = scrolled + '%';
     });
 }
+
 /* ===== ECO CHALLENGES ===== */
 function initEcoChallenges() {
   const challengeButtons = document.querySelectorAll(".challenge-btn");
@@ -94,33 +112,6 @@ function initEcoChallenges() {
         "Great job! 🌱 Small actions create a big impact.",
         "success"
       );
-    });
-  });
-}
-
-/* ===== NAVBAR ACTIVE STATE ===== */
-function initNavbarActiveState() {
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  window.addEventListener("scroll", function () {
-    let current = "";
-    const scrollY = window.pageYOffset;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 100;
-      const sectionHeight = section.offsetHeight;
-
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        current = section.getAttribute("id");
-      }
-    });
-
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
     });
   });
 }
@@ -322,6 +313,13 @@ function initFormHandlers() {
       }
     });
   }
+  
+  // Carbon Calculator Form
+  const carbonForm = document.getElementById("carbonForm");
+  if (carbonForm) {
+    carbonForm.addEventListener("submit", handleCarbonSubmit);
+    carbonForm.addEventListener("change", updateLiveScore);
+  }
 }
 
 function handleReportSubmit(form) {
@@ -381,6 +379,90 @@ function handleNewsletterSubmit(form) {
       );
     }, 2000);
   }, 1000);
+}
+
+/* ===== CARBON CALCULATOR ===== */
+const weights = {
+  transport: { walk: 1, public: 2, bike: 3, car: 5 },
+  electricity: { low: 1, medium: 3, high: 5 },
+  plastic: { low: 1, medium: 3, high: 5 },
+};
+
+function updateLiveScore() {
+  const liveScore = document.getElementById("liveScore");
+  const progressBar = document.getElementById("carbonProgress");
+  
+  if (!liveScore || !progressBar) return;
+  
+  let score = 0;
+  let filled = 0;
+
+  ["transport", "electricity", "plastic"].forEach((id) => {
+    const val = document.getElementById(id)?.value;
+    if (val) {
+      score += weights[id][val];
+      filled++;
+    }
+  });
+
+  progressBar.style.width = `${(filled / 3) * 100}%`;
+  liveScore.textContent = filled ? score : "—";
+}
+
+function handleCarbonSubmit(e) {
+  e.preventDefault();
+
+  const transport = document.getElementById("transport").value;
+  const electricity = document.getElementById("electricity").value;
+  const plastic = document.getElementById("plastic").value;
+  
+  if (!transport || !electricity || !plastic) {
+    showNotification("Please fill all fields!", "error");
+    return;
+  }
+
+  let score =
+    weights.transport[transport] +
+    weights.electricity[electricity] +
+    weights.plastic[plastic];
+
+  const carbonResult = document.getElementById("carbonResult");
+  const carbonScoreEl = document.getElementById("carbonScore");
+  const carbonLevelEl = document.getElementById("carbonLevel");
+  const carbonTipsEl = document.getElementById("carbonTips");
+  const carbonBadge = document.getElementById("carbonBadge");
+
+  if (!carbonResult || !carbonScoreEl || !carbonLevelEl) return;
+
+  carbonScoreEl.textContent = score;
+  carbonTipsEl.innerHTML = "";
+  carbonBadge.className = "carbon-badge";
+
+  if (score <= 4) {
+    carbonLevelEl.textContent = "Excellent! You live a very eco-friendly life 🌱";
+    carbonBadge.textContent = "Low Impact";
+    carbonBadge.classList.add("low");
+    carbonTipsEl.innerHTML += `<li><i class="fa-solid fa-check"></i> Keep inspiring others!</li>`;
+  } else if (score <= 8) {
+    carbonLevelEl.textContent = "Moderate footprint. Small changes can help 🌍";
+    carbonBadge.textContent = "Medium Impact";
+    carbonBadge.classList.add("medium");
+    carbonTipsEl.innerHTML += `
+      <li><i class="fa-solid fa-leaf"></i> Use public transport more</li>
+      <li><i class="fa-solid fa-lightbulb"></i> Reduce power usage</li>`;
+  } else {
+    carbonLevelEl.textContent = "High footprint. Time to act now 🚨";
+    carbonBadge.textContent = "High Impact";
+    carbonBadge.classList.add("high");
+    carbonTipsEl.innerHTML += `
+      <li><i class="fa-solid fa-recycle"></i> Cut plastic usage</li>
+      <li><i class="fa-solid fa-bus"></i> Avoid private vehicles</li>
+      <li><i class="fa-solid fa-tree"></i> Plant trees regularly</li>`;
+  }
+
+  carbonResult.style.display = "block";
+  carbonResult.classList.add("success");
+  carbonResult.scrollIntoView({ behavior: "smooth" });
 }
 
 /* ===== NOTIFICATION SYSTEM ===== */
@@ -472,7 +554,178 @@ function removeNotification(notification) {
   setTimeout(() => notification.remove(), 300);
 }
 
-/* ===== TESTIMONIAL SLIDER (Optional Enhancement) ===== */
+/* ===== POPUP MODAL SYSTEM ===== */
+const modalContent = {
+    'animal-rescue': {
+        icon: 'fa-truck-medical',
+        title: 'Animal Rescue Services',
+        body: `
+            <p>Our rescue team works 24/7 to help injured and abandoned animals. We provide emergency medical care, rehabilitation, and shelter.</p>
+            <h4>How it works:</h4>
+            <ul>
+                <li>Report an injured animal via our helpline or app.</li>
+                <li>Our rescue van reaches the location within 30-60 mins.</li>
+                <li>Animal receives immediate first-aid and transport to shelter.</li>
+            </ul>
+            <p><strong>Emergency Helpline: +91 98765 43210</strong></p>
+        `
+    },
+    'waste-mgmt': {
+        icon: 'fa-recycle',
+        title: 'Waste Management',
+        body: `
+            <p>We help communities implement effective waste segregation and recycling systems.</p>
+            <h4>Our Initiatives:</h4>
+            <ul>
+                <li>Door-to-door dry waste collection.</li>
+                <li>Composting workshops for wet waste.</li>
+                <li>E-waste recycling drives every weekend.</li>
+            </ul>
+        `
+    },
+    'climate-action': {
+        icon: 'fa-cloud-sun',
+        title: 'Climate Action Awareness',
+        body: `
+            <p>Join our movement to combat climate change through local actions and global awareness.</p>
+            <p>We organize weekly seminars, school programs, and policy advocacy campaigns to push for greener regulations.</p>
+        `
+    },
+    'tree-plant': {
+        icon: 'fa-seedling',
+        title: 'Tree Plantation Drives',
+        body: `
+            <p>Help us turn the city green! We organize massive plantation drives every Sunday.</p>
+            <h4>Join us:</h4>
+            <ul>
+                <li><strong>When:</strong> Every Sunday, 7:00 AM</li>
+                <li><strong>Where:</strong> City Park & Outskirts</li>
+                <li><strong>Provided:</strong> Saplings, tools, and refreshments.</li>
+            </ul>
+        `
+    },
+    'adopt-pets': {
+        icon: 'fa-paw',
+        title: 'Adopt, Don\'t Shop',
+        body: `
+            <p>Give a loving home to a rescued animal. We have dogs, cats, and rabbits waiting for a family.</p>
+            <p>Process involves: Application > House Visit > Adoption. All pets are vaccinated and sterilized.</p>
+            <a href="./pages/pet-adoption.html" class="btn btn-primary" style="margin-top:10px;">View Available Pets</a>
+        `
+    },
+    'wildlife': {
+        icon: 'fa-shield-cat',
+        title: 'Wildlife Protection',
+        body: `
+            <p>We work to protect urban wildlife including birds, squirrels, and reptiles from urban hazards.</p>
+            <p>Learn how to coexist with nature and what to do if you spot wild animals in distress.</p>
+            <a href="./pages/wildlife.html" class="btn btn-primary" style="margin-top:10px;">
+                Learn More
+            </a>
+        `
+    },
+    'feeding': {
+        icon: 'fa-bowl-food',
+        title: 'Stray Feeding Program',
+        body: `
+            <p>Hunger is the biggest enemy of stray animals. Join our community feeding program.</p>
+            <h4>Guidelines:</h4>
+            <ul>
+                <li>Feed at designated spots away from traffic.</li>
+                <li>Use eco-friendly bowls or clean up afterwards.</li>
+                <li>Provide fresh water along with food.</li>
+            </ul>
+            <a href="./pages/feeding.html" class="btn btn-primary" style="margin-top:10px;">
+                Join Us!
+            </a>
+        `
+    },
+    'plastic': {
+        icon: 'fa-bottle-water',
+        title: 'Reduce Plastic Usage',
+        body: `
+            <p>Plastic takes up to 1000 years to decompose. Here are simple tips to reduce it:</p>
+            <ul>
+                <li>Carry your own cloth bag.</li>
+                <li>Use a reusable water bottle.</li>
+                <li>Say no to plastic straws and cutlery.</li>
+            </ul>
+        `
+    },
+    'energy': {
+        icon: 'fa-lightbulb',
+        title: 'Save Energy Tips',
+        body: `
+            <p>Saving energy saves money and the planet.</p>
+            <ul>
+                <li>Switch to LED bulbs.</li>
+                <li>Unplug electronics when not in use.</li>
+                <li>Use natural light during the day.</li>
+            </ul>
+        `
+    },
+    'tree-drive': {
+        icon: 'fa-tree',
+        title: 'Join Our Plantation Drive',
+        body: `
+            <p>Next Drive Details:</p>
+            <p><strong>Location:</strong> Central Park Zone B<br><strong>Date:</strong> This Sunday<br><strong>Time:</strong> 8:00 AM - 11:00 AM</p>
+            <p>Bring your friends and family!</p>
+        `
+    }
+};
+
+function initModalSystem() {
+    const modal = document.getElementById('infoModal');
+    if (!modal) return;
+    
+    const closeBtn = document.querySelector('.custom-modal-close');
+    const modalButtons = document.querySelectorAll('.open-modal-btn');
+    
+    // Open Modal
+    modalButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const contentId = this.getAttribute('data-id');
+            const content = modalContent[contentId];
+            
+            if (content) {
+                // Populate content
+                document.getElementById('modalHeader').innerHTML = `
+                    <i class="fa-solid ${content.icon}"></i>
+                    <h2>${content.title}</h2>
+                `;
+                document.getElementById('modalBody').innerHTML = content.body;
+                
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        });
+    });
+    
+    // Close functions
+    window.closeInfoModal = function() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    // Close on overlay click
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeInfoModal();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeInfoModal();
+        }
+    });
+}
+
+/* ===== TESTIMONIAL SLIDER ===== */
 function initTestimonialSlider() {
   const slider = document.querySelector(".testimonials-slider");
   if (!slider) return;
@@ -533,7 +786,7 @@ function initLazyLoading() {
   }
 }
 
-/* ===== PRELOADER (Optional) ===== */
+/* ===== PRELOADER ===== */
 function initPreloader() {
   const preloader = document.getElementById("preloader");
 
@@ -548,301 +801,7 @@ function initPreloader() {
   });
 }
 
-/* ===== UTILITY FUNCTIONS ===== */
-
-// Debounce function for scroll events
-function debounce(func, wait = 10) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
-
-// Throttle function for resize events
-function throttle(func, limit = 100) {
-  let inThrottle;
-  return function (...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
-  };
-}
-
-// Check if element is in viewport
-function isInViewport(element) {
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-/* ===== CONSOLE MESSAGE ===== */
-console.log(
-  "%c🌿 EcoLife - Protect Our Planet & Animals 🐾",
-  "font-size: 20px; font-weight: bold; color: #2e7d32; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);"
-);
-console.log(
-  "%cBuilt with ❤️ for a greener future",
-  "font-size: 14px; color: #666;"
-);
-
-
-/* ===== POPUP MODAL LOGIC ===== */
-
-// Data for all popups
-const modalContent = {
-    'animal-rescue': {
-        icon: 'fa-truck-medical',
-        title: 'Animal Rescue Services',
-        body: `
-            <p>Our rescue team works 24/7 to help injured and abandoned animals. We provide emergency medical care, rehabilitation, and shelter.</p>
-            <h4>How it works:</h4>
-            <ul>
-                <li>Report an injured animal via our helpline or app.</li>
-                <li>Our rescue van reaches the location within 30-60 mins.</li>
-                <li>Animal receives immediate first-aid and transport to shelter.</li>
-            </ul>
-            <p><strong>Emergency Helpline: +91 98765 43210</strong></p>
-        `
-    },
-    'waste-mgmt': {
-        icon: 'fa-recycle',
-        title: 'Waste Management',
-        body: `
-            <p>We help communities implement effective waste segregation and recycling systems.</p>
-            <h4>Our Initiatives:</h4>
-            <ul>
-                <li>Door-to-door dry waste collection.</li>
-                <li>Composting workshops for wet waste.</li>
-                <li>E-waste recycling drives every weekend.</li>
-            </ul>
-        `
-    },
-    'climate-action': {
-        icon: 'fa-cloud-sun',
-        title: 'Climate Action Awareness',
-        body: `
-            <p>Join our movement to combat climate change through local actions and global awareness.</p>
-            <p>We organize weekly seminars, school programs, and policy advocacy campaigns to push for greener regulations.</p>
-        `
-    },
-    'tree-plant': {
-        icon: 'fa-seedling',
-        title: 'Tree Plantation Drives',
-        body: `
-            <p>Help us turn the city green! We organize massive plantation drives every Sunday.</p>
-            <h4>Join us:</h4>
-            <ul>
-                <li><strong>When:</strong> Every Sunday, 7:00 AM</li>
-                <li><strong>Where:</strong> City Park & Outskirts</li>
-                <li><strong>Provided:</strong> Saplings, tools, and refreshments.</li>
-            </ul>
-        `
-    },
-    'adopt-pets': {
-        icon: 'fa-paw',
-        title: 'Adopt, Don\'t Shop',
-        body: `
-            <p>Give a loving home to a rescued animal. We have dogs, cats, and rabbits waiting for a family.</p>
-            <p>Process involves: Application > House Visit > Adoption. All pets are vaccinated and sterilized.</p>
-            <a href="./pages/pet-adoption.html" class="btn btn-primary" style="margin-top:10px;">View Available Pets</a>
-        `
-    },
-    'wildlife': {
-  icon: 'fa-shield-cat',
-  title: 'Wildlife Protection',
-  body: `
-    <p>We work to protect urban wildlife including birds, squirrels, and reptiles from urban hazards.</p>
-    <p>Learn how to coexist with nature and what to do if you spot wild animals in distress.</p>
-    <a href="./pages/wildlife.html" class="btn btn-primary" style="margin-top:10px;">
-      Learn More
-    </a>
-  `
-}
-,
-    'feeding': {
-        icon: 'fa-bowl-food',
-        title: 'Stray Feeding Program',
-        body: `
-            <p>Hunger is the biggest enemy of stray animals. Join our community feeding program.</p>
-            <h4>Guidelines:</h4>
-            <ul>
-                <li>Feed at designated spots away from traffic.</li>
-                <li>Use eco-friendly bowls or clean up afterwards.</li>
-                <li>Provide fresh water along with food.</li>
-            </ul>
-            <a href="./pages/feeding.html" class="btn btn-primary" style="margin-top:10px;">
-      Join Us!
-    </a>
-        `
-    },
-    'plastic': {
-        icon: 'fa-bottle-water',
-        title: 'Reduce Plastic Usage',
-        body: `
-            <p>Plastic takes up to 1000 years to decompose. Here are simple tips to reduce it:</p>
-            <ul>
-                <li>Carry your own cloth bag.</li>
-                <li>Use a reusable water bottle.</li>
-                <li>Say no to plastic straws and cutlery.</li>
-            </ul>
-        `
-    },
-    'energy': {
-        icon: 'fa-lightbulb',
-        title: 'Save Energy Tips',
-        body: `
-            <p>Saving energy saves money and the planet.</p>
-            <ul>
-                <li>Switch to LED bulbs.</li>
-                <li>Unplug electronics when not in use.</li>
-                <li>Use natural light during the day.</li>
-            </ul>
-        `
-    },
-    'tree-drive': {
-        icon: 'fa-tree',
-        title: 'Join Our Plantation Drive',
-        body: `
-            <p>Next Drive Details:</p>
-            <p><strong>Location:</strong> Central Park Zone B<br><strong>Date:</strong> This Sunday<br><strong>Time:</strong> 8:00 AM - 11:00 AM</p>
-            <p>Bring your friends and family!</p>
-        `
-    }
-};
-
-// Initialize Modal System
-function initModalSystem() {
-    const modal = document.getElementById('infoModal');
-    const closeBtn = document.querySelector('.custom-modal-close');
-    const modalButtons = document.querySelectorAll('.open-modal-btn');
-    
-    // Open Modal
-    modalButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const contentId = this.getAttribute('data-id');
-            const content = modalContent[contentId];
-            
-            if (content) {
-                // Populate content
-                document.getElementById('modalHeader').innerHTML = `
-                    <i class="fa-solid ${content.icon}"></i>
-                    <h2>${content.title}</h2>
-                `;
-                document.getElementById('modalBody').innerHTML = content.body;
-                
-                // Show modal
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
-            }
-        });
-    });
-    
-    // Close functions
-    window.closeInfoModal = function() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    // Close on overlay click
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeInfoModal();
-        }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeInfoModal();
-        }
-    });
-}
-
-// Call this function when DOM loads
-document.addEventListener("DOMContentLoaded", function () {
-    // ... existing init calls ...
-    initModalSystem(); // Add this line
-});
-
-document.getElementById("carbonForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  let score = 0;
-  const tips = [];
-
-  const transport = document.getElementById("transport").value;
-  const electricity = document.getElementById("electricity").value;
-  const plastic = document.getElementById("plastic").value;
-
-  // Transport score
-  if (transport === "walk") score += 5;
-  else if (transport === "public") score += 15;
-  else if (transport === "bike") score += 25;
-  else if (transport === "car") {
-    score += 40;
-    tips.push("Use public transport or carpool whenever possible.");
-  }
-
-  // Electricity score
-  if (electricity === "low") score += 10;
-  else if (electricity === "medium") {
-    score += 25;
-    tips.push("Switch to LED bulbs and turn off unused appliances.");
-  } else if (electricity === "high") {
-    score += 40;
-    tips.push("Reduce AC usage and use energy-efficient appliances.");
-  }
-
-  // Plastic score
-  if (plastic === "low") score += 10;
-  else if (plastic === "medium") {
-    score += 20;
-    tips.push("Carry a cloth bag and avoid plastic packaging.");
-  } else if (plastic === "high") {
-    score += 35;
-    tips.push("Replace single-use plastics with reusable alternatives.");
-  }
-
-  // Result level
-  let level = "";
-  if (score <= 40) level = "🌱 Low Footprint – Great job!";
-  else if (score <= 80) level = "🌿 Medium Footprint – You can improve!";
-  else level = "🔥 High Footprint – Time to take action!";
-
-  // Display result
-  const resultDiv = document.getElementById("carbonResult");
-  document.getElementById("carbonScore").innerText = score;
-  document.getElementById("carbonLevel").innerText = level;
-
-  const tipsList = document.getElementById("carbonTips");
-  tipsList.innerHTML = "";
-  tips.forEach(tip => {
-    const li = document.createElement("li");
-    li.innerHTML = `<i class="fa-solid fa-lightbulb"></i> ${tip}`;
-    tipsList.appendChild(li);
-  });
-
-  resultDiv.style.display = "block";
-  resultDiv.classList.add("success");
-
-  // Scroll to result
-  resultDiv.scrollIntoView({ behavior: "smooth", block: "center" });
-});
-
-
+/* ===== GLOSSARY SYSTEM ===== */
 const glossaryData = [
   {
     term: "Biodiversity",
@@ -1038,41 +997,42 @@ const glossaryData = [
   }
 ];
 
+function initGlossary() {
+  const glossaryList = document.getElementById("glossaryList");
+  const searchInput = document.getElementById("glossarySearch");
+  
+  if (!glossaryList || !searchInput) return;
+  
+  function renderGlossary(filter = "") {
+    glossaryList.innerHTML = "";
 
-const glossaryList = document.getElementById("glossaryList");
-const searchInput = document.getElementById("glossarySearch");
+    glossaryData
+      .filter(item =>
+        item.term.toLowerCase().startsWith(filter.toLowerCase()) ||
+        item.term.toLowerCase().includes(filter.toLowerCase())
+      )
+      .sort((a, b) => a.term.localeCompare(b.term))
+      .forEach(item => {
+        const div = document.createElement("div");
+        div.className = "glossary-item";
+        div.innerHTML = `
+          <h4>${item.term}</h4>
+          <p>${item.definition}</p>
+        `;
+        glossaryList.appendChild(div);
+      });
+  }
 
-function renderGlossary(filter = "") {
-  glossaryList.innerHTML = "";
+  // Initial render
+  renderGlossary();
 
-  glossaryData
-    .filter(item =>
-      item.term.toLowerCase().startsWith(filter.toLowerCase()) ||
-      item.term.toLowerCase().includes(filter.toLowerCase())
-    )
-    .sort((a, b) => a.term.localeCompare(b.term))
-    .forEach(item => {
-      const div = document.createElement("div");
-      div.className = "glossary-item";
-      div.innerHTML = `
-        <h4>${item.term}</h4>
-        <p>${item.definition}</p>
-      `;
-      glossaryList.appendChild(div);
-    });
+  // Live search
+  searchInput.addEventListener("input", e => {
+    renderGlossary(e.target.value);
+  });
 }
 
-// Initial render
-renderGlossary();
-
-// Live search
-searchInput.addEventListener("input", e => {
-  renderGlossary(e.target.value);
-});
-function toggleCard(card) {
-  card.classList.toggle("flipped");
-}
-
+/* ===== ECO FACTS CAROUSEL ===== */
 const ecoFacts = [
   {
     text: "Elephants can recognize themselves in mirrors, showing high intelligence.",
@@ -1095,7 +1055,7 @@ const ecoFacts = [
     icon: "🧴"
   },
   {
-    text: "Bees are responsible for pollinating nearly 75% of the world’s crops.",
+    text: "Bees are responsible for pollinating nearly 75% of the world's crops.",
     category: "Animal Fact",
     icon: "🐝"
   },
@@ -1106,225 +1066,185 @@ const ecoFacts = [
   }
 ];
 
-let factIndex = 0;
+function initEcoFacts() {
+  const ecoFactText = document.getElementById("ecoFactText");
+  const factCategory = document.getElementById("factCategory");
+  const factIcon = document.getElementById("factIcon");
+  
+  if (!ecoFactText || !factCategory || !factIcon) return;
+  
+  let factIndex = 0;
 
-function showEcoFact() {
-  const fact = ecoFacts[factIndex];
-  document.getElementById("ecoFactText").innerText = fact.text;
-  document.getElementById("factCategory").innerText = fact.category;
-  document.getElementById("factIcon").innerText = fact.icon;
+  function showEcoFact() {
+    const fact = ecoFacts[factIndex];
+    ecoFactText.innerText = fact.text;
+    factCategory.innerText = fact.category;
+    factIcon.innerText = fact.icon;
 
-  factIndex = (factIndex + 1) % ecoFacts.length;
+    factIndex = (factIndex + 1) % ecoFacts.length;
+  }
+
+  // Initial call
+  showEcoFact();
+
+  // Change fact every 5 seconds
+  setInterval(showEcoFact, 5000);
 }
 
-// Initial call
-showEcoFact();
+/* ===== GARDEN SIMULATION ===== */
+function initGardenSimulation() {
+  const plants = document.querySelectorAll(".plant");
+  const garden = document.getElementById("garden-plot");
+  const oxygenFill = document.getElementById("oxygen-fill");
+  
+  if (!plants.length || !garden || !oxygenFill) return;
+  
+  let oxygen = 0;
 
-// Change fact every 5 seconds
-setInterval(showEcoFact, 5000);
-
-const plants = document.querySelectorAll(".plant");
-const garden = document.getElementById("garden-plot");
-const oxygenFill = document.getElementById("oxygen-fill");
-
-let oxygen = 0;
-
-plants.forEach(plant => {
-  plant.addEventListener("dragstart", e => {
-    e.dataTransfer.setData("plant", plant.outerHTML);
-    e.dataTransfer.setData("oxygen", plant.dataset.oxygen);
+  plants.forEach(plant => {
+    plant.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("plant", plant.outerHTML);
+      e.dataTransfer.setData("oxygen", plant.dataset.oxygen);
+    });
   });
-});
 
-garden.addEventListener("dragover", e => e.preventDefault());
+  garden.addEventListener("dragover", e => e.preventDefault());
 
-garden.addEventListener("drop", e => {
-  e.preventDefault();
+  garden.addEventListener("drop", e => {
+    e.preventDefault();
 
-  const plantHTML = e.dataTransfer.getData("plant");
-  const oxygenValue = parseInt(e.dataTransfer.getData("oxygen"));
+    const plantHTML = e.dataTransfer.getData("plant");
+    const oxygenValue = parseInt(e.dataTransfer.getData("oxygen"));
 
-  const placeholder = garden.querySelector("p");
-  if (placeholder) placeholder.remove();
+    const placeholder = garden.querySelector("p");
+    if (placeholder) placeholder.remove();
 
-  garden.innerHTML += plantHTML;
+    garden.innerHTML += plantHTML;
 
-  oxygen += oxygenValue;
-  if (oxygen > 100) oxygen = 100;
+    oxygen += oxygenValue;
+    if (oxygen > 100) oxygen = 100;
 
-  oxygenFill.style.width = oxygen + "%";
-  oxygenFill.textContent = oxygen + "%";
-});
-
-const buttons = document.querySelectorAll(".sim-btn");
-
-const impacts = {
-  plastic: { animals: 80, water: 70, air: 60 },
-  trees: { animals: 90, water: 60, air: 50 }
-};
-
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const impactType = btn.dataset.impact;
-    document.getElementById("animals-bar").style.width = impacts[impactType].animals + "%";
-    document.getElementById("water-bar").style.width = impacts[impactType].water + "%";
-    document.getElementById("air-bar").style.width = impacts[impactType].air + "%";
+    oxygenFill.style.width = oxygen + "%";
+    oxygenFill.textContent = oxygen + "%";
   });
-});
+}
 
+/* ===== IMPACT SIMULATION ===== */
+function initImpactSimulation() {
+  const buttons = document.querySelectorAll(".sim-btn");
+  
+  if (!buttons.length) return;
+  
+  const impacts = {
+    plastic: { animals: 80, water: 70, air: 60 },
+    trees: { animals: 90, water: 60, air: 50 }
+  };
 
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const impactType = btn.dataset.impact;
+      document.getElementById("animals-bar").style.width = impacts[impactType].animals + "%";
+      document.getElementById("water-bar").style.width = impacts[impactType].water + "%";
+      document.getElementById("air-bar").style.width = impacts[impactType].air + "%";
+    });
+  });
+}
 
-const carbonForm = document.getElementById("carbonForm");
-const carbonResult = document.getElementById("carbonResult");
-const carbonScoreEl = document.getElementById("carbonScore");
-const carbonLevelEl = document.getElementById("carbonLevel");
-const carbonTipsEl = document.getElementById("carbonTips");
-const carbonBadge = document.getElementById("carbonBadge");
-const liveScore = document.getElementById("liveScore");
-const progressBar = document.getElementById("carbonProgress");
+/* ===== TIMELINE REVEAL ===== */
+function initTimeline() {
+  const timelineItems = document.querySelectorAll(".timeline-item");
+  
+  if (!timelineItems.length) return;
+  
+  function revealTimeline() {
+    timelineItems.forEach(item => {
+      const itemTop = item.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
 
-const weights = {
-  transport: { walk: 1, public: 2, bike: 3, car: 5 },
-  electricity: { low: 1, medium: 3, high: 5 },
-  plastic: { low: 1, medium: 3, high: 5 },
-};
+      if (itemTop < windowHeight - 100) {
+        item.classList.add("show");
+      }
+    });
+  }
 
-function updateLiveScore() {
-  let score = 0;
-  let filled = 0;
+  window.addEventListener("scroll", revealTimeline);
+  revealTimeline(); // Initial check
+}
 
-  ["transport", "electricity", "plastic"].forEach((id) => {
-    const val = document.getElementById(id).value;
-    if (val) {
-      score += weights[id][val];
-      filled++;
+/* ===== FUTURE VISUALIZATION ===== */
+function initFutureVisualization() {
+  const futureDisplay = document.getElementById("futureDisplay");
+  
+  if (!futureDisplay) return;
+  
+  window.showFuture = function(year) {
+    if (year === "present") {
+      futureDisplay.innerHTML = `
+        🌍
+        <h3>Earth Today</h3>
+        <p>Nature is still healing. Our actions matter.</p>`;
+      futureDisplay.style.background = "#c8e6c9";
     }
-  });
 
-  progressBar.style.width = `${(filled / 3) * 100}%`;
-  liveScore.textContent = filled ? score : "—";
-}
-
-carbonForm.addEventListener("change", updateLiveScore);
-
-carbonForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  let score =
-    weights.transport[transport.value] +
-    weights.electricity[electricity.value] +
-    weights.plastic[plastic.value];
-
-  carbonScoreEl.textContent = score;
-
-  carbonTipsEl.innerHTML = "";
-  carbonBadge.className = "carbon-badge";
-
-  if (score <= 4) {
-    carbonLevelEl.textContent = "Excellent! You live a very eco-friendly life 🌱";
-    carbonBadge.textContent = "Low Impact";
-    carbonBadge.classList.add("low");
-    carbonTipsEl.innerHTML += `<li><i class="fa-solid fa-check"></i> Keep inspiring others!</li>`;
-  } else if (score <= 8) {
-    carbonLevelEl.textContent = "Moderate footprint. Small changes can help 🌍";
-    carbonBadge.textContent = "Medium Impact";
-    carbonBadge.classList.add("medium");
-    carbonTipsEl.innerHTML += `
-      <li><i class="fa-solid fa-leaf"></i> Use public transport more</li>
-      <li><i class="fa-solid fa-lightbulb"></i> Reduce power usage</li>`;
-  } else {
-    carbonLevelEl.textContent = "High footprint. Time to act now 🚨";
-    carbonBadge.textContent = "High Impact";
-    carbonBadge.classList.add("high");
-    carbonTipsEl.innerHTML += `
-      <li><i class="fa-solid fa-recycle"></i> Cut plastic usage</li>
-      <li><i class="fa-solid fa-bus"></i> Avoid private vehicles</li>
-      <li><i class="fa-solid fa-tree"></i> Plant trees regularly</li>`;
-  }
-
-  carbonResult.classList.add("success");
-  carbonResult.scrollIntoView({ behavior: "smooth" });
-});
-const timelineItems = document.querySelectorAll(".timeline-item");
-
-function revealTimeline() {
-  timelineItems.forEach(item => {
-    const itemTop = item.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
-
-    if (itemTop < windowHeight - 100) {
-      item.classList.add("show");
+    if (year === "2050") {
+      futureDisplay.innerHTML = `
+        🌎
+        <h3>Earth in 2050</h3>
+        <p>Less trees 🌳, hotter climate 🌡️, rising seas 🌊</p>`;
+      futureDisplay.style.background = "#fff3cd";
     }
-  });
-}
 
-window.addEventListener("scroll", revealTimeline);
-
-// Initial check
-revealTimeline();
-
-
-
-function showFuture(year) {
-  const box = document.getElementById("futureDisplay");
-
-  if (year === "present") {
-    box.innerHTML = `
-      🌍
-      <h3>Earth Today</h3>
-      <p>Nature is still healing. Our actions matter.</p>`;
-    box.style.background = "#c8e6c9";
-  }
-
-  if (year === "2050") {
-    box.innerHTML = `
-      🌎
-      <h3>Earth in 2050</h3>
-      <p>Less trees 🌳, hotter climate 🌡️, rising seas 🌊</p>`;
-    box.style.background = "#fff3cd";
-  }
-
-  if (year === "2100") {
-    box.innerHTML = `
-      🌑
-      <h3>Earth in 2100</h3>
-      <p>Extreme heat ☠️, wildlife loss 🐾, water scarcity 💧</p>`;
-    box.style.background = "#f8d7da";
+    if (year === "2100") {
+      futureDisplay.innerHTML = `
+        🌑
+        <h3>Earth in 2100</h3>
+        <p>Extreme heat ☠️, wildlife loss 🐾, water scarcity 💧</p>`;
+      futureDisplay.style.background = "#f8d7da";
+    }
   }
 }
 
+/* ===== SURVIVAL SCORE ===== */
+function initSurvivalScore() {
+  const finalScore = document.getElementById("finalScore");
+  
+  if (!finalScore) return;
+  
+  window.updateSurvivalScore = function(air, water, bio) {
+    const airBar = document.getElementById("airBar");
+    const waterBar = document.getElementById("waterBar");
+    const bioBar = document.getElementById("bioBar");
+    const scoreMessage = document.getElementById("scoreMessage");
+    
+    if (!airBar || !waterBar || !bioBar || !scoreMessage) return;
+    
+    airBar.style.width = air + "%";
+    airBar.textContent = air + "%";
 
+    waterBar.style.width = water + "%";
+    waterBar.textContent = water + "%";
 
-function updateSurvivalScore(air, water, bio) {
-  document.getElementById("airBar").style.width = air + "%";
-  document.getElementById("airBar").textContent = air + "%";
+    bioBar.style.width = bio + "%";
+    bioBar.textContent = bio + "%";
 
-  document.getElementById("waterBar").style.width = water + "%";
-  document.getElementById("waterBar").textContent = water + "%";
+    const survival = Math.round((air + water + bio) / 3);
+    finalScore.textContent = "Survival Score: " + survival + "%";
 
-  document.getElementById("bioBar").style.width = bio + "%";
-  document.getElementById("bioBar").textContent = bio + "%";
-
-  const survival = Math.round((air + water + bio) / 3);
-  document.getElementById("finalScore").textContent =
-    "Survival Score: " + survival + "%";
-
-  const msg = document.getElementById("scoreMessage");
-
-  if (survival >= 75) {
-    msg.textContent = "🌱 Earth is thriving! Life is safe.";
-  } else if (survival >= 40) {
-    msg.textContent = "⚠️ Earth is struggling. Action needed!";
-  } else {
-    msg.textContent = "☠️ Earth is in danger. Immediate action required!";
+    if (survival >= 75) {
+      scoreMessage.textContent = "🌱 Earth is thriving! Life is safe.";
+    } else if (survival >= 40) {
+      scoreMessage.textContent = "⚠️ Earth is struggling. Action needed!";
+    } else {
+      scoreMessage.textContent = "☠️ Earth is in danger. Immediate action required!";
+    }
   }
 }
 
-/* Example values – connect with your game */
-updateSurvivalScore(70, 55, 65);
-
-
-const toggle = document.getElementById("themeToggle");
+/* ===== THEME TOGGLE ===== */
+function initThemeToggle() {
+  const toggle = document.getElementById("themeToggle");
+  if (!toggle) return;
+  
   const icon = toggle.querySelector("i");
 
   // Load saved theme
@@ -1342,8 +1262,12 @@ const toggle = document.getElementById("themeToggle");
 
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
+}
 
+/* ===== SCROLL BOTTOM BUTTON ===== */
+function initScrollBottomButton() {
   const scrollBtn = document.getElementById("scrollBottomBtn");
+  if (!scrollBtn) return;
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
@@ -1359,49 +1283,56 @@ const toggle = document.getElementById("themeToggle");
       behavior: "smooth"
     });
   });
+}
 
- 
-
-function updateEarth(score) {
+/* ===== EARTH VISUALIZATION ===== */
+function initEarthVisualization() {
   const earth = document.getElementById("earth");
-  const text = document.getElementById("earthText");
-  const sun = document.querySelector(".sun-rays");
-  const rain = document.querySelector(".rain");
-  const birds = document.getElementById("birdsSound");
-  const heart = document.getElementById("heartSound");
+  if (!earth) return;
+  
+  window.updateEarth = function(score) {
+    const earthText = document.getElementById("earthText");
+    const sun = document.querySelector(".sun-rays");
+    const rain = document.querySelector(".rain");
+    const birds = document.getElementById("birdsSound");
+    const heart = document.getElementById("heartSound");
 
-  earth.className = "earth";
-  sun.style.opacity = 0;
-  rain.style.opacity = 0;
+    earth.className = "earth";
+    if (sun) sun.style.opacity = 0;
+    if (rain) rain.style.opacity = 0;
 
-  birds.pause();
-  heart.pause();
-  birds.currentTime = 0;
-  heart.currentTime = 0;
+    if (birds) {
+      birds.pause();
+      birds.currentTime = 0;
+    }
+    if (heart) {
+      heart.pause();
+      heart.currentTime = 0;
+    }
 
-  if (score >= 60) {
-    earth.classList.add("happy");
-    sun.style.opacity = 1;
-    birds.play();
-    text.innerText = "Earth is happy and thriving 🌱";
-  }
-  else if (score >= 20) {
-    earth.classList.add("sad");
-    rain.style.opacity = 1;
-    text.innerText = "Earth is sad... needs care 💧";
-  }
-  else {
-    earth.classList.add("critical");
-    rain.style.opacity = 1;
-    heart.play();
-    text.innerText = "Earth is critical! Act now 🚨";
+    if (score >= 60) {
+      earth.classList.add("happy");
+      if (sun) sun.style.opacity = 1;
+      if (birds) birds.play();
+      if (earthText) earthText.innerText = "Earth is happy and thriving 🌱";
+    }
+    else if (score >= 20) {
+      earth.classList.add("sad");
+      if (rain) rain.style.opacity = 1;
+      if (earthText) earthText.innerText = "Earth is sad... needs care 💧";
+    }
+    else {
+      earth.classList.add("critical");
+      if (rain) rain.style.opacity = 1;
+      if (heart) heart.play();
+      if (earthText) earthText.innerText = "Earth is critical! Act now 🚨";
+    }
   }
 }
 
-/* Example auto-call */
-updateEarth(75);
-
-// Learn More toggle
+/* ===== WILDLIFE FILTER ===== */
+function initWildlifeFilter() {
+  // Learn More toggle
   document.querySelectorAll(".learn-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const info = btn.previousElementSibling;
@@ -1415,6 +1346,8 @@ updateEarth(75);
   // Filter system
   const filterBtns = document.querySelectorAll(".filter-btn");
   const cards = document.querySelectorAll(".wildlife-card");
+
+  if (!filterBtns.length || !cards.length) return;
 
   filterBtns.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -1432,13 +1365,81 @@ updateEarth(75);
       });
     });
   });
+}
 
+/* ===== FLIP CARD ===== */
+function initFlipCards() {
+  const flipCards = document.querySelectorAll(".flip-card");
   
+  flipCards.forEach(card => {
+    card.addEventListener("click", function() {
+      this.classList.toggle("flipped");
+    });
+  });
+}
 
+/* ===== ADDITIONAL INITIALIZATIONS ===== */
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize additional components
+  initGlossary();
+  initEcoFacts();
+  initGardenSimulation();
+  initImpactSimulation();
+  initTimeline();
+  initFutureVisualization();
+  initSurvivalScore();
+  initThemeToggle();
+  initScrollBottomButton();
+  initEarthVisualization();
+  initWildlifeFilter();
+  initFlipCards();
+});
 
+/* ===== UTILITY FUNCTIONS ===== */
 
+// Debounce function for scroll events
+function debounce(func, wait = 10) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
 
+// Throttle function for resize events
+function throttle(func, limit = 100) {
+  let inThrottle;
+  return function (...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
 
+// Check if element is in viewport
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
 
-
-  
+/* ===== CONSOLE MESSAGE ===== */
+console.log(
+  "%c🌿 EcoLife - Protect Our Planet & Animals 🐾",
+  "font-size: 20px; font-weight: bold; color: #2e7d32; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);"
+);
+console.log(
+  "%cBuilt with ❤️ for a greener future",
+  "font-size: 14px; color: #666;"
+);
