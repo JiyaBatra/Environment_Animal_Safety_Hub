@@ -2,355 +2,180 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Animal Feeding | EcoLife</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Animal Feeding | EcoLife</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/envirnoment-logo.png">
 
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/pages/feeding.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/components/navbar.css" />
-    <link rel="stylesheet" href="../css/global/variables.css" />
-   
-    <link rel="stylesheet" href="../css/components/Login_SignUp.css" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/pages/feeding.css">
+  <link rel="stylesheet" href="../css/global/variables.css" />
+  <link rel="stylesheet" href="../css/components/navbar.css" />
+ 
+  <link rel="stylesheet" href="../css/components/footer.css" />
 </head>
 
 <body>
 
-    <div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
+  <div class="bg-fixed"></div>
+  <div class="bg-overlay"></div>
 
-    <div id="navbar-container"></div>
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-    </button>
+  <div id="navbar-container"></div>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="overlay">
-            <div class="hero-content">
-                <span class="badge">🍽️ FEEDING GUIDE</span>
-                <h1>Nourish with Care</h1>
-                <p>Learn the right way to feed animals. Proper nutrition saves lives and maintains ecological balance.
-                </p>
-            </div>
-        </div>
-    </header>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+  </button>
 
-    <div class="container">
-        <!-- Feeding Schedule -->
-        <section class="section">
-            <h2 class="section-title" data-aos="fade-up">Daily Feeding Schedule</h2>
-            <div class="schedule-grid">
-                <div class="schedule-card" data-aos="zoom-in">
-                    <span class="time-badge">🌅 Morning (6-8 AM)</span>
-                    <h3>Breakfast Time</h3>
-                    <p>Best time for birds and small mammals</p>
-                    <ul>
-                        <li>Fresh water is essential</li>
-                        <li>Grains for birds</li>
-                        <li>Fruits for squirrels</li>
-                        <li>Clean feeding areas</li>
-                    </ul>
-                </div>
-                <div class="schedule-card" data-aos="zoom-in" data-aos-delay="100">
-                    <span class="time-badge">☀️ Afternoon (12-2 PM)</span>
-                    <h3>Light Snacks</h3>
-                    <p>For animals active during day</p>
-                    <ul>
-                        <li>Shallow water bowls</li>
-                        <li>Vegetables for rabbits</li>
-                        <li>Bird seeds refill</li>
-                        <li>Check water purity</li>
-                    </ul>
-                </div>
-                <div class="schedule-card" data-aos="zoom-in" data-aos-delay="200">
-                    <span class="time-badge">🌆 Evening (5-7 PM)</span>
-                    <h3>Main Meal</h3>
-                    <p>Most important feeding time</p>
-                    <ul>
-                        <li>Complete nutrition</li>
-                        <li>Protein sources</li>
-                        <li>Fresh water refill</li>
-                        <li>Clean feeding stations</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Food Guidelines -->
-        <section class="section">
-            <div class="guidelines" data-aos="fade-up">
-                <h2 class="section-title">Safe Feeding Guidelines</h2>
-                <div class="guideline-list">
-                    <div class="guideline-item" data-aos="fade-right">
-                        <h4><i class="fas fa-check-circle"></i> What to Feed</h4>
-                        <p>Natural foods like grains, fruits, vegetables. Species-specific commercial food when
-                            available.</p>
-                    </div>
-                    <div class="guideline-item" data-aos="fade-right" data-aos-delay="100">
-                        <h4><i class="fas fa-ban"></i> What to Avoid</h4>
-                        <p>No processed human food, chocolate, salty snacks, or bread (causes malnutrition).</p>
-                    </div>
-                    <div class="guideline-item" data-aos="fade-right" data-aos-delay="200">
-                        <h4><i class="fas fa-tint"></i> Water Matters</h4>
-                        <p>Always provide clean, fresh water. Change daily to prevent contamination.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feeding Calculator -->
-        <section class="section">
-            <div class="calculator" data-aos="fade-up">
-                <h2 class="section-title">Feeding Calculator</h2>
-                <p style="text-align: center; color: var(--text-light); margin-bottom: 20px;">Calculate the right amount
-                    of food based on animal type and size</p>
-
-                <form class="calculator-form" id="feedingCalculator">
-                    <div class="form-group">
-                        <label for="animalType">Animal Type</label>
-                        <select id="animalType" required>
-                            <option value="">Select animal type</option>
-                            <option value="bird">Birds (Small)</option>
-                            <option value="squirrel">Squirrels</option>
-                            <option value="rabbit">Rabbits</option>
-                            <option value="cat">Stray Cats</option>
-                            <option value="dog">Stray Dogs</option>
-                            <option value="deer">Deer</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="animalSize">Size/Weight</label>
-                        <select id="animalSize" required>
-                            <option value="">Select size</option>
-                            <option value="small">Small (under 1kg)</option>
-                            <option value="medium">Medium (1-10kg)</option>
-                            <option value="large">Large (10-25kg)</option>
-                            <option value="xlarge">Extra Large (25kg+)</option>
-                        </select>
-                    </div>
-
-                    <button type="button" class="calculate-btn" id="calculateBtn">Calculate Feeding Amount</button>
-                </form>
-
-                <div class="result-box" id="resultBox">
-                    <h3 style="color: var(--primary); margin-bottom: 15px;">Recommended Feeding</h3>
-                    <div id="resultContent"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Animal-Specific Foods -->
-        <section class="section">
-            <h2 class="section-title" data-aos="fade-up">Animal-Specific Foods</h2>
-            <div class="animal-grid">
-                <div class="animal-card" data-aos="zoom-in">
-                    <div class="animal-icon">🐦</div>
-                    <h3>Birds</h3>
-                    <p>Small beaks need small seeds</p>
-                    <ul class="food-list">
-                        <li>Sunflower seeds</li>
-                        <li>Millet grains</li>
-                        <li>Chopped fruits</li>
-                        <li>Clean water daily</li>
-                    </ul>
-                </div>
-                <div class="animal-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="animal-icon">🐿️</div>
-                    <h3>Squirrels</h3>
-                    <p>Love nuts and fruits</p>
-                    <ul class="food-list">
-                        <li>Walnuts & almonds</li>
-                        <li>Apple pieces</li>
-                        <li>Carrot slices</li>
-                        <li>Corn kernels</li>
-                    </ul>
-                </div>
-                <div class="animal-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="animal-icon">🐕</div>
-                    <h3>Stray Dogs</h3>
-                    <p>Proper nutrition is vital</p>
-                    <ul class="food-list">
-                        <li>Boiled rice & chicken</li>
-                        <li>Dog food if available</li>
-                        <li>Eggs (boiled)</li>
-                        <li>Plenty of water</li>
-                    </ul>
-                </div>
-                <div class="animal-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="animal-icon">🐈</div>
-                    <h3>Stray Cats</h3>
-                    <p>Carnivores need protein</p>
-                    <ul class="food-list">
-                        <li>Fish (cooked)</li>
-                        <li>Chicken pieces</li>
-                        <li>Cat food preferred</li>
-                        <li>Fresh water always</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feeding Tips -->
-        <section class="section">
-            <h2 class="section-title" data-aos="fade-up">Smart Feeding Tips</h2>
-            <div class="tips-grid">
-                <div class="tip-card" data-aos="fade-up">
-                    <i class="fas fa-clock"></i>
-                    <h4>Consistent Timing</h4>
-                    <p>Animals thrive on routine. Feed at same times daily to establish trust.</p>
-                </div>
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-utensils"></i>
-                    <h4>Clean Bowls</h4>
-                    <p>Wash feeding containers daily to prevent bacterial growth and disease.</p>
-                </div>
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-place-of-worship"></i>
-                    <h4>Safe Locations</h4>
-                    <p>Choose quiet, sheltered spots away from traffic and predators.</p>
-                </div>
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-hand-paper"></i>
-                    <h4>No Hand Feeding</h4>
-                    <p>Maintain distance. Wild animals should not associate humans with food.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="section">
-            <div class="cta-section" data-aos="zoom-in">
-                <h2>Ready to Make a Difference?</h2>
-                <p>Join our community of animal caretakers. Share your feeding experiences and learn from others.</p>
-                <a href="#" class="cta-button">
-                    <i class="fas fa-hands-helping"></i> Join Feeding Community
-                </a>
-            </div>
-        </section>
+  <header class="hero">
+    <div class="hero-content" data-aos="fade-up">
+      <div class="badge-container">
+        <span class="badge pulse"><i class="fas fa-seedling"></i> Feeding Guide</span>
+      </div>
+      <h1>Nourish with <br><span class="highlight">Compassion</span></h1>
+      <p>A complete guide to feeding our animal friends responsibly. Proper nutrition saves lives and maintains ecological balance.</p>
+      
+      <button class="scroll-down-btn" onclick="document.getElementById('schedule').scrollIntoView({behavior: 'smooth'})">
+        <i class="fas fa-arrow-down"></i>
+      </button>
     </div>
+  </header>
 
-    <!-- JavaScript -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
+  <div class="container" id="schedule">
 
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    <section class="section">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Daily Feeding Schedule</h2>
+        <p class="section-subtitle">Timing is everything for a healthy diet.</p>
+      </div>
 
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-            document.body.classList.add('dark-theme');
-            themeToggle.classList.add('dark');
-        }
+      <div class="schedule-grid">
+        <div class="card schedule-card glass" data-aos="fade-up" data-aos-delay="0">
+          <div class="icon-box sun-icon"><i class="fas fa-sun"></i></div>
+          <span class="time-badge">06:00 - 08:00 AM</span>
+          <h3>Breakfast</h3>
+          <p class="card-desc">Start the day right for birds & squirrels.</p>
+          <ul class="check-list">
+            <li><i class="fas fa-check-circle"></i> Fresh water refill</li>
+            <li><i class="fas fa-check-circle"></i> Grains & Seeds</li>
+            <li><i class="fas fa-check-circle"></i> Seasonal Fruits</li>
+          </ul>
+        </div>
 
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            themeToggle.classList.toggle('dark');
+        <div class="card schedule-card glass" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon-box cloud-icon"><i class="fas fa-cloud-sun"></i></div>
+          <span class="time-badge">12:00 - 02:00 PM</span>
+          <h3>Light Snack</h3>
+          <p class="card-desc">Hydration break for active grazers.</p>
+          <ul class="check-list">
+            <li><i class="fas fa-check-circle"></i> Cool, Clean Water</li>
+            <li><i class="fas fa-check-circle"></i> Leafy Greens</li>
+            <li><i class="fas fa-check-circle"></i> Check Bowls</li>
+          </ul>
+        </div>
 
-            if (document.body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
+        <div class="card schedule-card glass" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon-box moon-icon"><i class="fas fa-moon"></i></div>
+          <span class="time-badge">05:00 - 07:00 PM</span>
+          <h3>Dinner Feast</h3>
+          <p class="card-desc">Substantial meal for stray dogs & cats.</p>
+          <ul class="check-list">
+            <li><i class="fas fa-check-circle"></i> Protein Rich Food</li>
+            <li><i class="fas fa-check-circle"></i> Complete Meal</li>
+            <li><i class="fas fa-check-circle"></i> Area Cleanup</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-        // Feeding Calculator
-        const calculateBtn = document.getElementById('calculateBtn');
-        const resultBox = document.getElementById('resultBox');
-        const resultContent = document.getElementById('resultContent');
+    <section class="section">
+      <div class="calculator-wrapper glass" data-aos="zoom-in-up">
+        <div class="calc-header">
+          <div class="calc-icon"><i class="fas fa-calculator"></i></div>
+          <h2 class="section-title">Smart Feeding Calculator</h2>
+          <p>Unsure about portions? Calculate the perfect amount instantly.</p>
+        </div>
 
-        const feedingData = {
-            bird: {
-                small: "15-20g of mixed seeds daily<br>Water: 50ml<br>Feed 2-3 times daily",
-                medium: "Not applicable",
-                large: "Not applicable",
-                xlarge: "Not applicable"
-            },
-            squirrel: {
-                small: "25-30g of nuts/fruits<br>Water: 100ml<br>Morning & evening feeding",
-                medium: "40-50g of mixed food<br>Water: 150ml<br>Include protein sources",
-                large: "Not applicable",
-                xlarge: "Not applicable"
-            },
-            rabbit: {
-                small: "50-70g fresh vegetables<br>Unlimited hay<br>Water: 200ml daily",
-                medium: "100-150g mixed greens<br>Unlimited hay<br>Water: 300ml daily",
-                large: "Not applicable",
-                xlarge: "Not applicable"
-            },
-            cat: {
-                small: "60-80g protein food<br>Water: 250ml<br>Twice daily feeding",
-                medium: "120-150g balanced diet<br>Water: 400ml<br>Include wet food",
-                large: "200-250g complete nutrition<br>Water: 600ml<br>Vet-approved diet",
-                xlarge: "Not applicable"
-            },
-            dog: {
-                small: "100-150g balanced food<br>Water: 500ml<br>Mixed diet recommended",
-                medium: "250-350g protein-rich<br>Water: 1 liter<br>Twice daily feeding",
-                large: "400-500g complete diet<br>Water: 1.5 liters<br>Exercise adjusted",
-                xlarge: "600-800g specialized diet<br>Water: 2+ liters<br>Consult vet"
-            },
-            deer: {
-                small: "Not applicable",
-                medium: "1-2kg fresh greens<br>Water: 2 liters<br>Natural foraging preferred",
-                large: "2-3kg varied vegetation<br>Water: 3 liters<br>Minimal human contact",
-                xlarge: "3-4kg natural forage<br>Water: 4+ liters<br>Wild habitat only"
-            }
-        };
+        <form class="calculator-form" id="feedingCalculator">
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-paw"></i> Animal Type</label>
+              <div class="select-wrapper">
+                <select id="animalType" required>
+                  <option value="" disabled selected>Select an animal...</option>
+                  <option value="bird">🐦 Birds (Small)</option>
+                  <option value="squirrel">🐿️ Squirrels</option>
+                  <option value="rabbit">🐇 Rabbits</option>
+                  <option value="cat">🐈 Stray Cats</option>
+                  <option value="dog">🐕 Stray Dogs</option>
+                  <option value="deer">🦌 Deer</option>
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+              </div>
+            </div>
 
-        calculateBtn.addEventListener('click', () => {
-            const animalType = document.getElementById('animalType').value;
-            const animalSize = document.getElementById('animalSize').value;
+            <div class="form-group">
+              <label><i class="fas fa-weight-hanging"></i> Estimated Size</label>
+              <div class="select-wrapper">
+                <select id="animalSize" required>
+                  <option value="" disabled selected>Select size...</option>
+                  <option value="small">Small (Baby/Light)</option>
+                  <option value="medium">Medium (Adult/Avg)</option>
+                  <option value="large">Large (Heavy)</option>
+                  <option value="xlarge">Extra Large</option>
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn calculate-btn" id="calculateBtn">
+            <span>Calculate Portion</span> <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
 
-            if (!animalType || !animalSize) {
-                alert('Please select both animal type and size');
-                return;
-            }
+        <div class="result-box" id="resultBox">
+          <div class="result-header">
+             <i class="fas fa-utensils"></i> Recommended Diet
+          </div>
+          <div id="resultContent" class="result-content"></div>
+        </div>
+      </div>
+    </section>
 
-            const recommendation = feedingData[animalType][animalSize];
+    <section class="section">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Safety Guidelines</h2>
+      </div>
+      <div class="guidelines-grid">
+        <div class="card guideline-card glass success-card" data-aos="flip-left">
+          <div class="guideline-icon"><i class="fas fa-check"></i></div>
+          <h3>Do Feed</h3>
+          <p>Natural grains, fresh fruits, vegetables, and species-specific commercial food.</p>
+        </div>
+        <div class="card guideline-card glass danger-card" data-aos="flip-up" data-aos-delay="100">
+          <div class="guideline-icon"><i class="fas fa-times"></i></div>
+          <h3>Don't Feed</h3>
+          <p>Chocolate, salty snacks, bread (bad for birds), onions, or spicy human food.</p>
+        </div>
+        <div class="card guideline-card glass info-card" data-aos="flip-right" data-aos-delay="200">
+          <div class="guideline-icon"><i class="fas fa-tint"></i></div>
+          <h3>Hydration</h3>
+          <p>Clean water is vital. Ensure water bowls are washed and refilled twice daily.</p>
+        </div>
+      </div>
+    </section>
 
-            if (recommendation === "Not applicable") {
-                resultContent.innerHTML = `
-                    <p style="color: var(--danger);"><strong>⚠️ Not Recommended:</strong> This size category doesn't apply to selected animal type.</p>
-                    <p style="margin-top: 10px; color: var(--text-light);">Please select appropriate size or consult wildlife expert.</p>
-                `;
-            } else {
-                resultContent.innerHTML = `
-                    <p><strong>📊 Daily Requirements:</strong></p>
-                    <p style="margin: 10px 0; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
-                        ${recommendation.replace(/<br>/g, '</p><p style="margin: 5px 0;">')}
-                    </p>
-                    <p style="margin-top: 15px; color: var(--text-light); font-size: 0.9rem;">
-                        <i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Adjust amounts based on activity level and weather conditions.
-                    </p>
-                `;
-            }
+  </div>
 
-            resultBox.classList.add('show');
-        });
-    </script>
-    <!-- Footer placeholder -->
-    <div id="footer-placeholder"></div>
-    <script src="/frontend/js/components/footer-loader.js"></script>
+  <div id="footer-placeholder"></div>
 
-    <script src="../js/components/navbar-loader.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="../js/pages/feeding.js"></script>
+  <script src="../js/components/navbar-loader.js"></script>
+  <script src="/frontend/js/components/footer-loader.js"></script>
 </body>
-
 </html>
