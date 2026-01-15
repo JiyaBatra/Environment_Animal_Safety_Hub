@@ -1,20 +1,17 @@
 <nav class="navbar" id="navbar">
   <div class="nav-container">
 
-    <!-- Logo -->
     <a href="#home" class="logo">
       <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="EcoLife Logo" class="logo-img" />
       <span>EcoLife</span>
     </a>
 
-    <!-- Mobile Toggle -->
     <div class="nav-toggle" id="navToggle">
       <span></span>
       <span></span>
       <span></span>
     </div>
 
-    <!-- Nav Links -->
     <ul class="nav-links" id="navLinks">
 
       <li class="nav-group"><a href="index.html" class="nav-link">Home</a></li>
@@ -23,9 +20,8 @@
         <a href="pages/animal-safety/pet-adoption.html" class="nav-link">Adopt Pet</a>
       </li>
 
-      <!-- Education -->
       <li class="nav-group">
-        <a href="#" class="nav-link">Education ▾</a>
+        <a href="#" class="nav-link">Education <i class="fas fa-chevron-down arrow-icon"></i></a>
         <ul class="dropdown">
           <li><a href="pages/animal-safety/extinct-animals.html">Extinct Animals</a></li>
           <li><a href="pages/animal-safety/endangered-animals.html">Endangered Animals</a></li>
@@ -36,9 +32,8 @@
         </ul>
       </li>
 
-      <!-- Emergency -->
       <li class="nav-group">
-        <a href="#" class="nav-link">Emergency ▾</a>
+        <a href="#" class="nav-link">Emergency <i class="fas fa-chevron-down arrow-icon"></i></a>
         <ul class="dropdown">
           <li><a href="pages/report/sos.html">🆘 SOS Emergency</a></li>
           <li><a href="pages/report/report.html">Stray Pet</a></li>
@@ -49,37 +44,41 @@
       <li class="nav-group"><a href="pages/games/kids-zone.html" class="nav-link">Kids Zone</a></li>
       <li class="nav-group"><a href="pages/contact.html" class="nav-link">Contact</a></li>
 
-      <!-- Right Side -->
       <li class="nav-auth">
-        <!-- Theme Toggle -->
-        <div class="theme-toggle-btn" id="themeToggle" role="button" tabindex="0" aria-label="Switch to dark mode"
-          aria-pressed="false" title="Toggle Dark Mode">
-          <i class="fa-solid fa-moon"></i>
-        </div>
+    <div class="theme-toggle-btn" id="themeToggle">
+      <i class="fa-solid fa-moon"></i>
+    </div>
 
-        <!-- Auth Buttons (Hidden when logged in) -->
-        <div class="auth-guest-only">
-          <a href="pages/Login.html" class="btn-login">Login</a>
-          <a href="pages/Signup.html" class="btn-signup">Sign Up</a>
-        </div>
-
-        <!-- Profile Section (Hidden when logged out) -->
-        <div class="nav-profile auth-user-only" style="display: none;">
-          <div class="profile-menu" id="profileMenu">
-            <div class="profile-icon">
-              <i class="fa-solid fa-user"></i>
-            </div>
-            <i class="fa-solid fa-chevron-down profile-arrow"></i>
-          </div>
-          <ul class="profile-dropdown">
-            <li><a href="pages/profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a></li>
-            <li><a href="pages/community/index.html"><i class="fa-solid fa-users"></i> Community</a></li>
-            <li><a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-          </ul>
-        </div>
-      </li>
+    <div class="auth-guest-only">
+      <a href="pages/Login.html" class="btn-login">Login</a>
+      <a href="pages/Signup.html" class="btn-signup">Sign Up</a>
+    </div>
+    
+    <div class="nav-profile auth-user-only" style="display: none;">
+      </div>
+  </li>
 
     </ul>
 
   </div>
 </nav>
+<script>
+  // Navbar Scroll Effect
+window.addEventListener("scroll", function() {
+    const navbar = document.getElementById("navbar");
+    if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+});
+
+// Mobile Menu Toggle
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
+
+navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+    navToggle.classList.toggle("active");
+});
+</script>
