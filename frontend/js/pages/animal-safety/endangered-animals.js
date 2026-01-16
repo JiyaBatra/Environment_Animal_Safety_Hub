@@ -77,6 +77,8 @@ function displayAnimals(animals) {
 
 // Search functionality with debouncing
 function searchAnimals() {
+    if (!animalsData || animalsData.length === 0) return;
+
     const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
     if (!query) {
@@ -86,7 +88,10 @@ function searchAnimals() {
         const searchResults = animalsData.filter(animal =>
             animal.name.toLowerCase().includes(query) ||
             animal.scientificName.toLowerCase().includes(query) ||
-            animal.description.toLowerCase().includes(query)
+            animal.description.toLowerCase().includes(query) ||
+            animal.habitat.toLowerCase().includes(query) ||
+            animal.locations.some(location => location.toLowerCase().includes(query)) ||
+            animal.threats.some(threat => threat.toLowerCase().includes(query))
         );
 
         filteredAnimals = currentFilter === 'all' ? searchResults :
@@ -96,8 +101,13 @@ function searchAnimals() {
     displayAnimals(filteredAnimals);
 }
 
+// Make searchAnimals global for HTML onclick
+window.searchAnimals = searchAnimals;
+
 // Filter by conservation status
-function filterByStatus(status, event) {
+function filterAnimals(status, event) {
+    if (!animalsData || animalsData.length === 0) return;
+
     currentFilter = status;
 
     // Update active filter button
@@ -111,7 +121,10 @@ function filterByStatus(status, event) {
             animalsData.filter(animal =>
                 animal.name.toLowerCase().includes(query) ||
                 animal.scientificName.toLowerCase().includes(query) ||
-                animal.description.toLowerCase().includes(query)
+                animal.description.toLowerCase().includes(query) ||
+                animal.habitat.toLowerCase().includes(query) ||
+                animal.locations.some(location => location.toLowerCase().includes(query)) ||
+                animal.threats.some(threat => threat.toLowerCase().includes(query))
             ) : [...animalsData];
     } else {
         const statusFiltered = animalsData.filter(animal => animal.status === status);
@@ -119,7 +132,10 @@ function filterByStatus(status, event) {
             statusFiltered.filter(animal =>
                 animal.name.toLowerCase().includes(query) ||
                 animal.scientificName.toLowerCase().includes(query) ||
-                animal.description.toLowerCase().includes(query)
+                animal.description.toLowerCase().includes(query) ||
+                animal.habitat.toLowerCase().includes(query) ||
+                animal.locations.some(location => location.toLowerCase().includes(query)) ||
+                animal.threats.some(threat => threat.toLowerCase().includes(query))
             ) : statusFiltered;
     }
 
