@@ -120,3 +120,78 @@
     transform: translateY(6px);
   }
 }
+
+/* ===== DAILY QUOTE SECTION ===== */
+.daily-quote-section {
+  padding: 60px 20px;
+  background: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--border-color);
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: var(--btn-primary-bg);
+  opacity: 0.7;
+}
+
+.quote-right {
+  order: 3;
+}
+
+.quote-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.quote-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0 0 15px 0;
+  font-style: italic;
+  position: relative;
+}
+
+.quote-author {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .quote-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .quote-icon {
+    font-size: 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 1.2rem;
+  }
+
+  .quote-author {
+    font-size: 0.9rem;
+  }
+}

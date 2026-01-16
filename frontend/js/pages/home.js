@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   initHeroParallax();
+  initDailyQuote();
 });
 
 /**
@@ -60,4 +61,99 @@ function initHeroParallax() {
   
   // Initial call to set position
   updateParallax();
+}
+
+/**
+ * Daily Quotes Array
+ * Environment and animal safety themed quotes
+ */
+const dailyQuotes = [
+  {
+    text: "The greatest threat to our planet is the belief that someone else will save it.",
+    author: "Robert Swan"
+  },
+  {
+    text: "We do not inherit the earth from our ancestors, we borrow it from our children.",
+    author: "Native American Proverb"
+  },
+  {
+    text: "The more we can focus on the wonder and beauty of the universe, the less we will focus on ourselves.",
+    author: "Brian Cox"
+  },
+  {
+    text: "In nature, nothing is perfect and everything is perfect. Trees can be contorted, bent in weird ways, and they're still beautiful.",
+    author: "Alice Walker"
+  },
+  {
+    text: "The environment is where we all meet; where we all have a mutual interest; it is the one thing all of us share.",
+    author: "Lady Bird Johnson"
+  },
+  {
+    text: "Animals are not property or 'things' but rather living organisms, subjects of a life, who are worthy of our compassion, respect, friendship, and support.",
+    author: "Marc Bekoff"
+  },
+  {
+    text: "The clearest way into the Universe is through a forest wilderness.",
+    author: "John Muir"
+  },
+  {
+    text: "We need the tonic of wildness...At the same time that we are earnest to explore and learn all things, we require that all things be mysterious and unexplorable.",
+    author: "Henry David Thoreau"
+  },
+  {
+    text: "Look deep into nature, and then you will understand everything better.",
+    author: "Albert Einstein"
+  },
+  {
+    text: "The world will not be destroyed by those who do evil, but by those who watch them without doing anything.",
+    author: "Albert Einstein"
+  },
+  {
+    text: "Every creature is better alive than dead, men and moose and pine trees, and he who understands it aright will rather preserve its life than destroy it.",
+    author: "Henry David Thoreau"
+  },
+  {
+    text: "The more clearly we can focus our attention on the wonders and realities of the universe about us, the less taste we shall have for destruction.",
+    author: "Rachel Carson"
+  },
+  {
+    text: "Conservation is a state of harmony between men and land.",
+    author: "Aldo Leopold"
+  },
+  {
+    text: "A thing is right when it tends to preserve the integrity, stability, and beauty of the biotic community. It is wrong when it tends otherwise.",
+    author: "Aldo Leopold"
+  },
+  {
+    text: "The first law of ecology is that everything is related to everything else.",
+    author: "Barry Commoner"
+  }
+];
+
+/**
+ * Initialize daily quote display
+ * Shows a different quote each day based on day of year
+ */
+function initDailyQuote() {
+  const quoteElement = document.getElementById('dailyQuote');
+  const authorElement = document.getElementById('quoteAuthor');
+  
+  if (!quoteElement || !authorElement) {
+    return;
+  }
+  
+  // Get day of year (0-364)
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  
+  // Select quote based on day of year
+  const quoteIndex = dayOfYear % dailyQuotes.length;
+  const selectedQuote = dailyQuotes[quoteIndex];
+  
+  // Update the DOM
+  quoteElement.textContent = `"${selectedQuote.text}"`;
+  authorElement.textContent = `— ${selectedQuote.author}`;
 }
