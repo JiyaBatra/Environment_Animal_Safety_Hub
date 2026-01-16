@@ -1,0 +1,191 @@
+{
+  "categories": [
+    {
+      "id": "general",
+      "name": "General Discussion",
+      "description": "General eco-friendly discussions and topics",
+      "icon": "🌍",
+      "color": "#4CAF50",
+      "threads": []
+    },
+    {
+      "id": "climate",
+      "name": "Climate Action",
+      "description": "Discussions about climate change and solutions",
+      "icon": "🌡️",
+      "color": "#FF9800",
+      "threads": []
+    },
+    {
+      "id": "conservation",
+      "name": "Wildlife Conservation",
+      "description": "Protecting animals and their habitats",
+      "icon": "🐾",
+      "color": "#2196F3",
+      "threads": []
+    },
+    {
+      "id": "sustainable",
+      "name": "Sustainable Living",
+      "description": "Tips for eco-friendly lifestyle choices",
+      "icon": "♻️",
+      "color": "#9C27B0",
+      "threads": []
+    },
+    {
+      "id": "energy",
+      "name": "Renewable Energy",
+      "description": "Solar, wind, and clean energy discussions",
+      "icon": "⚡",
+      "color": "#FF5722",
+      "threads": []
+    },
+    {
+      "id": "waste",
+      "name": "Waste Management",
+      "description": "Recycling, composting, and zero waste",
+      "icon": "🗑️",
+      "color": "#795548",
+      "threads": []
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread_1",
+      "title": "How to start composting at home?",
+      "content": "I've been wanting to start composting but I'm not sure where to begin. What materials can I use? Do I need special equipment? Any tips for beginners?",
+      "author": "EcoBeginner",
+      "authorAvatar": "https://picsum.photos/seed/avatar1/100",
+      "category": "waste",
+      "createdAt": "2026-01-15T10:30:00Z",
+      "lastReply": "2026-01-16T14:20:00Z",
+      "replies": 8,
+      "views": 45,
+      "likes": 12,
+      "pinned": false,
+      "locked": false,
+      "repliesList": [
+        {
+          "id": "reply_1",
+          "content": "Great question! Starting small is key. You can use kitchen scraps like vegetable peels, coffee grounds, and eggshells. A simple bin with holes for aeration works well.",
+          "author": "GreenThumb",
+          "authorAvatar": "https://picsum.photos/seed/avatar2/100",
+          "createdAt": "2026-01-15T11:15:00Z",
+          "likes": 5
+        },
+        {
+          "id": "reply_2",
+          "content": "I started with a 5-gallon bucket with a lid. Drill holes in the bottom and sides for drainage and aeration. Turn it every few days with a pitchfork.",
+          "author": "SustainableSue",
+          "authorAvatar": "https://picsum.photos/seed/avatar3/100",
+          "createdAt": "2026-01-15T12:45:00Z",
+          "likes": 3
+        }
+      ]
+    },
+    {
+      "id": "thread_2",
+      "title": "Solar panel installation experiences?",
+      "content": "I'm considering installing solar panels on my roof. Has anyone here done this recently? What was the process like? Any recommendations for installers?",
+      "author": "SolarSeeker",
+      "authorAvatar": "https://picsum.photos/seed/avatar4/100",
+      "category": "energy",
+      "createdAt": "2026-01-14T09:15:00Z",
+      "lastReply": "2026-01-16T11:30:00Z",
+      "replies": 15,
+      "views": 89,
+      "likes": 23,
+      "pinned": true,
+      "locked": false,
+      "repliesList": [
+        {
+          "id": "reply_3",
+          "content": "I had mine installed last month. The process took about a week. Make sure to get multiple quotes and check reviews. I saved 40% on my energy bills already!",
+          "author": "EnergySaver",
+          "authorAvatar": "https://picsum.photos/seed/avatar5/100",
+          "createdAt": "2026-01-14T10:20:00Z",
+          "likes": 8
+        }
+      ]
+    },
+    {
+      "id": "thread_3",
+      "title": "Climate anxiety - how do you cope?",
+      "content": "Lately I've been feeling overwhelmed by climate change news. Does anyone else struggle with this? What helps you stay motivated and positive?",
+      "author": "HopefulHeart",
+      "authorAvatar": "https://picsum.photos/seed/avatar6/100",
+      "category": "climate",
+      "createdAt": "2026-01-13T16:45:00Z",
+      "lastReply": "2026-01-15T20:10:00Z",
+      "replies": 22,
+      "views": 156,
+      "likes": 34,
+      "pinned": false,
+      "locked": false,
+      "repliesList": [
+        {
+          "id": "reply_4",
+          "content": "I focus on small actions that I can control. Planting trees, reducing waste, and educating others. It helps me feel empowered rather than helpless.",
+          "author": "ActionTaker",
+          "authorAvatar": "https://picsum.photos/seed/avatar7/100",
+          "createdAt": "2026-01-13T17:30:00Z",
+          "likes": 12
+        },
+        {
+          "id": "reply_5",
+          "content": "I limit my news consumption and follow positive environmental stories. Also, connecting with local environmental groups has been really helpful.",
+          "author": "PositiveVibes",
+          "authorAvatar": "https://picsum.photos/seed/avatar8/100",
+          "createdAt": "2026-01-13T18:15:00Z",
+          "likes": 9
+        }
+      ]
+    },
+    {
+      "id": "thread_4",
+      "title": "Zero waste grocery shopping tips",
+      "content": "I'm trying to eliminate plastic from my grocery shopping. What are your favorite reusable alternatives and shopping strategies?",
+      "author": "PlasticFree",
+      "authorAvatar": "https://picsum.photos/seed/avatar9/100",
+      "category": "sustainable",
+      "createdAt": "2026-01-12T14:20:00Z",
+      "lastReply": "2026-01-16T08:45:00Z",
+      "replies": 18,
+      "views": 112,
+      "likes": 28,
+      "pinned": false,
+      "locked": false,
+      "repliesList": []
+    },
+    {
+      "id": "thread_5",
+      "title": "Protecting local wildlife habitats",
+      "content": "There are some beautiful natural areas near me that are under threat from development. What can individuals do to help protect these habitats?",
+      "author": "NatureLover",
+      "authorAvatar": "https://picsum.photos/seed/avatar10/100",
+      "category": "conservation",
+      "createdAt": "2026-01-11T11:10:00Z",
+      "lastReply": "2026-01-15T16:25:00Z",
+      "replies": 12,
+      "views": 78,
+      "likes": 19,
+      "pinned": false,
+      "locked": false,
+      "repliesList": []
+    }
+  ],
+  "users": {
+    "admin": {
+      "role": "admin",
+      "permissions": ["create", "edit", "delete", "pin", "lock", "moderate"]
+    },
+    "moderator": {
+      "role": "moderator",
+      "permissions": ["create", "edit", "delete", "pin", "lock"]
+    },
+    "user": {
+      "role": "user",
+      "permissions": ["create", "edit"]
+    }
+  }
+}

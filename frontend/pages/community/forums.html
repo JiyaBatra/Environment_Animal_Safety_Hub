@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EcoForums | EcoLife</title>
+  <link rel="stylesheet" href="../../css/pages/community.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../css/components/navbar.css" />
+</head>
+<body class="page">
+
+  <div id="cursor-container"></div>
+<script src="../../js/components/loadComponents.js"></script>
+
+  <div id="navbar-container"></div>
+
+  <!-- Watermark Background -->
+  <div id="dashboard-bg">
+    <div class="watermark">🌱</div>
+  </div>
+
+  <div class="theme-toggle" id="themeToggle" title="Toggle Dark Mode"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar column">
+    <a href="profile.html" class="sidebar-icon" data-tooltip="Profile">
+      <i class="fa-solid fa-user"></i>
+    </a>
+    <a href="blog.html" class="sidebar-icon" data-tooltip="Blogs">
+      <i class="fa-solid fa-blog"></i>
+    </a>
+    <a href="channel.html" class="sidebar-icon" data-tooltip="Channels">
+      <i class="fa-solid fa-users"></i>
+    </a>
+    <a href="chat.html" class="sidebar-icon" data-tooltip="Chat">
+      <i class="fa-solid fa-comment"></i>
+    </a>
+    <a href="post.html" class="sidebar-icon" data-tooltip="Posts">
+      <i class="fa-solid fa-newspaper"></i>
+    </a>
+    <a href="forums.html" class="sidebar-icon active" data-tooltip="Forums">
+      <i class="fa-solid fa-comments"></i>
+    </a>
+    <a href="../../index.html" class="sidebar-icon" data-tooltip="Logout">
+      <i class="fa-solid fa-door-open"></i>
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content column">
+
+    <!-- Header -->
+    <header class="forum-header">
+      <h1><i class="fas fa-comments"></i> EcoForums</h1>
+      <p>Discuss eco-topics, share experiences, and connect with the community</p>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="forumSearch" placeholder="Search forums, threads, or topics..." class="search-input">
+        <button id="searchBtn" class="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Create Thread Button -->
+    <div class="create-thread-section">
+      <button id="createThreadBtn" class="create-thread-btn">
+        <i class="fas fa-plus"></i> Start New Discussion
+      </button>
+    </div>
+
+    <!-- Forum Categories -->
+    <div class="forum-categories" id="forumCategories">
+      <!-- Categories will be loaded here -->
+    </div>
+
+    <!-- Recent Threads -->
+    <section class="recent-threads">
+      <h2><i class="fas fa-clock"></i> Recent Discussions</h2>
+      <div class="threads-list" id="recentThreads">
+        <!-- Recent threads will be loaded here -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Create Thread Modal -->
+  <div id="createThreadModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-plus"></i> Create New Discussion</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="createThreadForm">
+          <div class="form-group">
+            <label for="threadTitle">Title</label>
+            <input type="text" id="threadTitle" placeholder="What's your discussion about?" required>
+          </div>
+
+          <div class="form-group">
+            <label for="threadCategory">Category</label>
+            <select id="threadCategory" required>
+              <option value="">Select a category</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="threadContent">Message</label>
+            <textarea id="threadContent" placeholder="Share your thoughts, ask questions, or start a discussion..." rows="6" required></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="submit-btn">Create Discussion</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thread View Modal -->
+  <div id="threadModal" class="modal">
+    <div class="modal-content large">
+      <div class="modal-header">
+        <div class="thread-info">
+          <h3 id="threadTitleDisplay"></h3>
+          <div class="thread-meta">
+            <span id="threadAuthor"></span>
+            <span id="threadDate"></span>
+            <span id="threadCategoryDisplay"></span>
+          </div>
+        </div>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="thread-content" id="threadContentDisplay"></div>
+
+        <!-- Replies Section -->
+        <div class="replies-section">
+          <h4><i class="fas fa-reply"></i> Replies (<span id="replyCount">0</span>)</h4>
+          <div class="replies-list" id="repliesList">
+            <!-- Replies will be loaded here -->
+          </div>
+
+          <!-- Add Reply -->
+          <div class="add-reply">
+            <h5>Add a Reply</h5>
+            <textarea id="replyContent" placeholder="Share your thoughts..." rows="3"></textarea>
+            <button id="submitReplyBtn" class="submit-reply-btn">Reply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Moderation Panel (only visible to admins) -->
+  <div id="moderationPanel" class="moderation-panel" style="display: none;">
+    <h4><i class="fas fa-shield-alt"></i> Moderation Tools</h4>
+    <div class="moderation-actions">
+      <button id="pinThreadBtn" class="mod-btn">
+        <i class="fas fa-thumbtack"></i> Pin Thread
+      </button>
+      <button id="lockThreadBtn" class="mod-btn">
+        <i class="fas fa-lock"></i> Lock Thread
+      </button>
+      <button id="deleteThreadBtn" class="mod-btn danger">
+        <i class="fas fa-trash"></i> Delete Thread
+      </button>
+    </div>
+  </div>
+
+  <script src="../../js/pages/community/forums.js"></script>
+  <script src="../../js/components/navbar-loader.js"></script>
+</body>
+</html>
