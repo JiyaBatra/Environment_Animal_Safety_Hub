@@ -1,215 +1,183 @@
-/**
+﻿/**
  * Home Page JavaScript
- * Implements parallax scroll effect for hero background
+ *
+ * Handles hero parallax effects, daily inspirational quotes, and testimonial animations
+ * for the home page. Includes accessibility considerations and performance optimizations.
+ *
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
  */
 
+// Initialize all home page features when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  initHeroParallax();
-  initDailyQuote();
-  initTestimonialFadeIn();
+    initHeroParallax();
+    initDailyQuote();
+    initTestimonialFadeIn();
 });
 
 /**
- * Initialize parallax effect for hero background
- * The background moves slower than the scroll, creating depth
+ * Initializes hero section parallax scrolling effect
+ * Respects user's reduced motion preference for accessibility
  */
 function initHeroParallax() {
-  const heroSection = document.querySelector('.hero-section');
-  const heroBgElements = document.querySelector('.hero-bg-elements');
-  
-  // Exit if elements don't exist
-  if (!heroSection || !heroBgElements) {
-    return;
-  }
-  
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    return;
-  }
-  
-  // Add parallax-active class
-  heroBgElements.classList.add('parallax-active');
-  
-  // Parallax speed factor (0.3 = 30% of scroll speed)
-  const parallaxSpeed = 0.3;
-  
-  // Throttle scroll events for performance
-  let ticking = false;
-  
-  function updateParallax() {
-    const scrolled = window.pageYOffset;
-    const heroRect = heroSection.getBoundingClientRect();
-    
-    // Only apply parallax when hero is visible
-    if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
-      const offset = scrolled * parallaxSpeed;
-      heroBgElements.style.setProperty('--parallax-offset', `${offset}px`);
+    const heroSection = document.querySelector('.hero-section');
+    const heroBgElements = document.querySelector('.hero-bg-elements');
+
+    // Exit if elements don't exist
+    if (!heroSection || !heroBgElements) {
+        return;
     }
-    
-    ticking = false;
-  }
-  
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(updateParallax);
-      ticking = true;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        return;
     }
-  }
-  
-  // Add scroll listener
-  window.addEventListener('scroll', onScroll, { passive: true });
-  
-  // Initial call to set position
-  updateParallax();
+
+    // Add parallax-active class
+    heroBgElements.classList.add('parallax-active');
+
+    // Parallax speed factor (0.3 = 30% of scroll speed)
+    const parallaxSpeed = 0.3;
+
+    // Throttle scroll events for performance
+    let ticking = false;
+
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const heroRect = heroSection.getBoundingClientRect();
+
+        // Only apply parallax when hero is visible
+        if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
+            const offset = scrolled * parallaxSpeed;
+            heroBgElements.style.setProperty('--parallax-offset', `${offset}px`);
+        }
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+
+    // Add scroll listener
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Initial call to set position
+    updateParallax();
 }
 
 /**
- * Daily Quotes Array
- * Environment and animal safety themed quotes
+ * Daily inspirational quotes data
+ * Collection of environmental and conservation quotes
  */
 const dailyQuotes = [
-  {
-    text: "The greatest threat to our planet is the belief that someone else will save it.",
-    author: "Robert Swan"
-  },
-  {
-    text: "We do not inherit the earth from our ancestors, we borrow it from our children.",
-    author: "Native American Proverb"
-  },
-  {
-    text: "The more we can focus on the wonder and beauty of the universe, the less we will focus on ourselves.",
-    author: "Brian Cox"
-  },
-  {
-    text: "In nature, nothing is perfect and everything is perfect. Trees can be contorted, bent in weird ways, and they're still beautiful.",
-    author: "Alice Walker"
-  },
-  {
-    text: "The environment is where we all meet; where we all have a mutual interest; it is the one thing all of us share.",
-    author: "Lady Bird Johnson"
-  },
-  {
-    text: "Animals are not property or 'things' but rather living organisms, subjects of a life, who are worthy of our compassion, respect, friendship, and support.",
-    author: "Marc Bekoff"
-  },
-  {
-    text: "The clearest way into the Universe is through a forest wilderness.",
-    author: "John Muir"
-  },
-  {
-    text: "We need the tonic of wildness...At the same time that we are earnest to explore and learn all things, we require that all things be mysterious and unexplorable.",
-    author: "Henry David Thoreau"
-  },
-  {
-    text: "Look deep into nature, and then you will understand everything better.",
-    author: "Albert Einstein"
-  },
-  {
-    text: "The world will not be destroyed by those who do evil, but by those who watch them without doing anything.",
-    author: "Albert Einstein"
-  },
-  {
-    text: "Every creature is better alive than dead, men and moose and pine trees, and he who understands it aright will rather preserve its life than destroy it.",
-    author: "Henry David Thoreau"
-  },
-  {
-    text: "The more clearly we can focus our attention on the wonders and realities of the universe about us, the less taste we shall have for destruction.",
-    author: "Rachel Carson"
-  },
-  {
-    text: "Conservation is a state of harmony between men and land.",
-    author: "Aldo Leopold"
-  },
-  {
-    text: "A thing is right when it tends to preserve the integrity, stability, and beauty of the biotic community. It is wrong when it tends otherwise.",
-    author: "Aldo Leopold"
-  },
-  {
-    text: "The first law of ecology is that everything is related to everything else.",
-    author: "Barry Commoner"
-  }
+    { text: "The greatest threat to our planet is the belief that someone else will save it.", author: "Robert Swan" },
+    { text: "We do not inherit the earth from our ancestors, we borrow it from our children.", author: "Native American Proverb" },
+    { text: "The more we can focus on the wonder and beauty of the universe, the less we will focus on ourselves.", author: "Brian Cox" },
+    { text: "In nature, nothing is perfect and everything is perfect. Trees can be contorted, bent in weird ways, and they're still beautiful.", author: "Alice Walker" },
+    { text: "The environment is where we all meet; where we all have a mutual interest; it is the one thing all of us share.", author: "Lady Bird Johnson" },
+    { text: "Animals are not property or 'things' but rather living organisms, subjects of a life, who are worthy of our compassion, respect, friendship, and support.", author: "Marc Bekoff" },
+    { text: "The clearest way into the Universe is through a forest wilderness.", author: "John Muir" },
+    { text: "We need the tonic of wildness...At the same time that we are earnest to explore and learn all things, we require that all things be mysterious and unexplorable.", author: "Henry David Thoreau" },
+    { text: "Look deep into nature, and then you will understand everything better.", author: "Albert Einstein" },
+    { text: "The world will not be destroyed by those who do evil, but by those who watch them without doing anything.", author: "Albert Einstein" },
+    { text: "Every creature is better alive than dead, men and moose and pine trees, and he who understands it aright will rather preserve its life than destroy it.", author: "Henry David Thoreau" },
+    { text: "The more clearly we can focus our attention on the wonders and realities of the universe about us, the less taste we shall have for destruction.", author: "Rachel Carson" },
+    { text: "Conservation is a state of harmony between men and land.", author: "Aldo Leopold" },
+    { text: "A thing is right when it tends to preserve the integrity, stability, and beauty of the biotic community. It is wrong when it tends otherwise.", author: "Aldo Leopold" },
+    { text: "The first law of ecology is that everything is related to everything else.", author: "Barry Commoner" }
 ];
 
 /**
- * Initialize daily quote display
- * Shows a different quote each day based on day of year
+ * Initializes daily quote rotation based on day of year
+ * Displays a different inspirational quote each day
  */
 function initDailyQuote() {
-  const quoteElement = document.getElementById('dailyQuote');
-  const authorElement = document.getElementById('quoteAuthor');
-  
-  if (!quoteElement || !authorElement) {
-    return;
-  }
-  
-  // Get day of year (0-364)
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now - start;
-  const oneDay = 1000 * 60 * 60 * 24;
-  const dayOfYear = Math.floor(diff / oneDay);
-  
-  // Select quote based on day of year
-  const quoteIndex = dayOfYear % dailyQuotes.length;
-  const selectedQuote = dailyQuotes[quoteIndex];
-  
-  // Update the DOM
-  quoteElement.textContent = `"${selectedQuote.text}"`;
-  authorElement.textContent = `— ${selectedQuote.author}`;
+    const quoteElement = document.getElementById('dailyQuote');
+    const authorElement = document.getElementById('quoteAuthor');
+
+    if (!quoteElement || !authorElement) {
+        return;
+    }
+
+    // Get day of year (0-364)
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+
+    // Select quote based on day of year
+    const quoteIndex = dayOfYear % dailyQuotes.length;
+    const selectedQuote = dailyQuotes[quoteIndex];
+
+    // Update the DOM
+    quoteElement.textContent = `"${selectedQuote.text}"`;
+    authorElement.textContent = `— ${selectedQuote.author}`;
 }
 
 /**
- * Initialize testimonial fade-in animation on scroll
+ * Initializes testimonial fade-in animations with staggered timing
+ * Respects user's reduced motion preference for accessibility
  */
 function initTestimonialFadeIn() {
-  const testimonialCards = document.querySelectorAll('.testimonial-card');
-  
-  if (testimonialCards.length === 0) {
-    return;
-  }
-  
-  // Add fade-in class to all testimonial cards
-  testimonialCards.forEach(card => {
-    card.classList.add('testimonial-fade-in');
-  });
-  
-  // Function to check if element is in viewport
-  function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-  
-  // Function to handle scroll and animate testimonials
-  function handleScroll() {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+    if (testimonialCards.length === 0) {
+        return;
+    }
+
+    // Add fade-in class to all testimonial cards
     testimonialCards.forEach(card => {
-      if (isInViewport(card) && !card.classList.contains('animate')) {
-        // Add a small delay for each card to create a staggered effect
-        setTimeout(() => {
-          card.classList.add('animate');
-        }, Math.random() * 300); // Random delay between 0-300ms
-      }
+        card.classList.add('testimonial-fade-in');
     });
-  }
-  
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    // If user prefers reduced motion, just show testimonials without animation
-    testimonialCards.forEach(card => {
-      card.classList.remove('testimonial-fade-in');
-    });
-    return;
-  }
-  
-  // Initial check
-  handleScroll();
-  
-  // Add scroll listener
-  window.addEventListener('scroll', handleScroll, { passive: true });
+
+    /**
+     * Checks if element is in viewport
+     * @param {HTMLElement} element - Element to check
+     * @returns {boolean} Whether element is visible in viewport
+     */
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    /**
+     * Handles scroll events and animates testimonials when they come into view
+     */
+    function handleScroll() {
+        testimonialCards.forEach(card => {
+            if (isInViewport(card) && !card.classList.contains('animate')) {
+                // Add a small delay for each card to create a staggered effect
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, Math.random() * 300); // Random delay between 0-300ms
+            }
+        });
+    }
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        // If user prefers reduced motion, just show testimonials without animation
+        testimonialCards.forEach(card => {
+            card.classList.remove('testimonial-fade-in');
+        });
+        return;
+    }
+
+    // Initial check
+    handleScroll();
+
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
 }

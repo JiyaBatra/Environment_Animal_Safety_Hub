@@ -1,10 +1,67 @@
-// Theme Toggle Functionality
-document.addEventListener('DOMContentLoaded', function () {
+﻿/**
+ * Environmental Impact Calculator Page JavaScript
+ *
+ * Comprehensive environmental impact assessment tool with multi-step quiz,
+ * scoring system, and personalized recommendations. Calculates carbon footprint
+ * across transport, energy, diet, water, and waste categories.
+ *
+ * Features:
+ * - Multi-step quiz navigation with progress tracking
+ * - Dynamic scoring system with category breakdowns
+ * - Interactive charts and visualizations
+ * - Personalized recommendations based on results
+ * - PDF export functionality
+ * - Results sharing and saving capabilities
+ * - Theme toggle with localStorage persistence
+ * - Responsive design with accessibility features
+ *
+ * Scoring Categories:
+ * - Transport: Walking, public transport, biking, driving, multiple vehicles
+ * - Energy: Electricity usage and HVAC consumption
+ * - Diet: Vegan, vegetarian, pescatarian, omnivore, meat-heavy
+ * - Water: Shower duration and conservation practices
+ * - Waste: Plastic usage and shopping habits
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
+ * @requires Chart.js (for data visualization)
+ * @requires jsPDF (for PDF export)
+ */
+
+// ===== INITIALIZATION =====
+/**
+ * Initialize environmental impact calculator when DOM is loaded
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    initializeImpactCalculator();
+});
+
+// ===== MAIN INITIALIZATION FUNCTION =====
+/**
+ * Initialize all impact calculator functionality
+ * Sets up theme toggle, quiz navigation, and form handling
+ */
+function initializeImpactCalculator() {
+    // Initialize theme toggle functionality
+    initializeThemeToggle();
+
+    // Initialize quiz navigation system
+    initQuizNavigation();
+}
+
+// ===== THEME MANAGEMENT =====
+/**
+ * Initialize theme toggle functionality with localStorage persistence
+ * Supports dark/light mode switching with system preference detection
+ */
+function initializeThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
 
-    // Load saved theme
+    // Load saved theme or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
+
     if (savedTheme === 'dark') {
         body.classList.add('dark-theme');
         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -13,27 +70,33 @@ document.addEventListener('DOMContentLoaded', function () {
         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     }
 
+    // Theme toggle click handler
     themeToggle.addEventListener('click', () => {
         if (body.classList.contains('dark-theme')) {
+            // Switch to light theme
             body.classList.remove('dark-theme');
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             localStorage.setItem('theme', 'light');
         } else {
+            // Switch to dark theme
             body.classList.add('dark-theme');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             localStorage.setItem('theme', 'dark');
         }
     });
+}
 
-    // Initialize quiz navigation
-    initQuizNavigation();
-});
-
-// Quiz Navigation
+// ===== QUIZ NAVIGATION SYSTEM =====
+/**
+ * Initialize multi-step quiz navigation system
+ * Handles step progression, validation, and progress tracking
+ */
 function initQuizNavigation() {
-    // Initialize variables
+    // Initialize navigation variables
     let currentStep = 1;
     const totalSteps = 5;
+
+    // Get navigation elements
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
@@ -42,15 +105,17 @@ function initQuizNavigation() {
     const steps = document.querySelectorAll('.step');
     const questionGroups = document.querySelectorAll('.question-group');
 
-    // Start Calculator Button
+    // Initialize start calculator button
     const startCalculatorBtn = document.getElementById('startCalculatorBtn');
     if (startCalculatorBtn) {
-        startCalculatorBtn.addEventListener('click', function () {
-            document.getElementById('calculatorForm').scrollIntoView({ behavior: 'smooth' });
+        startCalculatorBtn.addEventListener('click', function() {
+            document.getElementById('calculatorForm').scrollIntoView({behavior: 'smooth'});
         });
     }
 
-    // Update progress
+    /**
+     * Update progress bar and step indicators
+     */
     function updateProgress() {
         const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
         formProgress.style.width = `${progressPercentage}%`;
@@ -73,7 +138,7 @@ function initQuizNavigation() {
         nextBtn.style.display = currentStep === totalSteps ? 'none' : 'flex';
         submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
 
-        // Show current question group
+        // Show current question group with animation
         questionGroups.forEach(group => {
             const groupStep = parseInt(group.getAttribute('data-step'));
             if (groupStep === currentStep) {
@@ -90,12 +155,13 @@ function initQuizNavigation() {
         });
     }
 
-    // Next button click
-    nextBtn.addEventListener('click', function () {
+    // Next button click handler
+    nextBtn.addEventListener('click', function() {
         const currentGroup = document.querySelector(`.question-group[data-step="${currentStep}"]`);
         const selects = currentGroup.querySelectorAll('select[required]');
         let isValid = true;
 
+        // Validate required fields
         selects.forEach(select => {
             if (!select.value) {
                 isValid = false;
@@ -110,45 +176,45 @@ function initQuizNavigation() {
             if (currentStep < totalSteps) {
                 currentStep++;
                 updateProgress();
-                document.getElementById('calculatorForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('calculatorForm').scrollIntoView({behavior: 'smooth', block: 'start'});
             }
         } else {
             alert('Please answer all questions before proceeding.');
         }
     });
 
-    // Previous button click
-    prevBtn.addEventListener('click', function () {
+    // Previous button click handler
+    prevBtn.addEventListener('click', function() {
         if (currentStep > 1) {
             currentStep--;
             updateProgress();
-            document.getElementById('calculatorForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('calculatorForm').scrollIntoView({behavior: 'smooth', block: 'start'});
         }
     });
 
-    // Form submission
+    // Form submission handler
     const impactForm = document.getElementById('impactForm');
-    impactForm.addEventListener('submit', function (e) {
+    impactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         calculateImpact();
     });
 
-    // Initialize
+    // Initialize progress display
     updateProgress();
 
-    // Tooltips
+    // Initialize tooltips (handled by CSS)
     const helpElements = document.querySelectorAll('.question-help');
     helpElements.forEach(element => {
-        element.addEventListener('mouseenter', function () {
+        element.addEventListener('mouseenter', function() {
             const tooltip = this.getAttribute('data-tooltip');
-            // Tooltip already handled by CSS
+            // Tooltip display handled by CSS
         });
     });
 
-    // Form validation
+    // Initialize form validation feedback
     const selects = document.querySelectorAll('select');
     selects.forEach(select => {
-        select.addEventListener('change', function () {
+        select.addEventListener('change', function() {
             if (this.value) {
                 this.style.borderColor = '#4caf50';
                 setTimeout(() => {
@@ -159,12 +225,16 @@ function initQuizNavigation() {
     });
 }
 
-// Calculate Impact Function
+// ===== IMPACT CALCULATION =====
+/**
+ * Calculate environmental impact based on form responses
+ * Implements comprehensive scoring system across all categories
+ */
 function calculateImpact() {
     const formData = new FormData(document.getElementById('impactForm'));
     const data = Object.fromEntries(formData);
 
-    // Scoring system
+    // Initialize scoring variables
     let totalScore = 0;
     const categoryScores = {
         transport: 0,
@@ -224,29 +294,36 @@ function calculateImpact() {
     categoryScores.waste = plasticScores[data.plastic] + shoppingScores[data.shopping];
     totalScore += categoryScores.waste;
 
-    // Normalize to 100
+    // Normalize to 100-point scale
     totalScore = Math.round((totalScore / 100) * 100);
 
-    // Show results
+    // Display results
     showResults(totalScore, categoryScores, data);
 }
 
+// ===== RESULTS DISPLAY =====
+/**
+ * Display impact calculation results with visualizations and recommendations
+ * @param {number} totalScore - Overall environmental impact score (0-100)
+ * @param {Object} categoryScores - Scores for each category
+ * @param {Object} data - Original form data for recommendations
+ */
 function showResults(totalScore, categoryScores, data) {
     // Hide form, show results
     document.getElementById('calculatorForm').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
     document.getElementById('trackingSection').style.display = 'block';
 
-    // Update total score
+    // Update total score display
     document.getElementById('totalScore').textContent = totalScore;
 
-    // Determine score level
+    // Determine score level and messaging
     let scoreLevel = '';
     let scoreMessage = '';
     let scoreColor = '';
 
     if (totalScore >= 80) {
-        scoreLevel = 'Eco Warrior 🌟';
+        scoreLevel = 'Eco Warrior 🌿';
         scoreMessage = 'Excellent! You\'re living sustainably and setting a great example for others.';
         scoreColor = '#4caf50';
     } else if (totalScore >= 60) {
@@ -267,33 +344,38 @@ function showResults(totalScore, categoryScores, data) {
     document.getElementById('scoreMessage').textContent = scoreMessage;
     document.getElementById('scoreLevel').style.color = scoreColor;
 
-    // Update score circle
+    // Update score circle visualization
     const scoreCircle = document.getElementById('scoreCircle');
     scoreCircle.style.background = `conic-gradient(${scoreColor} ${totalScore * 3.6}deg, var(--border-color) 0deg)`;
 
-    // Update user bar
+    // Update user impact bar
     const userBar = document.getElementById('userBar');
     const userImpact = document.getElementById('userImpact');
     const co2Value = Math.round((100 - totalScore) * 25); // Convert score to CO2 estimate
     userBar.style.width = `${(co2Value / 3000) * 100}%`;
-    userImpact.textContent = `${co2Value} kg CO₂/year`;
+    userImpact.textContent = `${co2Value}kg CO₂/year`;
 
-    // Create charts
+    // Create data visualizations
     createChart(categoryScores);
     createComparisonChart(totalScore, categoryScores);
 
-    // Generate recommendations
+    // Generate personalized recommendations
     generateRecommendations(data, totalScore);
 
-    // Add event listeners to action buttons
+    // Initialize action buttons
     document.getElementById('saveResultsBtn').addEventListener('click', () => exportToPDF(totalScore, categoryScores, data));
     document.getElementById('shareResultsBtn').addEventListener('click', shareResults);
     document.getElementById('retakeQuizBtn').addEventListener('click', retakeQuiz);
 
     // Scroll to results
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('resultsSection').scrollIntoView({behavior: 'smooth'});
 }
 
+// ===== DATA VISUALIZATION =====
+/**
+ * Create doughnut chart showing category breakdown
+ * @param {Object} categoryScores - Scores for each environmental category
+ */
 function createChart(categoryScores) {
     const ctx = document.getElementById('breakdownChart').getContext('2d');
 
@@ -341,6 +423,12 @@ function createChart(categoryScores) {
     });
 }
 
+// ===== RECOMMENDATIONS SYSTEM =====
+/**
+ * Generate personalized recommendations based on user responses
+ * @param {Object} data - Form data containing user responses
+ * @param {number} totalScore - Overall environmental impact score
+ */
 function generateRecommendations(data, totalScore) {
     const recommendationsList = document.getElementById('recommendationsList');
     recommendationsList.innerHTML = '';
@@ -350,12 +438,11 @@ function generateRecommendations(data, totalScore) {
     // Transport recommendations
     if (data.transport === 'car' || data.transport === 'multiple') {
         recommendations.push({
-            icon: '🚌',
+            icon: '🚗',
             title: 'Use Public Transport',
             description: 'Switch to public transport or carpool to reduce emissions.'
         });
     }
-
     if (data.distance === 'high' || data.distance === 'very-high') {
         recommendations.push({
             icon: '🚲',
@@ -372,7 +459,6 @@ function generateRecommendations(data, totalScore) {
             description: 'Replace incandescent bulbs with energy-efficient LEDs.'
         });
     }
-
     if (data.hvac === 'heavy' || data.hvac === 'moderate') {
         recommendations.push({
             icon: '🌡️',
@@ -384,12 +470,11 @@ function generateRecommendations(data, totalScore) {
     // Diet recommendations
     if (data.diet === 'meat-heavy' || data.diet === 'omnivore') {
         recommendations.push({
-            icon: '🥗',
+            icon: '🥩',
             title: 'Reduce Meat Consumption',
             description: 'Try meatless days or plant-based alternatives.'
         });
     }
-
     if (data['food-waste'] === 'high' || data['food-waste'] === 'moderate') {
         recommendations.push({
             icon: '♻️',
@@ -406,7 +491,6 @@ function generateRecommendations(data, totalScore) {
             description: 'Aim for 5-minute showers to save water.'
         });
     }
-
     if (data['water-conservation'] === 'poor' || data['water-conservation'] === 'average') {
         recommendations.push({
             icon: '💧',
@@ -423,7 +507,6 @@ function generateRecommendations(data, totalScore) {
             description: 'Use reusable bags, bottles, and containers.'
         });
     }
-
     if (data.shopping === 'frequent' || data.shopping === 'regular') {
         recommendations.push({
             icon: '📦',
@@ -440,10 +523,9 @@ function generateRecommendations(data, totalScore) {
             description: 'Educate yourself on environmental issues and solutions.'
         });
     }
-
     if (totalScore > 70) {
         recommendations.push({
-            icon: '🌟',
+            icon: '🌿',
             title: 'Share Your Knowledge',
             description: 'Inspire others by sharing your eco-friendly practices.'
         });
@@ -464,7 +546,12 @@ function generateRecommendations(data, totalScore) {
     });
 }
 
-// Create Comparison Chart
+// ===== COMPARISON CHART =====
+/**
+ * Create bar chart comparing user scores with optimal scores
+ * @param {number} totalScore - Overall environmental impact score
+ * @param {Object} categoryScores - Scores for each category
+ */
 function createComparisonChart(totalScore, categoryScores) {
     const ctx = document.getElementById('comparisonChart').getContext('2d');
 
@@ -487,22 +574,19 @@ function createComparisonChart(totalScore, categoryScores) {
         type: 'bar',
         data: {
             labels: categories,
-            datasets: [
-                {
-                    label: 'Your Score',
-                    data: userScores,
-                    backgroundColor: 'rgba(46, 125, 50, 0.8)',
-                    borderColor: '#2e7d32',
-                    borderWidth: 2
-                },
-                {
-                    label: 'Optimal Score',
-                    data: optimalScores,
-                    backgroundColor: 'rgba(76, 175, 80, 0.3)',
-                    borderColor: '#4caf50',
-                    borderWidth: 2
-                }
-            ]
+            datasets: [{
+                label: 'Your Score',
+                data: userScores,
+                backgroundColor: 'rgba(46, 125, 50, 0.8)',
+                borderColor: '#2e7d32',
+                borderWidth: 2
+            }, {
+                label: 'Optimal Score',
+                data: optimalScores,
+                backgroundColor: 'rgba(76, 175, 80, 0.3)',
+                borderColor: '#4caf50',
+                borderWidth: 2
+            }]
         },
         options: {
             responsive: true,
@@ -535,7 +619,7 @@ function createComparisonChart(totalScore, categoryScores) {
                     max: 100,
                     ticks: {
                         color: 'var(--text-secondary)',
-                        callback: function (value) {
+                        callback: function(value) {
                             return value + '%';
                         }
                     },
@@ -559,7 +643,13 @@ function createComparisonChart(totalScore, categoryScores) {
     });
 }
 
-// Export to PDF Function
+// ===== PDF EXPORT =====
+/**
+ * Export results to PDF format with professional formatting
+ * @param {number} totalScore - Overall environmental impact score
+ * @param {Object} categoryScores - Scores for each category
+ * @param {Object} data - Original form data
+ */
 async function exportToPDF(totalScore, categoryScores, data) {
     try {
         // Show loading state
@@ -568,7 +658,7 @@ async function exportToPDF(totalScore, categoryScores, data) {
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating PDF...';
         btn.disabled = true;
 
-        // Get jsPDF
+        // Get jsPDF library
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF('p', 'mm', 'a4');
 
@@ -608,12 +698,10 @@ async function exportToPDF(totalScore, categoryScores, data) {
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
         doc.text('Overall Impact Score', margin, yPos);
-
         yPos += 10;
         doc.setFontSize(36);
         doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
         doc.text(`${totalScore}/100`, margin, yPos);
-
         yPos += 8;
         doc.setFontSize(12);
         const scoreLevel = document.getElementById('scoreLevel').textContent;
@@ -625,7 +713,6 @@ async function exportToPDF(totalScore, categoryScores, data) {
         doc.setFontSize(14);
         doc.setFont('helvetica', 'bold');
         doc.text('Category Breakdown', margin, yPos);
-
         yPos += 10;
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
@@ -661,7 +748,6 @@ async function exportToPDF(totalScore, categoryScores, data) {
             doc.setFont('helvetica', 'bold');
             doc.text(`${cat.score}%`, barX + barWidth + 5, yPos);
             doc.setFont('helvetica', 'normal');
-
             yPos += 12;
         });
 
@@ -671,7 +757,6 @@ async function exportToPDF(totalScore, categoryScores, data) {
         doc.setFontSize(14);
         doc.setFont('helvetica', 'bold');
         doc.text('Personalized Recommendations', margin, yPos);
-
         yPos += 8;
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
@@ -679,7 +764,6 @@ async function exportToPDF(totalScore, categoryScores, data) {
         // Get recommendations from the DOM
         const recElements = document.querySelectorAll('.recommendation-item');
         let recCount = 0;
-
         recElements.forEach((rec) => {
             if (recCount >= 6) return; // Limit to 6 recommendations
 
@@ -695,14 +779,12 @@ async function exportToPDF(totalScore, categoryScores, data) {
             doc.setFont('helvetica', 'bold');
             doc.text(`• ${title}`, margin + 5, yPos);
             yPos += 5;
-
             doc.setFont('helvetica', 'normal');
             doc.setTextColor(grayColor[0], grayColor[1], grayColor[2]);
             const lines = doc.splitTextToSize(description, pageWidth - margin * 2 - 10);
             doc.text(lines, margin + 7, yPos);
             yPos += lines.length * 5 + 8;
             doc.setTextColor(textColor[0], textColor[1], textColor[2]);
-
             recCount++;
         });
 
@@ -734,6 +816,10 @@ async function exportToPDF(totalScore, categoryScores, data) {
     }
 }
 
+// ===== RESULTS MANAGEMENT =====
+/**
+ * Save results to localStorage (placeholder for backend integration)
+ */
 function saveResults() {
     const totalScore = document.getElementById('totalScore').textContent;
     const scoreLevel = document.getElementById('scoreLevel').textContent;
@@ -749,6 +835,10 @@ function saveResults() {
     alert(`Results saved for ${date}! Score: ${totalScore} - ${scoreLevel}`);
 }
 
+// ===== SHARING FUNCTIONALITY =====
+/**
+ * Share results using Web Share API or clipboard fallback
+ */
 function shareResults() {
     const totalScore = document.getElementById('totalScore').textContent;
     const scoreLevel = document.getElementById('scoreLevel').textContent;
@@ -770,6 +860,10 @@ function shareResults() {
     }
 }
 
+// ===== QUIZ RESET =====
+/**
+ * Reset quiz to allow retaking with form clearing and state reset
+ */
 function retakeQuiz() {
     // Reset form
     document.getElementById('impactForm').reset();
@@ -802,7 +896,7 @@ function retakeQuiz() {
     document.getElementById('submitBtn').style.display = 'none';
 
     // Scroll to form
-    document.getElementById('calculatorForm').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('calculatorForm').scrollIntoView({behavior: 'smooth'});
 
     // Reinitialize quiz
     initQuizNavigation();

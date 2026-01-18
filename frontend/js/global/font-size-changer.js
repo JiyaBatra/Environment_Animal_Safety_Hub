@@ -1,11 +1,20 @@
-/**
- * ===== ECOLIFE FONT SIZE CHANGER MODULE =====
- * Centralized Font Size adjustment implementation with:
- * - localStorage persistence
- * - System preference detection (prefers-reduced-motion)
- * - WCAG compliant transitions
- * - Keyboard accessibility (Enter/Space keys)
- * - Multi-button support for consistent font sizing across pages
+﻿/**
+ * EcoLife Font Size Changer
+ *
+ * Dynamic font size adjustment system with accessibility features
+ * for improved readability across the environmental platform.
+ *
+ * Features:
+ * - Increase/decrease/reset font size
+ * - Local storage persistence
+ * - Smooth animations and transitions
+ * - Screen reader announcements
+ * - Keyboard accessibility
+ * - Visual feedback for interactions
+ *
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
  */
 
 (function () {
@@ -19,8 +28,8 @@
     const FONT_SIZE_STEP = 2;
 
     /**
-     * Get the user's preferred font size from localStorage or default
-     * @returns {number} The preferred font size in pixels
+     * Get preferred font size from localStorage or return default
+     * @returns {number} Font size in pixels
      */
     function getPreferredFontSize() {
         const storedSize = localStorage.getItem(FONT_SIZE_KEY);
@@ -34,9 +43,9 @@
     }
 
     /**
-     * Apply font size to document and update all buttons
+     * Apply font size to the document with optional animation
      * @param {number} fontSize - Font size in pixels
-     * @param {boolean} animate - Whether to animate the transition (default: true)
+     * @param {boolean} animate - Whether to animate the transition
      */
     function applyFontSize(fontSize, animate = true) {
         const root = document.documentElement;
@@ -52,7 +61,6 @@
         if (animate && body) {
             root.classList.add('font-size-transitioning');
             body.classList.add('font-size-transitioning');
-
             setTimeout(() => {
                 root.classList.remove('font-size-transitioning');
                 body.classList.remove('font-size-transitioning');
@@ -81,11 +89,11 @@
         announceFontSizeChange(fontSize);
 
         // Debug log
-        console.log(`%c📝 Font Size: ${fontSize}px`, `color: ${fontSize > FONT_SIZE_DEFAULT ? '#22c55e' : fontSize < FONT_SIZE_DEFAULT ? '#ef4444' : '#6b7280'}; font-weight: bold;`);
+        console.log(`%c📝 Font Size: ${fontSize}px`, `color: ${fontSize > FONT_SIZE_DEFAULT ? '#22c55e' : fontSize < FONT_SIZE_DEFAULT ? '#ef4444' : '#6b7280'};font-weight: bold;`);
     }
 
     /**
-     * Announce font size change to screen readers for accessibility
+     * Announce font size change to screen readers
      * @param {number} fontSize - Current font size
      */
     function announceFontSizeChange(fontSize) {
@@ -112,13 +120,12 @@
     }
 
     /**
-     * Update all font size button states and ARIA attributes
+     * Update font size control buttons based on current size
      * @param {number} fontSize - Current font size
      */
     function updateFontSizeButtons(fontSize) {
         const increaseSelectors = '.font-size-increase, .font-increase-btn, [data-font-increase]';
         const decreaseSelectors = '.font-size-decrease, .font-decrease-btn, [data-font-decrease]';
-
         const increaseButtons = document.querySelectorAll(increaseSelectors);
         const decreaseButtons = document.querySelectorAll(decreaseSelectors);
 
@@ -142,7 +149,7 @@
     }
 
     /**
-     * Increase font size
+     * Increase font size by one step
      */
     function increaseFontSize() {
         const currentSize = getPreferredFontSize();
@@ -153,7 +160,7 @@
     }
 
     /**
-     * Decrease font size
+     * Decrease font size by one step
      */
     function decreaseFontSize() {
         const currentSize = getPreferredFontSize();
@@ -172,7 +179,6 @@
 
     /**
      * Initialize font size changer functionality
-     * Sets up event listeners and applies initial font size
      */
     function initFontSizeChanger() {
         // Apply saved font size on page load (without animation to prevent flash)
@@ -183,7 +189,6 @@
         const increaseSelectors = '.font-size-increase, .font-increase-btn, [data-font-increase]';
         const decreaseSelectors = '.font-size-decrease, .font-decrease-btn, [data-font-decrease]';
         const resetSelectors = '.font-size-reset, .font-reset-btn, [data-font-reset]';
-
         const increaseButtons = document.querySelectorAll(increaseSelectors);
         const decreaseButtons = document.querySelectorAll(decreaseSelectors);
         const resetButtons = document.querySelectorAll(resetSelectors);
@@ -226,7 +231,6 @@
                 this.style.outline = '2px solid var(--primary-color)';
                 this.style.outlineOffset = '3px';
             });
-
             button.addEventListener('blur', function () {
                 this.style.outline = '';
                 this.style.outlineOffset = '';
@@ -271,7 +275,6 @@
                 this.style.outline = '2px solid var(--primary-color)';
                 this.style.outlineOffset = '3px';
             });
-
             button.addEventListener('blur', function () {
                 this.style.outline = '';
                 this.style.outlineOffset = '';
@@ -283,7 +286,6 @@
             button.setAttribute('role', 'button');
             button.setAttribute('tabindex', '0');
             button.setAttribute('aria-label', 'Reset font size to default');
-
             button.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -295,7 +297,6 @@
                     this.style.transform = '';
                 }, 150);
             });
-
             button.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') {
                     e.preventDefault();
@@ -314,14 +315,13 @@
                 this.style.outline = '2px solid var(--primary-color)';
                 this.style.outlineOffset = '3px';
             });
-
             button.addEventListener('blur', function () {
                 this.style.outline = '';
                 this.style.outlineOffset = '';
             });
         });
 
-        console.log('%c🔤 EcoLife Font Size System Initialized', 'color: #22c55e; font-weight: bold;');
+        console.log('%c🔧 EcoLife Font Size System Initialized', 'color: #22c55e;font-weight: bold;');
     }
 
     // Apply font size immediately to prevent flash (runs before DOMContentLoaded)
@@ -361,5 +361,4 @@
 
     // Make initFontSizeChanger globally accessible
     window.initFontSizeChanger = initFontSizeChanger;
-
 })();

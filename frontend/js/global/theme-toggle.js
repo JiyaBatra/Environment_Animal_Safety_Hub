@@ -1,13 +1,21 @@
-/**
- * ===== ECOLIFE THEME TOGGLE MODULE =====
- * Centralized Dark Mode implementation with:
- * - localStorage persistence
+﻿/**
+ * EcoLife Theme Toggle System
+ *
+ * Dynamic light/dark theme switching with system preference detection,
+ * accessibility features, and persistent storage for the platform.
+ *
+ * Features:
+ * - Light/dark theme toggle with smooth transitions
  * - System preference detection (prefers-color-scheme)
- * - WCAG compliant transitions
- * - Keyboard accessibility (Enter/Space keys)
- * - Multi-button support for consistent theming across pages
- * 
- * Issue #565: Dark Mode and Accessibility Improvements
+ * - Local storage persistence
+ * - Screen reader announcements
+ * - Keyboard accessibility
+ * - Visual feedback for interactions
+ * - Automatic system theme change detection
+ *
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
  */
 
 (function () {
@@ -19,9 +27,8 @@
     const THEME_DARK = 'dark';
 
     /**
-     * Get the user's preferred theme from localStorage or system preferences
-     * Priority: localStorage > system preference > default (light)
-     * @returns {string} The preferred theme ('light' or 'dark')
+     * Get preferred theme from localStorage or system preference
+     * @returns {string} Theme name ('light' or 'dark')
      */
     function getPreferredTheme() {
         // Check localStorage first (respects user choice)
@@ -40,9 +47,9 @@
     }
 
     /**
-     * Apply theme to document and update all toggle buttons
-     * @param {string} theme - 'light' or 'dark'
-     * @param {boolean} animate - Whether to animate the transition (default: true)
+     * Apply theme to the document with optional animation
+     * @param {string} theme - Theme to apply ('light' or 'dark')
+     * @param {boolean} animate - Whether to animate the transition
      */
     function applyTheme(theme, animate = true) {
         const root = document.documentElement;
@@ -58,7 +65,6 @@
         if (animate && body) {
             root.classList.add('theme-transitioning');
             body.classList.add('theme-transitioning');
-
             setTimeout(() => {
                 root.classList.remove('theme-transitioning');
                 body.classList.remove('theme-transitioning');
@@ -69,7 +75,6 @@
         root.setAttribute('data-theme', theme);
         if (body) {
             body.setAttribute('data-theme', theme);
-
             // Legacy class support
             if (theme === THEME_DARK) {
                 body.classList.add('dark-mode');
@@ -97,11 +102,11 @@
         announceThemeChange(theme);
 
         // Debug log
-        console.log(`%c🌓 Theme: ${theme}`, `color: ${theme === THEME_DARK ? '#fbbf24' : '#22c55e'}; font-weight: bold;`);
+        console.log(`%c🌙 Theme: ${theme}`, `color: ${theme === THEME_DARK ? '#fbbf24' : '#22c55e'};font-weight: bold;`);
     }
 
     /**
-     * Announce theme change to screen readers for accessibility
+     * Announce theme change to screen readers
      * @param {string} theme - Current theme
      */
     function announceThemeChange(theme) {
@@ -128,7 +133,7 @@
     }
 
     /**
-     * Update all theme toggle button icons and ARIA attributes
+     * Update theme toggle buttons based on current theme
      * @param {string} theme - Current theme
      */
     function updateToggleButtons(theme) {
@@ -173,7 +178,6 @@
 
     /**
      * Initialize theme toggle functionality
-     * Sets up event listeners and applies initial theme
      */
     function initThemeToggle() {
         // Apply saved theme on page load (without animation to prevent flash)
@@ -194,7 +198,6 @@
             button.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-
                 toggleTheme();
 
                 // Add visual feedback animation
@@ -223,7 +226,6 @@
                 this.style.outline = '2px solid var(--primary-color)';
                 this.style.outlineOffset = '3px';
             });
-
             button.addEventListener('blur', function () {
                 this.style.outline = '';
                 this.style.outlineOffset = '';
@@ -233,7 +235,6 @@
         // Listen for system preference changes (e.g., user changes OS theme)
         if (window.matchMedia) {
             const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
             const handleSystemThemeChange = (e) => {
                 // Only auto-switch if user hasn't manually set a preference
                 const storedTheme = localStorage.getItem(THEME_KEY);
@@ -251,7 +252,7 @@
             }
         }
 
-        console.log('%c🌗 EcoLife Theme System Initialized', 'color: #22c55e; font-weight: bold;');
+        console.log('%c🌗 EcoLife Theme System Initialized', 'color: #22c55e;font-weight: bold;');
     }
 
     // Apply theme immediately to prevent flash (runs before DOMContentLoaded)
@@ -289,5 +290,4 @@
 
     // Make initThemeToggle globally accessible
     window.initThemeToggle = initThemeToggle;
-
 })();

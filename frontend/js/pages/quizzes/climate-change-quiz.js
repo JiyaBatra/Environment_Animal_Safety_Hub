@@ -1,39 +1,174 @@
-// Initialize AOS
+﻿/**
+ * Climate Change Awareness Quiz
+ *
+ * An interactive educational quiz designed to teach children and adults about
+ * climate change, global warming, and environmental conservation. Features
+ * multiple-choice questions, timed challenges, and comprehensive review system.
+ *
+ * Quiz Features:
+ * - 15 carefully crafted questions on climate change topics
+ * - Random selection of 10 questions per quiz session
+ * - Customizable time limits (5, 10, 15 minutes)
+ * - Real-time scoring and progress tracking
+ * - Detailed answer review with explanations
+ * - Performance-based remarks and encouragement
+ * - Dark/light theme toggle with localStorage persistence
+ *
+ * Educational Topics Covered:
+ * - Definition and causes of climate change
+ * - Greenhouse gases and global warming
+ * - Human impact on environment
+ * - Renewable energy and sustainable practices
+ * - Conservation actions for individuals
+ * - Environmental effects and solutions
+ *
+ * Technical Features:
+ * - AOS (Animate On Scroll) integration for smooth animations
+ * - Theme persistence using localStorage
+ * - Responsive design with visual feedback
+ * - Timer system with color-coded warnings
+ * - Answer validation and scoring system
+ * - Review mode with correct/incorrect highlighting
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
+ */
+
+// ===== ANIMATION INITIALIZATION =====
+/**
+ * Initialize AOS (Animate On Scroll) library for smooth page animations
+ */
 AOS.init({ duration: 800, once: true });
 
-// Theme Logic
+// ===== THEME MANAGEMENT =====
+/**
+ * Theme toggle functionality with localStorage persistence
+ * Allows users to switch between dark and light themes
+ */
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
-if (localStorage.getItem('theme') === 'light') body.classList.add('light-theme');
 
+// Load saved theme preference
+if (localStorage.getItem('theme') === 'light') {
+  body.classList.add('light-theme');
+}
+
+// Theme toggle event handler
 themeToggle.addEventListener('click', () => {
   body.classList.toggle('light-theme');
   localStorage.setItem('theme', body.classList.contains('light-theme') ? 'light' : 'dark');
 });
 
-// Quiz Data
+// ===== QUIZ QUESTION DATABASE =====
+/**
+ * Comprehensive database of climate change quiz questions
+ * Each question contains the question text, multiple choice options, and correct answer index
+ * @typedef {Object} QuizQuestion
+ * @property {string} q - Question text
+ * @property {string[]} o - Array of four multiple choice options
+ * @property {number} a - Index of correct answer (0-3)
+ */
 const allQuestions = [
- {q:"What is climate change?",o:["Daily weather","Long-term temperature change","Rain only","Wind only"],a:1},
- {q:"Main cause of global warming?",o:["Trees","Greenhouse gases","Oxygen","Clouds"],a:1},
- {q:"Which gas traps heat?",o:["Oxygen","Carbon dioxide","Nitrogen","Helium"],a:1},
- {q:"Which activity harms climate?",o:["Planting trees","Burning fossil fuels","Recycling","Saving water"],a:1},
- {q:"How can kids help climate?",o:["Waste energy","Plant trees","Burn trash","Use plastic"],a:1},
- {q:"Effect of global warming?",o:["Ice melts","More forests","No change","Less sunlight"],a:0},
- {q:"Eco-friendly transport?",o:["Car","Plane","Cycle","Bike with fuel"],a:2},
- {q:"Saving electricity helps?",o:["More heat","Less pollution","More waste","Nothing"],a:1},
- {q:"Which is renewable energy?",o:["Coal","Solar","Oil","Gas"],a:1},
- {q:"Plastic waste causes?",o:["Clean ocean","Pollution","More fish","Cold water"],a:1},
- {q:"Planting trees helps because?",o:["Decoration","Absorb CO₂","Make noise","Waste land"],a:1},
- {q:"Climate change affects?",o:["Only animals","Only humans","Everyone","Nobody"],a:2},
- {q:"Which saves water?",o:["Fix leaks","Leave taps open","Waste water","Ignore"],a:0},
- {q:"Best habit?",o:["Reuse items","Throw trash","Burn waste","Ignore pollution"],a:0},
- {q:"Earth is getting?",o:["Colder","Warmer","Same","Frozen"],a:1}
+  {
+    q: "What is climate change?",
+    o: ["Daily weather", "Long-term temperature change", "Rain only", "Wind only"],
+    a: 1
+  },
+  {
+    q: "Main cause of global warming?",
+    o: ["Trees", "Greenhouse gases", "Oxygen", "Clouds"],
+    a: 1
+  },
+  {
+    q: "Which gas traps heat?",
+    o: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"],
+    a: 1
+  },
+  {
+    q: "Which activity harms climate?",
+    o: ["Planting trees", "Burning fossil fuels", "Recycling", "Saving water"],
+    a: 1
+  },
+  {
+    q: "How can kids help climate?",
+    o: ["Waste energy", "Plant trees", "Burn trash", "Use plastic"],
+    a: 1
+  },
+  {
+    q: "Effect of global warming?",
+    o: ["Ice melts", "More forests", "No change", "Less sunlight"],
+    a: 0
+  },
+  {
+    q: "Eco-friendly transport?",
+    o: ["Car", "Plane", "Cycle", "Bike with fuel"],
+    a: 2
+  },
+  {
+    q: "Saving electricity helps?",
+    o: ["More heat", "Less pollution", "More waste", "Nothing"],
+    a: 1
+  },
+  {
+    q: "Which is renewable energy?",
+    o: ["Coal", "Solar", "Oil", "Gas"],
+    a: 1
+  },
+  {
+    q: "Plastic waste causes?",
+    o: ["Clean ocean", "Pollution", "More fish", "Cold water"],
+    a: 1
+  },
+  {
+    q: "Planting trees helps because?",
+    o: ["Decoration", "Absorb CO₂", "Make noise", "Waste land"],
+    a: 1
+  },
+  {
+    q: "Climate change affects?",
+    o: ["Only animals", "Only humans", "Everyone", "Nobody"],
+    a: 2
+  },
+  {
+    q: "Which saves water?",
+    o: ["Fix leaks", "Leave taps open", "Waste water", "Ignore"],
+    a: 0
+  },
+  {
+    q: "Best habit?",
+    o: ["Reuse items", "Throw trash", "Burn waste", "Ignore pollution"],
+    a: 0
+  },
+  {
+    q: "Earth is getting?",
+    o: ["Colder", "Warmer", "Same", "Frozen"],
+    a: 1
+  }
 ];
 
-let quiz=[],index=0,score=0,seconds=0,timer;
-let userAnswers=[];
+// ===== QUIZ STATE MANAGEMENT =====
+/**
+ * Core quiz state variables tracking current session progress
+ * @typedef {Object} QuizState
+ * @property {QuizQuestion[]} quiz - Array of 10 randomly selected questions for current session
+ * @property {number} index - Current question index (0-9)
+ * @property {number} score - Number of correct answers
+ * @property {number} seconds - Remaining time in seconds
+ * @property {number|null} timer - Timer interval reference
+ * @property {number[]} userAnswers - Array storing user's selected answer indices
+ */
+let quiz = [];           // Current quiz questions (10 random questions)
+let index = 0;          // Current question index
+let score = 0;          // Correct answers count
+let seconds = 0;        // Remaining time
+let timer = null;       // Timer interval reference
+let userAnswers = [];   // User's selected answers
 
-// DOM Elements
+// ===== DOM ELEMENT REFERENCES =====
+/**
+ * All interactive DOM elements organized by screen/functionality
+ */
 const timeSelect = document.getElementById('timeSelect');
 const startScreen = document.getElementById('startScreen');
 const quizScreen = document.getElementById('quizScreen');
@@ -47,102 +182,175 @@ const remarkEl = document.getElementById('remark');
 const reviewList = document.getElementById('reviewList');
 const qNumber = document.getElementById('q-number');
 
-function startQuiz(){
-  // Randomize 10 questions
-  quiz = [...allQuestions].sort(()=>0.5-Math.random()).slice(0,10);
+// ===== QUIZ INITIALIZATION =====
+/**
+ * Start the quiz by selecting random questions and initializing the session
+ */
+function startQuiz() {
+  // Select 10 random questions from the database
+  quiz = [...allQuestions].sort(() => 0.5 - Math.random()).slice(0, 10);
+
+  // Set timer based on user selection
   seconds = parseInt(timeSelect.value);
-  
-  // Transition
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
-  
+
+  // Transition to quiz screen
+  startScreen.style.display = "none";
+  quizScreen.style.display = "block";
+
+  // Load first question and start timer
   loadQuestion();
   startTimer();
 }
 
-function startTimer(){
+// ===== TIMER MANAGEMENT =====
+/**
+ * Start the countdown timer for the quiz session
+ */
+function startTimer() {
   updateTime();
-  timer = setInterval(()=>{
+  timer = setInterval(() => {
     seconds--;
     updateTime();
-    if(seconds<=0){ clearInterval(timer); showResult(); }
-  },1000);
+    if (seconds <= 0) {
+      clearInterval(timer);
+      showResult();
+    }
+  }, 1000);
 }
 
-function updateTime(){
-  let m = Math.floor(seconds/60);
-  let s = seconds%60;
-  timeEl.textContent = `${m}:${s<10?'0':''}${s}`;
-  
-  // Visual Alert for low time
-  if(seconds < 10) timeEl.parentElement.style.color = "#FF5252";
+/**
+ * Update the timer display with formatted time and visual alerts
+ */
+function updateTime() {
+  let minutes = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+  timeEl.textContent = `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+
+  // Visual alert for low time remaining
+  if (seconds < 10) {
+    timeEl.parentElement.style.color = "#FF5252";
+  }
 }
 
-function loadQuestion(){
-  let q = quiz[index];
+// ===== QUESTION DISPLAY =====
+/**
+ * Load and display the current question with answer options
+ */
+function loadQuestion() {
+  let currentQuestion = quiz[index];
+
+  // Update question number and text
   qNumber.textContent = index + 1;
-  questionEl.textContent = q.q;
+  questionEl.textContent = currentQuestion.q;
+
+  // Clear previous options and create new ones
   optionsEl.innerHTML = "";
-  
-  q.o.forEach((opt,i)=>{
-    let btn = document.createElement("div");
-    btn.className = "option";
-    btn.textContent = opt;
-    btn.onclick = () => selectOption(btn,i);
-    optionsEl.appendChild(btn);
+  currentQuestion.o.forEach((option, optionIndex) => {
+    let optionButton = document.createElement("div");
+    optionButton.className = "option";
+    optionButton.textContent = option;
+    optionButton.onclick = () => selectOption(optionButton, optionIndex);
+    optionsEl.appendChild(optionButton);
   });
 }
 
-function selectOption(el,i){
-  document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
-  el.classList.add("selected");
-  userAnswers[index] = i;
+// ===== ANSWER SELECTION =====
+/**
+ * Handle user selection of an answer option
+ * @param {HTMLElement} element - The clicked option element
+ * @param {number} optionIndex - Index of the selected option (0-3)
+ */
+function selectOption(element, optionIndex) {
+  // Remove previous selection highlight
+  document.querySelectorAll(".option").forEach(option => option.classList.remove("selected"));
+
+  // Highlight selected option
+  element.classList.add("selected");
+
+  // Store user's answer
+  userAnswers[index] = optionIndex;
 }
 
-function nextQuestion(){
-  if(userAnswers[index]==null) {
-    // Simple shake animation
-    const btn = document.querySelector('.next-btn');
-    btn.style.transform = "translateX(5px)";
-    setTimeout(()=> btn.style.transform = "translateX(0)", 100);
+// ===== QUESTION NAVIGATION =====
+/**
+ * Advance to the next question or show results if quiz is complete
+ */
+function nextQuestion() {
+  // Check if user has selected an answer
+  if (userAnswers[index] == null) {
+    // Shake animation for next button to indicate missing answer
+    const nextBtn = document.querySelector('.next-btn');
+    nextBtn.style.transform = "translateX(5px)";
+    setTimeout(() => nextBtn.style.transform = "translateX(0)", 100);
     return;
   }
-  
-  if(userAnswers[index]===quiz[index].a) score++;
+
+  // Check answer and update score
+  if (userAnswers[index] === quiz[index].a) {
+    score++;
+  }
+
+  // Move to next question or show results
   index++;
-  
-  index < quiz.length ? loadQuestion() : showResult();
+  if (index < quiz.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
 }
 
-function showResult(){
+// ===== RESULTS DISPLAY =====
+/**
+ * Display quiz results with score and performance-based remarks
+ */
+function showResult() {
+  // Stop timer
   clearInterval(timer);
-  quizScreen.style.display="none";
-  resultScreen.style.display="block";
-  
-  scoreEl.textContent = `${score} / ${quiz.length}`;
-  
-  let percentage = (score/quiz.length)*100;
-  if(percentage >= 80) remarkEl.textContent = "🌟 Climate Hero! Amazing!";
-  else if(percentage >= 50) remarkEl.textContent = "👍 Good Job! Keep learning!";
-  else remarkEl.textContent = "🌱 Don't give up! Try again!";
+
+  // Transition to results screen
+  quizScreen.style.display = "none";
+  resultScreen.style.display = "block";
+
+  // Display score
+  scoreEl.textContent = `${score}/${quiz.length}`;
+
+  // Calculate performance percentage and show appropriate remark
+  let percentage = (score / quiz.length) * 100;
+  if (percentage >= 80) {
+    remarkEl.textContent = "🌟 Climate Hero! Amazing!";
+  } else if (percentage >= 50) {
+    remarkEl.textContent = "👍 Good Job! Keep learning!";
+  } else {
+    remarkEl.textContent = "🌱 Don't give up! Try again!";
+  }
 }
 
-function showReview(){
-  resultScreen.style.display="none";
-  reviewScreen.style.display="block";
-  reviewList.innerHTML="";
-  
-  quiz.forEach((q,i)=>{
-    let userAnswer = userAnswers[i];
-    let isCorrect = userAnswer === q.a;
-    let userText = q.o[userAnswer] || "No Answer";
-    let correctText = q.o[q.a];
-    
+// ===== ANSWER REVIEW =====
+/**
+ * Display detailed review of all questions with correct/incorrect answers
+ */
+function showReview() {
+  // Transition to review screen
+  resultScreen.style.display = "none";
+  reviewScreen.style.display = "block";
+
+  // Clear previous review content
+  reviewList.innerHTML = "";
+
+  // Generate review cards for each question
+  quiz.forEach((question, questionIndex) => {
+    let userAnswer = userAnswers[questionIndex];
+    let isCorrect = userAnswer === question.a;
+    let userAnswerText = question.o[userAnswer] || "No Answer";
+    let correctAnswerText = question.o[question.a];
+
+    // Create review card with color-coded border
     reviewList.innerHTML += `
-      <div class="review-card" style="border-left-color: ${isCorrect?'var(--primary)':'var(--danger)'}">
-        <p><strong>Q${i+1}:</strong> ${q.q}</p>
-        <p>Your Answer: <span class="${isCorrect?'correct':'wrong'}">${userText}</span></p>
-        ${!isCorrect ? `<p>Correct Answer: <span class="correct">${correctText}</span></p>` : ''}
-      </div>`;
+      <div class="review-card" style="border-left-color: ${isCorrect ? 'var(--primary)' : 'var(--danger)'}">
+        <p><strong>Q${questionIndex + 1}:</strong> ${question.q}</p>
+        <p>Your Answer: <span class="${isCorrect ? 'correct' : 'wrong'}">${userAnswerText}</span></p>
+        ${!isCorrect ? `<p>Correct Answer: <span class="correct">${correctAnswerText}</span></p>` : ''}
+      </div>
+    `;
   });
 }

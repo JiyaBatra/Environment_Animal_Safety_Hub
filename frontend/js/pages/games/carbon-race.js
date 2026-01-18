@@ -1,26 +1,61 @@
-// ==========================================
-// GAME STATE & CONFIGURATION
-// ==========================================
-const state = {
-    distance: 0,           // 0% to 100%
-    carbon: 100,           // 100% to 0%
-    correct: 0,
-    score: 0,
-    currentQ: 0,
-    isAnswering: false,
-    questionsForGame: [],  // Selected 5 questions for current game
-    questionThresholds: [20, 40, 60, 80, 100]  // Distance % when questions appear
+﻿/**
+ * Carbon Footprint Racing Game
+ *
+ * Interactive racing game where players answer environmental questions to reduce
+ * their carbon footprint while racing towards an eco-friendly goal.
+ *
+ * Features:
+ * - 10-question environmental knowledge base
+ * - Dynamic carbon footprint meter (0-100%)
+ * - Hero character movement with parallax background
+ * - Question thresholds at 20%, 40%, 60%, 80%, 100% progress
+ * - Scoring system with badges based on performance
+ * - Visual feedback for correct/incorrect answers
+ * - Auto-advancing gameplay with smooth animations
+ * - Performance-based achievements (Earth Guardian, Eco Warrior, etc.)
+ *
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
+ */
+
+// ========== GAME CONFIGURATION ==========
+
+/**
+ * Game state object containing all dynamic variables
+ * @typedef {Object} GameState
+ * @property {number} distance - Progress distance (0-100%)
+ * @property {number} carbon - Carbon footprint percentage (0-100%)
+ * @property {number} correct - Number of correct answers
+ * @property {number} score - Total game score
+ * @property {number} currentQ - Current question index
+ * @property {boolean} isAnswering - Whether player is currently answering a question
+ * @property {Array} questionsForGame - Selected questions for current game session
+ * @property {Array<number>} questionThresholds - Distance percentages where questions appear
+ */
+const gameState = {
+    distance: 0,        // 0% to 100%
+    carbon: 100,        // 100% to 0% (starts high, decreases with good answers)
+    correct: 0,         // Number of correct answers
+    score: 0,           // Total score
+    currentQ: 0,        // Current question index
+    isAnswering: false, // Whether player is answering
+    questionsForGame: [], // Selected 5 questions for current game
+    questionThresholds: [20, 40, 60, 80, 100] // Distance % when questions appear
 };
 
-// ==========================================
-// EXPANDED QUESTION BANK (10 Questions)
-// ==========================================
+// ========== QUESTION BANK ==========
+
+/**
+ * Environmental questions database
+ * @type {Array<{q: string, opts: string[], ans: string, reduce: number}>}
+ */
 const questionBank = [
     {
         q: "Which transport is most eco-friendly?",
         opts: ["Private Car", "Bicycle", "Airplane", "Motorcycle"],
         ans: "Bicycle",
-        reduce: 20
+        reduce: 20 // Carbon reduction for correct answer
     },
     {
         q: "What should we do with lights when leaving a room?",
@@ -78,15 +113,22 @@ const questionBank = [
     }
 ];
 
-// ==========================================
-// DOM ELEMENTS
-// ==========================================
-const el = {
+// ========== DOM ELEMENTS ==========
+
+/**
+ * DOM element references for game UI
+ */
+const elements = {
+    // Screens
     welcomeScreen: document.getElementById('welcomeScreen'),
     gameScreen: document.getElementById('gameScreen'),
     resultScreen: document.getElementById('resultScreen'),
+
+    // Buttons
     startBtn: document.getElementById('startBtn'),
     restartBtn: document.getElementById('restartBtn'),
+
+    // Game elements
     hero: document.getElementById('hero'),
     parallax: document.getElementById('parallax'),
     carbonFill: document.getElementById('carbonFill'),
@@ -95,10 +137,14 @@ const el = {
     correctValue: document.getElementById('correctValue'),
     scoreValue: document.getElementById('scoreValue'),
     gameMsg: document.getElementById('gameMsg'),
+
+    // Modal elements
     modal: document.getElementById('modal'),
     questionText: document.getElementById('questionText'),
     options: document.getElementById('options'),
     feedback: document.getElementById('feedback'),
+
+    // Result elements
     badgeEmoji: document.getElementById('badgeEmoji'),
     badgeTitle: document.getElementById('badgeTitle'),
     badgeDesc: document.getElementById('badgeDesc'),
@@ -107,232 +153,276 @@ const el = {
     finalScore: document.getElementById('finalScore')
 };
 
-// ==========================================
-// UTILITY FUNCTIONS
-// ==========================================
+// ========== UTILITY FUNCTIONS ==========
 
-// Shuffle array and pick random 5 questions
+/**
+ * Shuffle array and return random 5 questions for the game
+ * @returns {Array} Array of 5 randomly selected questions
+ */
 function getRandomQuestions() {
     const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 5);
 }
 
-// Switch Screen
+/**
+ * Switch between game screens (welcome, game, result)
+ * @param {string} screen - Screen to display ('welcome', 'game', 'result')
+ */
 function switchScreen(screen) {
-    el.welcomeScreen.classList.remove('active');
-    el.gameScreen.classList.remove('active');
-    el.resultScreen.classList.remove('active');
-    
-    if (screen === 'welcome') el.welcomeScreen.classList.add('active');
-    if (screen === 'game') el.gameScreen.classList.add('active');
-    if (screen === 'result') el.resultScreen.classList.add('active');
+    // Hide all screens
+    elements.welcomeScreen.classList.remove('active');
+    elements.gameScreen.classList.remove('active');
+    elements.resultScreen.classList.remove('active');
+
+    // Show selected screen
+    switch (screen) {
+        case 'welcome':
+            elements.welcomeScreen.classList.add('active');
+            break;
+        case 'game':
+            elements.gameScreen.classList.add('active');
+            break;
+        case 'result':
+            elements.resultScreen.classList.add('active');
+            break;
+    }
 }
 
-// Update Carbon Meter
-function updateCarbon() {
-    const percent = Math.max(0, Math.min(100, state.carbon));
-    el.carbonFill.style.width = percent + '%';
-    el.carbonValue.textContent = Math.round(percent) + '%';
-    
-    el.carbonFill.classList.remove('low', 'medium');
-    if (percent <= 30) el.carbonFill.classList.add('low');
-    else if (percent <= 60) el.carbonFill.classList.add('medium');
+/**
+ * Update carbon footprint meter visual and value
+ */
+function updateCarbonMeter() {
+    const percentage = Math.max(0, Math.min(100, gameState.carbon));
+    elements.carbonFill.style.width = percentage + '%';
+    elements.carbonValue.textContent = Math.round(percentage) + '%';
+
+    // Update color classes based on carbon level
+    elements.carbonFill.classList.remove('low', 'medium');
+    if (percentage <= 30) {
+        elements.carbonFill.classList.add('low');
+    } else if (percentage <= 60) {
+        elements.carbonFill.classList.add('medium');
+    }
 }
 
-// Update Stats
+/**
+ * Update game statistics display
+ */
 function updateStats() {
-    el.distanceValue.textContent = Math.round(state.distance) + '%';
-    el.correctValue.textContent = state.correct;
-    el.scoreValue.textContent = state.score;
+    elements.distanceValue.textContent = Math.round(gameState.distance) + '%';
+    elements.correctValue.textContent = gameState.correct;
+    elements.scoreValue.textContent = gameState.score;
 }
 
-// Move Hero (LEFT to RIGHT using transform)
-function moveHero(dist) {
-    state.distance = Math.min(100, state.distance + dist);
-    
-    // Calculate pixel position for LEFT to RIGHT movement
-    const trackWidth = el.hero.parentElement.offsetWidth - 100; // Account for hero size
-    const pixelPosition = (state.distance / 100) * trackWidth;
-    
-    // Move hero from left (0px) to right (trackWidth)
-    el.hero.style.transform = `translateX(${pixelPosition}px)`;
-    
-    // Parallax effect - trees move slower (half speed) in opposite direction
-    el.parallax.style.transform = `translateX(-${state.distance * 0.5}%)`;
-    
+/**
+ * Move hero character across the screen with parallax effect
+ * @param {number} distance - Distance to move (percentage points)
+ */
+function moveHero(distance) {
+    gameState.distance = Math.min(100, gameState.distance + distance);
+
+    // Calculate pixel position for left-to-right movement
+    const trackWidth = elements.hero.parentElement.offsetWidth - 100; // Account for hero size
+    const pixelPosition = (gameState.distance / 100) * trackWidth;
+
+    // Move hero from left to right
+    elements.hero.style.transform = `translateX(${pixelPosition}px)`;
+
+    // Parallax effect - background moves slower in opposite direction
+    elements.parallax.style.transform = `translateX(-${gameState.distance * 0.5}%)`;
+
     updateStats();
 }
 
-// Show Message
-function showMsg(text, duration = 2000) {
-    el.gameMsg.textContent = text;
-    el.gameMsg.style.display = 'inline-block';
+/**
+ * Display temporary game message
+ * @param {string} text - Message text to display
+ * @param {number} duration - Display duration in milliseconds (default: 2000)
+ */
+function showGameMessage(text, duration = 2000) {
+    elements.gameMsg.textContent = text;
+    elements.gameMsg.style.display = 'inline-block';
+
     setTimeout(() => {
-        el.gameMsg.style.display = 'none';
+        elements.gameMsg.style.display = 'none';
     }, duration);
 }
 
-// ==========================================
-// GAME LOGIC
-// ==========================================
+// ========== GAME LOGIC ==========
 
-// Start Game - Reset Everything
+/**
+ * Start new game - reset all state and begin racing
+ */
 function startGame() {
-    // Reset state
-    state.distance = 0;
-    state.carbon = 100;
-    state.correct = 0;
-    state.score = 0;
-    state.currentQ = 0;
-    state.isAnswering = false;
-    
-    // Get 5 random questions for this game
-    state.questionsForGame = getRandomQuestions();
-    
-    // Reset UI
-    el.hero.style.transform = 'translateX(0)';
-    el.hero.classList.remove('slowed');
-    el.parallax.style.transform = 'translateX(0)';
-    
-    updateCarbon();
+    // Reset game state
+    gameState.distance = 0;
+    gameState.carbon = 100;
+    gameState.correct = 0;
+    gameState.score = 0;
+    gameState.currentQ = 0;
+    gameState.isAnswering = false;
+
+    // Get 5 random questions for this game session
+    gameState.questionsForGame = getRandomQuestions();
+
+    // Reset UI elements
+    elements.hero.style.transform = 'translateX(0)';
+    elements.hero.classList.remove('slowed');
+    elements.parallax.style.transform = 'translateX(0)';
+
+    updateCarbonMeter();
     updateStats();
+
+    // Switch to game screen and start
     switchScreen('game');
-    
-    showMsg('🌍 Let\'s start your eco-journey!');
+    showGameMessage('🌍 Let\'s start your eco-journey!');
+
     setTimeout(() => runRace(), 2500);
 }
 
-// Run Race - Main Game Loop
+/**
+ * Main game loop - handle automatic movement and question triggers
+ */
 function runRace() {
-    if (state.distance >= 100) {
+    // Check if race is complete
+    if (gameState.distance >= 100) {
         endGame();
         return;
     }
-    
+
     // Check if we've reached a question threshold
-    const nextThreshold = state.questionThresholds[state.currentQ];
-    
-    if (state.distance >= nextThreshold && state.currentQ < state.questionsForGame.length && !state.isAnswering) {
+    const nextThreshold = gameState.questionThresholds[gameState.currentQ];
+    if (gameState.distance >= nextThreshold &&
+        gameState.currentQ < gameState.questionsForGame.length &&
+        !gameState.isAnswering) {
         // Stop and show question
         showQuestion();
-    } else if (state.distance < 100 && !state.isAnswering) {
+    } else if (gameState.distance < 100 && !gameState.isAnswering) {
         // Continue auto-moving
         setTimeout(() => {
-            moveHero(1.5); // Smooth movement
+            moveHero(1.5); // Smooth movement increment
             runRace();
         }, 80);
     }
 }
 
-// Show Question Modal
+/**
+ * Display question modal and options
+ */
 function showQuestion() {
-    state.isAnswering = true;
-    const q = state.questionsForGame[state.currentQ];
-    
-    el.questionText.textContent = q.q;
-    el.options.innerHTML = '';
-    el.feedback.classList.remove('active', 'correct', 'wrong');
-    el.feedback.textContent = '';
-    
+    gameState.isAnswering = true;
+    const currentQuestion = gameState.questionsForGame[gameState.currentQ];
+
+    elements.questionText.textContent = currentQuestion.q;
+    elements.options.innerHTML = '';
+    elements.feedback.classList.remove('active', 'correct', 'wrong');
+    elements.feedback.textContent = '';
+
     // Create option buttons
-    q.opts.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = opt;
-        btn.onclick = () => handleAnswer(opt, btn, q);
-        el.options.appendChild(btn);
+    currentQuestion.opts.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.textContent = option;
+        button.onclick = () => handleAnswer(option, button, currentQuestion);
+        elements.options.appendChild(button);
     });
-    
-    el.modal.classList.add('active');
+
+    elements.modal.classList.add('active');
 }
 
-// Handle Answer
-function handleAnswer(selected, btnElement, question) {
-    const correct = selected === question.ans;
-    
-    // Disable all buttons
-    const allBtns = el.options.querySelectorAll('.option-btn');
-    allBtns.forEach(b => b.disabled = true);
-    
-    if (correct) {
+/**
+ * Handle player's answer selection
+ * @param {string} selectedAnswer - The selected answer text
+ * @param {HTMLElement} buttonElement - The clicked button element
+ * @param {Object} question - The current question object
+ */
+function handleAnswer(selectedAnswer, buttonElement, question) {
+    const isCorrect = selectedAnswer === question.ans;
+
+    // Disable all buttons to prevent multiple clicks
+    const allButtons = elements.options.querySelectorAll('.option-btn');
+    allButtons.forEach(btn => btn.disabled = true);
+
+    if (isCorrect) {
         // CORRECT ANSWER
-        btnElement.classList.add('correct');
-        el.feedback.textContent = '✅ Excellent! You\'re helping the planet!';
-        el.feedback.classList.add('active', 'correct');
-        
-        // Update score and stats
-        state.correct++;
-        state.score += 20; // +20 for correct
-        state.carbon = Math.max(0, state.carbon - question.reduce); // Decrease carbon
-        
+        buttonElement.classList.add('correct');
+        elements.feedback.textContent = '✅ Excellent! You\'re helping the planet!';
+        elements.feedback.classList.add('active', 'correct');
+
+        // Update score and carbon
+        gameState.correct++;
+        gameState.score += 20; // +20 for correct answer
+        gameState.carbon = Math.max(0, gameState.carbon - question.reduce);
+
         // Move hero forward after delay
         setTimeout(() => {
-            const remainingDistance = state.questionThresholds[state.currentQ] - state.distance;
-            moveHero(remainingDistance + 2); // Move to threshold + little extra
+            const remainingDistance = gameState.questionThresholds[gameState.currentQ] - gameState.distance;
+            moveHero(remainingDistance + 2); // Move to threshold + extra
         }, 1200);
-        
+
     } else {
         // WRONG ANSWER
-        btnElement.classList.add('wrong');
-        el.feedback.textContent = '❌ Oops! That increases your carbon footprint!';
-        el.feedback.classList.add('active', 'wrong');
-        
-        // Update score and stats
-        state.score = Math.max(0, state.score - 5); // -5 for wrong
-        state.carbon = Math.min(100, state.carbon + 10); // Increase carbon
-        
-        // Apply "slowed" shake effect
-        el.hero.classList.add('slowed');
-        setTimeout(() => el.hero.classList.remove('slowed'), 800);
-        
+        buttonElement.classList.add('wrong');
+        elements.feedback.textContent = '❌ Oops! That increases your carbon footprint!';
+        elements.feedback.classList.add('active', 'wrong');
+
+        // Update score and carbon
+        gameState.score = Math.max(0, gameState.score - 5); // -5 for wrong answer
+        gameState.carbon = Math.min(100, gameState.carbon + 10); // Increase carbon
+
+        // Apply slowed effect
+        elements.hero.classList.add('slowed');
+        setTimeout(() => elements.hero.classList.remove('slowed'), 800);
+
         // Move hero forward (smaller distance)
         setTimeout(() => {
-            const remainingDistance = state.questionThresholds[state.currentQ] - state.distance;
-            moveHero(Math.max(1, remainingDistance + 1)); // Move to threshold
+            const remainingDistance = gameState.questionThresholds[gameState.currentQ] - gameState.distance;
+            moveHero(Math.max(1, remainingDistance + 1));
         }, 1200);
     }
-    
-    updateCarbon();
+
+    updateCarbonMeter();
     updateStats();
-    
-    // Close modal and continue
+
+    // Close modal and continue race
     setTimeout(() => {
-        el.modal.classList.remove('active');
-        state.currentQ++;
-        state.isAnswering = false;
-        
-        // Continue race
+        elements.modal.classList.remove('active');
+        gameState.currentQ++;
+        gameState.isAnswering = false;
+
         setTimeout(() => runRace(), 500);
     }, 2800);
 }
 
-// End Game - Show Results
+/**
+ * End game and display results with badge
+ */
 function endGame() {
-    // Calculate badge based on performance
+    // Calculate performance-based badge
+    const correctPercentage = (gameState.correct / gameState.questionsForGame.length) * 100;
+
     let badge = {
         emoji: '🌍',
         title: 'Eco Learner',
         desc: 'Keep learning about our planet!',
         color: '#4AB864'
     };
-    
-    const correctPercentage = (state.correct / state.questionsForGame.length) * 100;
-    
-    if (state.carbon <= 20 && correctPercentage >= 80) {
+
+    if (gameState.carbon <= 20 && correctPercentage >= 80) {
         badge = {
             emoji: '🏆',
             title: 'Earth Guardian',
             desc: 'You\'re a true eco-champion!',
             color: '#FFD700'
         };
-    } else if (state.carbon <= 40 && correctPercentage >= 60) {
+    } else if (gameState.carbon <= 40 && correctPercentage >= 60) {
         badge = {
             emoji: '⭐',
             title: 'Eco Warrior',
             desc: 'You\'re making a real difference!',
             color: '#00FF87'
         };
-    } else if (state.carbon <= 60 && correctPercentage >= 40) {
+    } else if (gameState.carbon <= 60 && correctPercentage >= 40) {
         badge = {
             emoji: '🌱',
             title: 'Nature Friend',
@@ -340,76 +430,74 @@ function endGame() {
             color: '#5FD68A'
         };
     }
-    
+
     // Update result screen
-    el.badgeEmoji.textContent = badge.emoji;
-    el.badgeTitle.textContent = badge.title;
-    el.badgeTitle.style.color = badge.color;
-    el.badgeDesc.textContent = badge.desc;
-    
-    el.finalCarbon.textContent = Math.round(state.carbon) + '%';
-    el.finalCorrect.textContent = state.correct + '/' + state.questionsForGame.length;
-    el.finalScore.textContent = state.score;
-    
-    // Color code carbon score
-    if (state.carbon <= 30) {
-        el.finalCarbon.style.color = '#00FF87';
-    } else if (state.carbon <= 60) {
-        el.finalCarbon.style.color = '#FFD700';
+    elements.badgeEmoji.textContent = badge.emoji;
+    elements.badgeTitle.textContent = badge.title;
+    elements.badgeTitle.style.color = badge.color;
+    elements.badgeDesc.textContent = badge.desc;
+    elements.finalCarbon.textContent = Math.round(gameState.carbon) + '%';
+    elements.finalCorrect.textContent = `${gameState.correct}/${gameState.questionsForGame.length}`;
+    elements.finalScore.textContent = gameState.score;
+
+    // Color-code carbon score
+    if (gameState.carbon <= 30) {
+        elements.finalCarbon.style.color = '#00FF87'; // Green
+    } else if (gameState.carbon <= 60) {
+        elements.finalCarbon.style.color = '#FFD700'; // Yellow
     } else {
-        el.finalCarbon.style.color = '#FF4D4D';
+        elements.finalCarbon.style.color = '#FF4D4D'; // Red
     }
-    
+
     // Switch to result screen
     setTimeout(() => switchScreen('result'), 1000);
 }
 
-// ==========================================
-// EVENT LISTENERS
-// ==========================================
-el.startBtn.addEventListener('click', startGame);
+// ========== EVENT LISTENERS ==========
 
-// Restart button - completely reset without page refresh
-el.restartBtn.addEventListener('click', () => {
+// Start game button
+elements.startBtn.addEventListener('click', startGame);
+
+// Restart button - complete reset without page refresh
+elements.restartBtn.addEventListener('click', () => {
     // Reset all state
-    state.distance = 0;
-    state.carbon = 100;
-    state.correct = 0;
-    state.score = 0;
-    state.currentQ = 0;
-    state.isAnswering = false;
-    state.questionsForGame = [];
-    
+    gameState.distance = 0;
+    gameState.carbon = 100;
+    gameState.correct = 0;
+    gameState.score = 0;
+    gameState.currentQ = 0;
+    gameState.isAnswering = false;
+    gameState.questionsForGame = [];
+
     // Reset UI elements
-    el.hero.style.transform = 'translateX(0)';
-    el.hero.classList.remove('slowed');
-    el.parallax.style.transform = 'translateX(0)';
-    el.modal.classList.remove('active');
-    
-    updateCarbon();
+    elements.hero.style.transform = 'translateX(0)';
+    elements.hero.classList.remove('slowed');
+    elements.parallax.style.transform = 'translateX(0)';
+    elements.modal.classList.remove('active');
+
+    updateCarbonMeter();
     updateStats();
-    
-    // Go back to welcome screen
+
+    // Return to welcome screen
     switchScreen('welcome');
 });
 
-// Prevent modal close on backdrop click during question
-el.modal.addEventListener('click', (e) => {
-    if (e.target === el.modal || e.target.classList.contains('modal-bg')) {
-        // Don't allow closing during active question
-        if (state.isAnswering) {
+// Prevent modal close during active questions
+elements.modal.addEventListener('click', (e) => {
+    if (e.target === elements.modal || e.target.classList.contains('modal-bg')) {
+        if (gameState.isAnswering) {
             e.stopPropagation();
         }
     }
 });
 
-// ==========================================
-// INITIALIZE ON PAGE LOAD
-// ==========================================
+// ========== INITIALIZATION ==========
+
 document.addEventListener('DOMContentLoaded', () => {
     switchScreen('welcome');
-    updateCarbon();
+    updateCarbonMeter();
     updateStats();
+
     console.log('🌍 Eco-Runner Premium Game Loaded!');
     console.log(`📚 Question Bank: ${questionBank.length} questions available`);
 });

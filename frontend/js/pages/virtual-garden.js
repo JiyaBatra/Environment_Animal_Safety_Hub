@@ -1,12 +1,6 @@
-/**
- * Virtual Garden Page JavaScript
- *
- * Handles all functionality for the Virtual Garden gamification feature:
- * - Tree planting and growth system
- * - Point management and rewards
- * - Achievement system
- * - Persistent state with localStorage
- * - Responsive interactions
+﻿/**
+ * Virtual Garden Game System
+ * Gamified environmental education through tree planting simulation
  */
 
 class VirtualGarden {
@@ -18,7 +12,6 @@ class VirtualGarden {
     this.treeCost = 10;
     this.waterBonus = 2; // hours saved per water
     this.harvestReward = 15;
-
     this.init();
   }
 
@@ -85,8 +78,8 @@ class VirtualGarden {
     // Level up logic
     const treesPlanted = parseInt(localStorage.getItem('vg_trees_planted') || '0') + 1;
     localStorage.setItem('vg_trees_planted', treesPlanted);
-
     const newLevel = Math.floor(treesPlanted / 5) + 1;
+
     if (newLevel > this.level) {
       this.level = newLevel;
       this.showNotification(`Level up! You reached level ${this.level}!`, 'success');
@@ -158,7 +151,7 @@ class VirtualGarden {
     if (this.trees.length === 0) {
       gardenPlot.innerHTML = `
         <div class="empty-garden">
-          <i class="fa-solid fa-seedling" style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+          <i class="fa-solid fa-seedling" style="font-size: 4rem;color: var(--secondary-color);margin-bottom: 1rem;"></i>
           <p>Your garden is empty. Plant your first tree!</p>
         </div>
       `;
@@ -242,7 +235,6 @@ class VirtualGarden {
     this.achievements.forEach(achievement => {
       const div = document.createElement('div');
       div.className = `achievement ${achievement.unlocked ? 'unlocked' : ''}`;
-
       div.innerHTML = `
         <div class="achievement-icon">
           <i class="fa-solid fa-${achievement.icon}"></i>
@@ -251,7 +243,6 @@ class VirtualGarden {
         <div class="achievement-desc">${achievement.description}</div>
         ${!achievement.unlocked ? `<div class="achievement-progress">${achievement.progress}</div>` : ''}
       `;
-
       grid.appendChild(div);
     });
   }
@@ -379,10 +370,12 @@ style.textContent = `
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
   }
+
   @keyframes slideOut {
     from { transform: translateX(0); opacity: 1; }
     to { transform: translateX(100%); opacity: 0; }
   }
+
   .empty-garden {
     grid-column: 1 / -1;
     text-align: center;
@@ -397,7 +390,5 @@ document.head.appendChild(style);
 let garden;
 document.addEventListener('DOMContentLoaded', () => {
   garden = new VirtualGarden();
+  window.garden = garden; // Make garden available globally for button clicks
 });
-
-// Make garden available globally for button clicks
-window.garden = garden;

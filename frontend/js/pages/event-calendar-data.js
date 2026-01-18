@@ -1,4 +1,36 @@
-// Event Calendar Data
+﻿/**
+ * Event Calendar Data and Helper Functions
+ *
+ * Comprehensive dataset for environmental and conservation events across India.
+ * Contains event details, filtering functions, and utility methods for the
+ * event calendar system.
+ *
+ * Event Types:
+ * - cleanup: Beach, river, and urban area clean-up activities
+ * - tree-planting: Urban forestry and community gardening projects
+ * - workshop: Educational workshops on sustainable living
+ * - volunteer: Wildlife rescue and conservation volunteering
+ * - education: Seminars, fairs, and awareness programs
+ *
+ * Features:
+ * - Location-based filtering (Mumbai, Delhi, Bangalore, Chennai, etc.)
+ * - Date range filtering (this week, this month, next month)
+ * - Event type categorization
+ * - Attendee management and capacity tracking
+ * - Geographic coordinates for mapping
+ * - Contact information and requirements
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
+ */
+
+// ===== EVENT DATA =====
+/**
+ * Complete dataset of environmental and conservation events
+ * Each event contains comprehensive details for display and filtering
+ * @type {Array<Object>}
+ */
 const eventCalendarData = [
     {
         id: 'cleanup-2026-01-25',
@@ -162,17 +194,34 @@ const eventCalendarData = [
     }
 ];
 
-// Helper functions for event data
+// ===== FILTERING FUNCTIONS =====
+/**
+ * Filter events by type
+ * @param {string} type - Event type ('cleanup', 'tree-planting', 'workshop', 'volunteer', 'education', or 'all')
+ * @returns {Array<Object>} Filtered array of events
+ */
 function getEventsByType(type) {
     if (type === 'all') return eventCalendarData;
     return eventCalendarData.filter(event => event.type === type);
 }
 
+/**
+ * Filter events by location
+ * @param {string} location - Location string to search for (case-insensitive partial match)
+ * @returns {Array<Object>} Filtered array of events
+ */
 function getEventsByLocation(location) {
     if (location === 'all') return eventCalendarData;
-    return eventCalendarData.filter(event => event.location.toLowerCase().includes(location.toLowerCase()));
+    return eventCalendarData.filter(event =>
+        event.location.toLowerCase().includes(location.toLowerCase())
+    );
 }
 
+/**
+ * Filter events by date range
+ * @param {string} range - Date range ('this-week', 'this-month', 'next-month')
+ * @returns {Array<Object>} Filtered array of events
+ */
 function getEventsByDateRange(range) {
     const now = new Date();
     let startDate, endDate;
@@ -201,6 +250,12 @@ function getEventsByDateRange(range) {
     });
 }
 
+// ===== UTILITY FUNCTIONS =====
+/**
+ * Get upcoming events sorted by date
+ * @param {number} limit - Maximum number of events to return (default: 6)
+ * @returns {Array<Object>} Array of upcoming events
+ */
 function getUpcomingEvents(limit = 6) {
     const now = new Date();
     return eventCalendarData
@@ -209,10 +264,20 @@ function getUpcomingEvents(limit = 6) {
         .slice(0, limit);
 }
 
+/**
+ * Find event by ID
+ * @param {string} id - Event ID to search for
+ * @returns {Object|null} Event object or null if not found
+ */
 function getEventById(id) {
     return eventCalendarData.find(event => event.id === id);
 }
 
+/**
+ * Format event date for display
+ * @param {string} dateString - ISO date string
+ * @returns {string} Formatted date string (e.g., "Monday, January 25, 2026")
+ */
 function formatEventDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-IN', {
@@ -223,6 +288,11 @@ function formatEventDate(dateString) {
     });
 }
 
+/**
+ * Format event time for display
+ * @param {string} dateString - ISO date string
+ * @returns {string} Formatted time string (e.g., "09:00")
+ */
 function formatEventTime(dateString) {
     const date = new Date(dateString);
     return date.toLocaleTimeString('en-IN', {

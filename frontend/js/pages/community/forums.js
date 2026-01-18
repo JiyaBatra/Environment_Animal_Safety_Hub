@@ -1,8 +1,28 @@
-/**
- * EcoForums - Community Forums Management
- * Handles forum categories, threads, replies, search, and moderation
+﻿/**
+ * EcoForums - Community Discussion Management System
+ *
+ * Manages forum categories, threads, replies, and user interactions
+ * for the environmental and animal safety community platform.
+ *
+ * Features:
+ * - Category-based thread organization
+ * - Thread creation, liking, and pinning
+ * - Reply system with moderation
+ * - Search and filtering capabilities
+ * - User role management (admin/guest)
+ * - Local storage persistence
+ *
+ * @class EcoForums
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
  */
 class EcoForums {
+
+    /**
+     * Initialize the EcoForums system
+     * @constructor
+     */
     constructor() {
         this.currentUser = this.getCurrentUser();
         this.forumData = null;
@@ -12,10 +32,13 @@ class EcoForums {
         this.currentFilter = 'all';
         this.threadsPerPage = 10;
         this.currentPage = 1;
-
         this.init();
     }
 
+    /**
+     * Initialize the forum system
+     * @private
+     */
     init() {
         this.loadForumData();
         this.setupEventListeners();
@@ -24,12 +47,22 @@ class EcoForums {
         this.updateStats();
     }
 
+    /**
+     * Get current user from localStorage or create guest user
+     * @returns {Object} User object with id, name, and role
+     * @private
+     */
     getCurrentUser() {
         // Get user from localStorage or session
         const user = JSON.parse(localStorage.getItem('ecolife_user') || 'null');
         return user || { id: 'guest', name: 'Guest', role: 'user' };
     }
 
+    /**
+     * Load forum data from JSON file or create default data
+     * @async
+     * @private
+     */
     async loadForumData() {
         try {
             const response = await fetch('../../assets/data/forums.json');
@@ -46,6 +79,11 @@ class EcoForums {
         }
     }
 
+    /**
+     * Get default forum data structure
+     * @returns {Object} Default forum data with categories and empty threads
+     * @private
+     */
     getDefaultForumData() {
         return {
             categories: [
@@ -91,6 +129,11 @@ class EcoForums {
         };
     }
 
+    /**
+     * Save forum data to localStorage
+     * @async
+     * @private
+     */
     async saveForumData() {
         try {
             // In a real app, this would be an API call
@@ -100,6 +143,10 @@ class EcoForums {
         }
     }
 
+    /**
+     * Setup event listeners for search, filters, and modals
+     * @private
+     */
     setupEventListeners() {
         // Search functionality
         const searchInput = document.getElementById('forum-search');
@@ -130,6 +177,10 @@ class EcoForums {
         this.setupModalEvents();
     }
 
+    /**
+     * Setup modal event listeners
+     * @private
+     */
     setupModalEvents() {
         // Create thread modal
         const createModal = document.getElementById('create-thread-modal');
@@ -150,7 +201,6 @@ class EcoForums {
         // Thread modal
         const threadModal = document.getElementById('thread-modal');
         const closeThreadModal = document.getElementById('close-thread-modal');
-
         if (closeThreadModal) {
             closeThreadModal.addEventListener('click', () => this.closeModal(threadModal));
         }
@@ -180,6 +230,10 @@ class EcoForums {
         });
     }
 
+    /**
+     * Render forum categories
+     * @private
+     */
     renderCategories() {
         const container = document.getElementById('categories-container');
         if (!container || !this.forumData) return;
@@ -204,6 +258,10 @@ class EcoForums {
         `).join('');
     }
 
+    /**
+     * Render recent threads with filtering and pagination
+     * @private
+     */
     renderRecentThreads() {
         const container = document.getElementById('threads-container');
         if (!container || !this.forumData) return;
@@ -252,9 +310,9 @@ class EcoForums {
         const endIndex = this.threadsPerPage;
         const displayedThreads = threads.slice(startIndex, endIndex);
 
-        container.innerHTML = displayedThreads.length > 0 ?
-            displayedThreads.map(thread => this.renderThreadCard(thread)).join('') :
-            '<div class="no-threads">No threads found. Be the first to start a discussion!</div>';
+        container.innerHTML = displayedThreads.length > 0
+            ? displayedThreads.map(thread => this.renderThreadCard(thread)).join('')
+            : '<div class="no-threads">No threads found. Be the first to start a discussion!</div>';
 
         // Show/hide load more button
         const loadMoreBtn = document.getElementById('load-more-btn');
@@ -263,10 +321,15 @@ class EcoForums {
         }
     }
 
+    /**
+     * Render a single thread card
+     * @param {Object} thread - Thread data object
+     * @returns {string} HTML string for thread card
+     * @private
+     */
     renderThreadCard(thread) {
         const category = this.forumData.categories.find(c => c.id === thread.category);
-        const lastReply = thread.replies.length > 0 ?
-            thread.replies[thread.replies.length - 1] : null;
+        const lastReply = thread.replies.length > 0 ? thread.replies[thread.replies.length - 1] : null;
         const timeAgo = this.getTimeAgo(new Date(thread.createdAt));
 
         return `
@@ -306,6 +369,10 @@ class EcoForums {
         `;
     }
 
+    /**
+     * Update forum statistics display
+     * @private
+     */
     updateStats() {
         const totalThreads = this.forumData.threads.length;
         const totalReplies = this.forumData.threads.reduce((sum, thread) => sum + thread.replies.length, 0);
@@ -319,6 +386,10 @@ class EcoForums {
         document.getElementById('active-users').textContent = activeUsers;
     }
 
+    /**
+     * Open create thread modal
+     * @private
+     */
     openCreateThreadModal() {
         if (!this.isLoggedIn()) {
             alert('Please log in to create a thread.');
@@ -330,13 +401,15 @@ class EcoForums {
 
         // Populate categories
         categorySelect.innerHTML = '<option value="">Select a category</option>' +
-            this.forumData.categories.map(cat =>
-                `<option value="${cat.id}">${cat.name}</option>`
-            ).join('');
+            this.forumData.categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
 
         modal.classList.add('active');
     }
 
+    /**
+     * Create a new thread
+     * @private
+     */
     createThread() {
         const title = document.getElementById('thread-title').value.trim();
         const category = document.getElementById('thread-category').value;
@@ -374,6 +447,11 @@ class EcoForums {
         this.showNotification('Thread created successfully!', 'success');
     }
 
+    /**
+     * Open thread detail modal
+     * @param {string} threadId - Thread ID to open
+     * @private
+     */
     openThread(threadId) {
         const thread = this.forumData.threads.find(t => t.id === threadId);
         if (!thread) return;
@@ -404,6 +482,11 @@ class EcoForums {
         modal.classList.add('active');
     }
 
+    /**
+     * Render thread replies
+     * @param {Array} replies - Array of reply objects
+     * @private
+     */
     renderReplies(replies) {
         const container = document.getElementById('replies-list');
         if (!container) return;
@@ -429,6 +512,10 @@ class EcoForums {
         `).join('');
     }
 
+    /**
+     * Submit a reply to current thread
+     * @private
+     */
     submitReply() {
         if (!this.isLoggedIn()) {
             alert('Please log in to reply.');
@@ -458,10 +545,13 @@ class EcoForums {
         // Reset form
         document.getElementById('reply-content').value = '';
         document.getElementById('replies-count').textContent = this.currentThread.replies.length;
-
         this.showNotification('Reply posted successfully!', 'success');
     }
 
+    /**
+     * Like the current thread
+     * @private
+     */
     likeThread() {
         if (!this.isLoggedIn()) {
             alert('Please log in to like threads.');
@@ -474,6 +564,10 @@ class EcoForums {
         this.showNotification('Thread liked!', 'success');
     }
 
+    /**
+     * Share current thread URL
+     * @private
+     */
     shareThread() {
         const url = window.location.href;
         navigator.clipboard.writeText(url).then(() => {
@@ -481,6 +575,10 @@ class EcoForums {
         });
     }
 
+    /**
+     * Pin/unpin current thread (admin only)
+     * @private
+     */
     pinThread() {
         if (!this.isAdmin()) return;
 
@@ -490,6 +588,10 @@ class EcoForums {
         this.showNotification(`Thread ${this.currentThread.pinned ? 'pinned' : 'unpinned'}!`, 'success');
     }
 
+    /**
+     * Delete current thread (admin only)
+     * @private
+     */
     deleteThread() {
         if (!this.isAdmin()) return;
 
@@ -504,6 +606,12 @@ class EcoForums {
         }
     }
 
+    /**
+     * Update category statistics
+     * @param {string} categoryId - Category ID to update
+     * @param {number} threadDelta - Change in thread count (default: 1)
+     * @private
+     */
     updateCategoryStats(categoryId, threadDelta = 1) {
         const category = this.forumData.categories.find(c => c.id === categoryId);
         if (category) {
@@ -515,13 +623,25 @@ class EcoForums {
         }
     }
 
+    /**
+     * Open category and filter threads
+     * @param {string} categoryId - Category ID to open
+     * @private
+     */
     openCategory(categoryId) {
         this.currentCategory = categoryId;
         this.renderRecentThreads();
+
         // Scroll to threads section
         document.querySelector('.threads-section').scrollIntoView({ behavior: 'smooth' });
     }
 
+    /**
+     * Get time ago string for date
+     * @param {Date} date - Date to format
+     * @returns {string} Time ago string
+     * @private
+     */
     getTimeAgo(date) {
         const now = new Date();
         const diffInSeconds = Math.floor((now - date) / 1000);
@@ -534,10 +654,22 @@ class EcoForums {
         return date.toLocaleDateString();
     }
 
+    /**
+     * Format date for display
+     * @param {Date} date - Date to format
+     * @returns {string} Formatted date string
+     * @private
+     */
     formatDate(date) {
         return date.toLocaleString();
     }
 
+    /**
+     * Format content with basic markdown support
+     * @param {string} content - Content to format
+     * @returns {string} Formatted HTML content
+     * @private
+     */
     formatContent(content) {
         // Basic markdown-like formatting
         return content
@@ -546,18 +678,39 @@ class EcoForums {
             .replace(/\*(.*?)\*/g, '<em>$1</em>');
     }
 
+    /**
+     * Check if user is logged in
+     * @returns {boolean} True if user is not guest
+     * @private
+     */
     isLoggedIn() {
         return this.currentUser.id !== 'guest';
     }
 
+    /**
+     * Check if current user is admin
+     * @returns {boolean} True if user has admin role
+     * @private
+     */
     isAdmin() {
         return this.currentUser.role === 'admin';
     }
 
+    /**
+     * Close modal
+     * @param {HTMLElement} modal - Modal element to close
+     * @private
+     */
     closeModal(modal) {
         modal.classList.remove('active');
     }
 
+    /**
+     * Show notification message
+     * @param {string} message - Notification message
+     * @param {string} type - Notification type (success, info, etc.)
+     * @private
+     */
     showNotification(message, type = 'info') {
         // Create notification element
         const notification = document.createElement('div');

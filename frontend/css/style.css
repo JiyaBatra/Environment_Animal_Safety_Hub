@@ -1,11 +1,24 @@
-/* ===== ROOT VARIABLES ===== */
+﻿ /* ===========================================
+   MAIN STYLESHEET - Environment Animal Safety Hub
+   ===========================================
+   Global CSS variables, base styles, components, and responsive design
+   =========================================== */
+
+/* ===========================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   =========================================== */
+
 :root {
-  /* Light Theme Colors */
+  /* Primary Colors */
   --primary-color: #2e7d32;
   --primary-dark: #1b5e20;
   --primary-light: #4caf50;
+
+  /* Secondary Colors */
   --secondary-color: #ff9800;
   --secondary-dark: #f57c00;
+
+  /* Accent Colors */
   --accent-color: #00bcd4;
 
   /* Text Colors */
@@ -46,7 +59,7 @@
   --section-padding: 100px 0;
   --container-padding: 0 20px;
 
-  /* Font */
+  /* Typography */
   --font-primary: "Poppins", sans-serif;
 
   /* Gradients */
@@ -67,132 +80,31 @@
   --secondary-color: #fbbf24;
   --secondary-dark: #f59e0b;
   --accent-color: #38bdf8;
-
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
   --text-light: #ffffff;
-
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
   --bg-card: #1e293b;
   --bg-input: #0f172a;
   --bg-dark: #020617;
-
   --border-color: #475569;
   --border-dark: #64748b;
-
   --shadow-color: rgba(0, 0, 0, 0.3);
   --shadow-dark: rgba(0, 0, 0, 0.5);
-
   --gradient-primary: linear-gradient(135deg, #22c55e, #16a34a);
   --gradient-secondary: linear-gradient(135deg, #f59e0b, #ea580c);
-
   --shadow-green: 0 10px 30px rgba(34, 197, 94, 0.3);
   --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-/* ================================
-   Eco Activity Highlight Cards
-   Issue #111 – EcoLife
-================================ */
+/* ===========================================
+   GLOBAL STYLES & RESET
+   =========================================== */
 
-/* Card Container */
-.eco-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.8rem;
-  padding: 2rem;
-}
-
-/* Eco Card */
-.eco-card {
-  background: var(--bg-card);
-  border-radius: 18px;
-  padding: 1.6rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 18px var(--shadow-color);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-}
-
-/* Soft Nature Glow */
-.eco-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top,
-      rgba(76, 175, 80, 0.15),
-      transparent 65%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-[data-theme="dark"] .eco-card::before {
-  background: radial-gradient(circle at top,
-      rgba(74, 222, 128, 0.2),
-      transparent 65%);
-}
-
-/* Hover Animation */
-.eco-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 16px 35px var(--shadow-dark);
-}
-
-.eco-card:hover::before {
-  opacity: 1;
-}
-
-/* Icon / Emoji */
-.eco-card .eco-icon {
-  font-size: 3rem;
-  margin-bottom: 0.6rem;
-}
-
-/* Card Title */
-.eco-card h3 {
-  font-size: 1.3rem;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-/* Card Text */
-.eco-card p {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .eco-card {
-    transition: none;
-  }
-}
-
-/* Mobile Optimization */
-@media (max-width: 480px) {
-  .eco-card {
-    padding: 1.3rem;
-  }
-
-  .eco-card h3 {
-    font-size: 1.15rem;
-  }
-
-  .eco-card p {
-    font-size: 0.95rem;
-  }
-}
-
-/* ===== RESET & BASE ===== */
 * {
   margin: 0;
   padding: 0;
@@ -245,7 +157,10 @@ select {
   font-size: inherit;
 }
 
-/* ===== UTILITY CLASSES ===== */
+/* ===========================================
+   LAYOUT & CONTAINERS
+   =========================================== */
+
 .section-container {
   max-width: 1300px;
   margin: 0 auto;
@@ -297,7 +212,10 @@ select {
   background-clip: text;
 }
 
-/* ===== BUTTONS ===== */
+/* ===========================================
+   BUTTON STYLES
+   =========================================== */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -358,27 +276,24 @@ select {
   width: 100%;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes float {
+/* ===========================================
+   ANIMATIONS & KEYFRAMES
+   =========================================== */
 
-  0%,
-  100% {
+@keyframes float {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-20px);
   }
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
     opacity: 1;
   }
-
   50% {
     transform: scale(1.05);
     opacity: 0.8;
@@ -390,7 +305,6 @@ select {
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -402,7 +316,6 @@ select {
     opacity: 0;
     transform: translateX(-50px);
   }
-
   to {
     opacity: 1;
     transform: translateX(0);
@@ -414,7 +327,6 @@ select {
     opacity: 0;
     transform: translateX(50px);
   }
-
   to {
     opacity: 1;
     transform: translateX(0);
@@ -425,32 +337,27 @@ select {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 }
 
 @keyframes bounce {
-
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
+  0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
-
   40% {
     transform: translateY(-15px);
   }
-
   60% {
     transform: translateY(-7px);
   }
 }
 
-/* ===== BACK TO TOP BUTTON ===== */
+/* ===========================================
+   UTILITY COMPONENTS
+   =========================================== */
+
 .back-to-top {
   position: fixed;
   bottom: 90px;
@@ -484,72 +391,96 @@ select {
   box-shadow: 0 15px 40px rgba(125, 124, 46, 0.5);
 }
 
-/* ===== SELECTION ===== */
 ::selection {
   background: var(--primary-color);
   color: var(--text-light);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1200px) {
-  .section-title {
-    font-size: 2.4rem;
-  }
+/* ===========================================
+   ECO CARDS COMPONENT
+   =========================================== */
+
+.eco-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.8rem;
+  padding: 2rem;
 }
 
-@media (max-width: 992px) {
-  :root {
-    --section-padding: 80px 0;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .section-header {
-    margin-bottom: 40px;
-  }
+.eco-card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 1.6rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 18px var(--shadow-color);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
 }
 
-@media (max-width: 768px) {
-  :root {
-    --section-padding: 60px 0;
-  }
+.eco-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(76, 175, 80, 0.15), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
 
-  .section-title {
-    font-size: 1.8rem;
-  }
+[data-theme="dark"] .eco-card::before {
+  background: radial-gradient(circle at top, rgba(74, 222, 128, 0.2), transparent 65%);
+}
 
-  .section-subtitle {
-    font-size: 1rem;
-  }
+.eco-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 16px 35px var(--shadow-dark);
+}
 
-  .btn {
-    padding: 12px 24px;
-    font-size: 0.95rem;
+.eco-card:hover::before {
+  opacity: 1;
+}
+
+.eco-card .eco-icon {
+  font-size: 3rem;
+  margin-bottom: 0.6rem;
+}
+
+.eco-card h3 {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.eco-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-card {
+    transition: none;
   }
 }
 
 @media (max-width: 480px) {
-  .section-title {
-    font-size: 1.5rem;
+  .eco-card {
+    padding: 1.3rem;
   }
-
-  .section-tag {
-    font-size: 0.8rem;
-    padding: 6px 15px;
+  .eco-card h3 {
+    font-size: 1.15rem;
+  }
+  .eco-card p {
+    font-size: 0.95rem;
   }
 }
 
-html,
-body {
-  overflow-x: hidden;
-}
-
-/* ================================
-   Nature Progress Banner (Issue #112)
-   Eco Challenges Section
-================================ */
+/* ===========================================
+   ECO CHALLENGES SECTION
+   =========================================== */
 
 .eco-challenges-section {
   padding: 80px 0;
@@ -620,6 +551,10 @@ body {
 [data-theme="dark"] .challenge-btn.completed {
   background: #475569;
 }
+
+/* ===========================================
+   CARBON CALCULATOR SECTION
+   =========================================== */
 
 .carbon-section {
   padding: var(--section-padding);
@@ -813,27 +748,22 @@ body {
   font-weight: 600;
 }
 
-/* Responsive design for carbon calculator */
 @media (max-width: 768px) {
   .carbon-form {
     padding: 30px 20px;
     margin: 0 20px;
   }
-
   .carbon-result {
     margin: 30px 20px 0;
     padding: 25px 20px;
   }
-
   .carbon-form select {
     padding: 12px 16px;
     font-size: 0.95rem;
   }
-
   .carbon-result h3 {
     font-size: 1.3rem;
   }
-
   .carbon-result p {
     font-size: 1rem;
   }
@@ -843,30 +773,29 @@ body {
   .carbon-section {
     padding: 60px 0;
   }
-
   .carbon-form {
     padding: 25px 15px;
     margin: 0 15px;
   }
-
   .carbon-result {
     margin: 25px 15px 0;
     padding: 20px 15px;
   }
-
   .carbon-form .form-group {
     margin-bottom: 25px;
   }
 }
 
-/* Myth vs Fact Section */
+/* ===========================================
+   MYTH VS FACT SECTION
+   =========================================== */
+
 .myth-fact-section {
   padding: 60px 20px;
   background-color: var(--bg-secondary);
   font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-/* --- GRID ADJUSTMENT --- */
 .myth-fact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -879,7 +808,6 @@ body {
   perspective: 1000px;
 }
 
-/* --- CARD PHYSICS --- */
 .myth-card {
   width: 100%;
   height: 100%;
@@ -906,7 +834,6 @@ body {
   transform: rotateY(180deg) translateY(-5px);
 }
 
-/* --- CARD FACES --- */
 .card-face {
   position: absolute;
   width: 100%;
@@ -933,7 +860,6 @@ body {
   transform: rotateY(180deg);
 }
 
-/* --- CONTENT STYLING --- */
 .icon-box {
   font-size: 2.5rem;
   margin-bottom: 15px;
@@ -941,12 +867,9 @@ body {
 }
 
 @keyframes float {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-8px);
   }
@@ -970,7 +893,6 @@ body {
   color: white;
 }
 
-/* --- ACTION PILL (BUTTON) --- */
 .action-pill {
   font-size: 0.8rem;
   background: rgba(255, 255, 255, 0.25);
@@ -987,7 +909,6 @@ body {
   color: #2c3e50;
 }
 
-/* --- SHINE EFFECT --- */
 .card-shine {
   position: absolute;
   top: 0;
@@ -1008,12 +929,15 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+/* ===========================================
+   GARDEN GAME COMPONENT
+   =========================================== */
 
 .garden-game {
   background-image: url("https://images.unsplash.com/photo-1601654253194-260e0b6984f9?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
@@ -1137,12 +1061,15 @@ body {
     transform: scale(0);
     opacity: 0;
   }
-
   to {
     transform: scale(1);
     opacity: 1;
   }
 }
+
+/* ===========================================
+   IMPACT CALCULATOR COMPONENTS
+   =========================================== */
 
 .impact-card {
   text-align: center;
@@ -1318,43 +1245,10 @@ body {
   color: var(--text-secondary);
 }
 
-/* Cards */
-body.dark-theme .feature-card,
-body.dark-theme .service-card,
-body.dark-theme .eco-challenge-card,
-body.dark-theme .myth-card,
-body.dark-theme .testimonial-card {
-  background: #020617;
-  border: 1px solid #1e293b;
-}
+/* ===========================================
+   INTERACTIVE COMPONENTS
+   =========================================== */
 
-/* Navbar */
-body.dark-theme .navbar {
-  background: rgba(2, 6, 23, 0.9);
-  backdrop-filter: blur(10px);
-}
-
-/* Buttons */
-body.dark-theme .btn-primary {
-  background: var(--btn-primary-bg);
-}
-
-/* Text tweaks */
-body.dark-theme .section-subtitle,
-body.dark-theme p {
-  color: #cbd5f5;
-}
-
-/* Inputs */
-body.dark-theme input,
-body.dark-theme select,
-body.dark-theme textarea {
-  background: #020617;
-  color: #e5e7eb;
-  border: 1px solid #334155;
-}
-
-/* Font Size Controls */
 .font-size-controls {
   display: flex;
   gap: 4px;
@@ -1395,12 +1289,10 @@ body.dark-theme textarea {
   font-size: 0.8rem;
 }
 
-/* Font Size Transition */
 .font-size-transitioning * {
   transition: font-size 0.3s ease !important;
 }
 
-/* 🌙 Toggle Button Style */
 .theme-toggle {
   cursor: pointer;
   font-size: 1.2rem;
@@ -1431,7 +1323,10 @@ body.dark-theme textarea {
   transform: rotate(180deg);
 }
 
-/* Chatbot Container */
+/* ===========================================
+   CHATBOT COMPONENTS
+   =========================================== */
+
 .chatbot-container {
   width: 320px;
   position: fixed;
@@ -1495,7 +1390,6 @@ body.dark-theme textarea {
   background: var(--primary-dark);
 }
 
-/* Messages */
 .user-message {
   background: var(--primary-color);
   color: var(--text-light);
@@ -1516,7 +1410,10 @@ body.dark-theme textarea {
   max-width: 80%;
 }
 
-/* ===== CALCULATOR CTA SECTION ===== */
+/* ===========================================
+   CALCULATOR CTA SECTION
+   =========================================== */
+
 .calculator-cta-section {
   display: flex;
   justify-content: center;
@@ -1604,25 +1501,24 @@ body.dark-theme textarea {
   .calculator-cta-section {
     padding: 60px 0;
   }
-
   .cta-content h2 {
     font-size: 2rem;
   }
-
   .cta-content p {
     font-size: 1.1rem;
   }
-
   .cta-features {
     gap: 20px;
   }
-
   .cta-feature {
     font-size: 0.9rem;
   }
 }
 
-/* 🌍 Earth Section */
+/* ===========================================
+   EARTH VISUALIZATION COMPONENT
+   =========================================== */
+
 .earth-wrapper {
   text-align: center;
   padding: 60px 20px;
@@ -1648,7 +1544,6 @@ body.dark-theme textarea {
   margin: 30px auto;
 }
 
-/* 🌍 Earth */
 .earth {
   font-size: 110px;
   position: relative;
@@ -1656,7 +1551,6 @@ body.dark-theme textarea {
   transition: transform 0.6s ease;
 }
 
-/* ☀️ Sun Rays */
 .sun-rays {
   position: absolute;
   inset: 0;
@@ -1665,18 +1559,14 @@ body.dark-theme textarea {
   animation: spin 8s linear infinite;
 }
 
-/* 🌧️ Rain */
 .rain {
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(transparent,
-      transparent 8px,
-      rgba(0, 0, 255, 0.4) 10px);
+  background-image: repeating-linear-gradient(transparent, transparent 8px, rgba(0, 0, 255, 0.4) 10px);
   opacity: 0;
   animation: rainFall 0.6s linear infinite;
 }
 
-/* 🌍 Cracks */
 .cracks {
   position: absolute;
   inset: 0;
@@ -1684,7 +1574,6 @@ body.dark-theme textarea {
   opacity: 0;
 }
 
-/* STATES */
 .happy {
   filter: drop-shadow(0 0 15px var(--primary-color));
 }
@@ -1699,24 +1588,19 @@ body.dark-theme textarea {
   filter: drop-shadow(0 0 15px #ef4444);
 }
 
-/* Animations */
 @keyframes shake {
   0% {
     transform: translateX(0);
   }
-
   25% {
     transform: translateX(-6px);
   }
-
   50% {
     transform: translateX(6px);
   }
-
   75% {
     transform: translateX(-6px);
   }
-
   100% {
     transform: translateX(0);
   }
@@ -1726,13 +1610,11 @@ body.dark-theme textarea {
   from {
     background-position: 0 0;
   }
-
   to {
     background-position: 0 20px;
   }
 }
 
-/* Buttons (Demo) */
 .demo-controls {
   display: flex;
   gap: 10px;
@@ -1757,7 +1639,10 @@ body.dark-theme textarea {
   transform: translateY(-2px);
 }
 
-/* ================= ECOLIFE CHATBOT ================= */
+/* ===========================================
+   ECOLIFE CHATBOT
+   =========================================== */
+
 .ecolife-chatbot {
   position: fixed;
   bottom: 20px;
@@ -1766,7 +1651,6 @@ body.dark-theme textarea {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Toggle Button */
 .ecolife-chatbot .eco-toggle {
   width: 60px;
   height: 60px;
@@ -1786,7 +1670,6 @@ body.dark-theme textarea {
   transform: scale(1.1);
 }
 
-/* Chatbox */
 .ecolife-chatbot .eco-chatbox {
   width: 330px;
   height: 440px;
@@ -1799,7 +1682,6 @@ body.dark-theme textarea {
   border: 1px solid var(--border-color);
 }
 
-/* Header */
 .ecolife-chatbot .eco-header {
   background: var(--gradient-primary);
   color: var(--text-light);
@@ -1810,7 +1692,6 @@ body.dark-theme textarea {
   align-items: center;
 }
 
-/* Body */
 .ecolife-chatbot .eco-body {
   flex: 1;
   padding: 12px;
@@ -1818,7 +1699,6 @@ body.dark-theme textarea {
   background: var(--bg-secondary);
 }
 
-/* Messages */
 .ecolife-chatbot .eco-bot,
 .ecolife-chatbot .eco-user {
   max-width: 80%;
@@ -1841,7 +1721,6 @@ body.dark-theme textarea {
   align-self: flex-end;
 }
 
-/* Input */
 .ecolife-chatbot .eco-input {
   display: flex;
   border-top: 1px solid var(--border-color);
@@ -1873,22 +1752,21 @@ body.dark-theme textarea {
   background: var(--primary-dark);
 }
 
-/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(6px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* ===========================
+/* ===========================================
    TEAM CTA SECTION
-   =========================== */
+   =========================================== */
+
 .team-cta-section {
   position: relative;
   background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
@@ -1900,7 +1778,6 @@ body.dark-theme textarea {
   overflow: hidden;
 }
 
-/* Dark overlay to ensure text is readable */
 .cta-overlay {
   position: absolute;
   top: 0;
@@ -1946,7 +1823,6 @@ body.dark-theme textarea {
   line-height: 1.6;
 }
 
-/* GLOWING BUTTON STYLE */
 .btn-glow {
   display: inline-flex;
   align-items: center;
@@ -1967,20 +1843,20 @@ body.dark-theme textarea {
   background: #e8f5e9;
 }
 
-/* Responsive Mobile Fix */
 @media (max-width: 768px) {
   .team-cta-section {
     padding: 60px 20px;
     margin: 20px 10px;
   }
-
   .team-cta-section h2 {
     font-size: 1.8rem;
   }
 }
 
-/* museum */
-/* --- MUSEUM PREVIEW SECTION --- */
+/* ===========================================
+   MUSEUM PREVIEW SECTION
+   =========================================== */
+
 .museum-preview {
   padding: 4rem 10%;
   background-color: var(--bg-secondary);
@@ -2004,18 +1880,14 @@ body.dark-theme textarea {
 }
 
 @keyframes museumFloat {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0px);
   }
-
   50% {
     transform: translateY(-10px);
   }
 }
 
-/* Background Pattern Overlay */
 .museum-banner::before {
   content: '';
   position: absolute;
@@ -2062,11 +1934,9 @@ body.dark-theme textarea {
   0% {
     background-position: 0% 50%;
   }
-
   50% {
     background-position: 100% 50%;
   }
-
   100% {
     background-position: 0% 50%;
   }
@@ -2141,7 +2011,6 @@ body.dark-theme textarea {
   background: #f0fdf4;
 }
 
-/* Visuals (Floating Images) */
 .museum-visuals {
   flex: 1;
   position: relative;
@@ -2194,7 +2063,6 @@ body.dark-theme textarea {
   backdrop-filter: blur(10px);
 }
 
-/* Card Positioning & Animation */
 .card-1 {
   transform: rotate(-8deg) translate(-40px, 20px);
   z-index: 1;
@@ -2214,84 +2082,70 @@ body.dark-theme textarea {
 }
 
 @keyframes float1 {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: rotate(-8deg) translate(-40px, 20px);
   }
-
   50% {
     transform: rotate(-6deg) translate(-40px, 0px);
   }
 }
 
 @keyframes float2 {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: rotate(5deg) translate(60px, -30px);
   }
-
   50% {
     transform: rotate(7deg) translate(60px, -10px);
   }
 }
 
 @keyframes float3 {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: rotate(-3deg) translate(10px, 40px);
   }
-
   50% {
     transform: rotate(-1deg) translate(10px, 20px);
   }
 }
 
-/* Responsive Design */
 @media (max-width: 900px) {
   .museum-banner {
     flex-direction: column;
     text-align: center;
     padding: 3rem 1.5rem;
   }
-
   .museum-text {
     margin-bottom: 2rem;
     max-width: 100%;
   }
-
   .museum-text h2 {
     font-size: 2rem;
   }
-
   .museum-features {
     justify-content: center;
   }
-
   .museum-visuals {
     width: 100%;
     height: 250px;
   }
-
   .floating-card {
     width: 140px;
     height: 180px;
   }
-
   .card-1 {
     transform: rotate(-8deg) translate(-30px, 10px);
   }
-
   .card-2 {
     transform: rotate(5deg) translate(40px, -20px);
   }
-
   .card-3 {
     transform: rotate(-3deg) translate(5px, 30px);
   }
 }
+
+/* ===========================================
+   DICTIONARY CARDS
+   =========================================== */
 
 .dict-card {
   background: var(--bg-card);
@@ -2343,7 +2197,10 @@ body.dark-theme textarea {
   }
 }
 
-/* ===== GLOBAL ANIMATION LAYERS ===== */
+/* ===========================================
+   ENVIRONMENTAL ANIMATIONS
+   =========================================== */
+
 .eco-sky,
 .birds-layer,
 .rain-layer,
@@ -2358,7 +2215,6 @@ body.dark-theme textarea {
   z-index: -1;
 }
 
-/* ===== ☁️ CLOUDS ===== */
 .cloud {
   position: absolute;
   top: 10%;
@@ -2413,7 +2269,6 @@ body.dark-theme textarea {
   }
 }
 
-/* ===== 🕊️ BIRDS ===== */
 .bird {
   position: absolute;
   font-size: 22px;
@@ -2424,13 +2279,11 @@ body.dark-theme textarea {
   from {
     transform: translateX(-50px) translateY(0);
   }
-
   to {
     transform: translateX(110vw) translateY(-40px);
   }
 }
 
-/* ===== 🌧️ RAIN ===== */
 .rain-drop {
   position: absolute;
   width: 2px;
@@ -2443,13 +2296,11 @@ body.dark-theme textarea {
   from {
     transform: translateY(-100px);
   }
-
   to {
     transform: translateY(110vh);
   }
 }
 
-/* ===== 🍃 LEAVES ===== */
 .leaf {
   position: absolute;
   font-size: 18px;
@@ -2460,13 +2311,11 @@ body.dark-theme textarea {
   0% {
     transform: translateY(-50px) rotate(0deg);
   }
-
   100% {
     transform: translateY(110vh) rotate(360deg);
   }
 }
 
-/* ===== 🌞 SUN GLOW ===== */
 .sun-glow {
   background: radial-gradient(circle at top right, rgba(255, 223, 128, 0.35), transparent 60%);
   opacity: 0;
@@ -2477,14 +2326,15 @@ body.dark-theme textarea {
   opacity: 1;
 }
 
-/* Quiz Section */
+/* ===========================================
+   QUIZ SECTION
+   =========================================== */
+
 .quiz-section {
   padding: 80px 20px;
   background: var(--bg-secondary);
-
   display: flex;
   justify-content: center;
-
 }
 
 .quiz-title {
@@ -2524,8 +2374,6 @@ body.dark-theme textarea {
   padding: 15px;
   border-radius: 10px;
 }
-
-
 
 .options {
   display: grid;
@@ -2591,7 +2439,10 @@ body.dark-theme textarea {
   box-shadow: var(--shadow-green);
 }
 
-/* Scroll to Bottom Button */
+/* ===========================================
+   SCROLL COMPONENTS
+   =========================================== */
+
 .scroll-to-bottom {
   position: fixed;
   bottom: 90px;
@@ -2618,14 +2469,10 @@ body.dark-theme textarea {
   box-shadow: 0 15px 40px var(--shadow-dark);
 }
 
-/* Floating animation */
 @keyframes floatBtn {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(6px);
   }
@@ -2636,12 +2483,15 @@ body.dark-theme textarea {
   transform: scale(0.9);
 }
 
-/* Fix for overflow issues */
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+html,
 body {
   overflow-x: hidden;
 }
 
-/* Ensure all buttons have consistent styling */
 button,
 .btn,
 .sim-btn,
@@ -2653,15 +2503,10 @@ button,
   transition: all 0.3s ease;
 }
 
-/* Ensure images don't overflow */
 img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  transition: none;
 }
 
-
-/* Ensure all cards have proper spacing */
 .feature-card,
 .service-card,
 .eco-challenge-card,
@@ -2669,7 +2514,6 @@ img {
   margin-bottom: 20px;
 }
 
-/* Fix input fields */
 input,
 select,
 textarea {
@@ -2696,21 +2540,18 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
 }
 
-/* Fix for modals */
 .custom-modal-content {
   background: var(--bg-card);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
 
-/* Fix for footer */
 .eco-footer {
   background: var(--bg-secondary);
   color: var(--text-primary);
   border-top: 1px solid var(--border-color);
 }
 
-/* Fix for navbar */
 .navbar {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
@@ -2724,7 +2565,6 @@ textarea:focus {
   color: var(--primary-color);
 }
 
-/* Fix for hero section */
 .hero-section {
   background: var(--bg-secondary);
 }
@@ -2737,7 +2577,6 @@ textarea:focus {
   color: black;
 }
 
-/* Fix for testimonials */
 .testimonial-card {
   background: var(--bg-card);
   color: var(--text-primary);
@@ -2748,7 +2587,6 @@ textarea:focus {
   color: var(--text-secondary);
 }
 
-/* Ensure proper z-index for fixed elements */
 .navbar,
 .back-to-top,
 .scroll-to-bottom,
@@ -2757,43 +2595,69 @@ textarea:focus {
   z-index: 1000;
 }
 
-/* Responsive fixes */
+/* ===========================================
+   MEDIA QUERIES
+   =========================================== */
+
+@media (max-width: 1200px) {
+  .section-title {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  :root {
+    --section-padding: 80px 0;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+}
+
 @media (max-width: 768px) {
+  :root {
+    --section-padding: 60px 0;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
   .museum-banner {
     flex-direction: column;
     text-align: center;
   }
-
   .museum-visuals {
     margin-top: 30px;
     height: 200px;
   }
-
   .floating-card {
     width: 120px;
     height: 160px;
   }
-
   .team-cta-section h2 {
     font-size: 2rem;
   }
-
   .section-title {
     font-size: 2rem;
   }
-
   .quiz-title {
     font-size: 2rem;
   }
-
   .options {
     grid-template-columns: 1fr;
   }
-
   .wildlife-grid {
     grid-template-columns: 1fr;
   }
-
   .theme-toggle {
     width: 36px;
     height: 36px;
@@ -2802,28 +2666,30 @@ textarea:focus {
 }
 
 @media (max-width: 480px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .section-tag {
+    font-size: 0.8rem;
+    padding: 6px 15px;
+  }
   .museum-banner {
     padding: 2rem 1rem;
   }
-
   .museum-text h2 {
     font-size: 1.8rem;
   }
-
   .team-cta-section {
     padding: 40px 15px;
     margin: 20px 10px;
   }
-
   .team-cta-section h2 {
     font-size: 1.5rem;
   }
-
   .btn-glow {
     padding: 12px 25px;
     font-size: 0.9rem;
   }
-
   .scroll-to-bottom {
     width: 45px;
     height: 45px;
@@ -2831,7 +2697,6 @@ textarea:focus {
     bottom: 80px;
     right: 20px;
   }
-
   .back-to-top {
     width: 45px;
     height: 45px;
@@ -2841,12 +2706,14 @@ textarea:focus {
   }
 }
 
-/* Theme transition for smooth switching */
+/* ===========================================
+   THEME OVERRIDES
+   =========================================== */
+
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Skip transition for certain elements */
 .navbar,
 .back-to-top,
 .scroll-to-bottom,
@@ -2855,27 +2722,19 @@ textarea:focus {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Ensure images maintain their colors */
 img {
   transition: none;
 }
 
-/* Fix for Safari browser */
-@supports (-webkit-touch-callout: none) {
+@media (-webkit-touch-callout: none) {
   .theme-toggle {
     -webkit-tap-highlight-color: transparent;
   }
-
   button,
   .btn {
     -webkit-tap-highlight-color: transparent;
   }
 }
-
-
-
-
-
 
 .dict-card {
   background: #ffffff;
@@ -2893,8 +2752,6 @@ img {
   transform: translateY(-8px);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
 }
-
-
 
 .dict-card h3 {
   margin-top: 0;
@@ -2932,11 +2789,9 @@ img {
   transform: scale(0.9);
 }
 
-/* ===== Scroll to Bottom Button ===== */
 .scroll-to-bottom {
   position: fixed;
   bottom: 90px;
-  /* Above back-to-top */
   right: 25px;
   width: 50px;
   height: 50px;
@@ -2960,16 +2815,15 @@ img {
   background: linear-gradient(135deg, #11998e, #38ef7d);
 }
 
-/* Floating animation */
 @keyframes floatBtn {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(6px);
   }
 }
 
+/* ===========================================
+   END OF STYLESHEET
+   =========================================== */
