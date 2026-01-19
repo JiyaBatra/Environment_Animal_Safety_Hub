@@ -52,9 +52,18 @@
 <body data-theme="light">
 
   <div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
+  <script src="../../js/components/loadComponents.js"></script>
 
   <div id="navbar-container"></div>
+  
+  <!-- Theme Toggle - Positioned at right center with 400px from top -->
+  <div class="theme-toggle-container">
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-icon sun">☀️</span>
+      <span class="theme-icon moon">🌙</span>
+      <span class="theme-slider"></span>
+    </button>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero-section">
@@ -486,19 +495,437 @@
     </div>
   </section>
 
-  <div id="footer-container"></div>
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Load footer and navbar scripts -->
+  <script src="/frontend/js/components/footer-loader.js"></script>
+  <script src="../../js/components/component-loader.js"></script>
+  <script src="../../js/components/navbar-loader.js"></script>
 
   <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.css"></script>
-  <script src="../../js/global/theme.js"></script>
-  <script src="../../js/components/navbar.js"></script>
-  <script src="../../js/components/footer.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Initialize AOS
     AOS.init({
       duration: 1000,
       once: true
     });
+
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const themeToggle = document.getElementById('themeToggle');
+      const html = document.documentElement;
+      
+      // Check for saved theme or default to light
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      updateToggle(savedTheme);
+      
+      // Toggle theme on click
+      themeToggle.addEventListener('click', function() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateToggle(newTheme);
+      });
+      
+      // Update toggle position based on theme
+      function updateToggle(theme) {
+        const slider = document.querySelector('.theme-slider');
+        if (theme === 'dark') {
+          slider.style.transform = 'translateX(26px)';
+        } else {
+          slider.style.transform = 'translateX(0)';
+        }
+      }
+    });
   </script>
+
+<style>
+    /* Fix navbar hiding content */
+    body {
+      padding-top: 80px; /* Add padding to prevent content hiding behind navbar */
+    }
+
+    /* Theme Toggle Container */
+    .theme-toggle-container {
+      position: fixed;
+      top: 400px; /* 400px from top */
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .theme-toggle-btn {
+      width: 60px;
+      height: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-icon {
+      font-size: 14px;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .theme-icon.sun {
+      color: #ffd700;
+    }
+
+    .theme-icon.moon {
+      color: #f0f0f0;
+    }
+
+    .theme-slider {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      left: 3px;
+      top: 3px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dark theme adjustments */
+    [data-theme="dark"] .theme-toggle-btn {
+      background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+    }
+
+    /* Better content display - Dark theme fixes */
+    [data-theme="dark"] {
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+    }
+
+    [data-theme="dark"] .container {
+      background-color: transparent;
+    }
+
+    [data-theme="dark"] .section-header h2 {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .section-header p {
+      color: #b0b0b0;
+    }
+
+    [data-theme="dark"] .poison-category,
+    [data-theme="dark"] .prevention-card,
+    [data-theme="dark"] .emergency-card,
+    [data-theme="dark"] .alternative-card,
+    [data-theme="dark"] .resource-card {
+      background: #1a1a1a;
+      border-color: #333;
+      color: #e0e0e0;
+    }
+
+    [data-theme="dark"] .category-header h3,
+    [data-theme="dark"] .poison-item h4,
+    [data-theme="dark"] .prevention-card h3,
+    [data-theme="dark"] .emergency-card h3,
+    [data-theme="dark"] .alternative-card h3,
+    [data-theme="dark"] .resource-card h3 {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .poison-item p,
+    [data-theme="dark"] .prevention-card li,
+    [data-theme="dark"] .emergency-card li,
+    [data-theme="dark"] .alternative-card li,
+    [data-theme="dark"] .resource-card p {
+      color: #b0b0b0;
+    }
+
+    /* Emergency action box - Fixed for both themes */
+    .emergency-action {
+      margin-top: 60px;
+    }
+
+    .action-box {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 30px;
+      border-left: 5px solid #dc3545;
+      color: #333; /* Added text color for light theme */
+    }
+
+    .action-box h3 {
+      color: #dc3545;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .action-box ol {
+      padding-left: 20px;
+    }
+
+    .action-box li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+      color: #333; /* Added text color for light theme */
+    }
+
+    /* Dark theme adjustments for action box */
+    [data-theme="dark"] .action-box {
+      background: #1a1a1a;
+      border-color: #dc3545;
+      color: #e0e0e0;
+    }
+
+    [data-theme="dark"] .action-box h3 {
+      color: #ff6b6b;
+    }
+
+    [data-theme="dark"] .action-box li {
+      color: #b0b0b0;
+    }
+
+    [data-theme="dark"] .action-box li strong {
+      color: #e0e0e0;
+    }
+
+    [data-theme="dark"] .resource-link {
+      color: #4CAF50;
+    }
+
+    [data-theme="dark"] .resource-link:hover {
+      color: #45a049;
+    }
+
+    /* Container and layout improvements */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Grid improvements */
+    .poisons-grid,
+    .prevention-grid,
+    .emergency-grid,
+    .alternatives-grid,
+    .resources-grid {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    /* Card improvements */
+    .poison-category,
+    .prevention-card,
+    .emergency-card,
+    .alternative-card,
+    .resource-card {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e0e0e0;
+    }
+
+    .poison-category:hover,
+    .prevention-card:hover,
+    .emergency-card:hover,
+    .alternative-card:hover,
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .category-header i {
+      font-size: 2rem;
+      color: #4CAF50;
+    }
+
+    .category-header h3 {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .poison-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .poison-item h4 {
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .poison-item p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Hero section improvements */
+    .hero-section {
+      padding: 100px 0 80px;
+      position: relative;
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      color: white;
+      text-align: center;
+      margin-top: -80px; /* Compensate for body padding */
+      padding-top: 180px; /* Add extra padding for navbar */
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      opacity: 0.9;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 50px;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-top: 10px;
+    }
+
+    /* Resource links */
+    .resource-link {
+      display: inline-block;
+      margin-top: 15px;
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .resource-link:hover {
+      color: #45a049;
+      text-decoration: underline;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+      
+      .theme-toggle-container {
+        top: 120px;
+        right: 10px;
+      }
+      
+      .theme-toggle-btn {
+        width: 50px;
+        height: 25px;
+      }
+      
+      .theme-slider {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .theme-icon {
+        font-size: 12px;
+      }
+
+      .hero-section {
+        padding-top: 160px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .poisons-grid,
+      .prevention-grid,
+      .emergency-grid,
+      .alternatives-grid,
+      .resources-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 
 </body>
 </html>
