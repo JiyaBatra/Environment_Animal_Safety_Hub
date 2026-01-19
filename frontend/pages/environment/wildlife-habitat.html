@@ -20,8 +20,7 @@
 <body data-theme="light">
 
   <div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
-
+  <script src="../../js/components/loadComponents.js"></script>
 
   <div id="navbar-container"></div>
   
@@ -33,17 +32,15 @@
     <div class="animal-silhouette">🦁</div>
   </div>
   
-  <!-- Navigation -->
-  <div class="wildlife-nav">
-    <a href="../games/kids-zone.html" class="nav-btn">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-  </div>
-  
-  <!-- Theme Toggle -->
-  <div class="theme-toggle">
-    <div class="theme-btn" id="themeToggle"></div>
+  <!-- Theme Toggle - Moved to right center -->
+  <div class="theme-toggle-container">
+    <div class="theme-toggle-wrapper">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon sun">☀️</span>
+        <span class="theme-icon moon">🌙</span>
+        <span class="theme-slider"></span>
+      </button>
+    </div>
   </div>
   
   <!-- Hero Section -->
@@ -266,19 +263,157 @@
     
   </main>
 
-  <div id="footer-container"></div>
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Load footer and navbar scripts -->
+  <script src="/frontend/js/components/footer-loader.js"></script>
+  <script src="../../js/components/component-loader.js"></script>
+  <script src="../../js/components/navbar-loader.js"></script>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="../../js/global/theme.js"></script>
-  <script src="../../js/components/navbar.js"></script>
-  <script src="../../js/components/footer.js"></script>
   <script>
+    // Initialize AOS
     AOS.init({
       duration: 1000,
       once: true
     });
+
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const themeToggle = document.getElementById('themeToggle');
+      const html = document.documentElement;
+      
+      // Check for saved theme or default to light
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', savedTheme);
+      updateToggle(savedTheme);
+      
+      // Toggle theme on click
+      themeToggle.addEventListener('click', function() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateToggle(newTheme);
+      });
+      
+      // Update toggle position based on theme
+      function updateToggle(theme) {
+        const slider = document.querySelector('.theme-slider');
+        if (theme === 'dark') {
+          slider.style.transform = 'translateX(26px)';
+        } else {
+          slider.style.transform = 'translateX(0)';
+        }
+      }
+    });
   </script>
+
+  <!-- Add CSS for theme toggle positioning -->
+  <style>
+    /* Theme Toggle Container */
+    .theme-toggle-container {
+      position: fixed;
+      top: 400px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle-wrapper {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      width: 60px;
+      height: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .theme-icon {
+      font-size: 14px;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .theme-icon.sun {
+      color: #ffd700;
+    }
+
+    .theme-icon.moon {
+      color: #f0f0f0;
+    }
+
+    .theme-slider {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      left: 3px;
+      top: 3px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dark theme adjustments */
+    [data-theme="dark"] .theme-toggle-wrapper {
+      background: rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .theme-toggle-btn {
+      background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .theme-toggle-container {
+        top: 80px;
+        right: 10px;
+      }
+      
+      .theme-toggle-btn {
+        width: 50px;
+        height: 25px;
+      }
+      
+      .theme-slider {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .theme-icon {
+        font-size: 12px;
+      }
+    }
+  </style>
 
 </body>
 </html>
