@@ -106,17 +106,90 @@ const questions = [
  * @property {number} score - Number of correct answers
  * @property {number} seconds - Remaining time in seconds (default: 120)
  * @property {number|null} timer - Timer interval reference
+ * @property {number[]} answers - Array storing user's selected answer indices
  */
 let index = 0;          // Current question index
 let score = 0;          // Correct answers count
 let seconds = 120;      // 2-minute time limit
 let timer = null;       // Timer interval reference
+let answers = [];       // User's selected answers
+
+// ===== PROGRESS PERSISTENCE =====
+/**
+ * localStorage key for saving environment awareness quiz progress
+ * @type {string}
+ */
+const PROGRESS_KEY = 'environmentAwarenessQuizProgress';
+
+/**
+ * Save current quiz progress to localStorage
+ */
+function saveProgress() {
+  const progress = {
+    currentIndex: index,
+    answers: answers,
+    score: score,
+    remainingTime: seconds,
+    timestamp: Date.now(),
+    quizId: 'environment-awareness-quiz'
+  };
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+/**
+ * Load saved quiz progress from localStorage
+ * @returns {boolean} True if progress was loaded successfully
+ */
+function loadProgress() {
+  const saved = localStorage.getItem(PROGRESS_KEY);
+  if (saved) {
+    const progress = JSON.parse(saved);
+    index = progress.currentIndex || 0;
+    answers = progress.answers || [];
+    score = progress.score || 0;
+    seconds = progress.remainingTime || 120;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Clear saved quiz progress from localStorage
+ */
+function clearProgress() {
+  localStorage.removeItem(PROGRESS_KEY);
+}
 
 // ===== QUIZ INITIALIZATION =====
+/**
+ * Initialize the quiz application on page load
+ */
+function initializeQuiz() {
+  // Check for existing progress on page load
+  if (loadProgress()) {
+    const resumeSection = document.getElementById('resumeSection');
+    if (resumeSection) {
+      resumeSection.style.display = 'block';
+    }
+  }
+}
+
+// Call initialization
+initializeQuiz();
+
 /**
  * Start the quiz by transitioning to quiz screen and loading first question
  */
 function startQuiz() {
+  // Clear any existing progress when starting new quiz
+  clearProgress();
+
+  // Reset quiz state
+  index = 0;
+  score = 0;
+  seconds = 120;
+  answers = new Array(questions.length).fill(null);
+
   // Transition screens
   startScreen.style.display = "none";
   quizScreen.style.display = "block";
@@ -158,6 +231,26 @@ function updateTime() {
 function loadQuestion() {
   let currentQuestion = questions[index];
 
+  // Update progress text
+  const progressText = document.querySelector('.progress-metrics span:first-child');
+  if (progressText) {
+    const timeSpent = 120 - seconds; // Total time minus remaining time
+    progressText.textContent = `Time Spent: ${timeSpent}s`;
+  }
+
+  // Update questions completed
+  const questionsCompleted = document.querySelector('.progress-metrics span:last-child');
+  if (questionsCompleted) {
+    questionsCompleted.textContent = `Completed: ${index + 1}/10`;
+  }
+
+  // Update progress bar
+  const progressFill = document.getElementById('progressFill');
+  if (progressFill) {
+    const progressPercent = ((index + 1) / questions.length) * 100;
+    progressFill.style.width = `${progressPercent}%`;
+  }
+
   // Update question text with number
   question.textContent = `Q${index + 1}. ${currentQuestion.q}`;
 
@@ -168,6 +261,12 @@ function loadQuestion() {
     optionDiv.className = "option";
     optionDiv.textContent = option;
     optionDiv.onclick = () => selectOption(optionDiv, optionIndex);
+
+    // Restore previous selection if navigating back
+    if (answers[index] === optionIndex) {
+      optionDiv.classList.add("selected");
+    }
+
     options.appendChild(optionDiv);
   });
 }
@@ -185,8 +284,14 @@ function selectOption(element, optionIndex) {
   // Highlight selected option
   element.classList.add("selected");
 
+  // Store user's answer
+  answers[index] = optionIndex;
+
   // Store correctness data for validation
   element.dataset.correct = (optionIndex === questions[index].a).toString();
+
+  // Save progress after each answer selection
+  saveProgress();
 }
 
 // ===== QUESTION NAVIGATION =====
@@ -206,6 +311,9 @@ function nextQuestion() {
   if (selectedOption.dataset.correct === "true") {
     score++;
   }
+
+  // Save progress after moving to next question
+  saveProgress();
 
   // Move to next question or show results
   index++;

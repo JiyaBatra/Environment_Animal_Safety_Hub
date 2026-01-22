@@ -1,48 +1,21 @@
-﻿/**
- * Main Environmental Quiz - Comprehensive Interactive Assessment
- *
- * A feature-rich environmental quiz application with advanced UI features,
- * progress persistence, floating animations, and comprehensive question review.
- * Designed to educate users about environmental conservation through interactive testing.
- *
- * Quiz Features:
- * - 10 carefully crafted environmental questions with emojis
- * - Random question selection for varied experiences
- * - Customizable time limits with visual warnings
- * - Progress saving and resume functionality
- * - Floating background animations
- * - Parallax mouse effects
- * - Comprehensive answer review system
- * - Accessibility features (ARIA labels, keyboard navigation)
- * - Performance-based feedback and scoring
- *
- * Educational Topics Covered:
- * - Pollution reduction and environmental protection
- * - Renewable energy sources
- * - Waste recycling and resource conservation
- * - Endangered species awareness
- * - Water conservation practices
- * - Global warming and greenhouse gases
- * - Wildlife conservation
- * - Waste sorting and proper disposal
- * - Ocean pollution prevention
- * - Sustainable transportation
- *
- * Technical Features:
- * - localStorage for progress persistence
- * - CSS animations and transitions
- * - Mouse parallax effects
- * - Floating element animations
- * - Responsive design with accessibility
- * - Timer system with color-coded warnings
- * - Progress bar visualization
- * - Staggered animation effects
- * - Keyboard navigation support
- *
- * @author Environment Animal Safety Hub Team
- * @version 1.0.0
- * @since 2024
- */
+// Load quiz data from JSON
+let quizData = null;
+let questions = [];
+
+async function loadQuizData() {
+    try {
+        const response = await fetch('../../assets/data/quiz-data.json');
+        quizData = await response.json();
+        const quiz = quizData.quizzes.find(q => q.quizName === quizName);
+        if (quiz) {
+            questions = quiz.questions.map(q => ({ q: q.question, o: q.options, a: q.answer }));
+        } else {
+            console.error('Quiz not found in data');
+        }
+    } catch (error) {
+        console.error('Error loading quiz data:', error);
+    }
+}
 
 // ===== QUIZ QUESTION DATABASE =====
 /**
