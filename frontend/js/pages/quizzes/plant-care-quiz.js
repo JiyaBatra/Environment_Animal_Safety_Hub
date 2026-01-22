@@ -108,23 +108,107 @@ const questions = [
  * @property {number} score - Number of correct answers
  * @property {number|null} timer - Timer interval reference
  * @property {number} seconds - Remaining time in seconds
+ * @property {number[]} answers - Array storing user's selected answer indices
  */
 let quiz = [];         // Current quiz questions (7 random questions)
 let index = 0;         // Current question index
 let score = 0;         // Correct answers count
 let timer = null;      // Timer interval reference
 let seconds = 0;       // Remaining time
+let answers = [];      // User's selected answers
+let selectedTime = 180; // Default 3 minutes
+
+// ===== PROGRESS PERSISTENCE =====
+const PROGRESS_KEY = 'plantCareQuizProgress';
+
+/**
+ * Save current quiz progress to localStorage
+ */
+function saveProgress() {
+  const progress = {
+    currentIndex: index,
+    answers: answers,
+    score: score,
+    remainingTime: seconds,
+    selectedQuestions: quiz,
+    selectedTime: selectedTime,
+    timestamp: Date.now(),
+    quizId: 'plant-care-quiz'
+  };
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+/**
+ * Load saved quiz progress from localStorage
+ * @returns {boolean} True if progress was loaded successfully
+ */
+function loadProgress() {
+  const saved = localStorage.getItem(PROGRESS_KEY);
+  if (saved) {
+    const progress = JSON.parse(saved);
+    index = progress.currentIndex || 0;
+    answers = progress.answers || [];
+    score = progress.score || 0;
+    seconds = progress.remainingTime || 180;
+    quiz = progress.selectedQuestions || [];
+    selectedTime = progress.selectedTime || 180;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Clear saved quiz progress from localStorage
+ */
+function clearProgress() {
+  localStorage.removeItem(PROGRESS_KEY);
+}
+
+// ===== DOM ELEMENT REFERENCES =====
+const startScreen = document.getElementById('startScreen');
+const quizScreen = document.getElementById('quizScreen');
+const resultScreen = document.getElementById('resultScreen');
+const question = document.getElementById('question');
+const options = document.getElementById('options');
+const time = document.getElementById('time');
+const timeSelect = document.getElementById('timeSelect');
+const remark = document.getElementById('remark');
 
 // ===== QUIZ INITIALIZATION =====
+/**
+ * Initialize the quiz application on page load
+ */
+function initializeQuiz() {
+  // Check for existing progress on page load
+  if (loadProgress()) {
+    const resumeSection = document.getElementById('resumeSection');
+    if (resumeSection) {
+      resumeSection.style.display = 'block';
+    }
+  }
+}
+
+// Call initialization when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeQuiz);
+
 /**
  * Start the quiz by selecting random questions and initializing the session
  */
 function startQuiz() {
+  // Clear any existing progress when starting new quiz
+  clearProgress();
+
   // Select 7 random questions from the database
   quiz = [...questions].sort(() => 0.5 - Math.random()).slice(0, 7);
 
   // Set timer based on user selection
-  seconds = parseInt(timeSelect.value);
+  selectedTime = parseInt(timeSelect.value);
+  seconds = selectedTime;
+
+  // Reset quiz state
+  index = 0;
+  score = 0;
+  answers = new Array(quiz.length).fill(null);
 
   // Transition to quiz screen
   startScreen.style.display = "none";
@@ -167,6 +251,25 @@ function updateTime() {
 function loadQuestion() {
   let currentQuestion = quiz[index];
 
+  // Update progress metrics
+  const progressText = document.querySelector('.progress-metrics span:first-child');
+  if (progressText) {
+    const timeSpent = selectedTime - seconds;
+    progressText.textContent = `Time Spent: ${timeSpent}s`;
+  }
+
+  const questionsCompleted = document.querySelector('.progress-metrics span:last-child');
+  if (questionsCompleted) {
+    questionsCompleted.textContent = `Completed: ${index + 1}/${quiz.length}`;
+  }
+
+  // Update progress bar
+  const progressFill = document.getElementById('progressFill');
+  if (progressFill) {
+    const progressPercent = ((index + 1) / quiz.length) * 100;
+    progressFill.style.width = `${progressPercent}%`;
+  }
+
   // Update question text with number
   question.textContent = `Q${index + 1}. ${currentQuestion.q}`;
 
@@ -177,6 +280,12 @@ function loadQuestion() {
     optionDiv.className = "option";
     optionDiv.textContent = option;
     optionDiv.onclick = () => selectOption(optionDiv, optionIndex);
+
+    // Restore previous selection if navigating back
+    if (answers[index] === optionIndex) {
+      optionDiv.classList.add("selected");
+    }
+
     options.appendChild(optionDiv);
   });
 }
@@ -194,8 +303,14 @@ function selectOption(element, optionIndex) {
   // Highlight selected option
   element.classList.add("selected");
 
+  // Store user's answer
+  answers[index] = optionIndex;
+
   // Store correctness data for validation
   element.dataset.correct = (optionIndex === quiz[index].a).toString();
+
+  // Save progress after each answer selection
+  saveProgress();
 }
 
 // ===== QUESTION NAVIGATION =====
@@ -216,6 +331,9 @@ function nextQuestion() {
     score++;
   }
 
+  // Save progress after moving to next question
+  saveProgress();
+
   // Move to next question or show results
   index++;
   if (index < quiz.length) {
@@ -225,20 +343,71 @@ function nextQuestion() {
   }
 }
 
+// ===== QUIZ RESUME FUNCTIONALITY =====
+/**
+ * Resume a previously saved quiz session
+ */
+function resumeSavedQuiz() {
+  if (loadProgress()) {
+    // Transition to quiz screen
+    startScreen.style.display = "none";
+    quizScreen.style.display = "block";
+
+    // Load current question and resume timer
+    loadQuestion();
+    startTimer();
+  }
+}
+
+/**
+ * Pause the current quiz session
+ */
+function pauseQuiz() {
+  // Stop the timer
+  clearInterval(timer);
+  timer = null;
+
+  // Save progress
+  saveProgress();
+
+  // Show resume button and hide pause button
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resumeBtn = document.getElementById('resumeBtn');
+  if (pauseBtn) pauseBtn.style.display = 'none';
+  if (resumeBtn) resumeBtn.style.display = 'inline-block';
+
+  alert("Quiz paused! Click resume to continue.");
+}
+
+/**
+ * Resume the current quiz session
+ */
+function resumeCurrentQuiz() {
+  // Hide resume button and show pause button
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resumeBtn = document.getElementById('resumeBtn');
+  if (resumeBtn) resumeBtn.style.display = 'none';
+  if (pauseBtn) pauseBtn.style.display = 'inline-block';
+
+  // Restart timer
+  startTimer();
+}
+
 // ===== RESULTS DISPLAY =====
 /**
  * Display quiz results with score and performance-based remarks
  */
 function showResult() {
-  // Stop timer
+  // Stop timer and clear saved progress
   clearInterval(timer);
+  clearProgress();
 
   // Transition to results screen
   quizScreen.style.display = "none";
   resultScreen.style.display = "block";
 
   // Display score
-  score.textContent = `${score}/${quiz.length}`;
+  document.getElementById("score").textContent = `${score}/${quiz.length}`;
 
   // Show performance-based remark
   if (score >= 6) {

@@ -32,12 +32,50 @@
   <div id="startScreen">
     <h2>Ready to Learn Animal First Aid?</h2>
     <p>10 questions • 3 minutes</p>
+    
+    <!-- Resume Section (hidden by default) -->
+    <div id="resumeSection" style="display: none;">
+      <div class="resume-notice">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <p>You have a quiz in progress!</p>
+        <button onclick="resumeSavedQuiz()" class="resume-btn">
+          <i class="fa-solid fa-play"></i> Resume Quiz
+        </button>
+        <button onclick="startQuiz()" class="new-quiz-btn">
+          <i class="fa-solid fa-refresh"></i> Start New Quiz
+        </button>
+      </div>
+      <hr>
+    </div>
+    
     <button onclick="startQuiz()">Start Quiz</button>
   </div>
 
   <!-- QUIZ -->
   <div id="quizScreen">
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-metrics">
+        <span>Time Spent: 0s</span>
+        <span>Completed: 1/10</span>
+      </div>
+    </div>
+    
     <div class="timer">⏳ Time Left: <span id="time">03:00</span></div>
+    
+    <!-- Quiz Controls -->
+    <div class="quiz-controls">
+      <button id="pauseBtn" onclick="pauseQuiz()" class="control-btn">
+        <i class="fa-solid fa-pause"></i> Pause
+      </button>
+      <button id="resumeBtn" onclick="resumeCurrentQuiz()" class="control-btn" style="display: none;">
+        <i class="fa-solid fa-play"></i> Resume
+      </button>
+    </div>
+    
     <div class="question" id="question"></div>
     <div id="options"></div>
     <button onclick="nextQuestion()">Next</button>

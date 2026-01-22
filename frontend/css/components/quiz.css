@@ -2,8 +2,10 @@
 .kids-quiz-section {
   padding: var(--section-padding);
   background: var(--quiz-bg);
+  color: var(--quiz-text);
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Background Shapes */
@@ -75,18 +77,20 @@
   gap: 10px;
   padding: 10px 20px;
   background: var(--primary-color);
-  color: #fff;
+  color: var(--btn-primary-text);
   border-radius: var(--radius-xl);
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .quiz-text h2 {
   font-size: 2.8rem;
-  color: var(--primary-dark);
+  color: var(--heading-color);
   margin-bottom: 20px;
   line-height: 1.2;
+  transition: color 0.3s ease;
 }
 
 .quiz-text p {
@@ -94,6 +98,7 @@
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 30px;
+  transition: color 0.3s ease;
 }
 
 /* Quiz Features */
@@ -112,7 +117,7 @@
   background: var(--card-bg);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
+  transition: var(--transition-normal), background-color 0.3s ease;
 }
 
 .quiz-feature:hover {
@@ -123,12 +128,14 @@
 .quiz-feature i {
   font-size: 1.8rem;
   color: var(--secondary-color);
+  transition: color 0.3s ease;
 }
 
 .quiz-feature span {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 /* Quiz Button */
@@ -137,17 +144,18 @@
   align-items: center;
   gap: 12px;
   padding: 16px 35px;
-  background: var(--gradient-secondary);
-  color: #fff;
+  background: var(--quiz-btn-bg);
+  color: var(--btn-primary-text);
   font-size: 1.1rem;
   font-weight: 600;
   border-radius: var(--radius-md);
   box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
-  transition: var(--transition-normal);
+  transition: var(--transition-normal), background-color 0.3s ease;
   text-decoration: none;
 }
 
 .quiz-btn:hover {
+  background: var(--quiz-btn-hover);
   transform: translateY(-3px);
   box-shadow: 0 15px 40px rgba(255, 152, 0, 0.5);
 }
@@ -198,6 +206,7 @@
   background: var(--card-bg);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
+  transition: background-color 0.3s ease;
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--text-primary);

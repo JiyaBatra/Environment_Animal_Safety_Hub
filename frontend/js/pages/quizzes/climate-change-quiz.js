@@ -164,6 +164,53 @@ let score = 0;          // Correct answers count
 let seconds = 0;        // Remaining time
 let timer = null;       // Timer interval reference
 let userAnswers = [];   // User's selected answers
+let selectedTime = 300; // Default 5 minutes
+
+// ===== PROGRESS PERSISTENCE =====
+const PROGRESS_KEY = 'climateChangeQuizProgress';
+
+/**
+ * Save current quiz progress to localStorage
+ */
+function saveProgress() {
+  const progress = {
+    currentIndex: index,
+    userAnswers: userAnswers,
+    score: score,
+    remainingTime: seconds,
+    selectedQuestions: quiz,
+    selectedTime: selectedTime,
+    timestamp: Date.now(),
+    quizId: 'climate-change-quiz'
+  };
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+/**
+ * Load saved quiz progress from localStorage
+ * @returns {boolean} True if progress was loaded successfully
+ */
+function loadProgress() {
+  const saved = localStorage.getItem(PROGRESS_KEY);
+  if (saved) {
+    const progress = JSON.parse(saved);
+    index = progress.currentIndex || 0;
+    userAnswers = progress.userAnswers || [];
+    score = progress.score || 0;
+    seconds = progress.remainingTime || 300;
+    quiz = progress.selectedQuestions || [];
+    selectedTime = progress.selectedTime || 300;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Clear saved quiz progress from localStorage
+ */
+function clearProgress() {
+  localStorage.removeItem(PROGRESS_KEY);
+}
 
 // ===== DOM ELEMENT REFERENCES =====
 /**
@@ -184,14 +231,39 @@ const qNumber = document.getElementById('q-number');
 
 // ===== QUIZ INITIALIZATION =====
 /**
+ * Initialize the quiz application on page load
+ */
+function initializeQuiz() {
+  // Check for existing progress on page load
+  if (loadProgress()) {
+    const resumeSection = document.getElementById('resumeSection');
+    if (resumeSection) {
+      resumeSection.style.display = 'block';
+    }
+  }
+}
+
+// Call initialization when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeQuiz);
+
+/**
  * Start the quiz by selecting random questions and initializing the session
  */
 function startQuiz() {
+  // Clear any existing progress when starting new quiz
+  clearProgress();
+
   // Select 10 random questions from the database
   quiz = [...allQuestions].sort(() => 0.5 - Math.random()).slice(0, 10);
 
   // Set timer based on user selection
-  seconds = parseInt(timeSelect.value);
+  selectedTime = parseInt(timeSelect.value);
+  seconds = selectedTime;
+
+  // Reset quiz state
+  index = 0;
+  score = 0;
+  userAnswers = new Array(quiz.length).fill(null);
 
   // Transition to quiz screen
   startScreen.style.display = "none";
@@ -239,6 +311,25 @@ function updateTime() {
 function loadQuestion() {
   let currentQuestion = quiz[index];
 
+  // Update progress metrics
+  const progressText = document.querySelector('.progress-metrics span:first-child');
+  if (progressText) {
+    const timeSpent = selectedTime - seconds;
+    progressText.textContent = `Time Spent: ${timeSpent}s`;
+  }
+
+  const questionsCompleted = document.querySelector('.progress-metrics span:last-child');
+  if (questionsCompleted) {
+    questionsCompleted.textContent = `Completed: ${index + 1}/${quiz.length}`;
+  }
+
+  // Update progress bar
+  const progressFill = document.getElementById('progressFill');
+  if (progressFill) {
+    const progressPercent = ((index + 1) / quiz.length) * 100;
+    progressFill.style.width = `${progressPercent}%`;
+  }
+
   // Update question number and text
   qNumber.textContent = index + 1;
   questionEl.textContent = currentQuestion.q;
@@ -250,6 +341,12 @@ function loadQuestion() {
     optionButton.className = "option";
     optionButton.textContent = option;
     optionButton.onclick = () => selectOption(optionButton, optionIndex);
+
+    // Restore previous selection if navigating back
+    if (userAnswers[index] === optionIndex) {
+      optionButton.classList.add("selected");
+    }
+
     optionsEl.appendChild(optionButton);
   });
 }
@@ -269,6 +366,9 @@ function selectOption(element, optionIndex) {
 
   // Store user's answer
   userAnswers[index] = optionIndex;
+
+  // Save progress after each answer selection
+  saveProgress();
 }
 
 // ===== QUESTION NAVIGATION =====
@@ -290,6 +390,9 @@ function nextQuestion() {
     score++;
   }
 
+  // Save progress after moving to next question
+  saveProgress();
+
   // Move to next question or show results
   index++;
   if (index < quiz.length) {
@@ -299,13 +402,64 @@ function nextQuestion() {
   }
 }
 
+// ===== QUIZ RESUME FUNCTIONALITY =====
+/**
+ * Resume a previously saved quiz session
+ */
+function resumeSavedQuiz() {
+  if (loadProgress()) {
+    // Transition to quiz screen
+    startScreen.style.display = "none";
+    quizScreen.style.display = "block";
+
+    // Load current question and resume timer
+    loadQuestion();
+    startTimer();
+  }
+}
+
+/**
+ * Pause the current quiz session
+ */
+function pauseQuiz() {
+  // Stop the timer
+  clearInterval(timer);
+  timer = null;
+
+  // Save progress
+  saveProgress();
+
+  // Show resume button and hide pause button
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resumeBtn = document.getElementById('resumeBtn');
+  if (pauseBtn) pauseBtn.style.display = 'none';
+  if (resumeBtn) resumeBtn.style.display = 'inline-block';
+
+  alert("Quiz paused! Click resume to continue.");
+}
+
+/**
+ * Resume the current quiz session
+ */
+function resumeCurrentQuiz() {
+  // Hide resume button and show pause button
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resumeBtn = document.getElementById('resumeBtn');
+  if (resumeBtn) resumeBtn.style.display = 'none';
+  if (pauseBtn) pauseBtn.style.display = 'inline-block';
+
+  // Restart timer
+  startTimer();
+}
+
 // ===== RESULTS DISPLAY =====
 /**
  * Display quiz results with score and performance-based remarks
  */
 function showResult() {
-  // Stop timer
+  // Stop timer and clear saved progress
   clearInterval(timer);
+  clearProgress();
 
   // Transition to results screen
   quizScreen.style.display = "none";

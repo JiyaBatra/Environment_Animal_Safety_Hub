@@ -1,79 +1,377 @@
+/**
+ * Sustainable Gardening Quiz - Eco-Friendly Gardening Assessment
+ *
+ * An interactive quiz focused on sustainable gardening practices,
+ * organic farming, and environmentally conscious plant care.
+ * Designed to educate users about eco-friendly gardening techniques.
+ *
+ * Quiz Features:
+ * - 7 randomly selected questions from a pool of 10
+ * - Customizable timer (1-5 minutes)
+ * - Progress tracking with localStorage persistence
+ * - Pause/resume functionality
+ * - Immediate feedback on answer selection
+ * - Performance-based feedback and scoring
+ *
+ * Educational Topics Covered:
+ * - Composting and organic waste management
+ * - Native plant gardening
+ * - Water conservation techniques
+ * - Natural pest control methods
+ * - Mulching benefits and techniques
+ * - Garden biodiversity importance
+ * - Rainwater harvesting
+ * - Waste reduction in gardening
+ * - Companion planting strategies
+ * - Avoiding synthetic fertilizers
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 2.0.0 - Added Progress Tracking
+ * @since 2024
+ */
+
+// ===== QUIZ QUESTION DATABASE =====
 const questions = [
- {q:"What is composting?",o:["Throwing away food waste","Turning organic waste into fertilizer","Burning leaves","Using chemical fertilizers"],a:1},
- {q:"Why use native plants in gardening?",o:["They are cheaper","They require less water and attract local wildlife","They grow faster","They need more pesticides"],a:1},
- {q:"What is water conservation in gardening?",o:["Watering plants every hour","Using drip irrigation and mulching","Letting plants dry out","Using sprinklers all day"],a:1},
- {q:"How can you control pests without chemicals?",o:["Use ladybugs and neem oil","Spray more water","Remove affected plants","Ignore them"],a:0},
- {q:"What is mulching?",o:["Cutting plants short","Covering soil with organic material to retain moisture","Adding sand to soil","Using plastic sheets"],a:1},
- {q:"Why is biodiversity important in gardens?",o:["Makes garden look messy","Attracts beneficial insects and pollinators","Requires more work","Costs more money"],a:1},
- {q:"What is rainwater harvesting?",o:["Buying bottled water","Collecting rainwater for garden use","Using tap water only","Letting rain run off"],a:1},
- {q:"How to reduce garden waste?",o:["Throw everything away","Compost and reuse materials","Buy new tools every year","Use more chemicals"],a:1},
- {q:"What are companion plants?",o:["Plants that grow alone","Plants that help each other grow and repel pests","Plants that compete for space","Plants that need same soil"],a:1},
- {q:"Why avoid synthetic fertilizers?",o:["They are expensive","They can harm soil and water quality","They make plants grow too fast","They attract more pests"],a:1}
+  {
+    q: "What is composting?",
+    o: ["Throwing away food waste", "Turning organic waste into fertilizer", "Burning leaves", "Using chemical fertilizers"],
+    a: 1
+  },
+  {
+    q: "Why use native plants in gardening?",
+    o: ["They are cheaper", "They require less water and attract local wildlife", "They grow faster", "They need more pesticides"],
+    a: 1
+  },
+  {
+    q: "What is water conservation in gardening?",
+    o: ["Watering plants every hour", "Using drip irrigation and mulching", "Letting plants dry out", "Using sprinklers all day"],
+    a: 1
+  },
+  {
+    q: "How can you control pests without chemicals?",
+    o: ["Use ladybugs and neem oil", "Spray more water", "Remove affected plants", "Ignore them"],
+    a: 0
+  },
+  {
+    q: "What is mulching?",
+    o: ["Cutting plants short", "Covering soil with organic material to retain moisture", "Adding sand to soil", "Using plastic sheets"],
+    a: 1
+  },
+  {
+    q: "Why is biodiversity important in gardens?",
+    o: ["Makes garden look messy", "Attracts beneficial insects and pollinators", "Requires more work", "Costs more money"],
+    a: 1
+  },
+  {
+    q: "What is rainwater harvesting?",
+    o: ["Buying bottled water", "Collecting rainwater for garden use", "Using tap water only", "Letting rain run off"],
+    a: 1
+  },
+  {
+    q: "How to reduce garden waste?",
+    o: ["Throw everything away", "Compost and reuse materials", "Buy new tools every year", "Use more chemicals"],
+    a: 1
+  },
+  {
+    q: "What are companion plants?",
+    o: ["Plants that grow alone", "Plants that help each other grow and repel pests", "Plants that compete for space", "Plants that need same soil"],
+    a: 1
+  },
+  {
+    q: "Why avoid synthetic fertilizers?",
+    o: ["They are expensive", "They can harm soil and water quality", "They make plants grow too fast", "They attract more pests"],
+    a: 1
+  }
 ];
 
-let quiz=[],index=0,score=0,timer,seconds=0;
+// ===== QUIZ STATE MANAGEMENT =====
+let quiz = [];          // Selected questions for current session
+let index = 0;          // Current question index
+let score = 0;          // Correct answers count
+let timer = null;       // Timer interval reference
+let seconds = 0;        // Remaining time in seconds
+let answers = [];       // User's selected answers
+let selectedTime = 180; // Default 3 minutes
 
-function startQuiz(){
-  quiz=[...questions].sort(()=>0.5-Math.random()).slice(0,7);
-  seconds=parseInt(timeSelect.value);
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
+// ===== PROGRESS PERSISTENCE =====
+const PROGRESS_KEY = 'sustainableGardeningQuizProgress';
+
+/**
+ * Save current quiz progress to localStorage
+ */
+function saveProgress() {
+  const progress = {
+    currentIndex: index,
+    answers: answers,
+    score: score,
+    remainingTime: seconds,
+    selectedQuestions: quiz,
+    selectedTime: selectedTime,
+    timestamp: Date.now(),
+    quizId: 'sustainable-gardening-quiz'
+  };
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+/**
+ * Load saved quiz progress from localStorage
+ * @returns {boolean} True if progress was loaded successfully
+ */
+function loadProgress() {
+  const saved = localStorage.getItem(PROGRESS_KEY);
+  if (saved) {
+    const progress = JSON.parse(saved);
+    index = progress.currentIndex || 0;
+    answers = progress.answers || [];
+    score = progress.score || 0;
+    seconds = progress.remainingTime || 180;
+    quiz = progress.selectedQuestions || [];
+    selectedTime = progress.selectedTime || 180;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Clear saved quiz progress from localStorage
+ */
+function clearProgress() {
+  localStorage.removeItem(PROGRESS_KEY);
+}
+
+// ===== DOM ELEMENT REFERENCES =====
+const startScreen = document.getElementById('startScreen');
+const quizScreen = document.getElementById('quizScreen');
+const resultScreen = document.getElementById('resultScreen');
+const question = document.getElementById('question');
+const options = document.getElementById('options');
+const time = document.getElementById('time');
+const timeSelect = document.getElementById('timeSelect');
+const remark = document.getElementById('remark');
+
+// ===== QUIZ INITIALIZATION =====
+/**
+ * Initialize the quiz application on page load
+ */
+function initializeQuiz() {
+  // Check for existing progress on page load
+  if (loadProgress()) {
+    const resumeSection = document.getElementById('resumeSection');
+    if (resumeSection) {
+      resumeSection.style.display = 'block';
+    }
+  }
+}
+
+// Call initialization when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeQuiz);
+
+/**
+ * Start the sustainable gardening quiz session
+ */
+function startQuiz() {
+  // Clear any existing progress when starting new quiz
+  clearProgress();
+
+  // Get selected time and prepare quiz
+  selectedTime = parseInt(timeSelect.value);
+  seconds = selectedTime;
+  
+  // Select 7 random questions from the pool
+  quiz = [...questions].sort(() => 0.5 - Math.random()).slice(0, 7);
+  
+  // Reset quiz state
+  index = 0;
+  score = 0;
+  answers = new Array(quiz.length).fill(null);
+
+  // Transition screens
+  startScreen.style.display = "none";
+  quizScreen.style.display = "block";
+
+  // Load first question and start timer
   loadQuestion();
   startTimer();
 }
 
-function startTimer(){
+// ===== TIMER MANAGEMENT =====
+function startTimer() {
   updateTime();
-  timer=setInterval(()=>{
+  timer = setInterval(() => {
     seconds--;
     updateTime();
-    if(seconds<=0){
+    if (seconds <= 0) {
       clearInterval(timer);
       showResult();
     }
-  },1000);
+  }, 1000);
 }
 
-function updateTime(){
-  let m=Math.floor(seconds/60);
-  let s=seconds%60;
-  time.textContent=`${m}:${s<10?'0':''}${s}`;
+function updateTime() {
+  let m = Math.floor(seconds / 60);
+  let s = seconds % 60;
+  time.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
 }
 
-function loadQuestion(){
-  let q=quiz[index];
-  question.textContent=`Q${index+1}. ${q.q}`;
-  options.innerHTML="";
-  q.o.forEach((opt,i)=>{
-    let div=document.createElement("div");
-    div.className="option";
-    div.textContent=opt;
-    div.onclick=()=>selectOption(div,i);
-    options.appendChild(div);
+// ===== QUESTION DISPLAY =====
+function loadQuestion() {
+  let currentQuestion = quiz[index];
+
+  // Update progress metrics
+  const progressText = document.querySelector('.progress-metrics span:first-child');
+  if (progressText) {
+    const timeSpent = selectedTime - seconds;
+    progressText.textContent = `Time Spent: ${timeSpent}s`;
+  }
+
+  const questionsCompleted = document.querySelector('.progress-metrics span:last-child');
+  if (questionsCompleted) {
+    questionsCompleted.textContent = `Completed: ${index + 1}/${quiz.length}`;
+  }
+
+  // Update progress bar
+  const progressFill = document.getElementById('progressFill');
+  if (progressFill) {
+    const progressPercent = ((index + 1) / quiz.length) * 100;
+    progressFill.style.width = `${progressPercent}%`;
+  }
+
+  // Display question with numbering
+  question.textContent = `Q${index + 1}. ${currentQuestion.q}`;
+
+  // Clear previous options and create new ones
+  options.innerHTML = "";
+
+  // Create option elements
+  currentQuestion.o.forEach((optionText, optionIndex) => {
+    let optionDiv = document.createElement("div");
+    optionDiv.className = "option";
+    optionDiv.textContent = optionText;
+    optionDiv.onclick = () => selectOption(optionDiv, optionIndex);
+
+    // Restore previous selection if navigating back
+    if (answers[index] === optionIndex) {
+      optionDiv.classList.add("selected");
+    }
+
+    options.appendChild(optionDiv);
   });
 }
 
-function selectOption(el,i){
-  document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
-  el.classList.add("selected");
-  el.dataset.correct=i===quiz[index].a;
+// ===== ANSWER SELECTION =====
+function selectOption(element, optionIndex) {
+  // Remove previous selection highlighting
+  document.querySelectorAll(".option").forEach(option => option.classList.remove("selected"));
+
+  // Highlight selected option
+  element.classList.add("selected");
+
+  // Store user's answer
+  answers[index] = optionIndex;
+
+  // Store correctness data for validation
+  element.dataset.correct = (optionIndex === quiz[index].a).toString();
+
+  // Save progress after each answer selection
+  saveProgress();
 }
 
-function nextQuestion(){
-  let selected=document.querySelector(".option.selected");
-  if(!selected) return alert("Please select an option 🌱");
-  if(selected.dataset.correct==="true") score++;
+// ===== QUESTION NAVIGATION =====
+function nextQuestion() {
+  let selectedOption = document.querySelector(".option.selected");
+
+  // Require answer selection
+  if (!selectedOption) {
+    alert("Please select an option 🌱");
+    return;
+  }
+
+  // Update score if answer was correct
+  if (selectedOption.dataset.correct === "true") {
+    score++;
+  }
+
+  // Save progress after moving to next question
+  saveProgress();
+
+  // Move to next question or show results
   index++;
-  index<quiz.length ? loadQuestion() : showResult();
+  if (index < quiz.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
 }
 
-function showResult(){
+// ===== QUIZ RESUME FUNCTIONALITY =====
+/**
+ * Resume a previously saved quiz session
+ */
+function resumeSavedQuiz() {
+  if (loadProgress()) {
+    // Transition to quiz screen
+    startScreen.style.display = "none";
+    quizScreen.style.display = "block";
+
+    // Load current question and resume timer
+    loadQuestion();
+    startTimer();
+  }
+}
+
+/**
+ * Pause the current quiz session
+ */
+function pauseQuiz() {
+  // Stop the timer
   clearInterval(timer);
-  quizScreen.style.display="none";
-  resultScreen.style.display="block";
-  score.textContent=`${score} / ${quiz.length}`;
-  remark.textContent =
-    score>=6 ? "🌟 Sustainable Gardening Expert!" :
-    score>=4 ? "👍 Good Job!" :
-    "🌱 Keep Learning!";
+  timer = null;
+
+  // Save progress
+  saveProgress();
+
+  // Show resume button and hide pause button
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resumeBtn = document.getElementById('resumeBtn');
+  if (pauseBtn) pauseBtn.style.display = 'none';
+  if (resumeBtn) resumeBtn.style.display = 'inline-block';
+
+  alert("Quiz paused! Click resume to continue.");
+}
+
+/**
+ * Resume the current quiz session
+ */
+function resumeCurrentQuiz() {
+  // Hide resume button and show pause button
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resumeBtn = document.getElementById('resumeBtn');
+  if (resumeBtn) resumeBtn.style.display = 'none';
+  if (pauseBtn) pauseBtn.style.display = 'inline-block';
+
+  // Restart timer
+  startTimer();
+}
+
+// ===== RESULTS DISPLAY =====
+function showResult() {
+  // Stop timer and clear saved progress
+  clearInterval(timer);
+  clearProgress();
+
+  // Transition to results screen
+  quizScreen.style.display = "none";
+  resultScreen.style.display = "block";
+
+  // Display final score
+  document.getElementById("score").textContent = `${score} / ${quiz.length}`;
+
+  // Show performance-based remark with emojis
+  if (score >= 6) {
+    remark.textContent = "🌟 Sustainable Gardening Expert!";
+  } else if (score >= 4) {
+    remark.textContent = "👍 Good Job!";
+  } else {
+    remark.textContent = "🌱 Keep Learning!";
+  }
 }
