@@ -5,8 +5,12 @@
  * specific quiz types (waste management, animal first aid, etc.). Specific
  * quizzes should extend this class and provide their own configuration.
  *
+ * Now uses ProgressManager for unified progress tracking.
+ *
  * @class BaseQuiz
  */
+
+// Import ProgressManager (assuming it's loaded via script tag in HTML)
 class BaseQuiz {
   /**
    * Create a new quiz instance
@@ -25,6 +29,9 @@ class BaseQuiz {
     this.iconClass = config.iconClass;
     this.elements = config.elements;
 
+    // Initialize ProgressManager
+    this.progressManager = new ProgressManager(this.progressKey);
+
     // Quiz state
     this.index = 0;
     this.score = 0;
@@ -37,8 +44,8 @@ class BaseQuiz {
    * Initialize the quiz on page load
    */
   initializeQuiz() {
-    // Check for existing progress
-    if (this.loadProgress()) {
+    // Check for existing progress using ProgressManager
+    if (this.progressManager.canResume()) {
       const resumeSection = document.getElementById('resumeSection');
       if (resumeSection) {
         resumeSection.style.display = 'block';
@@ -228,28 +235,24 @@ class BaseQuiz {
   }
 
   /**
-   * Save quiz progress to localStorage
+   * Save quiz progress using ProgressManager
    */
   saveProgress() {
-    const progress = {
+    return this.progressManager.saveProgress({
       currentIndex: this.index,
       answers: this.answers,
       score: this.score,
-      remainingTime: this.time,
-      timestamp: Date.now(),
-      quizId: this.progressKey
-    };
-    localStorage.setItem(this.progressKey, JSON.stringify(progress));
+      remainingTime: this.time
+    });
   }
 
   /**
-   * Load saved progress from localStorage
+   * Load saved progress using ProgressManager
    * @returns {boolean} True if progress was loaded
    */
   loadProgress() {
-    const saved = localStorage.getItem(this.progressKey);
-    if (saved) {
-      const progress = JSON.parse(saved);
+    const progress = this.progressManager.loadProgress();
+    if (progress) {
       this.index = progress.currentIndex || 0;
       this.answers = progress.answers || [];
       this.score = progress.score || 0;
@@ -260,10 +263,10 @@ class BaseQuiz {
   }
 
   /**
-   * Clear saved progress from localStorage
+   * Clear saved progress using ProgressManager
    */
   clearProgress() {
-    localStorage.removeItem(this.progressKey);
+    return this.progressManager.clearProgress();
   }
 }
 

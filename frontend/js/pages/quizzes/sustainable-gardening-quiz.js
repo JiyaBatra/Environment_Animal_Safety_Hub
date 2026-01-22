@@ -1,4 +1,18 @@
-const questions = [
+/**
+ * Sustainable Gardening Quiz
+ *
+ * An interactive quiz focused on sustainable gardening practices and environmental awareness.
+ * Features randomized questions and customizable time limits.
+ *
+ * Now extends BaseQuiz for unified progress tracking.
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 2.0.0
+ * @since 2024
+ */
+
+// Full question database
+const fullQuestions = [
  {q:"What is composting?",o:["Throwing away food waste","Turning organic waste into fertilizer","Burning leaves","Using chemical fertilizers"],a:1},
  {q:"Why use native plants in gardening?",o:["They are cheaper","They require less water and attract local wildlife","They grow faster","They need more pesticides"],a:1},
  {q:"What is water conservation in gardening?",o:["Watering plants every hour","Using drip irrigation and mulching","Letting plants dry out","Using sprinklers all day"],a:1},
@@ -11,69 +25,65 @@ const questions = [
  {q:"Why avoid synthetic fertilizers?",o:["They are expensive","They can harm soil and water quality","They make plants grow too fast","They attract more pests"],a:1}
 ];
 
-let quiz=[],index=0,score=0,timer,seconds=0;
+// Randomize and select 7 questions for the quiz
+const questions = [...fullQuestions].sort(() => 0.5 - Math.random()).slice(0, 7);
 
-function startQuiz(){
-  quiz=[...questions].sort(()=>0.5-Math.random()).slice(0,7);
-  seconds=parseInt(timeSelect.value);
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
-  loadQuestion();
-  startTimer();
-}
+// Quiz configuration
+const quizConfig = {
+  questions: questions,
+  timeLimit: 180, // 3 minutes default
+  progressKey: 'sustainable-gardening-quiz',
+  iconClass: 'fa-solid fa-seedling',
+  elements: {
+    startScreen: document.getElementById('startScreen'),
+    quizScreen: document.getElementById('quizScreen'),
+    resultScreen: document.getElementById('resultScreen'),
+    questionEl: document.getElementById('question'),
+    optionsEl: document.getElementById('options'),
+    timeEl: document.getElementById('time'),
+    scoreEl: document.getElementById('score'),
+    remarkEl: document.getElementById('remark')
+  }
+};
 
-function startTimer(){
-  updateTime();
-  timer=setInterval(()=>{
-    seconds--;
-    updateTime();
-    if(seconds<=0){
-      clearInterval(timer);
-      showResult();
-    }
-  },1000);
-}
+// Create quiz instance
+const sustainableGardeningQuiz = new BaseQuiz(quizConfig);
 
-function updateTime(){
-  let m=Math.floor(seconds/60);
-  let s=seconds%60;
-  time.textContent=`${m}:${s<10?'0':''}${s}`;
-}
+// Override startQuiz to handle time selection
+sustainableGardeningQuiz.startQuiz = function() {
+  // Check for custom time selection
+  const timeSelect = document.getElementById('timeSelect');
+  if (timeSelect) {
+    this.timeLimit = parseInt(timeSelect.value);
+  }
 
-function loadQuestion(){
-  let q=quiz[index];
-  question.textContent=`Q${index+1}. ${q.q}`;
-  options.innerHTML="";
-  q.o.forEach((opt,i)=>{
-    let div=document.createElement("div");
-    div.className="option";
-    div.textContent=opt;
-    div.onclick=()=>selectOption(div,i);
-    options.appendChild(div);
-  });
-}
+  // Call parent method
+  BaseQuiz.prototype.startQuiz.call(this);
+};
 
-function selectOption(el,i){
-  document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
-  el.classList.add("selected");
-  el.dataset.correct=i===quiz[index].a;
-}
+// Override showResult for custom remarks
+sustainableGardeningQuiz.showResult = function() {
+  // Call parent method
+  BaseQuiz.prototype.showResult.call(this);
 
-function nextQuestion(){
-  let selected=document.querySelector(".option.selected");
-  if(!selected) return alert("Please select an option 🌱");
-  if(selected.dataset.correct==="true") score++;
-  index++;
-  index<quiz.length ? loadQuestion() : showResult();
-}
+  // Custom remarks for sustainable gardening
+  let remark = "";
+  if (this.score >= 6) {
+    remark = "🌟 Sustainable Gardening Expert!";
+  } else if (this.score >= 4) {
+    remark = "👍 Good Job!";
+  } else {
+    remark = "🌱 Keep Learning!";
+  }
 
-function showResult(){
-  clearInterval(timer);
-  quizScreen.style.display="none";
-  resultScreen.style.display="block";
-  score.textContent=`${score} / ${quiz.length}`;
-  remark.textContent =
-    score>=6 ? "🌟 Sustainable Gardening Expert!" :
-    score>=4 ? "👍 Good Job!" :
-    "🌱 Keep Learning!";
-}
+  if (this.config.elements.remarkEl) {
+    this.config.elements.remarkEl.textContent = remark;
+  }
+};
+
+// Initialize quiz on page load
+sustainableGardeningQuiz.initializeQuiz();
+
+// Global functions for HTML onclick handlers
+window.startQuiz = () => sustainableGardeningQuiz.startQuiz();
+window.nextQuestion = () => sustainableGardeningQuiz.nextQuestion();
