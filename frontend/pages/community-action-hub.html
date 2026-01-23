@@ -12,7 +12,7 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="../css/global/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/components/navbar.css" />
+     <link rel="stylesheet" href="../css/components/navbar.css">
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="../css/pages/community-action-hub.css" />
 
@@ -34,7 +34,8 @@
 </head>
 
 <body>
-    <div id="cursor-container"></div>
+    <!-- Navbar will be loaded here -->
+    <div id="navbar-container"></div>
 
     <!-- Skip Navigation Link for Keyboard Users -->
     <a href="#main-content" class="skip-link" id="skip-to-main">Skip to main content</a>
@@ -198,7 +199,7 @@
                 </div>
 
                 <div class="steps-grid">
-                    <div class="step-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="step-card" >
                         <div class="step-icon">
                             <i class="fa-solid fa-search"></i>
                         </div>
@@ -207,11 +208,9 @@
                         <p>Browse events on the map or use filters to find activities near you.</p>
                     </div>
 
-                    <div class="step-connector" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
+                   
 
-                    <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-card" >
                         <div class="step-icon">
                             <i class="fa-solid fa-handshake"></i>
                         </div>
@@ -220,11 +219,9 @@
                         <p>Register for events that interest you and connect with organizers.</p>
                     </div>
 
-                    <div class="step-connector" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
+                   
 
-                    <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-card" >
                         <div class="step-icon">
                             <i class="fa-solid fa-hands-holding-circle"></i>
                         </div>
@@ -233,11 +230,8 @@
                         <p>Show up, take action, and be part of the change in your community.</p>
                     </div>
 
-                    <div class="step-connector" data-aos="fade-up" data-aos-delay="500">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-
-                    <div class="step-card" data-aos="fade-up" data-aos-delay="600">
+                  
+                    <div class="step-card" >
                         <div class="step-icon">
                             <i class="fa-solid fa-trophy"></i>
                         </div>
@@ -383,7 +377,8 @@
     </div>
 
     <!-- Footer -->
-    <div id="footer-container"></div>
+    <div id="footer-placeholder"></div>
+ <script src="/frontend/js/components/footer-loader.js"></script>
 
     <!-- Scripts -->
     <!-- Leaflet.js -->
@@ -394,8 +389,10 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- Component Loaders -->
-    <script src="../js/components/loadComponents.js"></script>
-    <script src="../js/components/navbar-loader.js"></script>
+    <!-- <script src="../js/components/loadComponents.js"></script>  -->
+    <script src="../js/components/component-loader.js"></script>
+    
+
 
     <!-- Page Script -->
     <script src="../js/pages/community-action-hub.js"></script>
