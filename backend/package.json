@@ -14,7 +14,8 @@
     "body-parser": "^1.20.2",
     "mongoose": "^7.5.0",
     "joi": "^17.9.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

@@ -1,6 +1,22 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
+const connectDB = require('./backend/config/database');
+const initializeDatabase = require('./backend/init-db');
 const app = express();
+
+// Connect to database
+connectDB();
+initializeDatabase();
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// API Routes
+app.use('/api/quiz', require('./backend/routes/quiz'));
+app.use('/api/animals', require('./backend/routes/animals'));
+app.use('/api/users', require('./backend/routes/users'));
 
 // Middleware to log all requests
 app.use((req, res, next) => {
@@ -49,7 +65,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/index.html'));
 });
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));
     console.log(`🚀 Server running at http://localhost:${PORT}`);
