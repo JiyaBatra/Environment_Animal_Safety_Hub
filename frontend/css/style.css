@@ -2828,3 +2828,13 @@ img {
 /* ===========================================
    END OF STYLESHEET
    =========================================== */
+
+
+   button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
