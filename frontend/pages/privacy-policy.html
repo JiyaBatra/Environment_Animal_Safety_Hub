@@ -1,558 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Privacy Policy | EcoLife</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/pages/privacy-policy.css">
-  <link rel="stylesheet" href="../../css/global/utilities.css" />
-  <link rel="stylesheet" href="../css/components/footer.css" />
-  <link rel="stylesheet" href="../css/components/navbar.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - EcoLife</title>
+  <link rel="stylesheet" href="../css/global/variables.css">
+  <link rel="stylesheet" href="../css/global/utilities.css">
+  <link rel="stylesheet" href="../css/components/navbar.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/global/accessibility.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Fix for navbar and sidebar positioning */
-    body {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    
-    /* Hide the old main-nav */
-    .main-nav {
-      display: none;
-    }
-    
-    /* Ensure navbar stays on top */
-    #navbar-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background: var(--bg-secondary);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Fix the sidebar positioning */
-    .page-container {
-      display: flex;
-      min-height: 100vh;
-      padding-top: 150px; /* Space for fixed navbar */
-      box-sizing: border-box;
-    }
-    
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 80px; /* Below navbar */
-      width: 300px;
-      height: calc(100vh - 100px);
-      overflow-y: auto;
-      background: var(--bg-secondary);
-      border-right: 1px solid var(--border-color);
-      z-index: 999;
-      margin-top: 50px;
-      padding-top: 20px;
-    }
-    
-    .main-content {
-      margin-left: 320px; /* Space for sidebar */
-      width: calc(100% - 320px);
-      padding: 30px;
-      box-sizing: border-box;
-      min-height: calc(100vh - 80px);
-    }
-    
-    /* Dark theme adjustments */
-    body[data-theme="dark"] #navbar-container,
-    body[data-theme="dark"] .sidebar {
-      background: var(--bg-secondary);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .sidebar.stop {
-      position: absolute;
-    }
-
-    
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
-      .sidebar {
-        width: 250px;
-      }
-      
-      .main-content {
-        margin-left: 270px;
-        width: calc(100% - 270px);
-      }
-    }
-    
+    body { font-family: 'Poppins', sans-serif; margin: 0; background: #f8f9fa; line-height: 1.6; }
+    .privacy-hero { background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; padding: 80px 20px 60px; text-align: center; }
+    .privacy-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .privacy-hero p { font-size: 1.1rem; opacity: 0.9; }
+    .privacy-container { max-width: 800px; margin: -40px auto 60px; padding: 0 20px; }
+    .privacy-content { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .privacy-content h2 { color: #2E7D32; margin: 30px 0 15px; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+    .privacy-content h3 { color: #333; margin: 25px 0 10px; }
+    .privacy-content p { color: #666; margin-bottom: 15px; }
+    .privacy-content ul { color: #666; margin: 15px 0; padding-left: 20px; }
+    .privacy-content li { margin-bottom: 8px; }
+    .last-updated { background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 30px; color: #2E7D32; font-weight: 600; }
+    .contact-info { background: #f0f8f0; padding: 20px; border-radius: 8px; margin: 30px 0; }
     @media (max-width: 768px) {
-      .page-container {
-        padding-top: 60px;
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-        top: 0;
-        margin-top: 60px;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-        padding: 20px;
-      }
-      
-      .main-content {
-        margin-left: 0;
-        width: 100%;
-        padding: 20px;
-      }
-      
-      .theme-toggle-container {
-        top: 80px;
-        right: 15px;
-      }
-    }
-    
-    /* Ensure content doesn't go under fixed elements */
-    .content-header {
-      margin-top: 0;
-      padding-top: 20px;
-    }
-    
-    /* Prevent sidebar header from overlapping */
-    .sidebar-header {
-      position: sticky;
-      top: 0;
-      background: var(--bg-secondary);
-      z-index: 10;
-      padding: 20px 0;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    /* Make sidebar links scrollable but keep header fixed */
-    .sidebar-stats {
-      padding: 20px 0;
-    }
-    
-    /* Custom scrollbar for sidebar */
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    .sidebar::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-    
-    .sidebar::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 3px;
+      .privacy-hero h1 { font-size: 2rem; }
+      .privacy-content { padding: 30px 20px; }
     }
   </style>
 </head>
+<body>
+  <div id="navbar-container"></div>
 
-<body data-theme="light">
-<div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
+  <main>
+    <section class="privacy-hero">
+      <h1>Privacy Policy</h1>
+      <p>Your privacy is important to us</p>
+    </section>
 
+    <div class="privacy-container">
+      <div class="privacy-content">
+        <div class="last-updated">
+          <i class="fas fa-calendar-alt"></i> Last updated: January 2024
+        </div>
 
-  <!-- Main Layout -->
-  <div class="page-container">
-      <!-- Navbar will be loaded here -->
-      <div id="navbar-container"></div>
-    
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h2 class="sidebar-title">Privacy Center</h2>
-        <p class="sidebar-subtitle">Your Data, Your Control</p>
+        <h2>1. Information We Collect</h2>
+        <h3>Personal Information</h3>
+        <ul>
+          <li>Name and email address (when you contact us)</li>
+          <li>Phone number (optional, for contact forms)</li>
+          <li>Messages and feedback you send us</li>
+        </ul>
+        
+        <h3>Automatically Collected Information</h3>
+        <ul>
+          <li>IP address and browser information</li>
+          <li>Pages visited and time spent on site</li>
+          <li>Device type and screen resolution</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>We use your information to:</p>
+        <ul>
+          <li>Respond to your inquiries and provide support</li>
+          <li>Improve our website and user experience</li>
+          <li>Send educational content about environmental protection</li>
+          <li>Analyze website usage and performance</li>
+        </ul>
+
+        <h2>3. Information Sharing</h2>
+        <p>We do not sell, trade, or share your personal information with third parties except:</p>
+        <ul>
+          <li>When required by law</li>
+          <li>To protect our rights and safety</li>
+          <li>With your explicit consent</li>
+        </ul>
+
+        <h2>4. Data Security</h2>
+        <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+
+        <h2>5. Cookies</h2>
+        <p>We use cookies to:</p>
+        <ul>
+          <li>Remember your preferences (like dark/light mode)</li>
+          <li>Analyze website traffic</li>
+          <li>Improve user experience</li>
+        </ul>
+        <p>You can disable cookies in your browser settings.</p>
+
+        <h2>6. Your Rights (GDPR)</h2>
+        <p>If you are in the EU, you have the right to:</p>
+        <ul>
+          <li>Access your personal data</li>
+          <li>Correct inaccurate data</li>
+          <li>Delete your data</li>
+          <li>Object to data processing</li>
+          <li>Data portability</li>
+        </ul>
+
+        <h2>7. Children's Privacy</h2>
+        <p>Our service is not directed to children under 13. We do not knowingly collect personal information from children under 13.</p>
+
+        <h2>8. Changes to Privacy Policy</h2>
+        <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+
+        <div class="contact-info">
+          <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+          <p>If you have questions about this privacy policy, contact us at:</p>
+          <p><strong>Email:</strong> privacy@ecolife.com<br>
+          <strong>Address:</strong> 123 Green Street, Eco City, EC 12345</p>
+        </div>
       </div>
+    </div>
+  </main>
 
-    
-
-      <div class="sidebar-stats">
-        <div class="stat-item">
-          <span class="stat-label">Last Updated</span>
-          <span class="stat-value">Apr 2025</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Policy Version</span>
-          <span class="stat-value">3.0</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Pages Covered</span>
-          <span class="stat-value">12</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Languages</span>
-          <span class="stat-value">3</span>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      
-      <!-- Header -->
-      <header class="content-header">
-        <div class="header-badge">
-          <i class="fa-solid fa-shield-halved"></i> Official Privacy Policy
-        </div>
-        <h1>Your Privacy Matters to Us</h1>
-        <p>
-          At EcoLife, we believe transparency builds trust. This document explains how we collect, 
-          use, and protect your information while you explore our environmental conservation platform.
-        </p>
-      </header>
-
-      <!-- Cards Grid -->
-      <section class="cards-grid">
-        <article class="policy-card animate" id="information">
-          <div class="card-icon">
-            <i class="fa-solid fa-database"></i>
-          </div>
-          <h3>Information We Collect</h3>
-          <p>
-            EcoLife collects minimal data necessary for educational purposes. This includes 
-            anonymous usage statistics, quiz responses for educational insights, and voluntary 
-            form submissions. We never collect sensitive personal information without explicit consent.
-          </p>
-        </article>
-
-        <article class="policy-card animate" id="usage">
-          <div class="card-icon">
-            <i class="fa-solid fa-chart-line"></i>
-          </div>
-          <h3>How We Use Information</h3>
-          <p>
-            Data helps us improve content quality, personalize learning experiences, and 
-            understand which conservation topics interest our community most. All analytics 
-            are aggregated and anonymized to protect individual privacy.
-          </p>
-        </article>
-
-        <article class="policy-card animate" id="cookies">
-          <div class="card-icon">
-            <i class="fa-solid fa-cookie-bite"></i>
-          </div>
-          <h3>Cookies & Tracking</h3>
-          <p>
-            We use essential cookies for website functionality. Optional analytics cookies 
-            help us improve user experience. You have full control over cookie preferences 
-            and can adjust settings at any time through your browser.
-          </p>
-        </article>
-
-        <article class="policy-card animate" id="links">
-          <div class="card-icon">
-            <i class="fa-solid fa-external-link-alt"></i>
-          </div>
-          <h3>External Links</h3>
-          <p>
-            Our platform may link to partner organizations, educational resources, or 
-            conservation initiatives. While we vet these links, we encourage reviewing 
-            their privacy policies as they operate independently from EcoLife.
-          </p>
-        </article>
-
-        <article class="policy-card animate" id="children">
-          <div class="card-icon">
-            <i class="fa-solid fa-child"></i>
-          </div>
-          <h3>Children's Privacy</h3>
-          <p>
-            EcoLife is designed to be family-friendly. We comply with COPPA regulations 
-            and do not knowingly collect data from children under 13 without parental 
-            consent. Our content is educational and safe for all ages.
-          </p>
-        </article>
-
-        <article class="policy-card animate" id="updates">
-          <div class="card-icon">
-            <i class="fa-solid fa-history"></i>
-          </div>
-          <h3>Policy Updates</h3>
-          <p>
-            We regularly review and update our privacy practices. Significant changes 
-            will be communicated through our platform. Continued use of EcoLife after 
-            updates constitutes acceptance of the revised policy.
-          </p>
-        </article>
-      </section>
-
-      <!-- FAQ Section -->
-      <section class="faq-section">
-        <h2 class="faq-title">Frequently Asked Questions</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <div class="faq-question">
-              <i class="fas fa-question-circle"></i>
-              Is my data sold to third parties?
-            </div>
-            <div class="faq-answer">
-              No. EcoLife does not sell, rent, or trade user data. We believe in ethical 
-              data practices that prioritize user privacy above all else.
-            </div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              <i class="fas fa-question-circle"></i>
-              How can I delete my data?
-            </div>
-            <div class="faq-answer">
-              Contact us at privacy@ecolife.org with your request. We'll process deletion 
-              requests within 30 days and confirm completion.
-            </div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              <i class="fas fa-question-circle"></i>
-              Do you use location tracking?
-            </div>
-            <div class="faq-answer">
-              Only with explicit permission for location-based features like local wildlife 
-              information. You can disable location services at any time.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Timeline -->
-      <section class="timeline-section">
-        <h2 class="section-title">Policy Timeline</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">January 2023</div>
-              <div class="timeline-text">
-                Initial privacy policy established with basic data protection guidelines 
-                and commitment to user privacy.
-              </div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">August 2023</div>
-              <div class="timeline-text">
-                Enhanced children's privacy section and added GDPR compliance measures 
-                for European users.
-              </div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">April 2025</div>
-              <div class="timeline-text">
-                Major revision with improved transparency, detailed data usage explanations, 
-                and enhanced user control options.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Footer placeholder -->
-  <div id="footer-placeholder"></div>
+  <div id="footer-container"></div>
 
   <script>
-    // Theme Toggle Functionality
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
-    const currentTheme = localStorage.getItem('theme') || 'light';
-
-    // Set initial theme
-    body.setAttribute('data-theme', currentTheme);
-
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
-      body.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // Add animation effect
-      themeToggle.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        themeToggle.style.transform = 'scale(1)';
-      }, 150);
+    // Load navbar and footer
+    fetch('../components/navbar.html').then(r => r.text()).then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
     });
-
-    // Wait for navbar to load before setting up scroll functionality
-    function setupScrollFunctionality() {
-      // Sidebar navigation
-      const sidebarLinks = document.querySelectorAll('.sidebar-link');
-      const sections = document.querySelectorAll('.policy-card, .faq-section, .timeline-section');
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            sidebarLinks.forEach(link => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === `#${id}`) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
-      }, {
-        threshold: 0.3,
-        rootMargin: '-100px 0px -100px 0px'
-      });
-
-      sections.forEach(section => {
-        if (section.id) {
-          observer.observe(section);
-        }
-      });
-
-      // Scroll to section when sidebar link is clicked
-      sidebarLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute('href').substring(1);
-          const targetSection = document.getElementById(targetId);
-          
-          if (targetSection) {
-            // Update active state
-            sidebarLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-            
-            // Scroll to section with navbar offset
-            const navbarHeight = document.getElementById('navbar-container').offsetHeight;
-            const targetPosition = targetSection.offsetTop - navbarHeight - 20;
-            
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-
-      // Card animations
-      const cards = document.querySelectorAll('.policy-card');
-      const cardObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('animate');
-            }, index * 100);
-            cardObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-
-      cards.forEach(card => {
-        cardObserver.observe(card);
-      });
-
-      // Smooth scrolling for all anchor links with navbar offset
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href !== '#') {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-              const navbarHeight = document.getElementById('navbar-container').offsetHeight;
-              const targetPosition = target.offsetTop - navbarHeight - 20;
-              
-              window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-              });
-            }
-          }
-        });
-      });
-
-      // Update active sidebar link on scroll with navbar offset
-      window.addEventListener('scroll', () => {
-        let current = '';
-        const navbarHeight = document.getElementById('navbar-container').offsetHeight;
-        const scrollPosition = window.scrollY + navbarHeight + 100;
-        
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-          }
-        });
-
-        sidebarLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href').substring(1) === current) {
-            link.classList.add('active');
-          }
-        });
-      });
-    }
-
-    // Check if navbar is loaded and set up functionality
-    function checkNavbarLoaded() {
-      const navbar = document.getElementById('navbar-container');
-      if (navbar && navbar.children.length > 0) {
-        setupScrollFunctionality();
-        console.log("Privacy Policy page loaded with enhanced layout");
-        
-        // Remove duplicate navbar from sidebar (it's already in the fixed position)
-        const sidebarNavbar = navbar.parentElement;
-        if (sidebarNavbar && sidebarNavbar.tagName === 'DIV') {
-          sidebarNavbar.remove();
-        }
-      } else {
-        setTimeout(checkNavbarLoaded, 100);
-      }
-    }
-
-    // Start checking for navbar
-    document.addEventListener('DOMContentLoaded', checkNavbarLoaded);
+    fetch('../components/footer.html').then(r => r.text()).then(html => {
+      document.getElementById('footer-container').innerHTML = html;
+    });
   </script>
-
-  <script>
-  const sidebar = document.querySelector('.sidebar');
-  const footer = document.getElementById('footer-placeholder');
-
-  window.addEventListener('scroll', () => {
-    const sidebarHeight = sidebar.offsetHeight;
-    const footerTop = footer.getBoundingClientRect().top;
-    const viewportHeight = window.innerHeight;
-
-    if (footerTop <= viewportHeight) {
-      const scrollTop = window.scrollY;
-      const stopPoint = scrollTop + footerTop - sidebarHeight - 20;
-
-      sidebar.classList.add('stop');
-      sidebar.style.top = stopPoint + 'px';
-    } else {
-      sidebar.classList.remove('stop');
-      sidebar.style.top = '80px';
-    }
-  });
-</script>
-
-
-  <script>
-    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-  </script>
-  
-  <script src="/frontend/js/components/footer-loader.js"></script>
-  <script src="../js/components/component-loader.js"></script>
-  <script src="../js/components/navbar-loader.js"></script>
 </body>
 </html>
