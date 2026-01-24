@@ -1,297 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sitemap | EcoLife</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-  <!-- Font & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-  <!-- AOS Animation -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/global/utilities.css" />
-  <!-- Page Styles -->
-  <link rel="stylesheet" href="../css/pages/sitemap.css">
-  
-  <!-- Component Styles -->
-  <link rel="stylesheet" href="../css/components/footer.css" />
-  <link rel="stylesheet" href="../css/components/navbar.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitemap - EcoLife</title>
+  <link rel="stylesheet" href="../css/global/variables.css">
+  <link rel="stylesheet" href="../css/global/utilities.css">
+  <link rel="stylesheet" href="../css/components/navbar.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/global/accessibility.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin: 0; background: #f8f9fa; }
+    .sitemap-hero { background: linear-gradient(135deg, #4CAF50, #2E7D32); color: white; padding: 80px 20px 60px; text-align: center; }
+    .sitemap-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .sitemap-hero p { font-size: 1.1rem; opacity: 0.9; }
+    .sitemap-container { max-width: 1200px; margin: -40px auto 60px; padding: 0 20px; }
+    .sitemap-content { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .sitemap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .sitemap-section { background: #f8f9fa; padding: 25px; border-radius: 8px; border-left: 4px solid #4CAF50; }
+    .sitemap-section h2 { color: #2E7D32; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .sitemap-section i { color: #4CAF50; }
+    .sitemap-links { list-style: none; padding: 0; margin: 0; }
+    .sitemap-links li { margin-bottom: 12px; }
+    .sitemap-links a { color: #666; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 8px 0; transition: color 0.3s; }
+    .sitemap-links a:hover { color: #4CAF50; }
+    .sitemap-links a i { font-size: 0.9rem; color: #4CAF50; }
+    .page-count { background: #e8f5e8; color: #2E7D32; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 30px; }
+    .page-count h3 { margin: 0 0 10px; font-size: 2rem; }
+    .page-count p { margin: 0; }
+    .last-updated { background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 30px; color: #856404; text-align: center; }
+    @media (max-width: 768px) {
+      .sitemap-hero h1 { font-size: 2rem; }
+      .sitemap-content { padding: 30px 20px; }
+      .sitemap-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
-
-  <div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
-
   <div id="navbar-container"></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content" data-aos="fade-up">
-      <h1><i class="fas fa-sitemap"></i> EcoLife Sitemap</h1>
-      <p>Navigate through all our environmental and animal safety resources with ease 🌍</p>
-      
-      <div class="search-box" data-aos="fade-up" data-aos-delay="200">
-        <i class="fas fa-search"></i>
-        <input type="text" id="searchInput" placeholder="Search for pages...">
-      </div>
-    </div>
-  </section>
+  <main>
+    <section class="sitemap-hero">
+      <h1>Site Map</h1>
+      <p>Complete navigation guide to all EcoLife pages</p>
+    </section>
 
-  <!-- CONTENT -->
-  <div class="container">
-    <!-- Quick Stats -->
-    <div class="stats" data-aos="fade-up">
-      <div class="stat-card">
-        <i class="fas fa-globe-americas"></i>
-        <h3>24+</h3>
-        <p>Pages Available</p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-paw"></i>
-        <h3>8</h3>
-        <p>Animal Protection Pages</p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-leaf"></i>
-        <h3>6</h3>
-        <p>Environmental Guides</p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-child"></i>
-        <h3>3</h3>
-        <p>Kids Zone Activities</p>
-      </div>
-    </div>
+    <div class="sitemap-container">
+      <div class="sitemap-content">
+        <div class="last-updated">
+          <i class="fas fa-clock"></i> Last updated: January 2024
+        </div>
 
-    <!-- Main Grid -->
-    <div class="main-grid">
-      <!-- Main Pages -->
-      <div class="card" data-aos="fade-right">
-        <div class="card-header">
-          <div class="card-icon">
-            <i class="fas fa-home"></i>
+        <div class="page-count">
+          <h3>10+</h3>
+          <p>Total Pages Available</p>
+        </div>
+
+        <div class="sitemap-grid">
+          <div class="sitemap-section">
+            <h2><i class="fas fa-home"></i> Main Pages</h2>
+            <ul class="sitemap-links">
+              <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+              <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+              <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+              <li><a href="faq.html"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+            </ul>
           </div>
-          <h2>Main Pages</h2>
-        </div>
-        <ul>
-          <li><a href="../index.html"><i class="fas fa-home"></i> Home Dashboard <span class="badge popular">Popular</span></a></li>
-          <li><a href="about.html"><i class="fas fa-circle-info"></i> About EcoLife</a></li>
-          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact & Support</a></li>
-          <li><a href="report/report-dumping.html"><i class="fas fa-triangle-exclamation"></i> Report Environmental Issue <span class="badge important">Important</span></a></li>
-          <li><a href="volunteer.html"><i class="fas fa-hands-helping"></i> Volunteer Program</a></li>
-        </ul>
-      </div>
 
-      <!-- Animal Protection -->
-      <div class="card" data-aos="fade-up">
-        <div class="card-header">
-          <div class="card-icon">
-            <i class="fas fa-paw"></i>
+          <div class="sitemap-section">
+            <h2><i class="fas fa-paw"></i> Animal Care</h2>
+            <ul class="sitemap-links">
+              <li><a href="../index.html#animal-protection"><i class="fas fa-chevron-right"></i> Animal Protection</a></li>
+              <li><a href="../index.html#animal-first-aid"><i class="fas fa-chevron-right"></i> Animal First Aid</a></li>
+              <li><a href="../index.html#wildlife-reporting"><i class="fas fa-chevron-right"></i> Wildlife Reporting</a></li>
+              <li><a href="../index.html#report-form"><i class="fas fa-chevron-right"></i> Report Animal Issues</a></li>
+            </ul>
           </div>
-          <h2>Animal Protection</h2>
-        </div>
-        <ul>
-          <li><a href="animal-safety/animal-first-aid.html"><i class="fas fa-first-aid"></i> Animal First Aid Guide</a></li>
-          <li><a href="animal-safety/emergency-response.html"><i class="fas fa-ambulance"></i> Wildlife Emergency Response</a></li>
-          <li><a href="animal-sos.html"><i class="fas fa-exclamation-triangle"></i> Animal Emergency SOS <span class="badge important">Urgent</span></a></li>
-          <li><a href="animal-adoption.html"><i class="fas fa-heart"></i> Animal Adoption Center</a></li>
-          <li><a href="animal-safety/pet-owner-responsibilities.html"><i class="fas fa-user-shield"></i> Pet Owner Responsibilities</a></li>
-          <li><a href="animal-safety/pet-overbreeding.html"><i class="fas fa-exclamation-triangle"></i> Pet Overbreeding Issues</a></li>
-          <li><a href="animal-feeding.html"><i class="fas fa-apple-alt"></i> Animal Feeding Guide <span class="badge new">New</span></a></li>
-          <li><a href="animal-safety/urban-wildlife-safety.html"><i class="fas fa-shield-alt"></i> Urban Wildlife Safety</a></li>
-          <li><a href="animal-safety/wildlife-rehabilitation-centers.html"><i class="fas fa-heart"></i> Wildlife Rehabilitation Centers</a></li>
-          <li><a href="wildlife-conservation.html"><i class="fas fa-mountain"></i> Wildlife Conservation</a></li>
-        </ul>
-      </div>
 
-      <!-- Environmental Care -->
-      <div class="card" data-aos="fade-left">
-        <div class="card-header">
-          <div class="card-icon">
-            <i class="fas fa-leaf"></i>
+          <div class="sitemap-section">
+            <h2><i class="fas fa-leaf"></i> Environment</h2>
+            <ul class="sitemap-links">
+              <li><a href="../index.html#waste-segregation"><i class="fas fa-chevron-right"></i> Waste Segregation</a></li>
+              <li><a href="../index.html#climate-awareness"><i class="fas fa-chevron-right"></i> Climate Awareness</a></li>
+              <li><a href="../index.html#plant-care"><i class="fas fa-chevron-right"></i> Plant Care</a></li>
+              <li><a href="../index.html#report-form"><i class="fas fa-chevron-right"></i> Report Environmental Issues</a></li>
+            </ul>
           </div>
-          <h2>Environmental Care</h2>
-        </div>
-        <ul>
-          <li><a href="waste-segregation.html"><i class="fas fa-recycle"></i> Waste Segregation Guide</a></li>
-          <li><a href="climate-awareness.html"><i class="fas fa-temperature-high"></i> Climate Change Awareness</a></li>
-          <li><a href="plant-care.html"><i class="fas fa-seedling"></i> Plant Care & Gardening</a></li>
-          <li><a href="eco-friendly-tips.html"><i class="fas fa-lightbulb"></i> Eco-Friendly Tips</a></li>
-          <li><a href="water-conservation.html"><i class="fas fa-tint"></i> Water Conservation</a></li>
-        </ul>
-      </div>
 
-      <!-- Kids Zone -->
-      <div class="card" data-aos="fade-right">
-        <div class="card-header">
-          <div class="card-icon">
-            <i class="fas fa-child"></i>
+          <div class="sitemap-section">
+            <h2><i class="fas fa-users"></i> Community</h2>
+            <ul class="sitemap-links">
+              <li><a href="get-involved.html"><i class="fas fa-chevron-right"></i> Get Involved</a></li>
+              <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog & News</a></li>
+              <li><a href="resources.html"><i class="fas fa-chevron-right"></i> Resources & Downloads</a></li>
+              <li><a href="../index.html#quiz"><i class="fas fa-chevron-right"></i> Kids Quiz</a></li>
+            </ul>
           </div>
-          <h2>Kids Zone</h2>
-        </div>
-        <ul>
-          <li><a href="kids-learning.html"><i class="fas fa-book-open"></i> Kids Learning Center</a></li>
-          <li><a href="../pages/quizzes/quiz.html"><i class="fas fa-gamepad"></i> Environmental Quiz Game</a></li>
-          <li><a href="coloring-pages.html"><i class="fas fa-palette"></i> Animal Coloring Pages</a></li>
-          <li><a href="eco-stories.html"><i class="fas fa-book"></i> Eco Stories for Kids</a></li>
-        </ul>
-      </div>
 
-      <!-- Policies & Legal -->
-      <div class="card" data-aos="fade-up">
-        <div class="card-header">
-          <div class="card-icon">
-            <i class="fas fa-file-contract"></i>
+          <div class="sitemap-section">
+            <h2><i class="fas fa-file-alt"></i> Legal & Info</h2>
+            <ul class="sitemap-links">
+              <li><a href="privacy-policy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+              <li><a href="terms-of-service.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+              <li><a href="404.html"><i class="fas fa-chevron-right"></i> 404 Error Page</a></li>
+              <li><a href="sitemap.html"><i class="fas fa-chevron-right"></i> Sitemap</a></li>
+            </ul>
           </div>
-          <h2>Policies & Legal</h2>
-        </div>
-        <ul>
-          <li><a href="privacy-policy.html"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
-          <li><a href="terms-and-conditions.html"><i class="fas fa-scale-balanced"></i> Terms & Conditions</a></li>
-          <li><a href="cookie-policy.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
-          <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Website Disclaimer</a></li>
-        </ul>
-      </div>
 
-      <!-- Tools & Resources -->
-      <div class="card" data-aos="fade-left">
-        <div class="card-header">
-          <div class="card-icon">
-            <i class="fas fa-tools"></i>
+          <div class="sitemap-section">
+            <h2><i class="fas fa-cog"></i> Features</h2>
+            <ul class="sitemap-links">
+              <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Dark/Light Mode Toggle</a></li>
+              <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Responsive Design</a></li>
+              <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Accessibility Features</a></li>
+              <li><a href="../index.html"><i class="fas fa-chevron-right"></i> Interactive Elements</a></li>
+            </ul>
           </div>
-          <h2>Tools & Resources</h2>
         </div>
-        <ul>
-          <li><a href="carbon-calculator.html"><i class="fas fa-calculator"></i> Carbon Footprint Calculator</a></li>
-          <li><a href="eco-news.html"><i class="fas fa-newspaper"></i> Eco News & Updates</a></li>
-          <li><a href="download-resources.html"><i class="fas fa-download"></i> Download Resources</a></li>
-          <li><a href="community/forums.html"><i class="fas fa-comments"></i> Community Forum</a></li>
-          <li><a href="community/groups.html"><i class="fas fa-users-rectangle"></i> Community Groups</a></li>
-          <li><a href="community/create-group.html"><i class="fas fa-plus-circle"></i> Create New Group</a></li>
-          <li><a href="community/group-details.html?id=1"><i class="fas fa-circle-info"></i> Group Details</a></li>
-          <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Upcoming Events</a></li>
-        </ul>
-      </div>
-    </div>
 
-    <!-- Featured Pages -->
-    <div class="featured-section" data-aos="zoom-in">
-      <h2><i class="fas fa-star"></i> Most Visited Pages</h2>
-      <div class="featured-grid">
-        <div class="featured-card">
-          <h3>Animal Emergency SOS</h3>
-          <p>Immediate help for injured or trapped animals. Report emergencies instantly.</p>
-          <a href="animal-sos.html" class="btn">Go to SOS <i class="fas fa-arrow-right"></i></a>
+        <div style="margin-top: 40px; padding: 25px; background: #e8f5e8; border-radius: 8px; text-align: center;">
+          <h3 style="color: #2E7D32; margin-bottom: 15px;">
+            <i class="fas fa-search"></i> SEO Information
+          </h3>
+          <p style="color: #666; margin: 0; line-height: 1.6;">
+            This sitemap helps search engines discover and index all pages on our website. 
+            It improves our visibility in search results and helps users navigate our content more easily.
+          </p>
         </div>
-        <div class="featured-card">
-          <h3>Environmental Quiz</h3>
-          <p>Test your knowledge about environment and animals with fun quizzes.</p>
-          <a href="../pages/quizzes/quiz.html" class="btn">Take Quiz <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="featured-card">
-          <h3>Waste Segregation Guide</h3>
-          <p>Learn how to properly segregate waste for better recycling.</p>
-          <a href="waste-segregation.html" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f0f8f0; border-radius: 8px;">
+          <h4 style="color: #2E7D32; margin-bottom: 15px;">
+            <i class="fas fa-info-circle"></i> Navigation Tips
+          </h4>
+          <ul style="color: #666; margin: 0; padding-left: 20px;">
+            <li>Use the main navigation menu for quick access to key sections</li>
+            <li>All pages are mobile-responsive and accessibility-compliant</li>
+            <li>Use the search feature on the 404 page if you can't find what you're looking for</li>
+            <li>Contact us if you need help finding specific information</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- Footer placeholder -->
-  <div id="footer-placeholder"></div>
-<!-- Back to Top -->
-  <a href="#" class="back-to-top" id="backToTop">
-    <i class="fas fa-arrow-up"></i>
-  </a>
+  <div id="footer-container"></div>
 
-  <!-- JavaScript -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    // Initialize AOS
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100
+    // Load navbar and footer
+    fetch('../components/navbar.html').then(r => r.text()).then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
+    });
+    fetch('../components/footer.html').then(r => r.text()).then(html => {
+      document.getElementById('footer-container').innerHTML = html;
     });
 
-    // Theme Toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-      document.body.classList.add('dark-theme');
-      themeToggle.classList.add('dark');
-    }
-    
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-theme');
-      themeToggle.classList.toggle('dark');
-      
-      if (document.body.classList.contains('dark-theme')) {
-        localStorage.setItem('theme', 'dark');
-      } else {
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
-    // Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    const allLinks = document.querySelectorAll('.card a');
-    
-    searchInput.addEventListener('input', function() {
-      const searchTerm = this.value.toLowerCase();
-      
-      allLinks.forEach(link => {
-        const text = link.textContent.toLowerCase();
-        const parentLi = link.parentElement;
-        
-        if (text.includes(searchTerm)) {
-          parentLi.style.display = 'block';
-          // Highlight matching text
-          const regex = new RegExp(`(${searchTerm})`, 'gi');
-          link.innerHTML = link.innerHTML.replace(regex, '<span style="background: rgba(16, 185, 129, 0.3); padding: 2px 4px; border-radius: 4px;">$1</span>');
-        } else {
-          parentLi.style.display = 'none';
-        }
-      });
-    });
-
-    // Back to Top Button
-    const backToTop = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-    
-    backToTop.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-
-    // Clear search on page refresh
-    window.addEventListener('load', () => {
-      searchInput.value = '';
-    });
+    // Count and display total pages
+    const totalLinks = document.querySelectorAll('.sitemap-links a').length;
+    document.querySelector('.page-count h3').textContent = totalLinks + '+';
   </script>
-
-  <!-- Chatbase Script -->
-  <script>
-    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyType==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-  </script>
- <script src="/frontend/js/components/footer-loader.js"></script>
-<script src="../js/components/component-loader.js"></script>
-    <script src="../js/components/navbar-loader.js"></script>
 </body>
 </html>
