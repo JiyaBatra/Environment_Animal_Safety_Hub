@@ -1,1 +1,140 @@
-[]
+{
+  "quizzes": [
+    {
+      "id": "kids-eco-quiz",
+      "title": "Kids Eco Quiz",
+      "description": "Learn & protect nature while having fun",
+      "questions": [
+        {
+          "q": "What helps reduce pollution?",
+          "o": ["Planting trees 🌳", "Burning waste 🔥", "Cutting forests 🪓", "Throwing trash 🗑️"],
+          "a": 0
+        },
+        {
+          "q": "Which energy is renewable?",
+          "o": ["Coal ⛽", "Solar ☀️", "Oil 🚢", "Gas 💨"],
+          "a": 1
+        },
+        {
+          "q": "Why recycle waste?",
+          "o": ["Increase trash 🚯", "Save resources ♻️", "Pollute water 💧", "Waste money 💸"],
+          "a": 1
+        },
+        {
+          "q": "Which animal is endangered?",
+          "o": ["Dog 🐕", "Cat 🐈", "Tiger 🐅", "Cow 🐄"],
+          "a": 2
+        },
+        {
+          "q": "Best way to save water?",
+          "o": ["Leave taps open 🚰", "Fix leaks 🔧", "Waste water 🚿", "Ignore 🙄"],
+          "a": 1
+        },
+        {
+          "q": "What gas causes global warming?",
+          "o": ["Oxygen 🌬️", "Carbon dioxide 🌫️", "Nitrogen ✗", "Hydrogen 🎈"],
+          "a": 1
+        },
+        {
+          "q": "What protects wildlife?",
+          "o": ["Deforestation 🪵", "Conservation 🏞️", "Hunting 🔫", "Pollution 🏭"],
+          "a": 1
+        },
+        {
+          "q": "Which bin for plastic?",
+          "o": ["Green 🟢", "Blue 🔵", "Red 🔴", "Black ⛑️"],
+          "a": 1
+        },
+        {
+          "q": "What harms oceans?",
+          "o": ["Clean water 🌊", "Plastic waste 🗃️", "Fish 🐟", "Coral 🪸"],
+          "a": 1
+        },
+        {
+          "q": "Best transport to reduce pollution?",
+          "o": ["Car 🚗", "Bus 🚌", "Cycle 🚲", "Plane ✈️"],
+          "a": 2
+        }
+      ],
+      "progressMetadata": {
+        "userProgress": {
+          "currentIndex": 0,
+          "answers": [],
+          "score": 0,
+          "remainingTime": 0,
+          "timestamp": null,
+          "quizId": "kids-eco-quiz",
+          "completed": false
+        }
+      }
+    },
+    {
+      "id": "pollution-awareness",
+      "title": "Pollution Awareness Quiz",
+      "description": "Learn about different types of pollution and their impacts on our environment and health.",
+      "questions": [
+        {
+          "q": "What is air pollution?",
+          "o": ["Clean air with no particles", "Contamination of air by harmful substances", "Air with only oxygen", "Wind blowing dust"],
+          "a": 1
+        },
+        {
+          "q": "Which of these is a major source of water pollution?",
+          "o": ["Rain water", "Industrial waste discharge", "Pure drinking water", "Ocean waves"],
+          "a": 1
+        },
+        {
+          "q": "What type of pollution affects soil quality?",
+          "o": ["Air pollution", "Chemical fertilizers and pesticides", "Noise pollution", "Light pollution"],
+          "a": 1
+        },
+        {
+          "q": "Which gas is primarily responsible for air pollution from vehicles?",
+          "o": ["Oxygen", "Carbon dioxide", "Nitrogen dioxide", "Helium"],
+          "a": 2
+        },
+        {
+          "q": "What can you do to reduce noise pollution?",
+          "o": ["Play loud music", "Use headphones at high volume", "Keep music at reasonable levels", "Ignore noise complaints"],
+          "a": 2
+        },
+        {
+          "q": "Plastic waste in oceans affects marine life by?",
+          "o": ["Making water cleaner", "Being mistaken for food and causing death", "Helping fish breathe", "Creating new habitats"],
+          "a": 1
+        },
+        {
+          "q": "Which pollution type is caused by excessive use of chemical pesticides?",
+          "o": ["Air pollution", "Water pollution", "Soil pollution", "Light pollution"],
+          "a": 2
+        },
+        {
+          "q": "What is the main cause of indoor air pollution?",
+          "o": ["Fresh air from outside", "Poor ventilation and household chemicals", "Too much oxygen", "Natural gas leaks only"],
+          "a": 1
+        },
+        {
+          "q": "Which of these helps reduce pollution?",
+          "o": ["Burning more fossil fuels", "Using public transport", "Throwing trash in rivers", "Cutting down trees"],
+          "a": 1
+        },
+        {
+          "q": "What is acid rain caused by?",
+          "o": ["Too much water", "Sulfur dioxide and nitrogen oxides in air", "Natural rainfall", "Cloud formation"],
+          "a": 1
+        }
+      ],
+      "progressMetadata": {
+        "userProgress": {
+          "currentIndex": 0,
+          "answers": [],
+          "score": 0,
+          "remainingTime": 0,
+          "timestamp": null,
+          "quizId": "pollution-awareness",
+          "completed": false
+        }
+      }
+    }
+  ]
+}

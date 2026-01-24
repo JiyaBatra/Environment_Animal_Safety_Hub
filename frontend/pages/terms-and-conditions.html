@@ -5,7 +5,9 @@
     <meta charset="UTF-8" />
     <title>Terms & Conditions | EcoLife</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="stylesheet" href="../../css/global/utilities.css" />
+    <link rel="stylesheet" href="../css/components/navbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" href="/environment-logo.png">
     <!-- External CSS for Terms & Conditions page (Issue #681) -->
@@ -13,18 +15,7 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="/" class="logo">
-            <i class="fas fa-leaf"></i>
-            EcoLife
-        </a>
-
-        <a href="/" class="back-home">
-            <i class="fas fa-arrow-left"></i>
-            Back to Home
-        </a>
-    </nav>
+    <div id="navbar-container"></div>
 
     <!-- Theme Toggle -->
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -77,24 +68,15 @@
     </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="copyright">
-                &copy; 2026 EcoLife. All rights reserved.
-            </div>
-            <ul class="footer-links">
-                <li><a href="/privacy">Privacy Policy</a></li>
-                <li><a href="/terms">Terms of Service</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <!-- Back to Top -->
     <a href="#" class="back-to-top" id="backToTop">
         <i class="fas fa-chevron-up"></i>
     </a>
 
+    <script src="../js/components/footer-loader.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
     <!-- Chatbase Chatbot Script -->
     <script>
         (function () {
@@ -396,34 +378,9 @@
 
         // ===== PRINT FUNCTIONALITY =====
         const printBtn = document.createElement('button');
+        printBtn.className = 'print-btn';
         printBtn.innerHTML = '<i class="fas fa-print"></i>';
         printBtn.title = 'Print Terms';
-        printBtn.style.cssText = `
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        `;
-
-        printBtn.addEventListener('mouseenter', () => {
-            printBtn.style.transform = 'scale(1.1)';
-        });
-
-        printBtn.addEventListener('mouseleave', () => {
-            printBtn.style.transform = 'scale(1)';
-        });
 
         printBtn.addEventListener('click', () => {
             window.print();
@@ -436,6 +393,7 @@
         console.log('Sections:', sections.length);
         console.log('Theme:', document.documentElement.getAttribute('data-theme') || 'light');
     </script>
+    <script src="../js/components/component-loader.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
   <title>Climate Change Quiz | EcoLife</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
@@ -17,6 +17,44 @@
   <link rel="stylesheet" href="../../css/components/navbar.css" />
   <link rel="stylesheet" href="../../css/components/footer.css" />
   <link rel="stylesheet" href="../../css/components/Login_SignUp.css" />
+  
+  <!-- WhatsApp Button CSS -->
+  <style>
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .whatsapp-btn:hover {
+      background-color: #128C7E;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-btn i {
+      margin-right: 8px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    .action-buttons .btn {
+      flex: 1;
+      min-width: 180px;
+    }
+    
+    @media (max-width: 768px) {
+      .action-buttons .btn {
+        min-width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -69,6 +107,13 @@
         <button class="btn primary-btn" onclick="startQuiz()">
           Launch Quiz <i class="fas fa-rocket"></i>
         </button>
+
+        <!-- Resume Section -->
+        <div id="resumeSection" style="display: none; margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border: 2px solid #4CAF50;">
+          <h3 style="color: #2E7D32; margin-bottom: 10px;">📚 Resume Your Previous Quiz</h3>
+          <p style="margin-bottom: 15px; color: #555;">You have an unfinished quiz. Would you like to continue where you left off?</p>
+          <button onclick="resumeQuiz()" style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Resume Quiz</button>
+        </div>
       </div>
 
       <div id="quizScreen">
@@ -112,6 +157,10 @@
           <button class="btn primary-btn" onclick="location.reload()">
             <i class="fas fa-redo"></i> Play Again
           </button>
+          <!-- WhatsApp Share Button Added Here -->
+          <button class="btn whatsapp-btn" id="whatsappShareBtn">
+            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+          </button>
         </div>
       </div>
 
@@ -136,9 +185,56 @@
   </div>
 
   <div id="footer-placeholder"></div>
-  
+  <script src="../../js/components/component-loader.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="../../js/pages/quizzes/climate-change-quiz.js"></script>
   
+  <!-- WhatsApp Share JavaScript -->
+  <script>
+    // WhatsApp share functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+      
+      // WhatsApp share function
+      function shareOnWhatsApp() {
+        const scoreText = document.getElementById('score').innerText;
+        const remarkText = document.getElementById('remark').innerText;
+        const quizTitle = 'Climate Change Quiz';
+        const currentUrl = window.location.href;
+        
+        // Create share message
+        const shareMessage = `🌍 *Climate Change Quiz Results* 🌍\n\n` +
+                           `🏆 *Score:* ${scoreText}\n` +
+                           `📝 *Remark:* ${remarkText}\n\n` +
+                           `🌱 Test your climate knowledge and see if you can beat my score!\n\n` +
+                           `👉 Take the quiz here: ${currentUrl}\n\n` +
+                           `#ClimateChange #EcoChallenge #SaveOurPlanet #ClimateQuiz`;
+        
+        const encodedMessage = encodeURIComponent(shareMessage);
+        const whatsappURL = `https://wa.me/?text=${encodedMessage}`;
+        
+        // Open WhatsApp in a new tab
+        window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+      }
+      
+      // Add event listener to WhatsApp button when it exists
+      document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'whatsappShareBtn') {
+          shareOnWhatsApp();
+        }
+        // Also check if click is on child element (like the icon)
+        if (e.target && e.target.closest('#whatsappShareBtn')) {
+          shareOnWhatsApp();
+        }
+      });
+      
+      // Also make the function available globally
+      window.shareOnWhatsApp = shareOnWhatsApp;
+    });
+  </script>
 </body>
 </html>

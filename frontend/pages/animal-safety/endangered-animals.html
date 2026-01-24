@@ -7,12 +7,28 @@
     <title>EcoLife | Endangered Species Protection</title>
     <link rel="icon" type="image/png" href="/envirnoment-logo.png">
     <meta name="description" content="Explore endangered species, learn about conservation efforts, and discover how you can help protect our planet's most vulnerable animals." />
-    
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ecolife-app.com/pages/animal-safety/endangered-animals.html">
+    <meta property="og:title" content="EcoLife | Endangered Species Protection">
+    <meta property="og:description" content="Explore endangered species, learn about conservation efforts, and discover how you can help protect our planet's most vulnerable animals.">
+    <meta property="og:image" content="https://ecolife-app.com/assets/images/extinct/amur-leopard.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ecolife-app.com/pages/animal-safety/endangered-animals.html">
+    <meta property="twitter:title" content="EcoLife | Endangered Species Protection">
+    <meta property="twitter:description" content="Explore endangered species, learn about conservation efforts, and discover how you can help protect our planet's most vulnerable animals.">
+    <meta property="twitter:image" content="https://ecolife-app.com/assets/images/extinct/amur-leopard.jpg">
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="../../css/global/variables.css">
     <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/global/utilities.css" />
     <link rel="stylesheet" href="../../css/components/navbar.css" /> 
     <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/components/share-modal.css" />
     <link rel="stylesheet" href="../../css/pages/animal-safety/endangered-animals.css" />
 
     <!-- Google Fonts -->
@@ -82,6 +98,11 @@
         <div class="section-header">
           <h2 class="section-title">Meet Our Endangered Species</h2>
           <p class="section-subtitle">Each animal plays a vital role in our ecosystem. Learn about their struggles and how we can help them survive.</p>
+          <div class="share-section">
+            <button class="share-button" onclick="sharePage()">
+              <i class="fas fa-share-alt"></i> Share This Page
+            </button>
+          </div>
         </div>
 
         <div class="animals-grid" id="animalsGrid">
@@ -289,7 +310,33 @@
       (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
     </script>
     <script src="/frontend/js/components/footer-loader.js"></script>
-
+    <script src="../../js/components/component-loader.js"></script>
     <script src="../../js/components/navbar-loader.js"></script>
+
+    <!-- Social Share Modal -->
+    <div id="shareModalContainer"></div>
+
+    <!-- Social Share Scripts -->
+    <script src="../../js/components/social-share.js"></script>
+    <script>
+      // Load share modal
+      fetch('../../components/share-modal.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('shareModalContainer').innerHTML = html;
+        })
+        .catch(error => console.error('Failed to load share modal:', error));
+
+      // Share page function
+      function sharePage() {
+        if (window.socialShare) {
+          window.socialShare.openShareModal({
+            title: 'EcoLife | Endangered Species Protection',
+            description: 'Explore endangered species, learn about conservation efforts, and discover how you can help protect our planet\'s most vulnerable animals.',
+            image: 'https://ecolife-app.com/assets/images/extinct/amur-leopard.jpg'
+          });
+        }
+      }
+    </script>
 </body>
 </html>

@@ -9,13 +9,13 @@ body {
     background: linear-gradient(135deg, #0a1628 0%, #1a2642 50%, #0d1b2a 100%);
     color: #e0e6ed;
     overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* Screen Management */
 .screen {
     display: none;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 }
 
@@ -28,6 +28,7 @@ body {
 /* Intro Screen */
 #introScreen {
     background: linear-gradient(135deg, #0f1f2f 0%, #1a3a4a 50%, #0d2a3a 100%);
+    margin-top: 50px;
 }
 
 .intro-container {

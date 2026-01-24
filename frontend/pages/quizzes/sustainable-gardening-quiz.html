@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sustainable Gardening Quiz | EcoLife</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../../css/pages/quizzes/sustainable-gardening-quiz.css">
+
+  <link rel="stylesheet" href="../../css/components/footer.css" />
+  <link rel="stylesheet" href="../../css/components/navbar.css" />
+</head>
+
+<body>
+
+  <div id="cursor-container"></div>
+<script src="../../js/components/loadComponents.js"></script>
+
+  <div id="navbar-container"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🌱 Sustainable Gardening Quiz</h1>
+  <p>Learn eco-friendly gardening practices to create a greener world 🌿</p>
+</div>
+
+<div class="card">
+
+  <!-- START -->
+  <div id="startScreen">
+    <h2>Start Sustainable Gardening Quiz</h2>
+    <p>Select time limit</p>
+    <select id="timeSelect">
+      <option value="120">2 Minutes</option>
+      <option value="180">3 Minutes</option>
+    </select>
+    
+    <!-- Resume Section (hidden by default) -->
+    <div id="resumeSection" style="display: none;">
+      <div class="resume-notice">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <p>You have a quiz in progress!</p>
+        <button onclick="resumeSavedQuiz()" class="resume-btn">
+          <i class="fa-solid fa-play"></i> Resume Quiz
+        </button>
+        <button onclick="startQuiz()" class="new-quiz-btn">
+          <i class="fa-solid fa-refresh"></i> Start New Quiz
+        </button>
+      </div>
+      <hr>
+    </div>
+    
+    <br><br>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen">
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-metrics">
+        <span>Time Spent: 0s</span>
+        <span>Completed: 1/7</span>
+      </div>
+    </div>
+    
+    <div class="timer">⏳ Time Left: <span id="time">00:00</span></div>
+    
+    <!-- Quiz Controls -->
+    <div class="quiz-controls">
+      <button id="pauseBtn" onclick="pauseQuiz()" class="control-btn">
+        <i class="fa-solid fa-pause"></i> Pause
+      </button>
+      <button id="resumeBtn" onclick="resumeCurrentQuiz()" class="control-btn" style="display: none;">
+        <i class="fa-solid fa-play"></i> Resume
+      </button>
+    </div>
+    
+    <div class="question" id="question"></div>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen">
+    <h2>🎉 Quiz Completed!</h2>
+    <div class="score" id="score"></div>
+    <p id="remark"></p>
+    <br>
+    <button onclick="location.reload()">Play Again</button>
+  </div>
+
+  <!-- BACK -->
+  <div class="back-wrapper">
+    <button class="back-btn" onclick="window.location.href='../games/kids-zone.html'">
+      ← Back to Home
+    </button>
+  </div>
+
+</div>
+
+<!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+<script src="../../js/pages/quizzes/sustainable-gardening-quiz.js"></script>
+
+  <script src="/frontend/js/components/footer-loader.js"></script>
+
+    <script src="../../js/components/navbar-loader.js"></script>
+</body>
+</html>

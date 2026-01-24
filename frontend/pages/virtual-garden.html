@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../assets/images/others/envirnoment-logo.png">
+  <title>Virtual Garden | EcoLife</title>
+  <meta name="description" content="Plant virtual trees, nurture them, and learn about environmental stewardship in our gamified Virtual Garden." />
+<!-- Core Stylesheets (minified in place) -->
+  <link rel="stylesheet" href="/frontend/css/global/utilities.css" />
+  <link rel="stylesheet" href="/frontend/css/style.css" />
+  <link rel="stylesheet" href="/frontend/css/components/navbar.css" />
+  <link rel="stylesheet" href="/frontend/css/components/footer.css" />
+
+  <!-- Page-specific styles (minified in place) -->
+  <link rel="stylesheet" href="../css/pages/virtual-garden.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins: wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- AOS (Animate On Scroll) Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Cursor Effect Container -->
+  <div id="cursor-container"></div>
+  <script src="../js/components/loadComponents.js"></script>
+
+  <!-- Navbar Container (loaded dynamically by navbar-loader.js) -->
+  <div id="navbar-container"></div>
+
+  <!-- Hero Section -->
+  <section class="garden-hero">
+    <div class="hero-container">
+      <div class="overlay">
+        <div class="hero-text" data-aos="fade-right">
+          <span class="section-tag"><i class="fa-solid fa-seedling"></i> Virtual Garden</span>
+          <h1>Grow Your <br>Virtual Forest</h1>
+          <p>Plant trees, nurture them with care, and watch your garden flourish!  Learn about sustainability while earning achievements and rewards.</p>
+          <div class="hero-stats">
+            <div class="stat">
+              <span id="total-points">0</span>
+              <small>Points</small>
+            </div>
+            <div class="stat">
+              <span id="trees-planted">0</span>
+              <small>Trees</small>
+            </div>
+            <div class="stat">
+              <span id="level">1</span>
+              <small>Level</small>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image" data-aos="fade-left">
+          <img src="../assets/images/others/virtual-garden-hero.png" alt="Virtual Garden" onerror="this.src='https://via.placeholder.com/400x300/4CAF50/white?text=Virtual+Garden' ">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Garden Area -->
+  <section class="garden-section">
+    <div class="container">
+      <div class="garden-controls">
+        <button id="plant-tree-btn" class="btn-plant">
+          <i class="fa-solid fa-seedling"></i> Plant Tree (10 Points)
+        </button>
+        <div class="progress-bar">
+          <div class="progress-fill" id="level-progress"></div>
+          <span class="progress-text">Level <span id="current-level">1</span> - <span id="progress-percent">0%</span></span>
+        </div>
+      </div>
+
+      <div class="garden-plot" id="garden-plot">
+        <!-- Trees will be dynamically added here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Section -->
+  <section class="achievements-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-trophy"></i> Achievements</h2>
+      <div class="achievements-grid" id="achievements-grid">
+        <!-- Achievements will be dynamically added here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Container (loaded dynamically by footer-loader.js) -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="../js/components/navbar-loader.js"></script>
+  <script src="../js/components/loadComponents.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script src="../js/global/performance-monitor.js"></script>
+  <script src="../js/global/optimized-image-loader.js"></script>
+  <script src="../js/pages/virtual-garden.js"></script>
+</body>
+
+</html>

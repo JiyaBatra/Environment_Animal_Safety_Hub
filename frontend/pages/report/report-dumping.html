@@ -9,212 +9,31 @@
   <link rel="icon" type="image/png" href="/envirnoment-logo.png">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+  
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../../css/global/variables.css" />
+  <link rel="stylesheet" href="../../css/global/utilities.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/components/navbar.css" />
+  <link rel="stylesheet" href="../../css/components/footer.css" />
+  <link rel="stylesheet" href="../../css/pages/report/report-dumping.css" />
+  <link rel="stylesheet" href="../../css/components/Login_SignUp.css" />
+  
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <link rel="stylesheet" href="../../css/pages/report/report-dumping.css" />
-  <link rel="stylesheet" href="../../css/components/footer.css" />
-  <link rel="stylesheet" href="../../css/global/variables.css" />
-  <link rel="stylesheet" href="../../css/components/navbar.css" />
-
-  <link rel="stylesheet" href="../../css/components/Login_SignUp.css" />
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <body>
-  <style>
-  .circle-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 999999;
-  }
+  <!-- Cursor Container from extinct-animals.html -->
+  <div id="cursor-container"></div>
+  <script src="../../js/components/loadComponents.js"></script>
 
-  .cursor-circle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    pointer-events: none;
-    background-color: #ff8c00; /* Dark orange */
-    box-shadow: 0 0 15px rgba(255, 140, 0, 0.7);
-    transform: translate(-50%, -50%);
-    will-change: transform;
-    mix-blend-mode: screen;
-  }
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
 
-  .cursor-circle:first-child {
-    width: 14px;
-    height: 14px;
-    background-color: #ffcc00; /* Brighter yellow */
-    mix-blend-mode: normal;
-    box-shadow: 0 0 20px #ff8c00, 0 0 40px rgba(255, 140, 0, 0.5);
-    z-index: 2;
-  }
-
-  .cursor-glow {
-    display: block;
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, rgba(255, 140, 0, 0.5) 0%, transparent 70%);
-    filter: blur(8px);
-    z-index: -1;
-  }
-
-  .cursor-clicking {
-    transform: translate(-50%, -50%) scale(3);
-    background-color: #ffcc00;
-    box-shadow: 0 0 30px #ffcc00, 0 0 60px #ff8c00;
-    opacity: 1 !important;
-  }
-
-  .cursor-hovering {
-    transform: translate(-50%, -50%) scale(1.8);
-    background-color: #ff9900; /* Medium orange */
-    box-shadow: 0 0 25px #ff9900, 0 0 35px rgba(255, 153, 0, 0.6);
-  }
-
-  .cursor-hovering:first-child {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-  }
-</style>
-
-<div class="circle-container" id="cursor-container"></div>
-
-<script>
-  (function() {
-    'use strict';
-    
-    // Disable default cursor on the whole page
-    document.body.style.cursor = 'none';
-    
-    const container = document.getElementById('cursor-container');
-    const coords = { x: 0, y: 0 };
-    const circles = [];
-    const NUM_CIRCLES = 18;
-    
-    // Create cursor circles
-    for (let i = 0; i < NUM_CIRCLES; i++) {
-      const circle = document.createElement('div');
-      circle.className = 'cursor-circle';
-      if (i === 0) circle.classList.add('cursor-glow');
-      
-      // Darker trail effect for later circles
-      const opacity = 1 - (i / NUM_CIRCLES);
-      const brightness = 0.7 + (opacity * 0.3); // Darker base
-      circle.style.opacity = (opacity * 0.9).toString();
-      circle.style.filter = `brightness(${brightness})`;
-      
-      container.appendChild(circle);
-      
-      circles.push({
-        element: circle,
-        x: 0,
-        y: 0
-      });
-    }
-    
-    // Mouse event handlers
-    const handleMouseMove = (e) => {
-      coords.x = e.clientX;
-      coords.y = e.clientY;
-    };
-    
-    const handleMouseDown = () => {
-      circles.forEach(c => c.element.classList.add('cursor-clicking'));
-    };
-    
-    const handleMouseUp = () => {
-      circles.forEach(c => c.element.classList.remove('cursor-clicking'));
-    };
-    
-    const handleMouseOver = (e) => {
-      const target = e.target;
-      const isInteractive = target.tagName === 'A' || 
-                           target.tagName === 'BUTTON' || 
-                           target.closest('button') || 
-                           target.closest('a') ||
-                           target.hasAttribute('onclick') ||
-                           target.style.cursor === 'pointer';
-      
-      if (isInteractive) {
-        circles.forEach(c => {
-          c.element.classList.add('cursor-hovering');
-          // Darker color for hover
-          c.element.style.backgroundColor = '#ff9900';
-        });
-      } else {
-        circles.forEach(c => {
-          c.element.classList.remove('cursor-hovering');
-          // Restore original dark orange
-          c.element.style.backgroundColor = '#ff8c00';
-        });
-      }
-    };
-    
-    // Animation loop
-    let animationId;
-    const animate = () => {
-      let x = coords.x;
-      let y = coords.y;
-      
-      circles.forEach((circleData, index) => {
-        const element = circleData.element;
-        
-        element.style.left = `${x}px`;
-        element.style.top = `${y}px`;
-        
-        const scale = (NUM_CIRCLES - index) / NUM_CIRCLES;
-        element.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        
-        // Make trail circles darker as they trail behind
-        if (index > 0) {
-          const darken = 0.9 - (index / NUM_CIRCLES * 0.5);
-          element.style.filter = `brightness(${darken})`;
-        }
-        
-        circleData.x = x;
-        circleData.y = y;
-        
-        const nextCircle = circles[index + 1] || circles[0];
-        x += (nextCircle.x - x) * 0.5;
-        y += (nextCircle.y - y) * 0.5;
-      });
-      
-      animationId = requestAnimationFrame(animate);
-    };
-    
-    // Initialize
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', handleMouseOver);
-    
-    // Start animation
-    animate();
-    
-    // Cleanup function (optional)
-    window.cursorCleanup = function() {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mouseover', handleMouseOver);
-      cancelAnimationFrame(animationId);
-      document.body.style.cursor = '';
-      container.remove();
-    };
-  })();
-</script>
-  <nav>
-    <div>
-      <div id="navbar-container"></div>
-      <script src="../../js/components/navbar-loader.js"></script>
-    </div>
-  </nav>
   <!-- HERO -->
   <section class="hero">
     <h1>🚯 Report Waste Dumping</h1>
@@ -225,12 +44,10 @@
     <button class="hero-btn" onclick="document.querySelector('.card').scrollIntoView({ behavior: 'smooth' })">
       🚨 Report Now
     </button>
-
   </section>
 
   <!-- CONTENT -->
   <div class="card">
-
     <div class="info">
       <h3>Why report waste dumping?</h3>
       <p>
@@ -269,16 +86,27 @@
         ⬅ Back to Home
       </button>
     </div>
-
   </div>
 
   <!-- Footer placeholder -->
   <div id="footer-placeholder"></div>
 
-<script src="/frontend/js/components/footer-loader.js"></script>
+  <!-- Back to Top Button (from extinct-animals.html) -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/global/theme-toggle.js"></script>
   <script src="../../js/pages/report/report-dumping.js"></script>
+  <script src="../../js/components/component-loader.js"></script>
   <script src="../../js/components/navbar-loader.js"></script>
-</body>
 
+  <script>
+    (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+  </script>
+  <script src="/frontend/js/components/footer-loader.js"></script>
+</body>
 </html>

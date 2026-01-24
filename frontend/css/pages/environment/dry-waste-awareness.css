@@ -1,4 +1,4 @@
-    
+﻿    
         /* ===== VARIABLES ===== */
         :root {
             --primary: #2e7d32;
@@ -79,7 +79,12 @@
         }
         
         .dark-mode .theme-btn {
+            background: rgba(0, 0, 0, 0.3);
             border-color: var(--primary);
+        }
+
+        .dark-mode .theme-btn i {
+            color: var(--primary);
         }
         
         /* ===== NAVBAR ===== */
@@ -269,31 +274,8 @@
             align-items: center;
         }
         
-        /* ===== WASTE EXAMPLES ===== */
-        .waste-examples {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .example-item {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .example-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .example-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
+        /* ===== WASTE EXAMPLES (Deprecated - now using cards) ===== */
+        /* Styles removed as section now uses .grid-3 and .card structure */
         
         /* ===== INTERACTIVE QUIZ ===== */
         .quiz-container {

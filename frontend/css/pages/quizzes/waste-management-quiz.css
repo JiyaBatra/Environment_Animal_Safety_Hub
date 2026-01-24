@@ -1,4 +1,4 @@
-
+﻿
 :root{
   --green:#2e7d32;
   --light:#e8f5e9;
@@ -6,82 +6,47 @@
   --shadow:0 20px 40px rgba(0,0,0,.12);
 }
 
-*{box-sizing:border-box;font-family:Poppins,sans-serif}
-
-body{
-  margin:0;
-  background:var(--bg);
-  min-height:100vh;
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
-/* HERO */
-.hero{
-  padding:90px 20px 70px;
-  text-align:center;
-  background:linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);
-  color:white;
-  border-bottom-left-radius:40px;
-  border-bottom-right-radius:40px;
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #66bb6a, #2e7d32);
+    width: 0%;
+    transition: width 0.3s ease;
 }
 
-.hero h1{font-size:3rem}
-.hero p{opacity:.9}
-
-/* CARD */
-.card{
-  max-width:800px;
-  margin:60px auto 80px;
-  background:white;
-  padding:40px;
-  border-radius:22px;
-  box-shadow:var(--shadow);
+.progress-metrics {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
 }
 
-/* START */
-#startScreen{text-align:center}
-button{
-  padding:12px 26px;
-  border:none;
-  border-radius:30px;
-  background:var(--green);
-  color:white;
-  cursor:pointer;
-  font-size:1rem;
-  transition:.3s;
-}
-button:hover{
-  background:#1b5e20;
-  transform:translateY(-3px);
-  box-shadow:0 10px 25px rgba(46,125,50,.35);
+.pause-resume-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-/* QUIZ */
-#quizScreen{display:none}
-.timer{
-  background:var(--light);
-  padding:8px 18px;
-  border-radius:30px;
-  display:inline-block;
-  font-weight:600;
-  margin-bottom:15px;
+.btn-secondary {
+    background: #fff;
+    border: 2px solid #2e7d32;
+    color: #2e7d32;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
 }
-.question{font-size:1.3rem;margin-bottom:20px}
 
-.option{
-  background:#f7faf8;
-  padding:14px 18px;
-  border-radius:14px;
-  margin-bottom:12px;
-  cursor:pointer;
-  border:2px solid transparent;
-}
-.option:hover{
-  background:var(--light);
-  transform:translateX(6px);
-}
-.option.selected{
-  border-color:var(--green);
-  background:var(--light);
+.btn-secondary:hover {
+    background: #e8f5e9;
 }
 
 /* RESULT */

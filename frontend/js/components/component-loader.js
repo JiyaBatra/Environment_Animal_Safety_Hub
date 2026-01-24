@@ -1,18 +1,28 @@
-/**
- * Component Loader
- * Unified script to load Navbar, Footer, and Cursor across all pages.
- * Handles path resolution for different directory depths.
+﻿/**
+ * Component Loader Module
+ *
+ * Handles dynamic loading of HTML components (navbar, footer, cursor) with proper path resolution
+ * and theme initialization. Supports nested page structures and automatic asset path fixing.
+ *
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
  */
 
 (function() {
     'use strict';
 
-    // Calculate prefix based on current path depth relative to 'pages' folder
+    /**
+     * Calculates the relative path prefix based on current page depth relative to 'pages' folder
+     * @returns {string} Relative path prefix for asset loading
+     */
     function getRelativePrefix() {
         const path = window.location.pathname;
+
         if (path.includes('/pages/')) {
             const pathParts = path.split('/');
             const pagesIndex = pathParts.indexOf('pages');
+
             // Check if we are in a sub-subfolder (e.g., /pages/blogs/post.html)
             if (pagesIndex !== -1 && pagesIndex < pathParts.length - 2) {
                 return '../../';
@@ -25,11 +35,14 @@
     const prefix = getRelativePrefix();
 
     /**
-     * Helper to load HTML into a container
+     * Loads an HTML component into a container element
+     * @param {string} id - The ID of the container element
+     * @param {string} fileName - The filename of the component to load
+     * @returns {Promise<boolean>} Success status of the load operation
      */
     async function loadComponent(id, fileName) {
         const container = document.getElementById(id);
-        if (!container) return;
+        if (!container) return false;
 
         try {
             const response = await fetch(prefix + 'components/' + fileName);
@@ -44,7 +57,8 @@
     }
 
     /**
-     * Initialize Theme Toggle
+     * Initializes theme toggle functionality
+     * Loads theme-toggle.js script if not already present and initializes theme
      */
     function initTheme() {
         // Find existing theme toggle script or load it
@@ -65,10 +79,18 @@
         } else if (window.EcoLifeTheme && typeof window.EcoLifeTheme.init === 'function') {
             window.EcoLifeTheme.init();
         }
+
+        // Load font-size-changer.js if not already present
+        if (!window.initFontSizeChanger && !document.querySelector('script[src*="font-size-changer.js"]')) {
+            const fontSizeScript = document.createElement('script');
+            fontSizeScript.src = prefix + 'js/global/font-size-changer.js';
+            document.head.appendChild(fontSizeScript);
+        }
     }
 
     /**
-     * Load Navbar
+     * Sets up the navbar component with proper path fixing and login state handling
+     * @returns {Promise<void>}
      */
     async function setupNavbar() {
         const success = await loadComponent('navbar-container', 'navbar.html');
@@ -115,7 +137,8 @@
     }
 
     /**
-     * Load Footer
+     * Sets up the footer component and loads associated CSS
+     * @returns {Promise<void>}
      */
     async function setupFooter() {
         const success = await loadComponent('footer-placeholder', 'footer.html');
@@ -136,7 +159,8 @@
     }
 
     /**
-     * Load Cursor
+     * Sets up the custom cursor component and executes any inline scripts
+     * @returns {Promise<void>}
      */
     async function setupCursor() {
         const container = document.getElementById('cursor-container');
@@ -164,6 +188,7 @@
         setupFooter();
         setupCursor();
         initTheme();
+        initFontSizeChanger();
 
         // Ensure FontAwesome is available
         if (!document.querySelector('link[href*="font-awesome"]')) {

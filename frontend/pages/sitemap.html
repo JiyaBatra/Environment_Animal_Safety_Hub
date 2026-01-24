@@ -12,7 +12,7 @@
   
   <!-- AOS Animation -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  
+  <link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Page Styles -->
   <link rel="stylesheet" href="../css/pages/sitemap.css">
   
@@ -96,9 +96,14 @@
         </div>
         <ul>
           <li><a href="animal-safety/animal-first-aid.html"><i class="fas fa-first-aid"></i> Animal First Aid Guide</a></li>
-          <li><a href="animal-sos.html"><i class="fas fa-ambulance"></i> Animal Emergency SOS <span class="badge important">Urgent</span></a></li>
+          <li><a href="animal-safety/emergency-response.html"><i class="fas fa-ambulance"></i> Wildlife Emergency Response</a></li>
+          <li><a href="animal-sos.html"><i class="fas fa-exclamation-triangle"></i> Animal Emergency SOS <span class="badge important">Urgent</span></a></li>
           <li><a href="animal-adoption.html"><i class="fas fa-heart"></i> Animal Adoption Center</a></li>
+          <li><a href="animal-safety/pet-owner-responsibilities.html"><i class="fas fa-user-shield"></i> Pet Owner Responsibilities</a></li>
+          <li><a href="animal-safety/pet-overbreeding.html"><i class="fas fa-exclamation-triangle"></i> Pet Overbreeding Issues</a></li>
           <li><a href="animal-feeding.html"><i class="fas fa-apple-alt"></i> Animal Feeding Guide <span class="badge new">New</span></a></li>
+          <li><a href="animal-safety/urban-wildlife-safety.html"><i class="fas fa-shield-alt"></i> Urban Wildlife Safety</a></li>
+          <li><a href="animal-safety/wildlife-rehabilitation-centers.html"><i class="fas fa-heart"></i> Wildlife Rehabilitation Centers</a></li>
           <li><a href="wildlife-conservation.html"><i class="fas fa-mountain"></i> Wildlife Conservation</a></li>
         </ul>
       </div>
@@ -164,7 +169,10 @@
           <li><a href="carbon-calculator.html"><i class="fas fa-calculator"></i> Carbon Footprint Calculator</a></li>
           <li><a href="eco-news.html"><i class="fas fa-newspaper"></i> Eco News & Updates</a></li>
           <li><a href="download-resources.html"><i class="fas fa-download"></i> Download Resources</a></li>
-          <li><a href="community-forum.html"><i class="fas fa-comments"></i> Community Forum</a></li>
+          <li><a href="community/forums.html"><i class="fas fa-comments"></i> Community Forum</a></li>
+          <li><a href="community/groups.html"><i class="fas fa-users-rectangle"></i> Community Groups</a></li>
+          <li><a href="community/create-group.html"><i class="fas fa-plus-circle"></i> Create New Group</a></li>
+          <li><a href="community/group-details.html?id=1"><i class="fas fa-circle-info"></i> Group Details</a></li>
           <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Upcoming Events</a></li>
         </ul>
       </div>
@@ -283,7 +291,7 @@
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyType==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
   </script>
  <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../js/components/component-loader.js"></script>
     <script src="../js/components/navbar-loader.js"></script>
 </body>
 </html>

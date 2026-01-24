@@ -5,15 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kids Eco Quiz | EcoLife</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="stylesheet" href="../../css/pages/quizzes/quiz.css">
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
     <link rel="stylesheet" href="../../css/pages/environment/quiz.css">
 
     <link rel="icon" type="image/png" href="/envirnoment-logo.png">
 
   <link rel="stylesheet" href="../../css/components/footer.css" />
   <link rel="stylesheet" href="../../css/components/navbar.css" />
+  
+  <!-- WhatsApp Button CSS -->
+  <style>
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);
+    }
+    
+    .whatsapp-btn:hover {
+      background-color: #128C7E;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-btn:active {
+      transform: translateY(-1px);
+    }
+    
+    .whatsapp-btn i {
+      font-size: 20px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+    
+    .action-buttons button {
+      min-width: 200px;
+      flex: 1;
+    }
+    
+    @media (max-width: 768px) {
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .action-buttons button {
+        width: 100%;
+        max-width: 300px;
+        margin: 5px 0;
+      }
+    }
+    
+    /* Style existing buttons to match */
+    .btn-primary {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+      box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+    }
+    
+    .btn-primary:hover {
+      background-color: #45a049;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+    }
+    
+    .btn-secondary {
+      background-color: #FF9800;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+      box-shadow: 0 4px 6px rgba(255, 152, 0, 0.2);
+    }
+    
+    .btn-secondary:hover {
+      background-color: #F57C00;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(255, 152, 0, 0.3);
+    }
+  </style>
 </head>
 <body>
 
@@ -64,7 +171,11 @@
                 </select>
             </div>
             <br>
-            <button class="btn-primary pulse-btn" onclick="startQuiz()">Start Adventure! 🚀</button>
+            <button class="btn-primary pulse-btn" onclick="startQuiz()" aria-label="Start the eco quiz adventure">Start Adventure! 🚀</button>
+            <div id="resumeSection" style="display: none; margin-top: 20px;">
+                <p style="color: #666; font-size: 0.9rem;">📚 Previous progress found!</p>
+                <button class="btn-secondary" onclick="resumeQuiz()" aria-label="Resume your previous quiz">Resume Quiz 🔄</button>
+            </div>
         </div>
 
         <div id="quizScreen">
@@ -72,11 +183,14 @@
                 <div class="timer-badge">⏳ <span id="time">00:00</span></div>
                 <div class="progress-text" id="progressText">Question 1/10</div>
             </div>
+            <div id="progressBar" class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
             <div class="question-box">
                 <h3 class="question" id="question">Loading...</h3>
             </div>
             <div id="options" class="options-grid"></div>
-            <button class="btn-primary nextBtn" onclick="nextQuestion()">Next Question ➡️</button>
+            <button class="btn-primary nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next Question ➡️</button>
         </div>
 
         <div id="loadingScreen">
@@ -95,15 +209,15 @@
             </div>
             <h3 id="remark"></h3>
             <div class="action-buttons">
-                <button class="btn-secondary" onclick="showReview()">📖 Review Answers</button>
-                <button class="btn-primary" onclick="location.reload()">🔄 Play Again</button>
+                <button class="btn-secondary" onclick="showReview()" aria-label="Review your quiz answers">📖 Review Answers</button>
+                <button class="btn-primary" onclick="location.reload()" aria-label="Play the quiz again">🔄 Play Again</button>
             </div>
         </div>
 
         <div id="reviewScreen">
             <h2>📖 Answer Key</h2>
             <div id="reviewList" class="custom-scroll"></div>
-            <button class="btn-primary sticky-btn" onclick="location.reload()">🔄 Play Again</button>
+            <button class="btn-primary sticky-btn" onclick="location.reload()" aria-label="Play the quiz again">🔄 Play Again</button>
         </div>
 
     </div>
@@ -119,7 +233,63 @@
     
 
  <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../../js/components/component-loader.js"></script>
     <script src="../../js/components/navbar-loader.js"></script>
+    
+  <!-- WhatsApp Share JavaScript -->
+  <script>
+    // WhatsApp share functionality
+    function shareOnWhatsApp() {
+      const scoreElement = document.getElementById('finalScore');
+      const remarkElement = document.getElementById('remark');
+      
+      if (!scoreElement || !remarkElement) {
+        alert('Please complete the quiz first!');
+        return;
+      }
+      
+      const scoreText = scoreElement.innerText || scoreElement.textContent;
+      const remarkText = remarkElement.innerText || remarkElement.textContent;
+      const quizTitle = 'Kids Eco Quiz';
+      const currentUrl = window.location.href;
+      
+      // Create share message
+      const shareMessage = `🌱 *Kids Eco Quiz Results* 🌱\n\n` +
+                         `🏆 *Score:* ${scoreText}/10\n` +
+                         `🌟 *Result:* ${remarkText}\n\n` +
+                         `🌍 I just completed the Kids Eco Quiz adventure!\n` +
+                         `Can you beat my score and become an Eco Hero too? 🦸‍♀️🦸‍♂️\n\n` +
+                         `👉 Take the quiz here: ${currentUrl}\n\n` +
+                         `#KidsEcoQuiz #EcoHero #SaveThePlanet #EcoLife #GreenFuture`;
+      
+      const encodedMessage = encodeURIComponent(shareMessage);
+      const whatsappURL = `https://wa.me/?text=${encodedMessage}`;
+      
+      // Open WhatsApp in a new tab
+      window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+    }
+    
+    // Add event listener when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add click event to WhatsApp button
+      const whatsappBtn = document.getElementById('whatsappShareBtn');
+      if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', shareOnWhatsApp);
+      }
+      
+      // Also handle dynamic clicks if button is added later
+      document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'whatsappShareBtn') {
+          shareOnWhatsApp();
+        }
+        if (e.target && e.target.closest('#whatsappShareBtn')) {
+          shareOnWhatsApp();
+        }
+      });
+      
+      // Make function available globally
+      window.shareOnWhatsApp = shareOnWhatsApp;
+    });
+  </script>
 </body>
 </html>

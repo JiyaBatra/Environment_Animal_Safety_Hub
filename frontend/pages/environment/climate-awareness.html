@@ -5,7 +5,7 @@
   <title>Climate Awareness | EcoLife</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -81,6 +81,29 @@
         <div class="stat-icon">🌊</div>
         <div class="stat-value">3.3 mm/yr</div>
         <div class="stat-label">Sea Level Rise</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weather Widget Section -->
+  <section class="weather-section">
+    <div class="weather-container">
+      <div class="weather-header">
+        <h2 class="weather-title">Local Weather & Climate Action</h2>
+        <p class="weather-subtitle">See how current weather conditions affect your carbon footprint</p>
+      </div>
+      <div class="weather-widget" id="weatherWidget">
+        <div class="weather-loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Loading weather data...</p>
+        </div>
+      </div>
+      <div class="location-permission" id="locationPermission">
+        <button id="allowLocationBtn" class="permission-btn">
+          <i class="fas fa-map-marker-alt"></i>
+          Allow Location Access
+        </button>
+        <p class="permission-text">We need your location to show local weather and personalized climate tips</p>
       </div>
     </div>
   </section>
@@ -384,7 +407,8 @@
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
   <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../../js/components/component-loader.js"></script>
     <script src="../../js/components/navbar-loader.js"></script>
+    <script src="../../js/pages/climate.js"></script>
 </body>
 </html>

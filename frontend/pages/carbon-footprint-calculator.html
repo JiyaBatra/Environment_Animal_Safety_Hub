@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator | EcoLife</title>
+    <meta name="description" content="Calculate your annual carbon emissions based on your lifestyle choices. Get personalized insights and track your progress towards a greener future.">
+    <link rel="icon" type="image/png" href="../assets/images/others/FAVICON.png">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components/navbar.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/pages/carbon-footprint-calculator.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div id="cursor-container"></div>
+
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="carbon-hero" id="carbon-hero">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid fa-leaf"></i>
+                <span>Carbon Footprint Tracker</span>
+            </div>
+            <h1 class="hero-title">
+                Know Your <span class="gradient-text">Carbon Impact</span>
+            </h1>
+            <p class="hero-subtitle">
+                Calculate your annual carbon emissions and discover personalized ways to reduce your environmental footprint
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <i class="fa-solid fa-users"></i>
+                    <div class="stat-content">
+                        <span class="stat-number" data-count="50000">0</span>
+                        <span class="stat-label">Users Tracked</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-cloud"></i>
+                    <div class="stat-content">
+                        <span class="stat-number" data-count="125000">0</span>
+                        <span class="stat-label">kg CO₂ Saved</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-tree"></i>
+                    <div class="stat-content">
+                        <span class="stat-number" data-count="8500">0</span>
+                        <span class="stat-label">Trees Equivalent</span>
+                    </div>
+                </div>
+            </div>
+            <button class="cta-button" id="startCalculator">
+                <i class="fa-solid fa-calculator"></i>
+                <span>Calculate My Footprint</span>
+                <div class="button-glow"></div>
+            </button>
+        </div>
+        <div class="hero-visual">
+            <div class="earth-container">
+                <div class="earth">
+                    <div class="earth-glow"></div>
+                </div>
+                <div class="orbit orbit-1">
+                    <div class="orbit-item"><i class="fa-solid fa-car"></i></div>
+                </div>
+                <div class="orbit orbit-2">
+                    <div class="orbit-item"><i class="fa-solid fa-utensils"></i></div>
+                </div>
+                <div class="orbit orbit-3">
+                    <div class="orbit-item"><i class="fa-solid fa-bolt"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section" id="calculatorSection">
+        <div class="calculator-container">
+            <!-- Progress Bar -->
+            <div class="wizard-progress">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="step-indicators">
+                    <div class="step-indicator active" data-step="1">
+                        <div class="step-icon"><i class="fa-solid fa-car"></i></div>
+                        <span>Transport</span>
+                    </div>
+                    <div class="step-indicator" data-step="2">
+                        <div class="step-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <span>Diet</span>
+                    </div>
+                    <div class="step-indicator" data-step="3">
+                        <div class="step-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <span>Energy</span>
+                    </div>
+                    <div class="step-indicator" data-step="4">
+                        <div class="step-icon"><i class="fa-solid fa-shopping-bag"></i></div>
+                        <span>Shopping</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Transportation -->
+            <div class="wizard-step active" id="step1">
+                <div class="step-header">
+                    <div class="step-number">01</div>
+                    <h2><i class="fa-solid fa-car"></i> Transportation</h2>
+                    <p>Tell us about your daily commute and travel habits</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-route"></i>
+                            Primary Mode of Transportation
+                        </label>
+                        <div class="option-cards" id="transportMode">
+                            <div class="option-card" data-value="walk" data-emission="0">
+                                <i class="fa-solid fa-person-walking"></i>
+                                <span>Walk/Cycle</span>
+                                <small>0 kg CO₂</small>
+                            </div>
+                            <div class="option-card" data-value="public" data-emission="1.5">
+                                <i class="fa-solid fa-bus"></i>
+                                <span>Public Transit</span>
+                                <small>~1.5 kg CO₂/day</small>
+                            </div>
+                            <div class="option-card" data-value="bike" data-emission="2.5">
+                                <i class="fa-solid fa-motorcycle"></i>
+                                <span>Motorcycle</span>
+                                <small>~2.5 kg CO₂/day</small>
+                            </div>
+                            <div class="option-card" data-value="car" data-emission="4.5">
+                                <i class="fa-solid fa-car"></i>
+                                <span>Personal Car</span>
+                                <small>~4.5 kg CO₂/day</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-road"></i>
+                            Daily Commute Distance (km)
+                        </label>
+                        <div class="slider-container">
+                            <input type="range" id="commuteDistance" min="0" max="100" value="20" class="range-slider">
+                            <div class="slider-value">
+                                <span id="commuteValue">20</span> km/day
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-plane"></i>
+                            Annual Flight Hours
+                        </label>
+                        <div class="option-cards" id="flightHours">
+                            <div class="option-card" data-value="none" data-emission="0">
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>None</span>
+                                <small>0 kg CO₂</small>
+                            </div>
+                            <div class="option-card" data-value="short" data-emission="500">
+                                <i class="fa-solid fa-plane-departure"></i>
+                                <span>1-5 hrs</span>
+                                <small>~500 kg CO₂</small>
+                            </div>
+                            <div class="option-card" data-value="medium" data-emission="1500">
+                                <i class="fa-solid fa-plane"></i>
+                                <span>5-20 hrs</span>
+                                <small>~1,500 kg CO₂</small>
+                            </div>
+                            <div class="option-card" data-value="frequent" data-emission="4000">
+                                <i class="fa-solid fa-jet-fighter"></i>
+                                <span>20+ hrs</span>
+                                <small>~4,000 kg CO₂</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-preview">
+                    <div class="preview-label">Estimated Transport Emissions</div>
+                    <div class="preview-value">
+                        <span id="transportEmission">0</span> kg CO₂/year
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Diet -->
+            <div class="wizard-step" id="step2">
+                <div class="step-header">
+                    <div class="step-number">02</div>
+                    <h2><i class="fa-solid fa-utensils"></i> Dietary Habits</h2>
+                    <p>Your food choices have a significant impact on your carbon footprint</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-card full-width">
+                        <label class="form-label">
+                            <i class="fa-solid fa-drumstick-bite"></i>
+                            Diet Type
+                        </label>
+                        <div class="option-cards large" id="dietType">
+                            <div class="option-card" data-value="vegan" data-emission="1500">
+                                <i class="fa-solid fa-seedling"></i>
+                                <span>Vegan</span>
+                                <small>~1,500 kg CO₂/year</small>
+                                <div class="eco-badge">Lowest Impact</div>
+                            </div>
+                            <div class="option-card" data-value="vegetarian" data-emission="1700">
+                                <i class="fa-solid fa-carrot"></i>
+                                <span>Vegetarian</span>
+                                <small>~1,700 kg CO₂/year</small>
+                            </div>
+                            <div class="option-card" data-value="pescatarian" data-emission="1900">
+                                <i class="fa-solid fa-fish"></i>
+                                <span>Pescatarian</span>
+                                <small>~1,900 kg CO₂/year</small>
+                            </div>
+                            <div class="option-card" data-value="omnivore" data-emission="2500">
+                                <i class="fa-solid fa-burger"></i>
+                                <span>Balanced</span>
+                                <small>~2,500 kg CO₂/year</small>
+                            </div>
+                            <div class="option-card" data-value="meat-heavy" data-emission="3500">
+                                <i class="fa-solid fa-drumstick-bite"></i>
+                                <span>Meat Heavy</span>
+                                <small>~3,500 kg CO₂/year</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-store"></i>
+                            Food Source
+                        </label>
+                        <div class="option-cards" id="foodSource">
+                            <div class="option-card" data-value="local" data-emission="0.8">
+                                <i class="fa-solid fa-leaf"></i>
+                                <span>Local/Organic</span>
+                                <small>Low Transport</small>
+                            </div>
+                            <div class="option-card" data-value="mixed" data-emission="1">
+                                <i class="fa-solid fa-basket-shopping"></i>
+                                <span>Mixed Sources</span>
+                                <small>Average</small>
+                            </div>
+                            <div class="option-card" data-value="imported" data-emission="1.3">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Mostly Imported</span>
+                                <small>High Transport</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-trash-can"></i>
+                            Food Waste Level
+                        </label>
+                        <div class="option-cards" id="foodWaste">
+                            <div class="option-card" data-value="minimal" data-emission="0.9">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>Minimal</span>
+                                <small>&lt;10% wasted</small>
+                            </div>
+                            <div class="option-card" data-value="average" data-emission="1">
+                                <i class="fa-solid fa-minus-circle"></i>
+                                <span>Average</span>
+                                <small>~20% wasted</small>
+                            </div>
+                            <div class="option-card" data-value="high" data-emission="1.2">
+                                <i class="fa-solid fa-times-circle"></i>
+                                <span>High</span>
+                                <small>&gt;30% wasted</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-preview">
+                    <div class="preview-label">Estimated Diet Emissions</div>
+                    <div class="preview-value">
+                        <span id="dietEmission">0</span> kg CO₂/year
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Energy Usage -->
+            <div class="wizard-step" id="step3">
+                <div class="step-header">
+                    <div class="step-number">03</div>
+                    <h2><i class="fa-solid fa-bolt"></i> Home Energy</h2>
+                    <p>Your home energy consumption plays a major role in your carbon footprint</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-plug"></i>
+                            Monthly Electricity Bill
+                        </label>
+                        <div class="option-cards" id="electricityUsage">
+                            <div class="option-card" data-value="low" data-emission="800">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>&lt;$50</span>
+                                <small>~800 kg CO₂/yr</small>
+                            </div>
+                            <div class="option-card" data-value="medium" data-emission="1500">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>$50-100</span>
+                                <small>~1,500 kg CO₂/yr</small>
+                            </div>
+                            <div class="option-card" data-value="high" data-emission="2500">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>$100-200</span>
+                                <small>~2,500 kg CO₂/yr</small>
+                            </div>
+                            <div class="option-card" data-value="very-high" data-emission="4000">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>&gt;$200</span>
+                                <small>~4,000 kg CO₂/yr</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-sun"></i>
+                            Renewable Energy Usage
+                        </label>
+                        <div class="option-cards" id="renewableEnergy">
+                            <div class="option-card" data-value="full" data-emission="0.1">
+                                <i class="fa-solid fa-solar-panel"></i>
+                                <span>100% Solar/Renewable</span>
+                                <small>Excellent!</small>
+                                <div class="eco-badge">Best Choice</div>
+                            </div>
+                            <div class="option-card" data-value="partial" data-emission="0.5">
+                                <i class="fa-solid fa-cloud-sun"></i>
+                                <span>Partial Renewable</span>
+                                <small>Good Progress</small>
+                            </div>
+                            <div class="option-card" data-value="none" data-emission="1">
+                                <i class="fa-solid fa-plug-circle-xmark"></i>
+                                <span>Grid Only</span>
+                                <small>Standard</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-temperature-half"></i>
+                            Heating/Cooling Usage
+                        </label>
+                        <div class="option-cards" id="hvacUsage">
+                            <div class="option-card" data-value="minimal" data-emission="300">
+                                <i class="fa-solid fa-fan"></i>
+                                <span>Minimal</span>
+                                <small>Natural ventilation</small>
+                            </div>
+                            <div class="option-card" data-value="moderate" data-emission="800">
+                                <i class="fa-solid fa-snowflake"></i>
+                                <span>Moderate</span>
+                                <small>Few hours daily</small>
+                            </div>
+                            <div class="option-card" data-value="heavy" data-emission="1500">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>Heavy</span>
+                                <small>Most of the day</small>
+                            </div>
+                            <div class="option-card" data-value="constant" data-emission="2500">
+                                <i class="fa-solid fa-temperature-arrow-up"></i>
+                                <span>24/7</span>
+                                <small>Always on</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-preview">
+                    <div class="preview-label">Estimated Energy Emissions</div>
+                    <div class="preview-value">
+                        <span id="energyEmission">0</span> kg CO₂/year
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Shopping Habits -->
+            <div class="wizard-step" id="step4">
+                <div class="step-header">
+                    <div class="step-number">04</div>
+                    <h2><i class="fa-solid fa-shopping-bag"></i> Consumption & Shopping</h2>
+                    <p>Your purchasing habits and lifestyle choices</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-shirt"></i>
+                            Clothing Purchases
+                        </label>
+                        <div class="option-cards" id="clothingHabits">
+                            <div class="option-card" data-value="minimal" data-emission="100">
+                                <i class="fa-solid fa-recycle"></i>
+                                <span>Sustainable</span>
+                                <small>Thrift/Quality</small>
+                            </div>
+                            <div class="option-card" data-value="occasional" data-emission="300">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <span>Occasional</span>
+                                <small>Few items/year</small>
+                            </div>
+                            <div class="option-card" data-value="regular" data-emission="600">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span>Regular</span>
+                                <small>Monthly shopping</small>
+                            </div>
+                            <div class="option-card" data-value="fast-fashion" data-emission="1000">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                                <span>Fast Fashion</span>
+                                <small>Frequent purchases</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-laptop"></i>
+                            Electronics Purchases
+                        </label>
+                        <div class="option-cards" id="electronicsHabits">
+                            <div class="option-card" data-value="minimal" data-emission="100">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>Use Long-term</span>
+                                <small>5+ years</small>
+                            </div>
+                            <div class="option-card" data-value="moderate" data-emission="300">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                                <span>Moderate Updates</span>
+                                <small>Every 3-4 years</small>
+                            </div>
+                            <div class="option-card" data-value="frequent" data-emission="600">
+                                <i class="fa-solid fa-mobile-screen"></i>
+                                <span>Frequent Updates</span>
+                                <small>Every 1-2 years</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <label class="form-label">
+                            <i class="fa-solid fa-recycle"></i>
+                            Recycling Habits
+                        </label>
+                        <div class="option-cards" id="recyclingHabits">
+                            <div class="option-card" data-value="excellent" data-emission="0.7">
+                                <i class="fa-solid fa-star"></i>
+                                <span>Zero Waste</span>
+                                <small>Composting + Recycling</small>
+                                <div class="eco-badge">Eco Hero</div>
+                            </div>
+                            <div class="option-card" data-value="good" data-emission="0.85">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                                <span>Regular Recycler</span>
+                                <small>Most items</small>
+                            </div>
+                            <div class="option-card" data-value="occasional" data-emission="1">
+                                <i class="fa-solid fa-hand"></i>
+                                <span>Sometimes</span>
+                                <small>When convenient</small>
+                            </div>
+                            <div class="option-card" data-value="none" data-emission="1.2">
+                                <i class="fa-solid fa-trash"></i>
+                                <span>Rarely</span>
+                                <small>Little recycling</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-preview">
+                    <div class="preview-label">Estimated Shopping Emissions</div>
+                    <div class="preview-value">
+                        <span id="shoppingEmission">0</span> kg CO₂/year
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="wizard-navigation">
+                <button class="nav-btn prev-btn" id="prevBtn" disabled>
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Previous
+                </button>
+                <button class="nav-btn next-btn" id="nextBtn">
+                    Next Step
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button class="nav-btn calculate-btn" id="calculateBtn" style="display: none;">
+                    <i class="fa-solid fa-calculator"></i>
+                    Calculate My Footprint
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="resultsSection" style="display: none;">
+        <div class="results-container">
+            <div class="results-header">
+                <h2><i class="fa-solid fa-chart-pie"></i> Your Carbon Footprint Results</h2>
+                <p>Here's your personalized environmental impact analysis</p>
+            </div>
+
+            <!-- Main Score Card -->
+            <div class="score-card-main">
+                <div class="score-visual">
+                    <div class="score-circle" id="scoreCircle">
+                        <svg viewBox="0 0 200 200">
+                            <circle class="score-bg" cx="100" cy="100" r="85"></circle>
+                            <circle class="score-progress" id="scoreProgress" cx="100" cy="100" r="85"></circle>
+                        </svg>
+                        <div class="score-content">
+                            <span class="score-value" id="totalScoreDisplay">0</span>
+                            <span class="score-unit">kg CO₂/year</span>
+                        </div>
+                    </div>
+                    <div class="score-rating" id="scoreRating">
+                        <span class="rating-emoji">🌱</span>
+                        <span class="rating-text">Calculating...</span>
+                    </div>
+                </div>
+                <div class="score-details">
+                    <h3 id="resultTitle">Your Carbon Profile</h3>
+                    <p id="resultDescription">Loading your personalized analysis...</p>
+                    <div class="score-comparison">
+                        <div class="comparison-item">
+                            <span class="comparison-label">Your Footprint</span>
+                            <div class="comparison-bar">
+                                <div class="bar-fill user-fill" id="userComparisonBar"></div>
+                            </div>
+                            <span class="comparison-value" id="userFootprintValue">0 kg</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Global Average</span>
+                            <div class="comparison-bar">
+                                <div class="bar-fill global-fill"></div>
+                            </div>
+                            <span class="comparison-value">4,700 kg</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Sustainable Target</span>
+                            <div class="comparison-bar">
+                                <div class="bar-fill target-fill"></div>
+                            </div>
+                            <span class="comparison-value">2,000 kg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakdown Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3><i class="fa-solid fa-chart-pie"></i> Emissions Breakdown</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="breakdownChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3><i class="fa-solid fa-chart-bar"></i> Category Comparison</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personalized Tips -->
+            <div class="tips-section">
+                <h3><i class="fa-solid fa-lightbulb"></i> Personalized Recommendations</h3>
+                <p class="tips-intro">Based on your responses, here are high-impact changes you can make:</p>
+                <div class="tips-grid" id="tipsGrid">
+                    <!-- Tips will be dynamically inserted -->
+                </div>
+            </div>
+
+            <!-- Potential Savings -->
+            <div class="savings-card">
+                <div class="savings-header">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                    <h3>Potential Annual Savings</h3>
+                </div>
+                <div class="savings-content">
+                    <div class="saving-item">
+                        <span class="saving-icon">🌿</span>
+                        <div class="saving-info">
+                            <span class="saving-value" id="co2Savings">0</span>
+                            <span class="saving-label">kg CO₂ Reducible</span>
+                        </div>
+                    </div>
+                    <div class="saving-item">
+                        <span class="saving-icon">🌳</span>
+                        <div class="saving-info">
+                            <span class="saving-value" id="treeSavings">0</span>
+                            <span class="saving-label">Trees Equivalent</span>
+                        </div>
+                    </div>
+                    <div class="saving-item">
+                        <span class="saving-icon">💰</span>
+                        <div class="saving-info">
+                            <span class="saving-value" id="moneySavings">$0</span>
+                            <span class="saving-label">Potential Savings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="results-actions">
+                <button class="action-btn primary" id="shareResults">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    Share Results
+                </button>
+                <button class="action-btn secondary" id="downloadReport">
+                    <i class="fa-solid fa-download"></i>
+                    Download Report
+                </button>
+                <button class="action-btn outline" id="retakeCalculator">
+                    <i class="fa-solid fa-rotate"></i>
+                    Recalculate
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Track Progress Section (requires login) -->
+    <section class="tracking-section" id="trackingSection">
+        <div class="tracking-container">
+            <div class="tracking-header">
+                <i class="fa-solid fa-chart-line"></i>
+                <h2>Track Your Progress Over Time</h2>
+                <p>Create an account to save your results and monitor your improvement</p>
+            </div>
+            <div class="tracking-cta">
+                <a href="Login.html" class="tracking-btn login">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login to Track
+                </a>
+                <a href="Signup.html" class="tracking-btn signup">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Create Account
+                </a>
+            </div>
+            <div class="tracking-benefits">
+                <div class="benefit-item">
+                    <i class="fa-solid fa-history"></i>
+                    <span>Monthly recalculations</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Progress visualization</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Earn eco badges</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Compare with community</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/pages/carbon-footprint-calculator.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
+    <script src="/frontend/js/components/footer-loader.js"></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-theme');
+                const isDark = body.classList.contains('dark-theme');
+                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        });
+    </script>
+</body>
+
+</html>

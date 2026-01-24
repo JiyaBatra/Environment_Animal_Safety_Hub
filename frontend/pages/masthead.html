@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="../css/pages/masthead.css">
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <link rel="stylesheet" href="../css/global/variables.css" />
     <link rel="stylesheet" href="../css/components/navbar.css" />
   
@@ -20,7 +20,7 @@
  
 
 
-  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/components/footer. css" />
 </head>
 
 <body>
@@ -94,7 +94,7 @@
       <span class="tag">🚀 The Builders</span>
       <h2>Know the People Who Built EcoLife</h2>
       <p>
-        EcoLife wasn't built by machines—it was crafted by passionate developers who care about the planet.
+        EcoLife wasn't built by machines—it was crafted by passionate developers who care about the planet. 
         From late-night coding sessions to brainstorming sustainable solutions, this team dedicated their skills
         to bridging the gap between <strong>Technology</strong> and <strong>Nature</strong>.
       </p>
@@ -122,7 +122,7 @@
         <div class="info-card">
           <i class="fa-solid fa-seedling"></i>
           <h3>Project Overview</h3>
-          <p>EcoLife promotes environmental awareness and animal safety.</p>
+          <p>EcoLife promotes environmental awareness and animal safety. </p>
         </div>
 
 
@@ -152,7 +152,7 @@
 
       <!-- Admin -->
       <div class="admin-card">
-        <img src="../assets/images/others/mentor1.jpg" alt="Jagrati">
+        <img src="../assets/images/others/mentor1.jpg" alt="Jagrati, Project Admin">
         <h3>Jagrati</h3>
         <p>Project Admin</p>
 
@@ -168,7 +168,7 @@
 
       <!-- Mentor -->
       <div class="admin-card mentor-card reveal">
-        <img src="../assets/images/others/mentor2.png" alt="Nikhil Singh">
+        <img src="../assets/images/others/mentor2.png" alt="Nikhil Singh, Project Mentor">
         <h3>Nikhil Singh</h3>
         <p>Mentor</p>
 
@@ -194,7 +194,7 @@
   <!-- CONTACT -->
   <h2 class="section-title">Contact EcoLife</h2>
   <div class="contact-card reveal">
-    <p><i class="fa-solid fa-envelope"></i> ecolife.project@gmail.com</p>
+    <p><i class="fa-solid fa-envelope"></i> ecolife. project@gmail.com</p>
     <p><i class="fa-brands fa-github"></i>
       <a href="https://github.com/Jagrati3/Environment_Animal_Safety_Hub" target="_blank">
         GitHub Repository
@@ -227,7 +227,7 @@
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     const savedTheme = localStorage.getItem('ecolife-theme');
     
-    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme. matches)) {
         enableDarkMode();
     }
     
@@ -262,7 +262,7 @@
     
     // Listen for system theme changes
     prefersDarkScheme.addEventListener('change', (e) => {
-        if (!localStorage.getItem('ecolife-theme')) {
+        if (! localStorage.getItem('ecolife-theme')) {
             if (e.matches) {
                 enableDarkMode();
             } else {
@@ -274,8 +274,8 @@
 
   <script src="../js/pages/masthead.js"></script>
   <script src="/frontend/js/components/footer-loader.js"></script>
-
-  <script src="../js/components/navbar-loader.js"></script>
+<script src="../js/components/component-loader.js"></script>
+  <script src="../js/components/navbar-loader. js"></script>
 </body>
 
 </html>

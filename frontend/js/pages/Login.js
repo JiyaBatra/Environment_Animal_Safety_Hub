@@ -1,18 +1,23 @@
-/**
+﻿/**
  * Login Page JavaScript
- * Handles login form submission and password visibility toggle
- * 
- * @file Login.js
- * @description External JavaScript for the Login page
- * @see frontend/pages/Login.html
+ *
+ * Handles user authentication, password visibility toggle, and login form submission
+ * for the environmental and animal safety platform.
+ *
+ * Features:
+ * - Password visibility toggle
+ * - Form validation and submission
+ * - Local storage for login state
+ * - Redirect after successful login
+ *
+ * @author Environment & Animal Safety Hub Team
+ * @version 1.0.0
+ * @since 2024
  */
 
 /**
- * Toggle Password Visibility
- * Switches the password input between 'password' and 'text' types
- * and updates the eye icon accordingly.
- * 
- * @param {string} inputId - The ID of the password input element
+ * Toggle password visibility for input fields
+ * @param {string} inputId - ID of the password input element
  */
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
@@ -35,11 +40,8 @@ function togglePassword(inputId) {
 }
 
 /**
- * Handle Login Form Submission
- * Validates the form, simulates login, stores user data in localStorage,
- * and redirects to the home page.
- * 
- * @param {Event} e - The form submission event
+ * Handle login form submission
+ * @param {Event} e - Form submit event
  */
 function handleLoginSubmit(e) {
     e.preventDefault();
@@ -47,14 +49,12 @@ function handleLoginSubmit(e) {
     // Simulate Login
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userName', 'Eco Warrior');
-
     alert("Success! Welcome back to EcoLife.");
     window.location.href = "../index.html";
 }
 
 /**
- * Initialize Login Page
- * Sets up event listeners when the DOM is fully loaded
+ * Initialize login page functionality
  */
 function initLoginPage() {
     const loginForm = document.getElementById("loginForm");

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="../css/components/Login_SignUp.css" />
     
-    
+    <link rel="stylesheet" href="../../css/global/utilities.css" />
     <link rel="stylesheet" href="../css/global/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/components/navbar.css" />
@@ -30,7 +30,7 @@
 <body>
 
     <div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
+
 
     <header class="page-top">
         <nav>
@@ -64,7 +64,10 @@
                 <h1>Plant a Tree,<br>Grow a Future.</h1>
                 <p>Join our community drive to make the city greener. We provide the saplings, you provide the hands.
                 </p>
-                <a href="#join-form" class="btn-primary">Join Now</a>
+                <div class="hero-actions">
+                    <a href="#join-form" class="btn-primary">Join Now</a>
+                    <a href="quizzes/pollution-awareness-quiz.html" class="btn-secondary"><i class="fa-solid fa-smog"></i> Take Pollution Quiz</a>
+                </div>
             </div>
 
         </div>
@@ -157,30 +160,6 @@
 
     <!-- Footer placeholder -->
   <div id="footer-placeholder"></div>
-<script>
-        // Theme Toggle Functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Check for saved theme or preferred scheme
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-            document.body.classList.add('dark-theme');
-            themeToggle.classList.add('dark');
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            themeToggle.classList.toggle('dark');
-            
-            // Save preference
-            if (document.body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    </script>
 
     <script>
         (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
@@ -188,7 +167,7 @@
     <script src="../js/pages/garden-drive.js"></script>
     <script src="../js/global/theme-toggle.js"></script>
   <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../js/components/component-loader.js"></script>
   <script src="../js/components/navbar-loader.js"></script>
 </body>
 

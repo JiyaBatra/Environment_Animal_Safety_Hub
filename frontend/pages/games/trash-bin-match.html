@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trash Bin Match Game</title>
+    <link rel="stylesheet" href="../../css/pages/games/trash-bin-game.css" />
+    <link rel="stylesheet" href="../../css/global/utilities.css" />
+    <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/components/navbar.css" />
+</head>
+
+<body>
+    <div id="cursor-container"></div>
+    <script src="../../js/components/loadComponents.js"></script>
+
+    <div id="navbar-container"></div>
+
+
+    <header class="header">
+        <h1>🧠 Eco Memory Match</h1>
+        <p>Memorize eco-friendly cards, match pairs, and win within time 🌱</p>
+    </header>
+    <main id="mainContent">
+        <div class="game-wrapper">
+
+            <!-- LEFT CARD -->
+            <div class="game-card how-to-play">
+                <h2>📘 How to Play</h2>
+                <ul>
+                    <li>Drag the waste item</li>
+                    <li>Drop it into the correct bin</li>
+                    <li>Recycle, Wet, or Dry</li>
+                    <li>Score increases for correct match</li>
+                    <li>Sort all items to win 🎉</li>
+                </ul>
+            </div>
+
+            <!-- RIGHT CARD -->
+            <div class="game-card game-area">
+
+                <div class="score">
+                    Score: <span id="score">0</span>
+                    <p id="message"></p>
+                </div>
+
+                <div class="items">
+                    <div class="item" draggable="true" data-type="recycle">🧴 Plastic Bottle</div>
+                    <div class="item" draggable="true" data-type="wet">🍌 Banana Peel</div>
+                    <div class="item" draggable="true" data-type="dry">📄 Paper</div>
+                </div>
+
+                <div class="bins">
+                    <div class="bin" data-bin="recycle">♻️ Recycle Bin</div>
+                    <div class="bin" data-bin="wet">🌱 Wet Waste</div>
+                    <div class="bin" data-bin="dry">🗑️ Dry Waste</div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const items = document.querySelectorAll('.item');
+        const bins = document.querySelectorAll('.bin');
+        const scoreEl = document.getElementById('score');
+
+        let score = 0;
+        let draggedItemType = "";
+
+        items.forEach(item => {
+            item.addEventListener('dragstart', () => {
+                draggedItemType = item.getAttribute('data-type');
+                item.classList.add('dragging');
+            })
+            item.addEventListener("dragend", () => {
+                item.classList.remove("dragging");
+            });
+        });
+        bins.forEach(bin => {
+            // IMPORTANT: allow drop
+            bin.addEventListener("dragover", (e) => {
+                e.preventDefault();
+            });
+            bin.addEventListener("drop", () => {
+                const binType = bin.getAttribute('data-bin');
+                if (binType === draggedItemType) {
+                    score++;
+                    scoreEl.textContent = score;
+                    // remove item after correct match
+
+                    showMessage("✅ Correct!");
+                } else {
+                    showMessage("❌ Wrong bin!", false);
+                }
+            })
+        });
+        const message = document.getElementById("message");
+
+        function showMessage(text, success = true) {
+            message.textContent = text;
+            message.style.color = success ? "green" : "red";
+        }
+
+
+    </script>
+    <div id="footer-placeholder"></div>
+    <script src="/frontend/js/components/footer-loader.js"></script>
+    <script src="../../js/components/component-loader.js"></script>
+    <script src="../../js/components/navbar-loader.js"></script>
+</body>
+
+</html>

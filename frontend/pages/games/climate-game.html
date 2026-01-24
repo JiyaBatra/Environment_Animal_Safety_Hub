@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Interactive climate action game to learn about eco-friendly choices">
   <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -158,7 +158,7 @@
               <button class="btn btn-secondary" id="shareBtn">
                 <i class="fas fa-share-alt"></i> Share Score
               </button>
-              <a href="kids-quiz-dashboard.html" class="btn btn-outline">
+              <a href="kids-zone.html" class="btn btn-outline">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
               </a>
             </div>
@@ -295,33 +295,37 @@
       }, 150);
     });
 
-    // ===== NAVIGATION =====
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    const header = document.getElementById('header');
-    
-    // Mobile menu toggle
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      navToggle.classList.toggle('active');
-      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-    });
-    
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
+    // ===== MOBILE NAVIGATION =====
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      const header = document.querySelector('header');
+      
+      if (navToggle && navLinks) {
+        // Mobile menu toggle
+        navToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          navToggle.classList.toggle('active');
+          document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        });
       }
     });
 
@@ -535,6 +539,7 @@
 
     // ===== GAME FUNCTIONS =====
     function initializeGame() {
+      console.log("Initializing game...");
       gameState = {
         currentQuestion: 0,
         score: 0,
@@ -572,6 +577,7 @@
     }
 
     function loadQuestion() {
+      console.log("Loading question:", gameState.currentQuestion);
       const question = gameData.questions[gameState.currentQuestion];
       
       // Update question info
@@ -607,6 +613,15 @@
       
       // Update progress
       updateProgress();
+      
+      // Force display of option cards
+      setTimeout(() => {
+        document.querySelectorAll('.option-card').forEach(card => {
+          card.style.display = 'block';
+          card.style.visibility = 'visible';
+          card.style.opacity = '1';
+        });
+      }, 100);
     }
 
     function selectOption(optionIndex) {
@@ -884,7 +899,7 @@
     });
 
     // ===== INITIALIZATION =====
-    // Initialize global stats with random values
+    // Initialize global stats
     function initializeStats() {
       elements.treesSaved.textContent = '1,247';
       elements.co2Reduced.textContent = '24.8K';
@@ -894,8 +909,13 @@
 
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', () => {
+      console.log("DOM loaded, initializing game...");
       initializeStats();
-      initializeGame(); // Start game automatically
+      
+      // Start game after a short delay to ensure DOM is ready
+      setTimeout(() => {
+        initializeGame();
+      }, 500);
       
       // Add scroll animations
       const observerOptions = {
@@ -914,46 +934,6 @@
       // Observe all cards for animation
       document.querySelectorAll('.stat-card, .option-card').forEach(card => {
         observer.observe(card);
-      });
-      
-      // Add confetti effect for perfect score
-      function createConfetti() {
-        const colors = ['#2e7d32', '#4caf50', '#81c784', '#c8e6c9', '#2196f3', '#ff9800'];
-        const confettiCount = 150;
-        
-        for (let i = 0; i < confettiCount; i++) {
-          const confetti = document.createElement('div');
-          confetti.style.position = 'fixed';
-          confetti.style.width = '10px';
-          confetti.style.height = '10px';
-          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-          confetti.style.borderRadius = '50%';
-          confetti.style.left = Math.random() * 100 + 'vw';
-          confetti.style.top = '-20px';
-          confetti.style.opacity = '0.8';
-          confetti.style.zIndex = '9999';
-          confetti.style.pointerEvents = 'none';
-          
-          document.body.appendChild(confetti);
-          
-          // Animate confetti
-          const animation = confetti.animate([
-            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-            { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-          ], {
-            duration: 2000 + Math.random() * 2000,
-            easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
-          });
-          
-          animation.onfinish = () => confetti.remove();
-        }
-      }
-      
-      // Attach confetti to perfect score
-      elements.playAgainBtn.addEventListener('click', () => {
-        if (gameState.score === gameData.questions.length) {
-          createConfetti();
-        }
       });
     });
 
@@ -985,8 +965,10 @@
       }
     });
   </script>
-<script src="/frontend/js/components/footer-loader.js"></script>
 
+  
+<script src="/frontend/js/components/footer-loader.js"></script>
+<script src="../../js/components/component-loader.js"></script>
     <script src="../../js/components/navbar-loader.js"></script>
 </body>
 </html>

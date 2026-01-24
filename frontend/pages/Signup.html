@@ -14,7 +14,7 @@
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <link rel="stylesheet" href="../css/components/footer.css" />
   <link rel="stylesheet" href="../css/components/navbar.css" />
 </head>
@@ -503,9 +503,47 @@
       <p class="modal-subtext">
         A verification email has been sent to your email address.
       </p>
-      <a href="Login.html" class="modal-btn">
-        <i class="fa-solid fa-right-to-bracket"></i> Proceed to Login
-      </a>
+      <div class="modal-buttons">
+        <a href="Login.html" class="modal-btn primary-btn">
+          <i class="fa-solid fa-right-to-bracket"></i> Proceed to Login
+        </a>
+        <button type="button" class="modal-btn secondary-btn" id="closeModalBtn">
+          <i class="fa-solid fa-xmark"></i> Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="confirmation-modal" id="confirmationModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fa-solid fa-clipboard-check"></i>
+      </div>
+      <h2>Confirm Submission</h2>
+      <p>Are you sure you want to create your EcoLife account?</p>
+      <div class="confirmation-summary">
+        <div class="summary-item">
+          <span class="summary-label">Name:</span>
+          <span class="summary-value" id="confirm-name">-</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Email:</span>
+          <span class="summary-value" id="confirm-email">-</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Interests:</span>
+          <span class="summary-value" id="confirm-interests">-</span>
+        </div>
+      </div>
+      <div class="modal-buttons">
+        <button type="button" class="modal-btn confirm-btn" id="confirmSubmitBtn">
+          <i class="fa-solid fa-check"></i> Yes, Create Account
+        </button>
+        <button type="button" class="modal-btn cancel-btn" id="cancelSubmitBtn">
+          <i class="fa-solid fa-xmark"></i> Cancel
+        </button>
+      </div>
     </div>
   </div>
 

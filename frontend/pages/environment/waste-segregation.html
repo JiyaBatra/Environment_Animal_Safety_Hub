@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="../../css/pages/environment/waste-segregation.css">
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <link rel="stylesheet" href="../../css/pages/environment/waste-segregation.css"> 
   <link rel="stylesheet" href="../../css/global/variables.css" />
   <link rel="stylesheet" href="../../css/components/navbar.css" />
@@ -24,13 +26,20 @@
         <div class="hero-text">
           <span class="hero-badge">🌱 Eco-Friendly Living</span>
           <h1>Master the Art of <br> <span class="highlight-text">Waste Segregation</span></h1>
-          <p>Small actions lead to big changes. Learn how to sort waste effectively and contribute to a greener planet today.</p>
+          <p>Small actions lead to big changes. Learn how to sort waste effectively and contribute to a greener planet
+            today.</p>
           <div class="hero-btns">
-            <button class="cta-btn primary" onclick="document.getElementById('learn').scrollIntoView({behavior: 'smooth'})">
+            <button class="cta-btn primary"
+              onclick="document.getElementById('learn').scrollIntoView({behavior: 'smooth'})">
               Start Learning <i class="fa-solid fa-arrow-down"></i>
             </button>
-            <button class="cta-btn secondary" onclick="document.getElementById('game-area').scrollIntoView({behavior: 'smooth'})">
+            <button class="cta-btn secondary"
+              onclick="document.getElementById('game-area').scrollIntoView({behavior: 'smooth'})">
               Play Game <i class="fa-solid fa-gamepad"></i>
+            </button>
+            <button class="cta-btn primary" style="background: linear-gradient(45deg, #f1c40f, #e67e22); border: none;"
+              onclick="window.location.href='waste-classifier.html'">
+              AI Waste Classifier <i class="fa-solid fa-robot"></i>
             </button>
           </div>
         </div>
@@ -126,10 +135,10 @@
   <div class="box">
     <div id="footer-placeholder"></div>
   </div>
-<script src="../../js/components/footer-loader.js"></script>
+  <script src="../../js/components/footer-loader.js"></script>
   <script src="../../js/components/navbar-loader.js"></script>
   <script src="../../js/pages/environment/waste-segregrations.js"></script> 
-  
+  <script src="../../js/components/component-loader.js"></script>
   <script>
     // Simple Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
@@ -144,4 +153,5 @@
     hiddenElements.forEach((el) => observer.observe(el));
   </script>
 </body>
+
 </html>

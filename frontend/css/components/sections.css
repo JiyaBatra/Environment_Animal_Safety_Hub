@@ -1,4 +1,4 @@
-/* ===== STATS SECTION ===== */
+﻿/* ===== STATS SECTION ===== */
 .stats-section {
   background: var(--bg-primary);
   padding: 100px 0;
@@ -180,51 +180,75 @@
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
+  justify-items: center; /* center cards */
+  align-items: stretch; /* ensures all cards have equal height */
 }
 
 .service-card {
-  background: var(--card-bg);
-  padding: 40px 30px;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
-  position: relative;
-  overflow: hidden;
+  background: transparent;
+  width: 100%;
+  max-width: 260px; /* prevent too wide cards */
+  perspective: 1000px; /* for 3D flip */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* make grid-stretched height work */
 }
 
-.service-card::before {
-  content: "";
+.service-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%; /* ensures inner flips fill card */
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover .service-card-inner {
+  transform: rotateY(180deg);
+}
+
+.service-card-front,
+.service-card-back {
+  position: relative;
+  width: 100%;
+  backface-visibility: hidden;
+  background: var(--card-bg);
+  padding: 30px 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%; /* ensures front and back are equal height */
+}
+
+.service-card-front {
+  z-index: 2;
+}
+
+.service-card-back {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--gradient-primary);
-  transform: scaleX(0);
-  transition: var(--transition-normal);
-}
-
-.service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-lg);
-}
-
-.service-card:hover::before {
-  transform: scaleX(1);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .service-icon {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   background: var(--bg-tertiary);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 25px;
+  margin: 0 auto 20px;
   font-size: 2rem;
   color: var(--primary-color);
   transition: var(--transition-normal);
@@ -237,21 +261,23 @@
 }
 
 .service-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--text-primary);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .service-card p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 20px;
+  line-height: 1.5;
+  margin-bottom: 15px;
 }
 
 .services-section .section-tag {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
 }
 
 .services-section .section-title,
@@ -266,12 +292,31 @@
   color: var(--primary-color);
   font-weight: 600;
   font-size: 0.95rem;
+  transition: 0.3s;
 }
 
 .service-link:hover {
   gap: 12px;
   color: var(--primary-dark);
 }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .service-card { max-width: 240px; }
+}
+
+@media (max-width: 768px) {
+  .services-grid { gap: 20px; }
+  .service-card { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { max-width: 100%; }
+}
+
+
+
 
 /* ===== HOW IT WORKS SECTION ===== */
 .how-it-works-section {

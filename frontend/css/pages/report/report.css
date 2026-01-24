@@ -1,4 +1,4 @@
-/* ================= BASE ================= */
+﻿/* ================= BASE ================= */
 .report-page {
   background: linear-gradient(135deg, #064e3b, #16a34a);
   padding: 100px 0;
@@ -121,15 +121,34 @@
   margin-bottom: 8px;
 }
 
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid #bbf7d0;
-  background: #ecfdf5;
-  font-size: 1rem;
+.field select[name="situation"] {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.field select[name="situation"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.field select[name="urgency"] {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.field select[name="urgency"]:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.field select[required] {
+  border-color: #f59e0b;
+  background: #fef3c7;
+}
+
+.field select[required]:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
 .field textarea {

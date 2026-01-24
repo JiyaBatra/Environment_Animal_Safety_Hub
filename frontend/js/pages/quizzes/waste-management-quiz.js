@@ -1,79 +1,105 @@
+﻿/**
+ * Waste Management Quiz - Environmental Education Assessment
+ *
+ * An interactive quiz focused on proper waste disposal, recycling practices,
+ * and environmental awareness. Designed to educate users about waste segregation,
+ * recycling, and sustainable waste management practices.
+ *
+ * Now extends BaseQuiz for unified progress tracking.
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 2.0.0
+ * @since 2024
+ */
 
-const questions=[
- {q:"Where should vegetable peels go?",o:["Dry Waste","Wet Waste","Plastic","Glass"],a:1},
- {q:"Which item is recyclable?",o:["Food waste","Plastic bottle","Used tissue","Leaves"],a:1},
- {q:"Where does broken glass go?",o:["Wet","Dry","Hazardous","Plastic"],a:2},
- {q:"Best way to reduce waste?",o:["Burn it","Reuse items","Throw away","Ignore"],a:1},
- {q:"Which bin for paper?",o:["Wet","Dry","Hazardous","Medical"],a:1},
- {q:"Plastic bags harm because?",o:["They dissolve","They pollute","They help soil","They vanish"],a:1},
- {q:"What is composting?",o:["Burning waste","Recycling plastic","Turning waste to manure","Dumping trash"],a:2},
- {q:"Used batteries go to?",o:["Wet","Dry","Hazardous","Recycle bin"],a:2},
- {q:"Which helps environment?",o:["Littering","Segregation","Burning trash","Plastic use"],a:1},
- {q:"Wet waste mainly comes from?",o:["Kitchen","Bathroom","Road","Factory"],a:0}
-];
+// Quiz configuration
+const quizConfig = {
+  questions: [
+    {q: "Where should vegetable peels go?", o: ["Dry Waste", "Wet Waste", "Plastic", "Glass"], a: 1},
+    {q: "Which item is recyclable?", o: ["Food waste", "Plastic bottle", "Used tissue", "Leaves"], a: 1},
+    {q: "Where does broken glass go?", o: ["Wet", "Dry", "Hazardous", "Plastic"], a: 2},
+    {q: "Best way to reduce waste?", o: ["Burn it", "Reuse items", "Throw away", "Ignore"], a: 1},
+    {q: "Which bin for paper?", o: ["Wet", "Dry", "Hazardous", "Medical"], a: 1},
+    {q: "Plastic bags harm because?", o: ["They dissolve", "They pollute", "They help soil", "They vanish"], a: 1},
+    {q: "What is composting?", o: ["Burning waste", "Recycling plastic", "Turning waste to manure", "Dumping trash"], a: 2},
+    {q: "Used batteries go to?", o: ["Wet", "Dry", "Hazardous", "Recycle bin"], a: 2},
+    {q: "Which helps environment?", o: ["Littering", "Segregation", "Burning trash", "Plastic use"], a: 1},
+    {q: "Wet waste mainly comes from?", o: ["Kitchen", "Bathroom", "Road", "Factory"], a: 0}
+  ],
+  timeLimit: 180, // 3 minutes
+  progressKey: 'waste-management-quiz',
+  iconClass: 'fa-solid fa-trash',
+  elements: {
+    startScreen: document.getElementById('startScreen'),
+    quizScreen: document.getElementById('quizScreen'),
+    resultScreen: document.getElementById('resultScreen'),
+    questionEl: document.getElementById('question'),
+    optionsEl: document.getElementById('options'),
+    timeEl: document.getElementById('time'),
+    scoreEl: document.getElementById('score'),
+    remarkEl: document.getElementById('remark'),
+    progressText: document.querySelector('.progress-metrics span:first-child'),
+    progressFill: document.getElementById('progressFill')
+  }
+};
 
-let index=0,score=0,time=180,timer;
+// Create quiz instance
+const wasteManagementQuiz = new BaseQuiz(quizConfig);
 
-function startQuiz(){
- startScreen.style.display="none";
- quizScreen.style.display="block";
- loadQuestion();
- startTimer();
-}
+// Override loadQuestion to include custom progress metrics
+wasteManagementQuiz.loadQuestion = function() {
+  // Call parent method
+  BaseQuiz.prototype.loadQuestion.call(this);
 
-function startTimer(){
- updateTime();
- timer=setInterval(()=>{
-   time--;
-   updateTime();
-   if(time<=0){
-     clearInterval(timer);
-     showResult();
-   }
- },1000);
-}
+  // Update custom progress metrics
+  if (this.config.elements.progressText) {
+    const timeSpent = this.config.timeLimit - this.time;
+    this.config.elements.progressText.textContent = `Time Spent: ${timeSpent}s`;
+  }
 
-function updateTime(){
- let m=Math.floor(time/60);
- let s=time%60;
- document.getElementById("time").textContent=`${m}:${s<10?'0':''}${s}`;
-}
+  const questionsCompleted = document.querySelector('.progress-metrics span:last-child');
+  if (questionsCompleted) {
+    questionsCompleted.textContent = `Completed: ${this.index + 1}/${this.questions.length}`;
+  }
+};
 
-function loadQuestion(){
- let q=questions[index];
- question.textContent=`Q${index+1}. ${q.q}`;
- options.innerHTML="";
- q.o.forEach((opt,i)=>{
-   let div=document.createElement("div");
-   div.className="option";
-   div.innerHTML=`<i class="fa-solid fa-trash"></i> ${opt}`;
-   div.onclick=()=>selectOption(div,i);
-   options.appendChild(div);
- });
-}
+// Override showResult for custom remarks
+wasteManagementQuiz.showResult = function() {
+  // Call parent method
+  BaseQuiz.prototype.showResult.call(this);
 
-function selectOption(el,i){
- document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
- el.classList.add("selected");
- el.dataset.correct=i===questions[index].a;
-}
+  // Custom remarks for waste management
+  let remark = "";
+  if (this.score >= 8) {
+    remark = "🌟 Waste Warrior!";
+  } else if (this.score >= 5) {
+    remark = "👍 Good Effort!";
+  } else {
+    remark = "🌱 Keep Learning!";
+  }
 
-function nextQuestion(){
- let selected=document.querySelector(".option.selected");
- if(!selected) return alert("Please select an option 😊");
- if(selected.dataset.correct==="true") score++;
- index++;
- if(index<questions.length) loadQuestion();
- else showResult();
-}
+  if (this.config.elements.remarkEl) {
+    this.config.elements.remarkEl.textContent = remark;
+  }
+};
 
-function showResult(){
- clearInterval(timer);
- quizScreen.style.display="none";
- resultScreen.style.display="block";
- document.getElementById("score").textContent=`${score} / ${questions.length}`;
- remark.textContent =
-   score>=8 ? "🌟 Waste Warrior!" :
-   score>=5 ? "👍 Good Effort!" :
-   "🌱 Keep Learning!";
-}
+// Initialize quiz on page load
+wasteManagementQuiz.initializeQuiz();
+
+// Global functions for HTML onclick handlers
+window.startQuiz = () => wasteManagementQuiz.startQuiz();
+window.resumeSavedQuiz = () => wasteManagementQuiz.resumeQuiz();
+window.nextQuestion = () => wasteManagementQuiz.nextQuestion();
+window.pauseQuiz = () => {
+  clearInterval(wasteManagementQuiz.timer);
+  wasteManagementQuiz.timer = null;
+  wasteManagementQuiz.saveProgress();
+  document.getElementById('pauseBtn').style.display = 'none';
+  document.getElementById('resumeBtn').style.display = 'inline-block';
+  alert("Quiz paused! Click resume to continue.");
+};
+window.resumeCurrentQuiz = () => {
+  document.getElementById('resumeBtn').style.display = 'none';
+  document.getElementById('pauseBtn').style.display = 'inline-block';
+  wasteManagementQuiz.startTimer();
+};

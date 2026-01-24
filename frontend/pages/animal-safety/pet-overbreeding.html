@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Overbreeding and Its Effects | EcoLife</title>
+    <link rel="icon" type="image/png" href="/envirnoment-logo.png">
+    <meta
+      name="description"
+      content="Learn about the issues of pet overbreeding, including health problems and shelter overcrowding, and discover responsible breeding practices."
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../../css/global/variables.css" />
+    <link rel="stylesheet" href="../../css/global/utilities.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/components/navbar.css" />
+    <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/pages/animal-safety/adoption.css" />
+    <link rel="stylesheet" href="../../css/components/scrollBar.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- Inline style for theme toggle -->
+    <style>
+      /* Theme toggle button styles */
+      #themeToggle {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        z-index: 10001;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        border: 2px solid var(--btn-primary-bg);
+        color: var(--text-color);
+        font-size: 1.3rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+      }
+      
+      #themeToggle:hover {
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: var(--shadow-lg);
+      }
+      
+      #themeToggle:active {
+        transform: translateY(-50%) scale(0.95);
+      }
+      
+      #themeToggle i {
+        transition: transform 0.5s ease;
+      }
+      
+      #themeToggle:hover i {
+        transform: rotate(20deg);
+      }
+      
+      #themeToggle.dark-active {
+        background: var(--btn-primary-bg);
+        color: white;
+      }
+      
+      #themeToggle.dark-active i {
+        color: #ffd54f;
+      }
+      
+      /* For mobile */
+      @media (max-width: 768px) {
+        #themeToggle {
+          top: auto;
+          bottom: 20px;
+          right: 20px;
+          transform: none;
+          width: 45px;
+          height: 45px;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+  <div id="cursor-container"></div>
+<script src="../../js/components/loadComponents.js"></script>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div id="navbar-container"></div>
+    
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="adopt-hero">
+      <div class="adopt-hero-bg">
+        <div class="hero-shape shape-1"></div>
+        <div class="hero-shape shape-2"></div>
+        <div class="hero-shape shape-3"></div>
+        <div class="floating-paw paw-1"><i class="fa-solid fa-paw"></i></div>
+        <div class="floating-paw paw-2"><i class="fa-solid fa-paw"></i></div>
+        <div class="floating-paw paw-3"><i class="fa-solid fa-paw"></i></div>
+        <div class="floating-paw paw-4"><i class="fa-solid fa-paw"></i></div>
+        <div class="floating-heart heart-1">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <div class="floating-heart heart-2">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+      </div>
+
+      <div class="adopt-hero-container">
+        <div
+          class="adopt-hero-content"
+          data-aos="fade-right"
+          data-aos-duration="1000"
+        >
+          <span class="hero-badge">
+            <i class="fa-solid fa-exclamation-triangle"></i> Critical Issue
+          </span>
+          <h1>
+            Understanding <span class="gradient-text">Pet Overbreeding</span>
+          </h1>
+          <p>
+            Pet overbreeding leads to serious health issues, overcrowded shelters, and unnecessary suffering. Learn about the problems and how responsible breeding can make a difference.
+          </p>
+
+          <div class="hero-stats">
+            <div class="hero-stat" data-aos="fade-up" data-aos-delay="0">
+              <span class="hero-stat-number" data-count="6">0</span>
+              <span class="stat-label">Million Pets Euthanized Yearly</span>
+            </div>
+            <div class="hero-stat" data-aos="fade-up" data-aos-delay="100">
+              <span class="hero-stat-number" data-count="70">0</span>
+              <span class="stat-label">Percent of Pets Born with Health Issues</span>
+            </div>
+            <div class="hero-stat" data-aos="fade-up" data-aos-delay="200">
+              <span class="hero-stat-number" data-count="3">0</span>
+              <span class="stat-label">Million Homeless Pets</span>
+            </div>
+          </div>
+
+          <div class="hero-cta">
+            <a href="#problems" class="btn btn-primary">
+              <i class="fa-solid fa-eye"></i> Learn the Issues
+            </a>
+            <a href="#responsible" class="btn btn-secondary">
+              <i class="fa-solid fa-hand-holding-heart"></i> Responsible Breeding
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="adopt-hero-images"
+          data-aos="fade-left"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
+          <div class="hero-image-grid">
+            <div class="hero-img hero-img-1">
+              <img
+                src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400"
+                alt="Overcrowded Shelter"
+              />
+              <div class="img-badge">
+                <i class="fa-solid fa-house"></i> Shelter Overcrowding
+              </div>
+            </div>
+            <div class="hero-img hero-img-2">
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400"
+                alt="Sick Puppy"
+              />
+              <div class="img-badge">
+                <i class="fa-solid fa-heartbeat"></i> Health Issues
+              </div>
+            </div>
+            <div class="hero-img hero-img-3">
+              <img
+                src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=400"
+                alt="Responsible Breeder"
+              />
+              <div class="img-badge">
+                <i class="fa-solid fa-shield-alt"></i> Responsible Care
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What is Pet Overbreeding Section -->
+    <section id="problems" class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-badge">
+            <i class="fa-solid fa-question-circle"></i> Understanding the Issue
+          </span>
+          <h2>What is Pet Overbreeding?</h2>
+          <p>
+            Pet overbreeding occurs when animals are bred excessively without regard for health, genetics, or demand, leading to a surplus of unwanted pets.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="feature-icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <h3>Uncontrolled Breeding</h3>
+            <p>
+              Many breeders prioritize profit over animal welfare, breeding pets without proper genetic screening or health checks.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <h3>Irresponsible Ownership</h3>
+            <p>
+              Pet owners who allow their animals to breed without planning or consideration for the consequences.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon">
+              <i class="fa-solid fa-store"></i>
+            </div>
+            <h3>Pet Store Sales</h3>
+            <p>
+              Commercial breeding operations that supply pet stores, often under poor conditions and with little oversight.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Health Problems Section -->
+    <section class="section bg-light">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-badge">
+            <i class="fa-solid fa-heartbeat"></i> Health Consequences
+          </span>
+          <h2>Health Problems Caused by Overbreeding</h2>
+          <p>
+            Overbreeding leads to numerous genetic and health issues that affect the quality of life for pets.
+          </p>
+        </div>
+
+        <div class="content-grid">
+          <div class="content-text" data-aos="fade-right">
+            <h3>Genetic Disorders</h3>
+            <ul>
+              <li><strong>Hip Dysplasia:</strong> Common in large breed dogs, causing pain and mobility issues</li>
+              <li><strong>Heart Conditions:</strong> Inherited defects that can lead to early death</li>
+              <li><strong>Eye Problems:</strong> Cataracts, glaucoma, and other vision impairments</li>
+              <li><strong>Skin Conditions:</strong> Allergies and infections due to poor breeding practices</li>
+            </ul>
+
+            <h3>Overbreeding-Specific Issues</h3>
+            <ul>
+              <li><strong>Inbreeding:</strong> Increases the likelihood of genetic defects</li>
+              <li><strong>Puppy Mills:</strong> Mass production leading to weakened immune systems</li>
+              <li><strong>Early Breeding:</strong> Females bred too young, causing health complications</li>
+            </ul>
+          </div>
+
+          <div class="content-image" data-aos="fade-left">
+            <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500" alt="Dog with health issues">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shelter Overcrowding Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-badge">
+            <i class="fa-solid fa-house"></i> Shelter Crisis
+          </span>
+          <h2>Impact on Animal Shelters</h2>
+          <p>
+            Overbreeding contributes significantly to shelter overcrowding and the euthanasia of healthy animals.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="stat-icon">
+              <i class="fa-solid fa-paw"></i>
+            </div>
+            <div class="stat-number">6.5 Million</div>
+            <div class="stat-label">Companion animals enter shelters yearly</div>
+          </div>
+
+          <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-icon">
+              <i class="fa-solid fa-home"></i>
+            </div>
+            <div class="stat-number">1.5 Million</div>
+            <div class="stat-label">Are euthanized due to overcrowding</div>
+          </div>
+
+          <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="stat-number">23 Million</div>
+            <div class="stat-label">Americans adopt pets from shelters</div>
+          </div>
+        </div>
+
+        <div class="content-grid reverse">
+          <div class="content-text" data-aos="fade-left">
+            <h3>The Overcrowding Crisis</h3>
+            <p>
+              Shelters are overwhelmed with animals from overbreeding, leading to:
+            </p>
+            <ul>
+              <li>Limited resources for proper care</li>
+              <li>Stress and disease transmission in crowded facilities</li>
+              <li>Euthanasia of adoptable pets</li>
+              <li>Reduced adoption rates due to poor conditions</li>
+            </ul>
+
+            <h3>Economic Impact</h3>
+            <p>
+              Communities spend millions on shelter operations, while preventable breeding continues to strain resources.
+            </p>
+          </div>
+
+          <div class="content-image" data-aos="fade-right">
+            <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=500" alt="Overcrowded shelter">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Responsible Breeding Section -->
+    <section id="responsible" class="section bg-light">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-badge">
+            <i class="fa-solid fa-shield-alt"></i> Best Practices
+          </span>
+          <h2>Responsible Breeding Practices</h2>
+          <p>
+            Learn how to breed pets responsibly or support breeders who follow ethical standards.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="feature-icon">
+              <i class="fa-solid fa-stethoscope"></i>
+            </div>
+            <h3>Health Screening</h3>
+            <p>
+              All breeding animals should undergo genetic testing and health examinations before breeding.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <h3>Ethical Breeders</h3>
+            <p>
+              Choose breeders who prioritize animal welfare over profit and provide lifetime support.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon">
+              <i class="fa-solid fa-home"></i>
+            </div>
+            <h3>Adopt First</h3>
+            <p>
+              Consider adopting from shelters before purchasing bred pets. Adoption saves lives.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon">
+              <i class="fa-solid fa-cut"></i>
+            </div>
+            <h3>Spay/Neuter</h3>
+            <p>
+              Spay or neuter your pets to prevent unwanted litters and reduce overbreeding.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="feature-icon">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h3>Education</h3>
+            <p>
+              Educate yourself and others about responsible pet ownership and breeding practices.
+            </p>
+          </div>
+
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="feature-icon">
+              <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <h3>Lifetime Commitment</h3>
+            <p>
+              Breeding should only occur when breeders are committed to finding homes for all offspring.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-section" data-aos="fade-up">
+          <h2>Make a Difference Today</h2>
+          <p>
+            Your actions can help reduce pet overbreeding and improve animal welfare.
+          </p>
+          <div class="cta-buttons">
+            <a href="../pet-adoption.html" class="btn btn-primary">
+              <i class="fa-solid fa-heart"></i> Adopt a Pet
+            </a>
+            <a href="#responsible" class="btn btn-secondary">
+              <i class="fa-solid fa-info-circle"></i> Learn More
+            </a>
+            <a href="../volunteer-opportunities.html" class="btn btn-outline">
+              <i class="fa-solid fa-hands-helping"></i> Volunteer
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+      });
+    </script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+    (function() {
+      console.log('=== THEME TOGGLE SCRIPT LOADED ===');
+      
+      // Get theme from localStorage or default to light
+      const getCurrentTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        return savedTheme || 'light';
+      };
+      
+      // Apply theme to document
+      const applyTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', theme);
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+          if (theme === 'dark') {
+            themeToggle.classList.add('dark-active');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          } else {
+            themeToggle.classList.remove('dark-active');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+          }
+        }
+        console.log('Theme applied:', theme);
+      };
+      
+      // Toggle theme
+      const toggleTheme = () => {
+        const currentTheme = getCurrentTheme();
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+        console.log('Theme toggled to:', newTheme);
+      };
+      
+      // Initialize theme on page load
+      const initTheme = () => {
+        const theme = getCurrentTheme();
+        applyTheme(theme);
+      };
+      
+      // Scroll progress
+      const updateScrollProgress = () => {
+        const scrollProgress = document.getElementById('scrollProgress');
+        if (scrollProgress) {
+          const scrollTop = window.pageYOffset;
+          const docHeight = document.body.scrollHeight - window.innerHeight;
+          const scrollPercent = (scrollTop / docHeight) * 100;
+          scrollProgress.style.width = scrollPercent + '%';
+        }
+      };
+      
+      // Counter animation
+      const animateCounters = () => {
+        const counters = document.querySelectorAll('.hero-stat-number');
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-count'));
+          const increment = target / 100;
+          let current = 0;
+          
+          const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+              counter.textContent = Math.floor(current);
+              requestAnimationFrame(updateCounter);
+            } else {
+              counter.textContent = target;
+            }
+          };
+          
+          updateCounter();
+        });
+      };
+      
+      // Event listeners
+      document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        animateCounters();
+        
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', toggleTheme);
+        }
+        
+        window.addEventListener('scroll', updateScrollProgress);
+      });
+      
+      // Expose functions globally
+      window.toggleTheme = toggleTheme;
+      window.applyTheme = applyTheme;
+      
+      console.log('=== THEME TOGGLE SCRIPT LOADED ===');
+      
+    })();
+    </script>
+    
+    <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+  <script src="/frontend/js/components/footer-loader.js"></script>
+<script src="../../js/components/component-loader.js"></script>
+  <script src="../../js/components/navbar-loader.js"></script>
+  </body>
+</html>

@@ -1,28 +1,35 @@
-/**
- * Signup.js - Multi-step signup form logic for EcoLife
- * 
- * This file handles:
- * - Multi-step form navigation
- * - Input validation for all form steps
- * - Password strength calculation and display
- * - Form submission
- * - Success modal display
- * 
- * @author EcoLife Development Team
+﻿/**
+ * Signup Page JavaScript
+ *
+ * Handles multi-step user registration form with validation, password strength checking,
+ * and progress tracking for the environmental and animal safety platform.
+ *
+ * Features:
+ * - Multi-step form navigation (4 steps)
+ * - Real-time validation and error display
+ * - Password strength indicator
+ * - Form data persistence and confirmation
+ * - Responsive progress tracking
+ * - Accessibility considerations
+ *
+ * @author Environment & Animal Safety Hub Team
  * @version 1.0.0
+ * @since 2024
  */
 
 // Current Step
 let currentStep = 1;
 const totalSteps = 4;
 
-// Initialize on DOM Content Loaded
+/**
+ * Initialize signup form when DOM is loaded
+ */
 document.addEventListener("DOMContentLoaded", function () {
     initializeSignupForm();
 });
 
 /**
- * Initialize the signup form and all event listeners
+ * Initialize all signup form components and event listeners
  */
 function initializeSignupForm() {
     updateStepDisplay();
@@ -41,8 +48,8 @@ function initializeSignupForm() {
 }
 
 /**
- * Change the current step by the given direction
- * @param {number} direction - 1 for next, -1 for previous
+ * Change to a different step in the form
+ * @param {number} direction - Direction to move (-1 for previous, 1 for next)
  */
 function changeStep(direction) {
     // Validate current step before moving forward
@@ -71,7 +78,7 @@ function changeStep(direction) {
 }
 
 /**
- * Update the step display - show current step, hide others
+ * Update the display of form steps and step indicators
  */
 function updateStepDisplay() {
     // Hide all steps
@@ -89,7 +96,6 @@ function updateStepDisplay() {
     document.querySelectorAll(".step-indicator").forEach((indicator) => {
         const step = parseInt(indicator.dataset.step);
         indicator.classList.remove("active", "completed");
-
         if (step === currentStep) {
             indicator.classList.add("active");
         } else if (step < currentStep) {
@@ -122,7 +128,7 @@ function updateNavigationButtons() {
 }
 
 /**
- * Update the progress bar based on current step
+ * Update progress bar based on current step
  */
 function updateProgressBar() {
     const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
@@ -139,7 +145,6 @@ function updateSidebarSteps() {
     document.querySelectorAll(".step-info-item").forEach((item) => {
         const step = parseInt(item.dataset.step);
         item.classList.remove("active", "completed");
-
         if (step === currentStep) {
             item.classList.add("active");
         } else if (step < currentStep) {
@@ -149,9 +154,9 @@ function updateSidebarSteps() {
 }
 
 /**
- * Validate the current step before proceeding
- * @param {number} step - The step number to validate
- * @returns {boolean} - Whether the step is valid
+ * Validate a specific step in the form
+ * @param {number} step - Step number to validate
+ * @returns {boolean} True if step is valid
  */
 function validateStep(step) {
     let isValid = true;
@@ -161,15 +166,12 @@ function validateStep(step) {
         case 1:
             isValid = validatePersonalInfo();
             break;
-
         case 2:
             isValid = validateContactInfo();
             break;
-
         case 3:
             isValid = validateSecurity();
             break;
-
         case 4:
             isValid = validatePreferences();
             break;
@@ -179,8 +181,8 @@ function validateStep(step) {
 }
 
 /**
- * Validate Step 1: Personal Information
- * @returns {boolean} - Whether the step is valid
+ * Validate personal information step
+ * @returns {boolean} True if personal info is valid
  */
 function validatePersonalInfo() {
     let isValid = true;
@@ -216,8 +218,8 @@ function validatePersonalInfo() {
 }
 
 /**
- * Validate Step 2: Contact Information
- * @returns {boolean} - Whether the step is valid
+ * Validate contact information step
+ * @returns {boolean} True if contact info is valid
  */
 function validateContactInfo() {
     let isValid = true;
@@ -244,8 +246,8 @@ function validateContactInfo() {
 }
 
 /**
- * Validate Step 3: Security (Password)
- * @returns {boolean} - Whether the step is valid
+ * Validate security information step
+ * @returns {boolean} True if security info is valid
  */
 function validateSecurity() {
     let isValid = true;
@@ -275,8 +277,8 @@ function validateSecurity() {
 }
 
 /**
- * Validate Step 4: Preferences
- * @returns {boolean} - Whether the step is valid
+ * Validate preferences step
+ * @returns {boolean} True if preferences are valid
  */
 function validatePreferences() {
     let isValid = true;
@@ -297,9 +299,9 @@ function validatePreferences() {
 }
 
 /**
- * Show an error message for a specific field
- * @param {string} fieldId - The field ID
- * @param {string} message - The error message
+ * Show validation error for a field
+ * @param {string} fieldId - ID of the field with error
+ * @param {string} message - Error message to display
  */
 function showError(fieldId, message) {
     const errorElement = document.getElementById(`${fieldId}-error`);
@@ -316,13 +318,14 @@ function showError(fieldId, message) {
 }
 
 /**
- * Clear all error messages
+ * Clear all validation errors
  */
 function clearErrors() {
     document.querySelectorAll(".error-message").forEach((el) => {
         el.textContent = "";
         el.style.display = "none";
     });
+
     document.querySelectorAll(".error").forEach((el) => {
         el.classList.remove("error");
     });
@@ -330,8 +333,8 @@ function clearErrors() {
 
 /**
  * Validate email format
- * @param {string} email - The email to validate
- * @returns {boolean} - Whether the email is valid
+ * @param {string} email - Email address to validate
+ * @returns {boolean} True if email is valid
  */
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -339,7 +342,7 @@ function isValidEmail(email) {
 
 /**
  * Toggle password visibility
- * @param {string} inputId - The password input ID
+ * @param {string} inputId - ID of the password input
  */
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
@@ -359,7 +362,7 @@ function togglePassword(inputId) {
 }
 
 /**
- * Setup password strength and match listeners
+ * Setup password-related event listeners
  */
 function setupPasswordListeners() {
     const passwordInput = document.getElementById("password");
@@ -379,8 +382,8 @@ function setupPasswordListeners() {
 }
 
 /**
- * Update the password strength meter
- * @param {string} password - The password to evaluate
+ * Update password strength indicator
+ * @param {string} password - Password to evaluate
  */
 function updatePasswordStrength(password) {
     const strength = getPasswordStrength(password);
@@ -425,8 +428,8 @@ function updatePasswordStrength(password) {
 
 /**
  * Calculate password strength score
- * @param {string} password - The password to evaluate
- * @returns {number} - Strength score (0-4)
+ * @param {string} password - Password to evaluate
+ * @returns {number} Strength score (0-4)
  */
 function getPasswordStrength(password) {
     let strength = 0;
@@ -438,9 +441,9 @@ function getPasswordStrength(password) {
 }
 
 /**
- * Update a single password requirement indicator
- * @param {string} id - The requirement element ID
- * @param {boolean} isMet - Whether the requirement is met
+ * Update password requirement indicator
+ * @param {string} id - Requirement element ID
+ * @param {boolean} isMet - Whether requirement is met
  */
 function updateRequirement(id, isMet) {
     const req = document.getElementById(id);
@@ -457,7 +460,7 @@ function updateRequirement(id, isMet) {
 }
 
 /**
- * Check if passwords match and update indicator
+ * Check if passwords match and show indicator
  */
 function checkPasswordMatch() {
     const password = document.getElementById("password");
@@ -474,7 +477,7 @@ function checkPasswordMatch() {
 }
 
 /**
- * Update the summary section on step 4
+ * Update summary section with form data
  */
 function updateSummary() {
     if (currentStep === 4) {
@@ -482,7 +485,6 @@ function updateSummary() {
         const lastName = document.getElementById("lastName");
         const username = document.getElementById("username");
         const email = document.getElementById("email");
-
         const summaryName = document.getElementById("summary-name");
         const summaryUsername = document.getElementById("summary-username");
         const summaryEmail = document.getElementById("summary-email");
@@ -500,7 +502,7 @@ function updateSummary() {
 }
 
 /**
- * Setup form submission handler
+ * Setup form submission handling
  */
 function setupFormSubmission() {
     const signupForm = document.getElementById("signupForm");
@@ -533,7 +535,7 @@ function setupFormSubmission() {
 }
 
 /**
- * Setup modal close on outside click
+ * Setup modal event listeners
  */
 function setupModalListeners() {
     const successModal = document.getElementById("successModal");

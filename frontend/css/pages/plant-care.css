@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Plant Care Page Styles
  * 
  * Originally extracted from inline styles in plant-care.html (Issue #590)
@@ -575,5 +575,238 @@ body {
   .community-highlights,
   .community-stats {
     gap: 20px;
+  }
+}
+
+/* ===== GROWING PLANT ANIMATION ===== */
+/* Container for the growing plant animation */
+.growing-plant-container {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* Pot */
+.plant-pot {
+  position: absolute;
+  bottom: 0;
+  width: 120px;
+  height: 80px;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.plant-pot::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  height: 20px;
+  background: linear-gradient(135deg, #A0522D 0%, #CD853F 100%);
+  border-radius: 10px 10px 0 0;
+}
+
+/* Soil */
+.plant-soil {
+  position: absolute;
+  bottom: 60px;
+  width: 100px;
+  height: 30px;
+  background: #654321;
+  border-radius: 50% 50% 0 0;
+  z-index: 3;
+}
+
+/* Plant stem */
+.plant-stem {
+  position: absolute;
+  bottom: 80px;
+  width: 8px;
+  height: 0;
+  background: linear-gradient(to top, #2d5016 0%, #4a7c2c 100%);
+  border-radius: 4px;
+  animation: growStem 3s ease-out forwards;
+  transform-origin: bottom;
+  z-index: 1;
+}
+
+/* Plant leaves */
+.plant-leaf {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  border-radius: 0 50% 50% 0;
+  opacity: 0;
+  transform-origin: left center;
+}
+
+.plant-leaf.left {
+  left: -35px;
+  top: 60px;
+  transform: rotate(-45deg) scale(0);
+  animation: growLeaf 1s ease-out 1.5s forwards;
+}
+
+.plant-leaf.right {
+  right: -35px;
+  top: 40px;
+  transform: rotate(45deg) scaleX(-1) scale(0);
+  animation: growLeaf 1s ease-out 2s forwards;
+}
+
+.plant-leaf.top-left {
+  left: -30px;
+  top: 20px;
+  transform: rotate(-30deg) scale(0);
+  animation: growLeaf 1s ease-out 2.5s forwards;
+}
+
+.plant-leaf.top-right {
+  right: -30px;
+  top: 10px;
+  transform: rotate(30deg) scaleX(-1) scale(0);
+  animation: growLeaf 1s ease-out 3s forwards;
+}
+
+/* Flower on top */
+.plant-flower {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, #FFD700 30%, #FF69B4 100%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: bloomFlower 1s ease-out 3.5s forwards;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+}
+
+.plant-flower::before,
+.plant-flower::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #FF69B4;
+  border-radius: 50%;
+}
+
+.plant-flower::before {
+  top: -8px;
+  left: 5px;
+}
+
+.plant-flower::after {
+  top: 5px;
+  left: -8px;
+}
+
+/* Hover effect - plant sways */
+.growing-plant-container:hover .plant-stem {
+  animation: growStem 3s ease-out forwards, sway 2s ease-in-out infinite;
+}
+
+/* Animation Keyframes */
+@keyframes growStem {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 150px;
+  }
+}
+
+@keyframes growLeaf {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--rotate, 0deg)) scale(0);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(var(--rotate, 0deg)) scale(1);
+  }
+}
+
+@keyframes bloomFlower {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0) rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1.2) rotate(180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) rotate(360deg);
+  }
+}
+
+@keyframes sway {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(2deg);
+  }
+
+  75% {
+    transform: rotate(-2deg);
+  }
+}
+
+/* ACCESSIBILITY: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .plant-stem,
+  .plant-leaf,
+  .plant-flower,
+  .info-card,
+  .hero-image-box img {
+    animation: none !important;
+  }
+
+  /* Show final state immediately for reduced motion */
+  .plant-stem {
+    height: 150px;
+  }
+
+  .plant-leaf {
+    opacity: 1;
+    transform: rotate(var(--rotate, 0deg)) scale(1);
+  }
+
+  .plant-flower {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
   }
 }

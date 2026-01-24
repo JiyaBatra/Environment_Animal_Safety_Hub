@@ -1,883 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Myth vs Fact | EcoLife</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Myth vs Fact | EcoLife</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Add CSS links from the other file -->
+    <link rel="stylesheet" href="../css/global/variables.css" />
+  
+    <link rel="stylesheet" href="../css/components/navbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
 
-<style>
-    /* ===== VARIABLES ===== */
-    :root {
-        --primary: #2ecc71;
-        --primary-dark: #27ae60;
-        --primary-light: rgba(46, 204, 113, 0.1);
-        --dark: #2c3e50;
-        --light: #ffffff;
-        --gray: #7f8c8d;
-        --gray-light: #f8f9fa;
-        --border: #e0e0e0;
-        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
-        --radius: 12px;
-        --transition: all 0.3s ease;
-        --myth-color: #e74c3c;
-        --fact-color: #2ecc71;
-    }
+    <link rel="stylesheet" href="../css/global/utilities.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    [data-theme="dark"] {
-        --dark: #ffffff;
-        --light: #121212;
-        --gray: #bdc3c7;
-        --gray-light: #1e1e1e;
-        --border: #2d3436;
-        --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
-        --myth-color: #ff6b6b;
-        --fact-color: #1dd1a1;
-    }
+    <!-- Add AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/pages/myth-vs-fact.css">
 
-    /* ===== BASE STYLES ===== */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: var(--light);
-        color: var(--dark);
-        line-height: 1.6;
-        transition: var(--transition);
-        min-height: 100vh;
-    }
-
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* ===== THEME TOGGLE ===== */
-    .theme-toggle {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--primary);
-        border: none;
-        color: white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-    }
-
-    .theme-toggle:hover {
-        transform: scale(1.1);
-        box-shadow: var(--shadow-hover);
-    }
-
-    /* ===== HERO SECTION ===== */
-    .hero {
-        padding: 100px 0 60px;
-        text-align: center;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        color: white;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-    }
-
-    .hero h1 {
-        font-size: 3.5rem;
-        margin-bottom: 15px;
-        font-weight: 700;
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero p {
-        font-size: 1.3rem;
-        opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-    }
-
-    /* ===== MYTH FACT SECTION ===== */
-    .section {
-        padding: 60px 0;
-    }
-
-    /* ===== MYTH FACT GRID ===== */
-    .myth-fact-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 30px;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    .myth-card-wrapper {
-        perspective: 1000px;
-        height: 280px;
-    }
-
-    .myth-card {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-    }
-
-    .myth-card.flipped {
-        transform: rotateY(180deg);
-    }
-
-    .card-face {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        border-radius: var(--radius);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 30px;
-        background: var(--light);
-        border: 1px solid var(--border);
-    }
-
-    .card-back {
-        transform: rotateY(180deg);
-        background: var(--gray-light);
-    }
-
-    .icon-box {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 1.5rem;
-    }
-
-    .myth-icon {
-        background: rgba(231, 76, 60, 0.1);
-        color: var(--myth-color);
-        border: 2px solid var(--myth-color);
-    }
-
-    .fact-icon {
-        background: rgba(46, 204, 113, 0.1);
-        color: var(--fact-color);
-        border: 2px solid var(--fact-color);
-    }
-
-    .myth-card h3 {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        font-weight: 600;
-    }
-
-    .myth-card p {
-        color: var(--gray);
-        font-size: 1rem;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-
-    .action-pill {
-        display: inline-block;
-        background: var(--primary);
-        color: white;
-        padding: 8px 20px;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        transition: var(--transition);
-        cursor: pointer;
-        border: 2px solid transparent;
-    }
-
-    .action-pill:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-    }
-
-    .myth-card:hover {
-        box-shadow: var(--shadow-hover);
-    }
-
-    /* ===== BACK BUTTON ===== */
-    .back-wrapper {
-        text-align: center;
-        margin-top: 60px;
-        padding: 0 20px;
-    }
-
-    .back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .back-btn:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-hover);
-    }
-
-    /* ===== SCORE COUNTER ===== */
-    .score-counter {
-        position: fixed;
-        bottom: 100px;
-        left: 20px;
-        background: var(--light);
-        padding: 15px 25px;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        z-index: 100;
-        border: 1px solid var(--border);
-        transition: var(--transition);
-    }
-
-    .score-icon {
-        color: var(--primary);
-        font-size: 1.2rem;
-    }
-
-    .score-text {
-        font-weight: 600;
-        color: var(--dark);
-    }
-
-    .score-number {
-        font-weight: 700;
-        color: var(--primary);
-        font-size: 1.3rem;
-    }
-
-    /* ===== RESPONSIVE DESIGN ===== */
-    @media (max-width: 1200px) {
-        .myth-fact-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .hero h1 {
-            font-size: 2.5rem;
-        }
-        
-        .hero p {
-            font-size: 1.1rem;
-        }
-        
-        .myth-fact-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 0 15px;
-        }
-        
-        .myth-card-wrapper {
-            height: 250px;
-        }
-        
-        .card-face {
-            padding: 25px;
-        }
-        
-        .theme-toggle {
-            top: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
-        }
-        
-        .score-counter {
-            bottom: 80px;
-            left: 15px;
-            padding: 12px 20px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .hero h1 {
-            font-size: 2rem;
-        }
-        
-        .hero {
-            padding: 80px 0 40px;
-        }
-        
-        .myth-card-wrapper {
-            height: 230px;
-        }
-        
-        .card-face {
-            padding: 20px;
-        }
-        
-        .icon-box {
-            width: 50px;
-            height: 50px;
-            font-size: 1.2rem;
-        }
-        
-        .myth-card h3 {
-            font-size: 1.3rem;
-        }
-    }
-
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: var(--gray-light);
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: var(--primary);
-        border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-dark);
-    }
-
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .myth-card-wrapper {
-        animation: fadeInUp 0.6s ease-out forwards;
-        opacity: 0;
-    }
-
-    .myth-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
-    .myth-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
-    .myth-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
-    .myth-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
-    .myth-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
-    .myth-card-wrapper:nth-child(6) { animation-delay: 0.6s; }
-    .myth-card-wrapper:nth-child(7) { animation-delay: 0.7s; }
-    .myth-card-wrapper:nth-child(8) { animation-delay: 0.8s; }
-    .myth-card-wrapper:nth-child(9) { animation-delay: 0.9s; }
-</style>
 </head>
 
 <body>
 
-<!-- Theme Toggle -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-    <i class="fas fa-moon"></i>
-</button>
+    <!-- Add this cursor container and loadComponents script -->
+    <div id="cursor-container"></div>
+    <script src="../../js/components/loadComponents.js"></script>
 
-<!-- Score Counter -->
-<div class="score-counter" id="scoreCounter">
-    <i class="fas fa-leaf score-icon"></i>
-    <span class="score-text">Myths Revealed:</span>
-    <span class="score-number" id="revealedCount">0</span>
-</div>
+    <!-- Add navbar container -->
+    <div id="navbar-container"></div>
 
-<section class="hero">
-  <h1>🌱 Myth vs Fact</h1>
-  <p>Break environmental myths • Learn the real truth</p>
-</section>
-
-<section class="section">
- 
-
-  <div class="myth-fact-grid">
-
-    <!-- CARD 1 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-recycle"></i></div>
-            <h3>Myth</h3>
-            <p>Plastic is fully recyclable</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-earth-americas"></i></div>
-            <h3>Fact</h3>
-            <p>Only ~9% of plastic is recycled. Reduce & reuse is key.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 2 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-temperature-arrow-up"></i></div>
-            <h3>Myth</h3>
-            <p>Climate change is natural</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-smog"></i></div>
-            <h3>Fact</h3>
-            <p>Human activities are the main cause of rapid warming.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-            <h3>Myth</h3>
-            <p>Paper bags are always eco-friendly</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-tree"></i></div>
-            <h3>Fact</h3>
-            <p>Reusable bags have the lowest impact.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-paw"></i></div>
-            <h3>Myth</h3>
-            <p>Feeding strays anything helps</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-heart"></i></div>
-            <h3>Fact</h3>
-            <p>Unsafe food can harm animals. Feed responsibly.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 5 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-lightbulb"></i></div>
-            <h3>Myth</h3>
-            <p>Saving electricity doesn't help</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-plug"></i></div>
-            <h3>Fact</h3>
-            <p>Lower electricity use reduces pollution.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 6 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-tree"></i></div>
-            <h3>Myth</h3>
-            <p>Trees only provide oxygen</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-cloud"></i></div>
-            <h3>Fact</h3>
-            <p>Trees regulate climate & water cycles.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 7 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-trash"></i></div>
-            <h3>Myth</h3>
-            <p>Waste segregation is useless</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-recycle"></i></div>
-            <h3>Fact</h3>
-            <p>Segregation improves recycling & reduces landfill.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 8 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-fish"></i></div>
-            <h3>Myth</h3>
-            <p>Oceans clean themselves</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-water"></i></div>
-            <h3>Fact</h3>
-            <p>Marine pollution seriously harms ocean life.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 9 -->
-    <div class="myth-card-wrapper">
-      <div class="myth-card" onclick="flipCard(this)">
-        <div class="card-face">
-          <div>
-            <div class="icon-box myth-icon"><i class="fa-solid fa-globe"></i></div>
-            <h3>Myth</h3>
-            <p>Nature will fix everything</p>
-            <div class="action-pill">Reveal Truth</div>
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div>
-            <div class="icon-box fact-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
-            <h3>Fact</h3>
-            <p>Human responsibility is essential.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="back-wrapper">
-    <button class="back-btn" onclick="window.location.href='../index.html'">
-        <i class="fas fa-arrow-left"></i> Back to Home
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
     </button>
-  </div>
-</section>
 
-<!-- Footer placeholder (Your original footer will load here) -->
-<div id="footer-placeholder"></div>
+    <!-- Score Counter -->
+    <div class="score-counter" id="scoreCounter">
+        <i class="fas fa-leaf score-icon"></i>
+        <span class="score-text">Myths Revealed:</span>
+        <span class="score-number" id="revealedCount">0</span>
+    </div>
 
-<script>
-    // ===== THEME MANAGEMENT =====
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    
-    // Check saved theme or system preference
-    const savedTheme = localStorage.getItem('ecolife-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fas fa-sun';
-    }
-    
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
-            themeIcon.className = 'fas fa-moon';
-            localStorage.setItem('ecolife-theme', 'light');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeIcon.className = 'fas fa-sun';
-            localStorage.setItem('ecolife-theme', 'dark');
-        }
-    });
+    <section class="hero" id="heroSection">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
 
-    // ===== FLIP CARD FUNCTIONALITY =====
-    let revealedCount = 0;
-    const revealedCards = new Set();
-    const revealedCountElement = document.getElementById('revealedCount');
-    
-    function flipCard(card) {
-        const wasFlipped = card.classList.contains('flipped');
-        card.classList.toggle('flipped');
-        
-        // Update counter if flipping to reveal fact (not hiding)
-        if (!wasFlipped) {
-            // Generate a unique ID for this card based on its content
-            const cardId = card.querySelector('.myth-card p').textContent;
-            
-            if (!revealedCards.has(cardId)) {
-                revealedCards.add(cardId);
-                revealedCount++;
-                updateCounter();
-                
-                // Add celebration for reaching certain milestones
-                if (revealedCount === 3) {
-                    showCelebration("Great start! 🌱");
-                } else if (revealedCount === 6) {
-                    showCelebration("Halfway there! 🌍");
-                } else if (revealedCount === 9) {
-                    showCelebration("All myths revealed! 🎉");
-                }
-            }
-        }
-    }
-    
-    function updateCounter() {
-        revealedCountElement.textContent = revealedCount;
-        
-        // Add animation to counter
-        revealedCountElement.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            revealedCountElement.style.transform = 'scale(1)';
-        }, 200);
-    }
-    
-    function showCelebration(message) {
-        // Create celebration element
-        const celebration = document.createElement('div');
-        celebration.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--primary);
-            color: white;
-            padding: 20px 40px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-hover);
-            z-index: 1000;
-            animation: fadeInOut 2s ease;
-            font-weight: 600;
-            text-align: center;
-        `;
-        
-        // Add CSS for animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeInOut {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-                40% { transform: translate(-50%, -50%) scale(1); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        celebration.textContent = message;
-        document.body.appendChild(celebration);
-        
-        // Remove after animation
-        setTimeout(() => {
-            celebration.remove();
-            style.remove();
-        }, 2000);
-    }
-    
-    // ===== KEYBOARD NAVIGATION =====
-    document.addEventListener('keydown', (e) => {
-        // Space bar to flip focused card
-        if (e.code === 'Space' && document.activeElement.closest('.myth-card')) {
-            e.preventDefault();
-            flipCard(document.activeElement.closest('.myth-card'));
-        }
-        
-        // Arrow keys to navigate between cards
-        if (e.code.startsWith('Arrow')) {
-            const cards = Array.from(document.querySelectorAll('.myth-card'));
-            const currentIndex = cards.indexOf(document.activeElement);
-            
-            if (currentIndex > -1) {
-                let nextIndex;
-                if (e.code === 'ArrowRight' || e.code === 'ArrowDown') {
-                    nextIndex = (currentIndex + 1) % cards.length;
-                } else {
-                    nextIndex = (currentIndex - 1 + cards.length) % cards.length;
-                }
-                
-                cards[nextIndex].focus();
-                cards[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-    });
-    
-    // ===== TOUCH SUPPORT FOR MOBILE =====
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-    
-    document.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            const cards = document.querySelectorAll('.myth-card');
-            cards.forEach(card => {
-                if (card.classList.contains('flipped') && diff > 0) {
-                    // Swipe left to flip back
-                    setTimeout(() => card.classList.remove('flipped'), 100);
-                } else if (!card.classList.contains('flipped') && diff < 0) {
-                    // Swipe right to flip
-                    setTimeout(() => flipCard(card), 100);
-                }
-            });
-        }
-    }
-    
-    // ===== PRINT FUNCTIONALITY =====
-    const printBtn = document.createElement('button');
-    printBtn.innerHTML = '<i class="fas fa-print"></i>';
-    printBtn.title = 'Print Myths & Facts';
-    printBtn.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--primary);
-        color: white;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 99;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-    `;
-    
-    printBtn.addEventListener('mouseenter', () => {
-        printBtn.style.transform = 'scale(1.1)';
-    });
-    
-    printBtn.addEventListener('mouseleave', () => {
-        printBtn.style.transform = 'scale(1)';
-    });
-    
-    printBtn.addEventListener('click', () => {
-        // Flip all cards to show facts before printing
-        document.querySelectorAll('.myth-card').forEach(card => {
-            card.classList.add('flipped');
-        });
-        
-        setTimeout(() => {
-            window.print();
-            
-            // Flip back after printing
-            setTimeout(() => {
-                document.querySelectorAll('.myth-card').forEach(card => {
-                    card.classList.remove('flipped');
-                });
-            }, 1000);
-        }, 500);
-    });
-    
-    document.body.appendChild(printBtn);
-    
-    // ===== INITIALIZATION =====
-    console.log('EcoLife Myth vs Fact page loaded');
-    console.log('Total cards:', document.querySelectorAll('.myth-card').length);
-    console.log('Theme:', document.documentElement.getAttribute('data-theme') || 'light');
-    
-    // Make cards focusable for keyboard navigation
-    document.querySelectorAll('.myth-card').forEach(card => {
-        card.setAttribute('tabindex', '0');
-    });
-</script>
+        <div id="leaf-container"></div>
 
-<!-- Your original footer loader scripts -->
-<script src="/frontend/js/components/footer-loader.js"></script>
-<script src="../js/components/navbar-loader.js"></script>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="glass-panel">
+                <h1 class="hero-title">🌱 <span class="highlight-text">Myth</span> vs <span
+                        class="highlight-text">Fact</span></h1>
+                <p class="hero-subtitle">Uncover the truth behind environmental misconceptions.</p>
 
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verified Facts</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span>Community Driven</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" onclick="document.querySelector('.section').scrollIntoView({behavior: 'smooth'})">
+            <span>Start Revealing</span>
+            <i class="fas fa-chevron-down bouncing-arrow"></i>
+        </div>
+    </section>
+
+    <section class="section">
+
+
+        <div class="myth-fact-grid">
+
+            <!-- CARD 1 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-recycle"></i></div>
+                            <h3>Myth</h3>
+                            <p>Plastic is fully recyclable</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-earth-americas"></i></div>
+                            <h3>Fact</h3>
+                            <p>Only ~9% of plastic is recycled. Reduce & reuse is key.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-temperature-arrow-up"></i></div>
+                            <h3>Myth</h3>
+                            <p>Climate change is natural</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-smog"></i></div>
+                            <h3>Fact</h3>
+                            <p>Human activities are the main cause of rapid warming.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                            <h3>Myth</h3>
+                            <p>Paper bags are always eco-friendly</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-tree"></i></div>
+                            <h3>Fact</h3>
+                            <p>Reusable bags have the lowest impact.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-paw"></i></div>
+                            <h3>Myth</h3>
+                            <p>Feeding strays anything helps</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-heart"></i></div>
+                            <h3>Fact</h3>
+                            <p>Unsafe food can harm animals. Feed responsibly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                            <h3>Myth</h3>
+                            <p>Saving electricity doesn't help</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-plug"></i></div>
+                            <h3>Fact</h3>
+                            <p>Lower electricity use reduces pollution.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 6 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-tree"></i></div>
+                            <h3>Myth</h3>
+                            <p>Trees only provide oxygen</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-cloud"></i></div>
+                            <h3>Fact</h3>
+                            <p>Trees regulate climate & water cycles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 7 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-trash"></i></div>
+                            <h3>Myth</h3>
+                            <p>Waste segregation is useless</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-recycle"></i></div>
+                            <h3>Fact</h3>
+                            <p>Segregation improves recycling & reduces landfill.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 8 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-fish"></i></div>
+                            <h3>Myth</h3>
+                            <p>Oceans clean themselves</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-water"></i></div>
+                            <h3>Fact</h3>
+                            <p>Marine pollution seriously harms ocean life.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 9 -->
+            <div class="myth-card-wrapper">
+                <div class="myth-card" onclick="flipCard(this)">
+                    <div class="card-face">
+                        <div>
+                            <div class="icon-box myth-icon"><i class="fa-solid fa-globe"></i></div>
+                            <h3>Myth</h3>
+                            <p>Nature will fix everything</p>
+                            <div class="action-pill">Reveal Truth</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div>
+                            <div class="icon-box fact-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                            <h3>Fact</h3>
+                            <p>Human responsibility is essential.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="back-wrapper">
+            <button class="back-btn" onclick="window.location.href='../index.html'">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer placeholder (Your original footer will load here) -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Add Back to Top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+
+    <!-- Add these scripts from the extinct-animals.html file -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/global/theme-toggle.js"></script>
+    <script src="../js/components/component-loader.js"></script>
+    <script src="../js/pages/myth-vs-fact.js"></script>
+
+    <!-- Add this chatbase script from the other file -->
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+
+    <!-- Your original footer loader scripts -->
+    <script src="/frontend/js/components/footer-loader.js"></script>
 </body>
+
 </html>

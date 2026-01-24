@@ -7,10 +7,10 @@
   <link rel="icon" type="image/png" href="/envirnoment-logo.png">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
+  <link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
+  <link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Link to External CSS -->
   <link rel="stylesheet" href="../../css/pages/environment/kids-learning.css">
   <link rel="stylesheet" href="../../css/components/footer.css" />
@@ -35,13 +35,40 @@
   </div>
   
   <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>🌱 Kids Learning Zone</h1>
-      <p>Explore nature, protect animals & become an Eco-Warrior! 🌍</p>
-      <div class="badge-display" id="badgeDisplay">
-        <span class="badge-text">Eco-Warrior Badges: <strong id="badgeCount">0</strong> 🎖️</span>
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    
+    <div class="hero-overlay"></div>
+
+    <div class="hero-elements">
+      <div class="floating-icon leaf-1" data-speed="2"><i class="fa-solid fa-leaf"></i></div>
+      <div class="floating-icon leaf-2" data-speed="-2"><i class="fa-brands fa-envira"></i></div>
+      <div class="floating-icon cloud-1" data-speed="1"><i class="fa-solid fa-cloud"></i></div>
+      <div class="floating-icon cloud-2" data-speed="-1"><i class="fa-solid fa-cloud"></i></div>
+      <div class="floating-icon bird-1" data-speed="3"><i class="fa-solid fa-dove"></i></div>
+    </div>
+
+    <div class="hero-content" data-speed="0.5">
+      <div class="hero-badge-top">
+        <i class="fa-solid fa-earth-americas"></i> Welcome, Junior Ranger!
       </div>
+      <h1 class="hero-title">🌱 Kids Learning Zone</h1>
+      <p class="hero-subtitle">Explore nature, protect animals & become an Eco-Warrior! 🌍</p>
+      
+      <div class="hero-actions">
+        <button class="cta-btn primary" onclick="scrollToSection('learning-modules')">
+          Start Adventure 🚀
+        </button>
+        <div class="badge-display" id="badgeDisplay">
+          <span class="badge-text">Eco-Badges: <strong id="badgeCount">0</strong> 🎖️</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="custom-shape-divider-bottom-162024">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
     </div>
   </section>
 
@@ -57,7 +84,7 @@
           <div class="module-icon">🌡️</div>
           <h3>Climate Change</h3>
           <p>Learn about global warming and how to fight it</p>
-          <span class="module-badge"><a href="./climate-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./climate-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 2: Wildlife Conservation -->
@@ -65,7 +92,7 @@
           <div class="module-icon">🦁</div>
           <h3>Wildlife Conservation</h3>
           <p>Discover how to protect endangered animals</p>
-          <span class="module-badge"><a href="./wildlife-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./wildlife-learning.html" class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 3: Ocean Protection -->
@@ -73,7 +100,7 @@
           <div class="module-icon">🌊</div>
           <h3>Ocean Protection</h3>
           <p>Keep our oceans clean and marine life safe</p>
-          <span class="module-badge"><a href="./ocean-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./ocean-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 4: Renewable Energy -->
@@ -81,7 +108,7 @@
           <div class="module-icon">⚡</div>
           <h3>Renewable Energy</h3>
           <p>Solar, wind, and clean energy for our future</p>
-          <span class="module-badge"><a href="./renewable-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./renewable-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 5: Waste Management -->
@@ -89,7 +116,7 @@
           <div class="module-icon">♻️</div>
           <h3>Waste Management</h3>
           <p>Reduce, reuse, recycle - the 3Rs of sustainability</p>
-          <span class="module-badge"><a href="./waste-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./waste-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 6: Water Conservation -->
@@ -97,7 +124,7 @@
           <div class="module-icon">💧</div>
           <h3>Water Conservation</h3>
           <p>Every drop counts - save water, save life</p>
-          <span class="module-badge"><a href="./water-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./water-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 7: Forest Ecosystems -->
@@ -105,7 +132,7 @@
           <div class="module-icon">🌲</div>
           <h3>Forest Ecosystems</h3>
           <p>Explore the lungs of our planet and biodiversity</p>
-          <span class="module-badge"><a href="./forest-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./forest-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
 
         <!-- Module 8: Sustainable Living -->
@@ -113,7 +140,7 @@
           <div class="module-icon">🏡</div>
           <h3>Sustainable Living</h3>
           <p>Simple daily habits to help the planet</p>
-          <span class="module-badge"><a href="./sustainable-learning.html">Start Learning</a></span>
+          <span class="module-badge"><a href="./sustainable-learning.html"class="start-leaning-btn">Start Learning</a></span>
         </div>
       </div>
     </div>
@@ -477,7 +504,7 @@
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
   </script>
   <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../../js/components/component-loader.js"></script>
   <script src="../../js/components/navbar-loader.js"></script>
 </body>
 </html>

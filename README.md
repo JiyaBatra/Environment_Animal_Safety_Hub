@@ -31,6 +31,8 @@ activities through education and quizzes.
 ### 🐾 Animal Protection & Adoption
 - Adopt and support stray animals
 - Learn how to protect endangered wildlife
+- **Animal First Aid Guide** - Essential first aid techniques for common animal injuries and emergencies
+- **Wildlife Incidents Reporting** - How and when to report wildlife sightings, injuries, and illegal activities
 
 ### 🗑 Waste Segregation
 - Reduce, reuse & recycle with simple guidance

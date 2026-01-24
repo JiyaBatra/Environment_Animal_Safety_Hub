@@ -9,40 +9,163 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/pages/privacy-policy.css">
-
+  <link rel="stylesheet" href="../../css/global/utilities.css" />
   <link rel="stylesheet" href="../css/components/footer.css" />
   <link rel="stylesheet" href="../css/components/navbar.css" />
+  <style>
+    /* Fix for navbar and sidebar positioning */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    /* Hide the old main-nav */
+    .main-nav {
+      display: none;
+    }
+    
+    /* Ensure navbar stays on top */
+    #navbar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--bg-secondary);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Fix the sidebar positioning */
+    .page-container {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 150px; /* Space for fixed navbar */
+      box-sizing: border-box;
+    }
+    
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 80px; /* Below navbar */
+      width: 300px;
+      height: calc(100vh - 100px);
+      overflow-y: auto;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      z-index: 999;
+      margin-top: 50px;
+      padding-top: 20px;
+    }
+    
+    .main-content {
+      margin-left: 320px; /* Space for sidebar */
+      width: calc(100% - 320px);
+      padding: 30px;
+      box-sizing: border-box;
+      min-height: calc(100vh - 80px);
+    }
+    
+    /* Dark theme adjustments */
+    body[data-theme="dark"] #navbar-container,
+    body[data-theme="dark"] .sidebar {
+      background: var(--bg-secondary);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar.stop {
+      position: absolute;
+    }
+
+    
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 250px;
+      }
+      
+      .main-content {
+        margin-left: 270px;
+        width: calc(100% - 270px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page-container {
+        padding-top: 60px;
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        top: 0;
+        margin-top: 60px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 20px;
+      }
+      
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+      }
+      
+      .theme-toggle-container {
+        top: 80px;
+        right: 15px;
+      }
+    }
+    
+    /* Ensure content doesn't go under fixed elements */
+    .content-header {
+      margin-top: 0;
+      padding-top: 20px;
+    }
+    
+    /* Prevent sidebar header from overlapping */
+    .sidebar-header {
+      position: sticky;
+      top: 0;
+      background: var(--bg-secondary);
+      z-index: 10;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    /* Make sidebar links scrollable but keep header fixed */
+    .sidebar-stats {
+      padding: 20px 0;
+    }
+    
+    /* Custom scrollbar for sidebar */
+    .sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .sidebar::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 3px;
+    }
+  </style>
 </head>
 
 <body data-theme="light">
 <div id="cursor-container"></div>
 <script src="../../js/components/loadComponents.js"></script>
-  <!-- Navigation -->
-  <div class="main-nav">
-    <a href="../index.html" class="nav-btn">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-    <a href="extinct-animals.html" class="nav-btn">
-      <i class="fas fa-dinosaur"></i>
-      <span>Extinct</span>
-    </a>
-    <a href="feeding-awareness.html" class="nav-btn">
-      <i class="fas fa-bowl-food"></i>
-      <span>Feeding</span>
-    </a>
-  </div>
 
-  <!-- Theme Toggle -->
-  <div class="theme-toggle-container">
-    <div class="theme-toggle-btn" id="themeToggle">
-      <i class="fas fa-sun"></i>
-      <i class="fas fa-moon"></i>
-    </div>
-  </div>
 
   <!-- Main Layout -->
   <div class="page-container">
+      <!-- Navbar will be loaded here -->
+      <div id="navbar-container"></div>
     
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -51,7 +174,7 @@
         <p class="sidebar-subtitle">Your Data, Your Control</p>
       </div>
 
-      <div id="navbar-container"></div>
+    
 
       <div class="sidebar-stats">
         <div class="stat-item">
@@ -227,8 +350,7 @@
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <div class="timeline-date">April 2025
-              </div>
+              <div class="timeline-date">April 2025</div>
               <div class="timeline-text">
                 Major revision with improved transparency, detailed data usage explanations, 
                 and enhanced user control options.
@@ -237,12 +359,11 @@
           </div>
         </div>
       </section>
+    </main>
+  </div>
 
-</main>
-    </div>
-
-    <!-- Footer placeholder -->
-    <div id="footer-placeholder"></div>
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
 
   <script>
     // Theme Toggle Functionality
@@ -267,119 +388,171 @@
       }, 150);
     });
 
-    // Set current year in footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // Wait for navbar to load before setting up scroll functionality
+    function setupScrollFunctionality() {
+      // Sidebar navigation
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+      const sections = document.querySelectorAll('.policy-card, .faq-section, .timeline-section');
 
-    // Sidebar navigation
-    const sidebarLinks = document.querySelectorAll('.sidebar-link');
-    const sections = document.querySelectorAll('.policy-card, .faq-section, .timeline-section');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          sidebarLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${id}`) {
-              link.classList.add('active');
-            }
-          });
-        }
-      });
-    }, {
-      threshold: 0.3,
-      rootMargin: '-100px 0px -100px 0px'
-    });
-
-    sections.forEach(section => {
-      if (section.id) {
-        observer.observe(section);
-      }
-    });
-
-    // Scroll to section when sidebar link is clicked
-    sidebarLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        
-        if (targetSection) {
-          // Update active state
-          sidebarLinks.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          
-          // Scroll to section
-          targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Card animations
-    const cards = document.querySelectorAll('.policy-card');
-    const cardObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('animate');
-          }, index * 100);
-          cardObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-
-    cards.forEach(card => {
-      cardObserver.observe(card);
-    });
-
-    // Smooth scrolling for all anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            sidebarLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              }
             });
           }
-        }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '-100px 0px -100px 0px'
       });
-    });
 
-    // Update active sidebar link on scroll
-    window.addEventListener('scroll', () => {
-      let current = '';
       sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 200)) {
-          current = section.getAttribute('id');
+        if (section.id) {
+          observer.observe(section);
         }
       });
 
+      // Scroll to section when sidebar link is clicked
       sidebarLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
-          link.classList.add('active');
-        }
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          
+          if (targetSection) {
+            // Update active state
+            sidebarLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Scroll to section with navbar offset
+            const navbarHeight = document.getElementById('navbar-container').offsetHeight;
+            const targetPosition = targetSection.offsetTop - navbarHeight - 20;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
       });
-    });
 
-    console.log("Privacy Policy page loaded with enhanced layout");
+      // Card animations
+      const cards = document.querySelectorAll('.policy-card');
+      const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('animate');
+            }, index * 100);
+            cardObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      cards.forEach(card => {
+        cardObserver.observe(card);
+      });
+
+      // Smooth scrolling for all anchor links with navbar offset
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              const navbarHeight = document.getElementById('navbar-container').offsetHeight;
+              const targetPosition = target.offsetTop - navbarHeight - 20;
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+
+      // Update active sidebar link on scroll with navbar offset
+      window.addEventListener('scroll', () => {
+        let current = '';
+        const navbarHeight = document.getElementById('navbar-container').offsetHeight;
+        const scrollPosition = window.scrollY + navbarHeight + 100;
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        sidebarLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').substring(1) === current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Check if navbar is loaded and set up functionality
+    function checkNavbarLoaded() {
+      const navbar = document.getElementById('navbar-container');
+      if (navbar && navbar.children.length > 0) {
+        setupScrollFunctionality();
+        console.log("Privacy Policy page loaded with enhanced layout");
+        
+        // Remove duplicate navbar from sidebar (it's already in the fixed position)
+        const sidebarNavbar = navbar.parentElement;
+        if (sidebarNavbar && sidebarNavbar.tagName === 'DIV') {
+          sidebarNavbar.remove();
+        }
+      } else {
+        setTimeout(checkNavbarLoaded, 100);
+      }
+    }
+
+    // Start checking for navbar
+    document.addEventListener('DOMContentLoaded', checkNavbarLoaded);
   </script>
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
- <script src="/frontend/js/components/footer-loader.js"></script>
 
-    <script src="../js/components/navbar-loader.js"></script>
+  <script>
+  const sidebar = document.querySelector('.sidebar');
+  const footer = document.getElementById('footer-placeholder');
+
+  window.addEventListener('scroll', () => {
+    const sidebarHeight = sidebar.offsetHeight;
+    const footerTop = footer.getBoundingClientRect().top;
+    const viewportHeight = window.innerHeight;
+
+    if (footerTop <= viewportHeight) {
+      const scrollTop = window.scrollY;
+      const stopPoint = scrollTop + footerTop - sidebarHeight - 20;
+
+      sidebar.classList.add('stop');
+      sidebar.style.top = stopPoint + 'px';
+    } else {
+      sidebar.classList.remove('stop');
+      sidebar.style.top = '80px';
+    }
+  });
+</script>
+
+
+  <script>
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+  </script>
+  
+  <script src="/frontend/js/components/footer-loader.js"></script>
+  <script src="../js/components/component-loader.js"></script>
+  <script src="../js/components/navbar-loader.js"></script>
 </body>
 </html>

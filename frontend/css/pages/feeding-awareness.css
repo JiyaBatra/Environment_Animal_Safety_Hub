@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --primary-green: #2A9D8F;
   --secondary-green: #8AC926;
   --accent-green: #219653;
@@ -333,4 +333,3 @@ a, button, .nav-link, .btn, .card {
 .hero * {
   pointer-events: auto;
 }
-

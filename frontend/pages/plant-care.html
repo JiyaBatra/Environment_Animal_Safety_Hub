@@ -8,10 +8,26 @@
   <title>Plant Care | EcoLife</title>
   <meta name="description" content="Expert gardening tips and plant care guide." />
 
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ecolife-app.com/pages/plant-care.html">
+  <meta property="og:title" content="Plant Care Guide | EcoLife">
+  <meta property="og:description" content="Expert gardening tips and plant care guide. Learn how to grow and maintain healthy plants with our comprehensive guide.">
+  <meta property="og:image" content="https://ecolife-app.com/assets/images/others/plant-care-guide.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://ecolife-app.com/pages/plant-care.html">
+  <meta property="twitter:title" content="Plant Care Guide | EcoLife">
+  <meta property="twitter:description" content="Expert gardening tips and plant care guide. Learn how to grow and maintain healthy plants with our comprehensive guide.">
+  <meta property="twitter:image" content="https://ecolife-app.com/assets/images/others/plant-care-guide.jpg">
+
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/components/navbar.css" />
   <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/components/share-modal.css" />
   
   <!-- Page-specific styles (Issue #648: Refactored from inline styles) -->
   <link rel="stylesheet" href="../css/pages/plant-care.css" />
@@ -46,7 +62,13 @@
           <h1>Grow Your Own <br>Green Paradise</h1>
           <p>Whether you have a small balcony or a large garden, we'll help you create your own green space.
             Discover expert tips, sustainable practices, and join our community.</p>
-          <a href="#tips" class="btn-custom"><i class="fa-solid fa-seedling"></i> Get Started</a>
+          <div class="hero-actions">
+            <a href="#tips" class="btn-custom"><i class="fa-solid fa-seedling"></i> Get Started</a>
+            <a href="quizzes/pollution-awareness-quiz.html" class="btn-custom"><i class="fa-solid fa-smog"></i> Take Pollution Quiz</a>
+            <button class="share-button" onclick="sharePage()">
+              <i class="fas fa-share-alt"></i> Share Guide
+            </button>
+          </div>
         </div>
         <div class="hero-image-box" data-aos="fade-left">
           <img src="https://i.pinimg.com/736x/52/7a/cc/527accddb75efd9315c8d6afba2bba1d.jpg" alt="Gardening">
@@ -80,6 +102,27 @@
         <h3>Composting</h3>
         <p>Turn kitchen scraps into gold. Use fruit peels, coffee grounds, and eggshells to create nutrient-rich soil.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Growing Plant Animation Section -->
+  <section class="section-padding" style="background: var(--section-bg);">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fa-solid fa-seedling"></i> Watch & Learn</span>
+      <h2 class="section-title">See Your Plant Grow</h2>
+      <p style="max-width: 600px; margin: 0 auto; opacity: 0.8;">Hover over the plant to see it sway in the breeze!</p>
+    </div>
+
+    <div class="growing-plant-container" data-aos="zoom-in">
+      <div class="plant-pot"></div>
+      <div class="plant-soil"></div>
+      <div class="plant-stem">
+        <div class="plant-leaf left"></div>
+        <div class="plant-leaf right"></div>
+        <div class="plant-leaf top-left"></div>
+        <div class="plant-leaf top-right"></div>
+        <div class="plant-flower"></div>
       </div>
     </div>
   </section>
@@ -195,8 +238,34 @@
     (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
   </script>
 <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../js/components/component-loader.js"></script>
   <script src="../js/components/navbar-loader.js"></script>
+
+  <!-- Social Share Modal -->
+  <div id="shareModalContainer"></div>
+
+  <!-- Social Share Scripts -->
+  <script src="../js/components/social-share.js"></script>
+  <script>
+    // Load share modal
+    fetch('../components/share-modal.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('shareModalContainer').innerHTML = html;
+      })
+      .catch(error => console.error('Failed to load share modal:', error));
+
+    // Share page function
+    function sharePage() {
+      if (window.socialShare) {
+        window.socialShare.openShareModal({
+          title: 'Plant Care Guide | EcoLife',
+          description: 'Expert gardening tips and plant care guide. Learn how to grow and maintain healthy plants with our comprehensive guide.',
+          image: 'https://ecolife-app.com/assets/images/others/plant-care-guide.jpg'
+        });
+      }
+    }
+  </script>
 </body>
 
 </html>
