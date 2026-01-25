@@ -1,23 +1,14 @@
-# TODO: Remove Global Functions and Use Event Listeners for Quizzes
+# Quiz Data Extraction Task
 
 ## Overview
-Remove all `window.` assignments from quiz JS files and replace onclick attributes in HTML with event listeners for better encapsulation.
+Extract hardcoded quiz data from JavaScript files to external JSON files for better maintainability.
 
-## Tasks
-- [x] Update pollution-awareness-quiz.js and pollution-awareness-quiz.html
-- [x] Update climate-change-quiz.js and climate-change-quiz.html
-- [x] Update animal-first-aid-quiz.js and animal-first-aid-quiz.html
-- [x] Update environment-awareness-quiz.js and environment-awareness-quiz.html
-- [x] Update sustainable-gardening-quiz.js and sustainable-gardening-quiz.html
-- [x] Update waste-management-quiz.js and waste-management-quiz.html
-- [x] Update water-conservation-quiz.js and water-conservation-quiz.html
-
-## Details for Each
-For each quiz:
-1. Remove global window. functions from JS.
-2. Add event listeners in JS using document.addEventListener('DOMContentLoaded', () => { ... });
-3. Remove onclick attributes from HTML buttons.
-4. Ensure quiz instance is accessible within listeners.
-
-## Testing
-- Verify start, resume, next, pause functions work via event listeners.
+## Steps
+- [x] Update quiz-data.json with missing quiz data (waste-management, animal-first-aid, climate-change, sustainable-gardening, etc.)
+- [x] Modify pollution-awareness-quiz.js to load data asynchronously
+- [x] Modify waste-management-quiz.js to load data asynchronously
+- [ ] Modify animal-first-aid-quiz.js to load data asynchronously
+- [ ] Modify climate-change-quiz.js to load data asynchronously
+- [ ] Modify sustainable-gardening-quiz.js to load data asynchronously
+- [ ] Check and update other quiz JS files if needed
+- [ ] Test that quizzes load data correctly and handle errors
