@@ -541,6 +541,12 @@
 .report-info {
     position: sticky;
     top: 100px;
+    z-index: 10;
+    background: var(--card-bg);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    border-radius: 20px;
+    border:1px solid var(--border-color);
 }
 
 .section-desc {
@@ -548,12 +554,14 @@
     color: var(--text-secondary);
     line-height: 1.8;
     margin-bottom: 30px;
+
 }
 
 .report-features {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
 }
 
 .feature-item {
@@ -564,6 +572,7 @@
     background: var(--card-bg);
     border-radius: 12px;
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
 }
 
 .feature-item i {
@@ -915,6 +924,7 @@ input[type="radio"] {
 
 .modal-body {
     padding: 40px;
+    background: white;
 }
 
 .modal-body h3 {

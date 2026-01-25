@@ -180,7 +180,7 @@
             <!-- Alerts Grid -->
             <div class="alerts-grid" id="alertsGrid">
                 <!-- Lost Pet Alert 1 -->
-                <div class="alert-card lost" data-category="lost" data-aos="fade-up" data-aos-delay="0">
+                <div class="alert-card lost" data-category="lost" >
                     <div class="alert-image">
                         <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400" alt="Lost Dog" />
                         <div class="alert-badges">
@@ -228,7 +228,7 @@
                 </div>
 
                 <!-- Found Pet Alert 2 -->
-                <div class="alert-card found" data-category="found" data-aos="fade-up" data-aos-delay="100">
+                <div class="alert-card found" data-category="found" >
                     <div class="alert-image">
                         <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" alt="Found Cat" />
                         <div class="alert-badges">
@@ -275,7 +275,7 @@
                 </div>
 
                 <!-- Lost Pet Alert 3 -->
-                <div class="alert-card lost" data-category="lost" data-aos="fade-up" data-aos-delay="200">
+                <div class="alert-card lost" data-category="lost" >
                     <div class="alert-image">
                         <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400"
                             alt="Lost Puppy" />
@@ -324,7 +324,7 @@
                 </div>
 
                 <!-- Reunited Alert 4 -->
-                <div class="alert-card reunited" data-category="reunited" data-aos="fade-up" data-aos-delay="300">
+                <div class="alert-card reunited" data-category="reunited" >
                     <div class="alert-image">
                         <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400"
                             alt="Reunited Cat" />
@@ -663,7 +663,7 @@
             </div>
 
             <div class="tips-grid">
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="tip-card" >
                     <div class="tip-icon">
                         <i class="fa-solid fa-shield-check"></i>
                     </div>
@@ -672,7 +672,7 @@
                         pet.</p>
                 </div>
 
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="tip-card" >
                     <div class="tip-icon">
                         <i class="fa-solid fa-users"></i>
                     </div>
@@ -681,7 +681,7 @@
                         initially.</p>
                 </div>
 
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="tip-card" >
                     <div class="tip-icon">
                         <i class="fa-solid fa-comments"></i>
                     </div>
@@ -690,7 +690,7 @@
                         immediately.</p>
                 </div>
 
-                <div class="tip-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="tip-card" >
                     <div class="tip-icon">
                         <i class="fa-solid fa-flag"></i>
                     </div>
@@ -704,7 +704,7 @@
     <!-- Success Stories -->
     <section class="success-stories-section">
         <div class="section-container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header" >
                 <span class="section-tag">
                     <i class="fa-solid fa-heart"></i> Happy Reunions
                 </span>
@@ -715,7 +715,7 @@
             </div>
 
             <div class="stories-grid">
-                <div class="story-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="story-card" >
                     <div class="story-image">
                         <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400" alt="Reunion" />
                     </div>
@@ -735,7 +735,7 @@
                     </div>
                 </div>
 
-                <div class="story-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="story-card" >
                     <div class="story-image">
                         <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400" alt="Reunion" />
                     </div>
@@ -755,7 +755,7 @@
                     </div>
                 </div>
 
-                <div class="story-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="story-card" >
                     <div class="story-image">
                         <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400" alt="Reunion" />
                     </div>
@@ -820,6 +820,24 @@
 
     <!-- Footer -->
     <div id="footer-placeholder"></div>
+<!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/global/theme-toggle.js"></script>
+    <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+ <script src="/frontend/js/components/footer-loader.js"></script>
+<script src="../js/components/component-loader.js"></script>
+
+  <script src="../js/components/navbar-loader.js"></script>
+  
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
