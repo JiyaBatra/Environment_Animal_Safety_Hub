@@ -27,7 +27,7 @@ const challenges = [
             'Bring your own shopping bags',
             'Say no to plastic straws',
             'Use beeswax wraps instead of plastic wrap'
-        ]
+        ],
     },
     {
         id: 'meatless-mondays',
