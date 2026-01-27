@@ -3858,3 +3858,207 @@ textarea:focus {
     height: 500px; /* Fixed height for desktop */
   }
 }
+
+/* ===========================================
+   HERO TEXT COLOR FIXES FOR LIGHT THEME
+   =========================================== */
+
+/* Fix for hero subtitle text in light theme */
+.hero-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Ensure hero subtitle has enough contrast in light theme */
+[data-theme="light"] .hero-subtitle,
+[data-theme="light"] .hero-subtitle,
+:root:not([data-theme="dark"]) .hero-subtitle {
+  color: #444444; /* Darker gray for better visibility */
+  opacity: 0.9;
+}
+
+/* Fix for search placeholder text in light theme */
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .form-input::placeholder,
+:root:not([data-theme="dark"]) .form-input::placeholder {
+  color: #666666; /* Darker placeholder text */
+}
+
+/* Fix for search help text in light theme */
+#search-help {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] #search-help,
+:root:not([data-theme="dark"]) #search-help {
+  color: #555555; /* Darker help text */
+}
+
+/* Fix for button text descriptions */
+#get-started-desc,
+#learn-more-desc {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] #get-started-desc,
+[data-theme="light"] #learn-more-desc,
+:root:not([data-theme="dark"]) #get-started-desc,
+:root:not([data-theme="dark"]) #learn-more-desc {
+  color: #444444; /* Darker description text */
+}
+
+/* Fix for hero features text */
+.hero-feature span {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .hero-feature span,
+:root:not([data-theme="dark"]) .hero-feature span {
+  color: #333333; /* Much darker text for better contrast */
+  font-weight: 600; /* Make it bolder */
+}
+
+/* Fix for live clock text */
+.live-clock {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+[data-theme="light"] .live-clock,
+:root:not([data-theme="dark"]) .live-clock {
+  color: #222222; /* Very dark text */
+  background: rgba(0, 0, 0, 0.05); /* Light background */
+}
+
+/* Fix for hero badge text */
+.hero-badge {
+  color: var(--primary-color);
+  background: var(--bg-tertiary);
+}
+
+[data-theme="light"] .hero-badge,
+:root:not([data-theme="dark"]) .hero-badge {
+  color: #1b5e20; /* Darker green */
+  background: rgba(46, 125, 50, 0.1); /* Light green background */
+  border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+/* Special fix for page view counter badge */
+.page-view-counter {
+  color: var(--text-light);
+  background: var(--accent-color);
+}
+
+[data-theme="light"] .page-view-counter,
+:root:not([data-theme="dark"]) .page-view-counter {
+  color: white !important; /* Keep white text on colored background */
+  background: #00bcd4; /* Specific blue color */
+}
+
+/* Fix for form error/success messages */
+.error-message {
+  color: #d32f2f;
+}
+
+.success-message {
+  color: #388e3c;
+}
+
+/* Ensure all text has proper contrast in light theme */
+[data-theme="light"] .text-muted,
+:root:not([data-theme="dark"]) .text-muted {
+  color: #555555 !important;
+}
+
+[data-theme="light"] .text-secondary,
+:root:not([data-theme="dark"]) .text-secondary {
+  color: #333333 !important;
+}
+
+/* Override for any white text that might be blending in */
+[data-theme="light"] .sr-only,
+:root:not([data-theme="dark"]) .sr-only {
+  color: transparent !important; /* Screen readers only */
+}
+
+/* Fix for the specific issue with light theme text blending */
+body:not([data-theme="dark"]) .hero-content *:not(.btn):not(.btn *):not(.hero-image-badge):not(.hero-image-badge *) {
+  color: #222222 !important;
+}
+
+/* More targeted fix */
+:root:not([data-theme="dark"]) .hero-content p,
+:root:not([data-theme="dark"]) .hero-content span:not(.gradient-text),
+:root:not([data-theme="dark"]) .hero-content div:not(.btn) {
+  color: #333333 !important;
+  opacity: 1 !important;
+}
+
+/* Fix for gradient text - ensure it's visible */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .gradient-text,
+:root:not([data-theme="dark"]) .gradient-text {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32); /* Darker green gradient for light theme */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fix for hero features specifically */
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-feature i {
+  color: var(--primary-color);
+}
+
+.hero-feature span {
+  font-weight: 500;
+}
+
+[data-theme="light"] .hero-feature,
+:root:not([data-theme="dark"]) .hero-feature {
+  background: rgba(46, 125, 50, 0.08);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(46, 125, 50, 0.15);
+}
+
+[data-theme="light"] .hero-feature span,
+:root:not([data-theme="dark"]) .hero-feature span {
+  color: #1b5e20 !important;
+  font-weight: 600;
+}
+
+/* Fix for the entire hero section text contrast */
+[data-theme="light"] .hero-content,
+:root:not([data-theme="dark"]) .hero-content {
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --text-muted: #555555;
+}
+
+/* Last resort: Add text shadow for very light text */
+[data-theme="light"] .hero-subtitle,
+:root:not([data-theme="dark"]) .hero-subtitle {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .hero-feature span,
+:root:not([data-theme="dark"]) .hero-feature span {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
