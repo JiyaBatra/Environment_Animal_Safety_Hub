@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Scheduling & Shift Management - EWOC</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages/volunteer-scheduling.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-calendar-alt"></i> Volunteer Scheduling & Shift Management</h1>
+            <p>Comprehensive shift calendar, task tracking, and volunteer hour management</p>
+        </div>
+    </header>
+
+    <!-- Training Expiration Alerts -->
+    <section class="alerts-section">
+        <div class="container">
+            <h2><i class="fas fa-exclamation-triangle"></i> Training & Certification Alerts</h2>
+            <div class="alerts-grid" id="trainingAlertsGrid">
+                <!-- Alerts will be populated dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="statActiveVolunteers">0</h3>
+                    <p>Active Volunteers</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3 id="statUpcomingShifts">0</h3>
+                    <p>Upcoming Shifts</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3 id="statUnfilledShifts">0</h3>
+                    <p>Unfilled Shifts</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="statTotalHours">0</h3>
+                    <p>Total Hours (This Month)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="openShiftModal()">
+                    <i class="fas fa-plus"></i> Create Shift
+                </button>
+                <button class="btn btn-secondary" onclick="openVolunteerModal()">
+                    <i class="fas fa-user-plus"></i> Add Volunteer
+                </button>
+                <button class="btn btn-secondary" onclick="showView('calendar')">
+                    <i class="fas fa-calendar"></i> Calendar View
+                </button>
+                <button class="btn btn-secondary" onclick="showView('coverage')">
+                    <i class="fas fa-chart-bar"></i> Coverage Heatmap
+                </button>
+                <button class="btn btn-secondary" onclick="showView('volunteers')">
+                    <i class="fas fa-users"></i> Volunteers
+                </button>
+                <button class="btn btn-secondary" onclick="exportScheduleReport()">
+                    <i class="fas fa-file-export"></i> Export Report
+                </button>
+            </div>
+
+            <!-- Calendar View -->
+            <section id="calendarView" class="view-section">
+                <div class="calendar-header">
+                    <button class="btn-nav" onclick="changeMonth(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="currentMonth">Month Year</h2>
+                    <button class="btn-nav" onclick="changeMonth(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="calendar-filters">
+                    <select id="roleFilter" onchange="filterShifts()">
+                        <option value="all">All Roles</option>
+                        <option value="vet-tech">Vet Tech</option>
+                        <option value="walker">Walker</option>
+                        <option value="admin">Admin</option>
+                        <option value="feeder">Feeder</option>
+                        <option value="cleaner">Cleaner</option>
+                        <option value="foster-coordinator">Foster Coordinator</option>
+                    </select>
+                    <select id="statusFilter" onchange="filterShifts()">
+                        <option value="all">All Status</option>
+                        <option value="filled">Filled</option>
+                        <option value="unfilled">Unfilled</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be populated dynamically -->
+                </div>
+            </section>
+
+            <!-- Coverage Heatmap View -->
+            <section id="coverageView" class="view-section" style="display: none;">
+                <h2><i class="fas fa-chart-bar"></i> Weekly Coverage Heatmap</h2>
+                <div class="heatmap-legend">
+                    <span><span class="legend-box low"></span> Low Coverage (0-1)</span>
+                    <span><span class="legend-box medium"></span> Medium Coverage (2-3)</span>
+                    <span><span class="legend-box high"></span> High Coverage (4+)</span>
+                </div>
+                <div class="heatmap-container" id="heatmapContainer">
+                    <!-- Heatmap will be populated dynamically -->
+                </div>
+            </section>
+
+            <!-- Volunteers View -->
+            <section id="volunteersView" class="view-section" style="display: none;">
+                <h2><i class="fas fa-users"></i> Volunteer Directory</h2>
+                <div class="volunteers-grid" id="volunteersGrid">
+                    <!-- Volunteers will be populated dynamically -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Create Shift Modal -->
+    <div id="shiftModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeShiftModal()">&times;</span>
+            <h2><i class="fas fa-calendar-plus"></i> Create New Shift</h2>
+            
+            <form id="shiftForm" onsubmit="submitShift(event)">
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <h3>Shift Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shiftDate">Date*</label>
+                            <input type="date" id="shiftDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shiftStartTime">Start Time*</label>
+                            <input type="time" id="shiftStartTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shiftEndTime">End Time*</label>
+                            <input type="time" id="shiftEndTime" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shiftRole">Role*</label>
+                            <select id="shiftRole" required>
+                                <option value="">Select Role</option>
+                                <option value="vet-tech">Vet Tech</option>
+                                <option value="walker">Walker</option>
+                                <option value="admin">Admin</option>
+                                <option value="feeder">Feeder</option>
+                                <option value="cleaner">Cleaner</option>
+                                <option value="foster-coordinator">Foster Coordinator</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="shiftLocation">Location*</label>
+                            <input type="text" id="shiftLocation" placeholder="e.g., Main Facility" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Checklist -->
+                <div class="form-section">
+                    <h3>Task Checklist</h3>
+                    <div id="taskChecklistContainer">
+                        <div class="task-input-group">
+                            <input type="text" class="task-input" placeholder="Task description">
+                            <button type="button" class="btn-remove-task" onclick="removeTaskInput(this)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="addTaskInput()">
+                        <i class="fas fa-plus"></i> Add Task
+                    </button>
+                </div>
+
+                <!-- Assign Volunteer -->
+                <div class="form-section">
+                    <h3>Assign Volunteer (Optional)</h3>
+                    <div class="form-group">
+                        <label for="assignVolunteer">Volunteer</label>
+                        <select id="assignVolunteer">
+                            <option value="">Leave Unfilled</option>
+                            <!-- Will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div id="conflictWarning" class="warning-box" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span id="conflictMessage"></span>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="form-section">
+                    <h3>Shift Notes</h3>
+                    <div class="form-group">
+                        <label for="shiftNotes">Additional Information</label>
+                        <textarea id="shiftNotes" rows="3" placeholder="Any special instructions or requirements"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeShiftModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Shift</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Volunteer Modal -->
+    <div id="volunteerModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeVolunteerModal()">&times;</span>
+            <h2><i class="fas fa-user-plus"></i> Add New Volunteer</h2>
+            
+            <form id="volunteerForm" onsubmit="submitVolunteer(event)">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteerName">Full Name*</label>
+                            <input type="text" id="volunteerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteerEmail">Email*</label>
+                            <input type="email" id="volunteerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteerPhone">Phone</label>
+                            <input type="tel" id="volunteerPhone">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roles & Skills -->
+                <div class="form-section">
+                    <h3>Roles & Skills</h3>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="volunteerRole" value="vet-tech"> Vet Tech</label>
+                        <label><input type="checkbox" name="volunteerRole" value="walker"> Walker</label>
+                        <label><input type="checkbox" name="volunteerRole" value="admin"> Admin</label>
+                        <label><input type="checkbox" name="volunteerRole" value="feeder"> Feeder</label>
+                        <label><input type="checkbox" name="volunteerRole" value="cleaner"> Cleaner</label>
+                        <label><input type="checkbox" name="volunteerRole" value="foster-coordinator"> Foster Coordinator</label>
+                    </div>
+                </div>
+
+                <!-- Availability -->
+                <div class="form-section">
+                    <h3>Weekly Availability</h3>
+                    <div class="availability-grid">
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="monday"> Monday</label>
+                            <input type="time" name="monday-start" placeholder="Start">
+                            <input type="time" name="monday-end" placeholder="End">
+                        </div>
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="tuesday"> Tuesday</label>
+                            <input type="time" name="tuesday-start" placeholder="Start">
+                            <input type="time" name="tuesday-end" placeholder="End">
+                        </div>
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="wednesday"> Wednesday</label>
+                            <input type="time" name="wednesday-start" placeholder="Start">
+                            <input type="time" name="wednesday-end" placeholder="End">
+                        </div>
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="thursday"> Thursday</label>
+                            <input type="time" name="thursday-start" placeholder="Start">
+                            <input type="time" name="thursday-end" placeholder="End">
+                        </div>
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="friday"> Friday</label>
+                            <input type="time" name="friday-start" placeholder="Start">
+                            <input type="time" name="friday-end" placeholder="End">
+                        </div>
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="saturday"> Saturday</label>
+                            <input type="time" name="saturday-start" placeholder="Start">
+                            <input type="time" name="saturday-end" placeholder="End">
+                        </div>
+                        <div class="availability-day">
+                            <label><input type="checkbox" name="availDay" value="sunday"> Sunday</label>
+                            <input type="time" name="sunday-start" placeholder="Start">
+                            <input type="time" name="sunday-end" placeholder="End">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-section">
+                    <h3>Certifications & Training</h3>
+                    <div id="certificationContainer">
+                        <div class="cert-input-group">
+                            <input type="text" class="cert-name" placeholder="Certification Name">
+                            <input type="date" class="cert-expiry" placeholder="Expiry Date">
+                            <button type="button" class="btn-remove-cert" onclick="removeCertInput(this)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="addCertInput()">
+                        <i class="fas fa-plus"></i> Add Certification
+                    </button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeVolunteerModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Volunteer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Shift Details Modal -->
+    <div id="shiftDetailsModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeShiftDetailsModal()">&times;</span>
+            <div id="shiftDetailsContent">
+                <!-- Details will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer Details Modal -->
+    <div id="volunteerDetailsModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeVolunteerDetailsModal()">&times;</span>
+            <div id="volunteerDetailsContent">
+                <!-- Details will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="../js/global/navbar.js"></script>
+    <script src="../js/global/footer.js"></script>
+    <script src="../js/pages/volunteer-scheduling.js"></script>
+</body>
+</html>
