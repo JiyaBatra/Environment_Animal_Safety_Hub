@@ -97,6 +97,7 @@
 
   <!-- PWA Styles -->
   <link rel="stylesheet" href="css/pwa.css" />
+  <link rel="stylesheet" href="css/components/cards-3d.css" />
 
 
   <style>
@@ -305,7 +306,8 @@
         <a href="./pages/indigenous-knowledge-loss.html" class="indigenous-crisis-btn">
           <i class="fas fa-eye"></i> View Crisis Details
         </a>
-        <button class="indigenous-crisis-dismiss" onclick="closeIndigenousCrisisAlert()" aria-label="Close crisis alert">
+        <button class="indigenous-crisis-dismiss" onclick="closeIndigenousCrisisAlert()"
+          aria-label="Close crisis alert">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -410,15 +412,15 @@
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
           <div class="social-proof-badge">
             <div class="avatars">
-               <span class="avatar" style="background-image: url('assets/images/others/user1.jpg');"></span>
-               <span class="avatar" style="background-image: url('assets/images/others/user2.jpg');"></span>
-               <span class="avatar" style="background-image: url('assets/images/others/user3.jpg');"></span>
+              <span class="avatar" style="background-image: url('assets/images/others/user1.jpg');"></span>
+              <span class="avatar" style="background-image: url('assets/images/others/user2.jpg');"></span>
+              <span class="avatar" style="background-image: url('assets/images/others/user3.jpg');"></span>
             </div>
             <span class="hero-badge" role="status">
               Join 50,000+ Eco Warriors
             </span>
           </div>
-          
+
           <!-- Page View Counter -->
           <span class="hero-badge page-view-counter" id="page-view-counter" role="status" aria-live="polite">
             <i class="fa-solid fa-eye" aria-hidden="true"></i> <span id="page-view-count">0</span> Page Views
@@ -430,7 +432,7 @@
           <p class="hero-subtitle">
             Together we can save nature, help animals, and create a greener future.
           </p>
-          
+
           <!-- Call to Action Buttons -->
           <div class="hero-cta" role="group" aria-label="Main actions">
             <a href="#about" class="btn btn-primary" aria-describedby="get-started-desc">
@@ -440,7 +442,8 @@
             <a href="#animal" class="btn btn-secondary" aria-describedby="learn-more-desc">
               Learn More
             </a>
-            <div id="learn-more-desc" class="sr-only">Discover more about animal protection and environmental conservation</div>
+            <div id="learn-more-desc" class="sr-only">Discover more about animal protection and environmental
+              conservation</div>
           </div>
 
           <!-- Search Bar -->
@@ -481,7 +484,7 @@
             
             <!-- Floating 3D Elements (Optional enhancements for depth) -->
             <div class="floating-badge badge-1">
-               <i class="fas fa-tree"></i> <span>Nature First</span>
+              <i class="fas fa-tree"></i> <span>Nature First</span>
             </div>
           </div>
         </div>
@@ -922,9 +925,11 @@
 
         <div class="cards-grid">
 
+          <!-- Card 1: Reduce Plastic -->
           <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
-            <div class="card-image">
-              <img src="https://i.pinimg.com/736x/de/0b/3a/de0b3a9531a93b36d25c78b3523307a0.jpg" alt="Reduce Plastic" />
+            <div class="card-3d-icon">
+              <img src="assets/images/3d/recycling_bin.png" class="animate-float-3d"
+                alt="3D Recycling Bin with Plastic" />
               <div class="card-overlay">
                 <span class="card-tag">Recycling</span>
               </div>
@@ -945,9 +950,10 @@
             </div>
           </div>
 
+          <!-- Card 2: Save Energy -->
           <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="card-image">
-              <img src="https://i.pinimg.com/736x/0d/62/62/0d6262dbc9df357f19e5948bb1d63f2b.jpg" alt="Save Energy" />
+            <div class="card-3d-icon">
+              <img src="assets/images/3d/energy_bulb.png" class="animate-float-3d" alt="3D Energy Saving Bulb" />
               <div class="card-overlay">
                 <span class="card-tag">Climate</span>
               </div>
@@ -968,9 +974,10 @@
             </div>
           </div>
 
+          <!-- Card 3: Plant Trees -->
           <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="card-image">
-              <img src="https://i.pinimg.com/736x/a8/e5/c5/a8e5c5f756ad1179e194bc3205d8b144.jpg" alt="Plant Trees" />
+            <div class="card-3d-icon">
+              <img src="assets/images/3d/planting_tree.png" class="animate-float-3d" alt="3D Tree Planting" />
               <div class="card-overlay">
                 <span class="card-tag">Plantation</span>
               </div>
@@ -991,10 +998,10 @@
             </div>
           </div>
 
+          <!-- Card 4: Wet Waste -->
           <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="card-image">
-              <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop"
-                alt="Wet Waste">
+            <div class="card-3d-icon">
+              <img src="assets/images/3d/wet_waste.png" class="animate-float-3d" alt="3D Wet Waste Compost" />
               <div class="card-overlay">
                 <span class="card-tag">Wet Waste</span>
               </div>
@@ -1013,10 +1020,10 @@
             </div>
           </div>
 
+          <!-- Card 5: Dry Waste -->
           <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="card-image">
-              <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1000&auto=format&fit=crop"
-                alt="Dry Waste">
+            <div class="card-3d-icon">
+              <img src="assets/images/3d/dry_waste.png" class="animate-float-3d" alt="3D Dry Waste Recycling" />
               <div class="card-overlay">
                 <span class="card-tag">Dry Waste</span>
               </div>
@@ -1035,9 +1042,10 @@
             </div>
           </div>
 
+          <!-- Card 6: E-Waste -->
           <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
-            <div class="card-image">
-              <img src="https://greenecosystem.in/wp-content/uploads/2024/09/ewaste_list-1024x585.webp" alt="E-Waste">
+            <div class="card-3d-icon">
+              <img src="assets/images/3d/ewaste.png" class="animate-float-3d" alt="3D E-Waste Electronics" />
               <div class="card-overlay">
                 <span class="card-tag">E-Waste</span>
               </div>
@@ -1193,107 +1201,107 @@
       </div>
     </section>
     <!-- Eco Challenges Section -->
-<section class="eco-challenges-section">
-  <div class="section-container">
+    <section class="eco-challenges-section">
+      <div class="section-container">
 
-    <div class="section-header" data-aos="fade-up">
-      <span class="section-tag">
-        <i class="fa-solid fa-seedling"></i> Eco Challenges
-      </span>
-      <h2 class="section-title">Take Small Actions, Make a Big Impact</h2>
-      <p class="section-subtitle">
-        Complete simple daily challenges to help the planet and protect animals.
-      </p>
-    </div>
-
-    <!-- GRID START -->
-    <div class="eco-challenges-grid">
-
-      <!-- Card 1 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/icon_water_plant.png" alt="Water Plant">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-tag">
+            <i class="fa-solid fa-seedling"></i> Eco Challenges
+          </span>
+          <h2 class="section-title">Take Small Actions, Make a Big Impact</h2>
+          <p class="section-subtitle">
+            Complete simple daily challenges to help the planet and protect animals.
+          </p>
         </div>
-        <h3>Water a Plant</h3>
-        <p>Water at least one plant today.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
 
-      <!-- Card 2 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/icon_save_energy.png" alt="Save Energy">
+        <!-- GRID START -->
+        <div class="eco-challenges-grid">
+
+          <!-- Card 1 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/icon_water_plant.png" alt="Water Plant">
+            </div>
+            <h3>Water a Plant</h3>
+            <p>Water at least one plant today.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/icon_save_energy.png" alt="Save Energy">
+            </div>
+            <h3>Save Electricity</h3>
+            <p>Turn off unused lights and fans.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/icon_feed_birds.png" alt="Feed Birds">
+            </div>
+            <h3>Feed Birds</h3>
+            <p>Place water or grains for birds.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/icon_no_plastic.png" alt="Avoid Plastic">
+            </div>
+            <h3>Avoid Plastic</h3>
+            <p>Say no to single-use plastic today.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/icon_plant_tree.png" alt="Plant Tree">
+            </div>
+            <h3>Plant a Sapling</h3>
+            <p>Plant or help plant a tree.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/icon_clean_trash.png" alt="Clean Area">
+            </div>
+            <h3>Clean Your Area</h3>
+            <p>Pick up litter near your home.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/image.png" alt="Save Water">
+            </div>
+            <h3>Reduce Water Waste</h3>
+            <p>Turn off taps when not in use.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
+          <!-- Card 8 -->
+          <div class="eco-challenge-card" data-tilt>
+            <div class="challenge-icon-3d">
+              <img src="assets/images/3d/reusable-bags.png" alt="Save Water">
+            </div>
+            <h3>Use Reusable Bags</h3>
+            <p>Carry reusable bags for shopping.</p>
+            <button class="challenge-btn">Mark as Done</button>
+          </div>
+
         </div>
-        <h3>Save Electricity</h3>
-        <p>Turn off unused lights and fans.</p>
-        <button class="challenge-btn">Mark as Done</button>
+        <!-- GRID END -->
+
       </div>
-
-      <!-- Card 3 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/icon_feed_birds.png" alt="Feed Birds">
-        </div>
-        <h3>Feed Birds</h3>
-        <p>Place water or grains for birds.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/icon_no_plastic.png" alt="Avoid Plastic">
-        </div>
-        <h3>Avoid Plastic</h3>
-        <p>Say no to single-use plastic today.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/icon_plant_tree.png" alt="Plant Tree">
-        </div>
-        <h3>Plant a Sapling</h3>
-        <p>Plant or help plant a tree.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/icon_clean_trash.png" alt="Clean Area">
-        </div>
-        <h3>Clean Your Area</h3>
-        <p>Pick up litter near your home.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
-
-      <!-- Card 7 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/image.png" alt="Save Water">
-        </div>
-        <h3>Reduce Water Waste</h3>
-        <p>Turn off taps when not in use.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
-
-      <!-- Card 8 -->
-      <div class="eco-challenge-card" data-tilt>
-        <div class="challenge-icon-3d">
-          <img src="assets/images/3d/reusable-bags.png" alt="Save Water">
-        </div>
-        <h3>Use Reusable Bags</h3>
-        <p>Carry reusable bags for shopping.</p>
-        <button class="challenge-btn">Mark as Done</button>
-      </div>
-
-    </div>
-    <!-- GRID END -->
-
-  </div>
-</section>
+    </section>
 
 
 

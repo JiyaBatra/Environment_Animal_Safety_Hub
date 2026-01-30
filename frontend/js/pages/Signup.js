@@ -2,7 +2,7 @@
  * Signup Page JavaScript
  *
  * Handles multi-step user registration form with validation, password strength checking,
- * and progress tracking for the environmental and animal safety platform.
+ * progress tracking, and real API integration for the environmental and animal safety platform.
  *
  * Features:
  * - Multi-step form navigation (4 steps)
@@ -10,12 +10,18 @@
  * - Password strength indicator
  * - Form data persistence and confirmation
  * - Responsive progress tracking
+ * - Real API registration with JWT
  * - Accessibility considerations
  *
  * @author Environment & Animal Safety Hub Team
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024
  */
+
+// API Configuration
+const API_BASE_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000/api'
+    : '/api';
 
 // Current Step
 let currentStep = 1;
@@ -502,36 +508,117 @@ function updateSummary() {
 }
 
 /**
- * Setup form submission handling
+ * Setup form submission handling with real API
  */
 function setupFormSubmission() {
     const signupForm = document.getElementById("signupForm");
     if (!signupForm) return;
 
-    signupForm.addEventListener("submit", function (e) {
+    signupForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         if (!validateStep(4)) {
             return;
         }
 
-        // Simulate Signup - store user data in localStorage
-        localStorage.setItem('isLoggedIn', 'true');
-        const firstNameInput = document.getElementById('firstName');
-        const firstName = firstNameInput ? firstNameInput.value : 'Eco';
-        localStorage.setItem('userName', firstName + ' Warrior');
-
-        // Show success modal
-        const successModal = document.getElementById("successModal");
-        if (successModal) {
-            successModal.classList.add("show");
+        const submitBtn = document.getElementById("submitBtn");
+        const originalText = submitBtn ? submitBtn.innerHTML : '';
+        
+        // Show loading
+        if (submitBtn) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.disabled = true;
         }
 
-        // Redirect after delay
-        setTimeout(() => {
-            window.location.href = "../index.html";
-        }, 2000);
+        // Gather form data
+        const formData = {
+            firstName: document.getElementById('firstName')?.value?.trim(),
+            lastName: document.getElementById('lastName')?.value?.trim(),
+            username: document.getElementById('username')?.value?.trim(),
+            email: document.getElementById('email')?.value?.trim(),
+            password: document.getElementById('password')?.value,
+            interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value)
+        };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                // Store auth data
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('token', result.data.token);
+                localStorage.setItem('refreshToken', result.data.refreshToken);
+                localStorage.setItem('userName', result.data.user.firstName + ' ' + result.data.user.lastName);
+                localStorage.setItem('userId', result.data.user.id);
+                localStorage.setItem('userEmail', result.data.user.email);
+
+                // Show success modal
+                const successModal = document.getElementById("successModal");
+                if (successModal) {
+                    successModal.classList.add("show");
+                }
+
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = "../index.html";
+                }, 2000);
+            } else {
+                // Show error
+                showSignupError(result.message || 'Registration failed. Please try again.');
+                if (submitBtn) {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        } catch (error) {
+            console.error('Signup error:', error);
+            // Fallback to localStorage for offline/demo mode
+            if (error.name === 'TypeError') {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', formData.firstName + ' ' + formData.lastName);
+                
+                const successModal = document.getElementById("successModal");
+                if (successModal) {
+                    successModal.classList.add("show");
+                }
+                setTimeout(() => {
+                    window.location.href = "../index.html";
+                }, 2000);
+            } else {
+                showSignupError('Connection error. Please try again.');
+                if (submitBtn) {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        }
     });
+}
+
+/**
+ * Show signup error message
+ * @param {string} message - Error message to display
+ */
+function showSignupError(message) {
+    let errorDiv = document.getElementById('signup-error');
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.id = 'signup-error';
+        errorDiv.style.cssText = 'background:#ffebee;color:#c62828;padding:12px;border-radius:8px;margin-bottom:16px;text-align:center;';
+        const currentStepEl = document.querySelector('.form-step.active');
+        if (currentStepEl) {
+            currentStepEl.insertBefore(errorDiv, currentStepEl.firstChild);
+        }
+    }
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    setTimeout(() => { errorDiv.style.display = 'none'; }, 5000);
 }
 
 /**

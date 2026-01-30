@@ -55,6 +55,32 @@ activities through education and quizzes.
 
 ---
 
+## 🌊 Altered River Flow from Hydropower Dams
+
+Hydropower dams significantly impact river ecosystems. This section explores:
+
+- **Fish Migration**: Investigating how disrupted flow regimes affect migratory patterns of fish species.
+- **Sediment Transport**: Analyzing changes in sediment deposition and erosion downstream.
+- **Biodiversity**: Studying the effects on aquatic and riparian biodiversity due to altered flow dynamics.
+
+This research aims to provide actionable insights for sustainable hydropower development and river ecosystem conservation.
+
+For detailed information, see: [Hydropower Dams Impact Study](MD/HYDROPOWER_DAMS_README.md)
+
+## 🌊 Climate Change and Deep-Sea Biodiversity Loss
+
+Climate change is profoundly impacting deep-sea ecosystems through ocean warming and deoxygenation. This section explores:
+
+- **Ocean Warming**: How rising temperatures affect slow-growing deep-sea organisms.
+- **Deoxygenation**: The impacts of declining oxygen levels on deep-sea biodiversity.
+- **Vulnerable Species**: Focus on species with long lifespans and slow reproduction rates.
+
+Understanding these impacts is crucial for deep-sea conservation in the face of climate change.
+
+For detailed information, see: [Deep-Sea Biodiversity Study](MD/DEEP_SEA_BIODIVERSITY_README.md)
+
+---
+
 ## 🛠 Tech Stack
 
 | Technology | Role |
@@ -99,6 +125,20 @@ _Thanks to everyone supporting this initiative!_ 💚
 - User login & save quiz score feature
 - Animations & interactive infographics
 - Dark mode and accessibility improvements
+
+---
+
+## 🌊 Altered River Flow from Hydropower Dams
+
+Hydropower dams significantly impact river ecosystems. This section explores:
+
+- **Fish Migration**: Investigating how disrupted flow regimes affect migratory patterns of fish species.
+- **Sediment Transport**: Analyzing changes in sediment deposition and erosion downstream.
+- **Biodiversity**: Studying the effects on aquatic and riparian biodiversity due to altered flow dynamics.
+
+This research aims to provide actionable insights for sustainable hydropower development and river ecosystem conservation.
+
+For detailed information, see: [Hydropower Dams Impact Study](MD/HYDROPOWER_DAMS_README.md)
 
 ---
 

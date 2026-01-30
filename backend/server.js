@@ -1,10 +1,12 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const reportRoutes = require('./routes/reportRoutes');
-const adminRoutes = require('./routes/adminRoutes');
 
+// Load environment variables
+dotenv.config();
+
+// Create Express app
 const app = express();
 
 // Connect to MongoDB
@@ -12,83 +14,85 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:8080'],
-  credentials: true
+  origin: process.env.CORS_ORIGIN || '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 // Request logging middleware
 app.use((req, res, next) => {
-  const timestamp = new Date().toISOString();
-  console.log(`[${timestamp}] ${req.method} ${req.path}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
 });
 
 // API Routes
-app.use('/api/reports', reportRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/api/auth', require('./routes/authRoutes'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Server is running',
-    timestamp: new Date().toISOString()
+    message: 'EcoLife API is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
-    message: 'EcoLife Incident Reporting API',
+    message: 'Welcome to EcoLife API',
     version: '1.0.0',
     endpoints: {
-      health: 'GET /api/health',
-      submitReport: 'POST /api/reports',
-      trackReport: 'GET /api/reports/:id/status',
-      adminReports: 'GET /api/admin/reports',
-      adminStatistics: 'GET /api/admin/reports/statistics',
-      adminUrgent: 'GET /api/admin/reports/urgent'
+      auth: '/api/auth',
+      health: '/api/health'
     }
   });
 });
 
-// 404 handler
-app.use((req, res) => {
+// 404 Handler
+app.use((req, res, next) => {
   res.status(404).json({
     success: false,
-    message: 'Endpoint not found'
+    message: `Route ${req.originalUrl} not found`
   });
 });
 
-// Global error handler
+// Global Error Handler
 app.use((err, req, res, next) => {
-  console.error('Server Error:', err);
-  res.status(500).json({
+  console.error('Global Error Handler:', err);
+
+  res.status(err.statusCode || 500).json({
     success: false,
-    message: 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    message: err.message || 'Internal Server Error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
 });
 
 // Start server
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
-║   🌿 EcoLife Incident Reporting API Server               ║
+║   🌿 EcoLife Authentication Server                        ║
 ║                                                           ║
-║   Server running on port ${PORT}                            ║
-║   Environment: ${process.env.NODE_ENV || 'development'}                          ║
+║   Server running on port ${PORT}                             ║
+║   Environment: ${(process.env.NODE_ENV || 'development').padEnd(39)}║
 ║                                                           ║
-║   Endpoints:                                              ║
-║   • POST /api/reports         - Submit new report         ║
-║   • GET  /api/reports/:id/status - Track report status    ║
-║   • GET  /api/admin/reports   - Get all reports (admin)   ║
-║   • GET  /api/admin/reports/statistics - Get stats        ║
-║   • GET  /api/admin/reports/urgent - Get urgent reports   ║
+║   API Endpoints:                                          ║
+║   • POST   /api/auth/register     - Register new user     ║
+║   • POST   /api/auth/login        - User login            ║
+║   • GET    /api/auth/me           - Get profile           ║
+║   • PUT    /api/auth/me           - Update profile        ║
+║   • PUT    /api/auth/change-password - Change password    ║
+║   • POST   /api/auth/refresh-token   - Refresh JWT        ║
+║   • POST   /api/auth/logout          - Logout user        ║
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
