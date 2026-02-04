@@ -497,3 +497,17 @@ select:focus {
     text-decoration: none;
 }
 
+.confirmation-modal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmation-modal.show {
+  display: flex;
+}
+
+input.error {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+}
