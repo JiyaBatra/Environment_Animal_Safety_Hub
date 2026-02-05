@@ -4088,3 +4088,31 @@ body:not([data-theme="dark"]) .hero-content *:not(.btn):not(.btn *):not(.hero-im
   --text-secondary: #333333;
   --text-muted: #555555;
 }
+/* ===========================================
+   FLOATING ACTION BUTTONS - UNIFIED LAYOUT
+   =========================================== */
+
+.fab-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 1100;
+}
+
+/* Make sure children are static inside container */
+.fab-container > * {
+  position: static !important;
+}
+/* ===========================================
+   Floating Action Buttons Override
+   Issue #1819
+=========================================== */
+
+.fab-container .back-to-top,
+.fab-container .scroll-to-bottom {
+  bottom: auto;
+  right: auto;
+}
