@@ -58,9 +58,12 @@
 }
 
 .nav-container {
-  width: 95%;                /* slightly tighter container */
-  max-width: 1400px;         /* prevents edge clipping at 100% zoom */
-  padding: 0 16px;           /* reduce side padding */
+  width: 95%;
+  /* slightly tighter container */
+  max-width: 1400px;
+  /* prevents edge clipping at 100% zoom */
+  padding: 0 16px;
+  /* reduce side padding */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -116,7 +119,8 @@
   transition: var(--transition-normal);
   margin-bottom: 20px;
   flex-shrink: 0;
-  width: fit-content;            /* ⬅️ content jitni width */
+  width: fit-content;
+  /* ⬅️ content jitni width */
   max-width: fit-content;
 }
 
@@ -213,7 +217,8 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 16px;                /* tighter but still readable */
+  gap: 16px;
+  /* tighter but still readable */
   list-style: none;
   margin: 0;
   padding: 0;
@@ -276,6 +281,7 @@
 .font-size-increase {
   margin-left: 15px;
 }
+
 /* ===== DROPDOWNS ===== */
 .nav-group {
   position: relative;
@@ -342,7 +348,8 @@
   margin-left: auto;
   padding-left: 16px;
   border-left: 1px solid rgba(255, 255, 255, 0.3);
-  flex-shrink: 1;           /* allow slight shrink instead of clipping */
+  flex-shrink: 1;
+  /* allow slight shrink instead of clipping */
   min-width: fit-content;
 }
 
@@ -369,7 +376,8 @@
 
 /* Sign Up Button */
 .btn-signup {
-  padding: 8px 16px;        /* slightly tighter */
+  padding: 8px 16px;
+  /* slightly tighter */
   background: linear-gradient(135deg, var(--eco-light), var(--eco-primary));
   color: var(--white);
   border-radius: var(--radius-xl);
@@ -379,7 +387,8 @@
   white-space: nowrap;
   text-decoration: none;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-left: 10px;        /* ensures it never clips */
+  margin-left: 10px;
+  /* ensures it never clips */
 }
 
 .btn-signup:hover {
@@ -684,11 +693,11 @@
   }
 
   .nav-left {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  flex: 1;            
-}
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    flex: 1;
+  }
 
   .auth-guest-only {
     width: 100%;
@@ -856,6 +865,7 @@
     transform: translateY(0);
   }
 }
+
 /* Kids Quiz Button Highlight */
 .btn-quiz-highlight {
   background: var(--eco-primary) !important;
@@ -884,7 +894,7 @@
   border: 2px solid #38a169;
   padding: 8px 16px;
   border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
@@ -892,5 +902,5 @@
   background: #38a169 !important;
   color: white !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
