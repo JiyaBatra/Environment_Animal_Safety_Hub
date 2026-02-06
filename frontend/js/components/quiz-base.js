@@ -267,6 +267,15 @@ class BaseQuiz {
     if (this.elements.remarkEl) {
       this.elements.remarkEl.textContent = remark;
     }
+
+    // Report progress to global system
+    if (window.UserProgress) {
+      window.UserProgress.completeQuiz(
+        this.config.id || 'unknown-quiz', // Ensure config has ID
+        this.score,
+        this.questions.length
+      );
+    }
   }
 
   /**

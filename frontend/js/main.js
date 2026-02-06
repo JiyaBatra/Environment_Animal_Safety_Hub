@@ -1369,6 +1369,22 @@ function initSurvivalScore() {
 
 
 
+// ===============================
+// REMOVE DUPLICATE FLOATING THEME TOGGLE
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const navbarToggle = document.getElementById("themeToggle");
+
+  // Common selectors used for floating toggles
+  const floatingToggles = document.querySelectorAll(
+    ".theme-toggle, .floating-theme-toggle, .theme-fab"
+  );
+
+  if (navbarToggle && floatingToggles.length > 0) {
+    floatingToggles.forEach(toggle => toggle.remove());
+  }
+});
+
 /**
  * Initialize scroll to bottom button
  * Provides quick navigation to bottom of page

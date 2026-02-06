@@ -132,7 +132,8 @@
       </div>
     </div>
   </div>
-  <!-- Indigenous Knowledge Loss Crisis Alert Banner - Level 3 Emergency -->
+
+  <!-- Indigenous Knowledge Loss Crisis Alert -->
   <div class="indigenous-crisis-alert-banner" id="indigenous-crisis-alert-banner" style="display: none;">
     <div class="indigenous-crisis-alert-content">
       <div class="indigenous-crisis-icon">
@@ -163,7 +164,8 @@
   </div>
   <div id="cursor-container">
   </div>
-  <!-- Level 3 Crisis Alert Banner -->
+
+  <!-- Fire Regime Crisis Alert -->
   <div class="crisis-alert-banner" id="crisisAlert">
     <div class="crisis-alert-content">
       <div class="crisis-icon">
@@ -2338,6 +2340,9 @@
     <i class="fa-solid fa-arrow-down">
     </i>
   </button>
+
+</div>
+
   <!-- Info Modal -->
   <div class="custom-modal-overlay" id="infoModal">
     <div class="custom-modal-content">
@@ -2376,8 +2381,15 @@
   </script>
   <script src="js/global/optimized-image-loader.js">
   </script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
-  </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    once: true,
+    duration: 800,
+    easing: "ease-out-cubic"
+  });
+</script>
+
   <!-- MAIN APP -->
   <script src="js/main.js">
   </script>
@@ -2691,13 +2703,8 @@
     }
   </script>
   <!-- Global JavaScript for Live Clock -->
-  <script src="js/global/main.js">
-  </script>
   <!-- Home Page Parallax Script -->
-  <script src="js/pages/home.js">
-  </script>
-  <script src="js/components/eco-assistant.js">
-  </script>
+  <script src="js/components/eco-assistant.js"></script>
   <!-- PWA Script -->
   <script src="js/pwa.js">
   </script>
