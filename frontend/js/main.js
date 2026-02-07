@@ -285,7 +285,7 @@ function initAdditionalFeatures() {
   initSurvivalScore();
 
   // Theme and accessibility
-  initThemeToggle();
+  // initThemeToggle(); // Handled by theme-toggle.js
   initScrollBottomButton();
 
   // Earth visualization
@@ -1367,64 +1367,7 @@ function initSurvivalScore() {
 // THEME & ACCESSIBILITY FEATURES
 // ===========================================
 
-/**
- * Initialize theme toggle functionality
- * Handles light/dark theme switching with localStorage persistence
- */
-function initThemeToggle() {
-  const applyTheme = (theme) => {
-    document.documentElement.setAttribute("data-theme", theme);
-    document.body.classList.toggle("dark-theme", theme === "dark");
-    localStorage.setItem("theme", theme);
-  };
 
-  const setupToggle = () => {
-    const toggle = document.getElementById("themeToggle");
-    if (!toggle) return;
-
-    // Prevent duplicate listeners
-    if (toggle.dataset.bound === "true") return;
-    toggle.dataset.bound = "true";
-
-    const icon = toggle.querySelector("i");
-
-    // Apply saved theme
-    const savedTheme = localStorage.getItem("theme") || "light";
-    applyTheme(savedTheme);
-
-    if (icon) {
-      icon.classList.toggle("fa-sun", savedTheme === "dark");
-      icon.classList.toggle("fa-moon", savedTheme === "light");
-    }
-
-    toggle.addEventListener("click", () => {
-      const isDark =
-        document.documentElement.getAttribute("data-theme") === "dark";
-      const newTheme = isDark ? "light" : "dark";
-
-      applyTheme(newTheme);
-
-      if (icon) {
-        icon.classList.toggle("fa-sun", newTheme === "dark");
-        icon.classList.toggle("fa-moon", newTheme === "light");
-      }
-
-      // Accessibility feedback
-      toggle.setAttribute(
-        "aria-label",
-        `Switch to ${newTheme === "dark" ? "light" : "dark"} mode`
-      );
-    });
-  };
-
-  // If navbar already exists
-  if (document.getElementById("themeToggle")) {
-    setupToggle();
-  } else {
-    // Wait for navbar injection
-    window.addEventListener("navbarLoaded", setupToggle);
-  }
-}
 
 // ===============================
 // REMOVE DUPLICATE FLOATING THEME TOGGLE
@@ -1947,7 +1890,7 @@ function initFlipCards() {
 // ===========================================
 // END OF MAIN.JS
 // ===========================================function closeNoiseCrisisAlert() {
-  function closeNoiseCrisisAlert() {
+function closeNoiseCrisisAlert() {
   const banner = document.getElementById("noise-crisis-alert-banner");
 
   if (banner) {

@@ -8,7 +8,7 @@ function getToggleBtn() {
 (function () {
   'use strict';
 
-  const THEME_KEY = 'ecolife-theme';
+  const THEME_KEY = 'theme';
   const LIGHT = 'light';
   const DARK = 'dark';
 
