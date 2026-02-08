@@ -12,7 +12,7 @@
   </title>
   <meta
     content="Join EcoLife to protect animals, save the environment, and create a greener future for all. Access tips, guides, and community features offline."
-    name="description" />
+    id="meta-description" name="description" />
   <!-- PWA Meta Tags -->
   <meta content="#22c55e" name="theme-color" />
   <meta content="yes" name="apple-mobile-web-app-capable" />
@@ -29,19 +29,21 @@
   <link href="assets/icons/icon-192x192.png" rel="apple-touch-icon" sizes="180x180" />
   <link href="assets/icons/icon-192x192.png" rel="apple-touch-icon" sizes="167x167" />
   <!-- Open Graph / Facebook -->
-  <meta content="website" property="og:type" />
-  <meta content="https://ecolife-app.com/" property="og:url" />
-  <meta content="EcoLife | Protect Our Planet &amp; Animals" property="og:title" />
+  <meta content="website" id="og-type" property="og:type" />
+  <meta content="https://ecolife-app.com/" id="og-url" property="og:url" />
+  <meta content="EcoLife | Protect Our Planet &amp; Animals" id="og-title" property="og:title" />
   <meta content="Join EcoLife to protect animals, save the environment, and create a greener future for all."
-    property="og:description" />
-  <meta content="https://ecolife-app.com/assets/images/others/envirnoment-logo.webp" property="og:image" />
+    id="og-description" property="og:description" />
+  <meta content="https://ecolife-app.com/assets/images/others/envirnoment-logo.webp" id="og-image"
+    property="og:image" />
   <!-- Twitter -->
-  <meta content="summary_large_image" property="twitter:card" />
-  <meta content="https://ecolife-app.com/" property="twitter:url" />
-  <meta content="EcoLife | Protect Our Planet &amp; Animals" property="twitter:title" />
+  <meta content="summary_large_image" id="twitter-card" property="twitter:card" />
+  <meta content="https://ecolife-app.com/" id="twitter-url" property="twitter:url" />
+  <meta content="EcoLife | Protect Our Planet &amp; Animals" id="twitter-title" property="twitter:title" />
   <meta content="Join EcoLife to protect animals, safeguard the environment, and build a greener future for all."
-    property="twitter:description" />
-  <meta content="https://ecolife-app.com/assets/images/others/envirnoment-logo.webp" property="twitter:image" />
+    id="twitter-description" property="twitter:description" />
+  <meta content="https://ecolife-app.com/assets/images/others/envirnoment-logo.webp" id="twitter-image"
+    property="twitter:image" />
   <!-- Preload critical resources -->
   <link as="style" href="css/global/variables.css" rel="preload" />
   <link as="style" href="css/global/utilities.css" rel="preload" />
@@ -1089,188 +1091,218 @@
               <p>
                 Dry waste includes plastics, paper, metal, and cardboard.
                 Keep it clean for recycling.
-        </p>
-        <div class="card-footer">
-         <div class="card-stats">
-          <i class="fa-solid fa-recycle">
-          </i>
-          Recyclables
-         </div>
-        </div>
-       </div>
-      </article>
-       <!-- Card 5.5: Urban Tree Canopy Visualizer -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="450">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-tree-city" style="font-size:3rem; color:#fff;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Urban Tree Canopy Visualizer</h3>
-          <p>See your city's green cover, spot areas needing trees, and join local planting drives!</p>
-          <div class="card-footer">
-            <a href="urban-tree-canopy-visualizer.html" class="btn btn-primary" style="margin-top:8px;">Explore Visualizer</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 5.6: Community Eco-Event Calendar -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="475">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #b3e6ff 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-calendar-days" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Community Eco-Event Calendar</h3>
-          <p>Find, join, and create local eco-friendly events. RSVP and get reminders for cleanups, workshops, and more!</p>
-          <div class="card-footer">
-            <a href="eco-event-calendar.html" class="btn btn-primary" style="margin-top:8px;">Open Calendar</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 5.7: Eco-Friendly Business Directory -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="500">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #43cea2 0%, #ffe066 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-store" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Eco-Friendly Business Directory</h3>
-          <p>Find, review, and support local green businesses. Search, map, and rate eco-friendly stores, cafes, and more!</p>
-          <div class="card-footer">
-            <a href="eco-business-directory.html" class="btn btn-primary" style="margin-top:8px;">Browse Directory</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 5.8: Wildlife Sighting Tracker -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="525">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #b3e6ff 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-binoculars" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Wildlife Sighting Tracker</h3>
-          <p>Log and share wildlife sightings, upload photos, and explore recent observations on an interactive map!</p>
-          <div class="card-footer">
-            <a href="wildlife-sighting-tracker.html" class="btn btn-primary" style="margin-top:8px;">Track Sightings</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 5.9: Environmental News Feed -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="550">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #ffe066 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-newspaper" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Environmental News Feed</h3>
-          <p>Read the latest environmental news, research, and policy updates. Filter by topic and region, and bookmark articles!</p>
-          <div class="card-footer">
-            <a href="environmental-news-feed.html" class="btn btn-primary" style="margin-top:8px;">View News Feed</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 6.0: Eco-Achievement Badges -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="575">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #43cea2 0%, #b3e6ff 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-award" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Eco-Achievement Badges</h3>
-          <p>Earn badges for eco-friendly actions like events, sightings, and reviews. Show off your achievements on your profile!</p>
-          <div class="card-footer">
-            <a href="eco-achievement-badges.html" class="btn btn-primary" style="margin-top:8px;">View My Badges</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 6.1: Water Footprint Calculator -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="600">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #43cea2 0%, #b3e6ff 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-droplet" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Water Footprint Calculator</h3>
-          <p>Track your direct and indirect water use from daily activities, diet, and purchases. Get a detailed breakdown and tips!</p>
-          <div class="card-footer">
-            <a href="water-footprint-calculator.html" class="btn btn-primary" style="margin-top:8px;">Calculate Now</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 6.2: Plastic Footprint Tracker -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="625">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #ffe066 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-recycle" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Plastic Footprint Tracker</h3>
-          <p>Log your plastic use, visualize trends, and set reduction goals. Get tips to reduce your plastic footprint!</p>
-          <div class="card-footer">
-            <a href="plastic-footprint-tracker.html" class="btn btn-primary" style="margin-top:8px;">Track Plastic Use</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 6.3: Eco-Friendly Home Tips Hub -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="650">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #43cea2 0%, #ffe066 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-lightbulb" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Eco-Friendly Home Tips Hub</h3>
-          <p>Browse and save actionable tips for making your home more sustainable. Filter by category and search for ideas!</p>
-          <div class="card-footer">
-            <a href="eco-home-tips-hub.html" class="btn btn-primary" style="margin-top:8px;">Explore Tips</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 7: Sustainable Shopping Guide -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="675">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #185a9d 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-cart-shopping" style="font-size:3rem; color:#43cea2;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Sustainable Shopping Guide</h3>
-          <p>Find eco-friendly products, brands, and stores. Learn about eco-labels and bookmark your favorites!</p>
-          <div class="card-footer">
-            <a href="sustainable-shopping-guide.html" class="btn btn-primary" style="margin-top:8px;">Shop Sustainably</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 8: Community Green Projects Map -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="700">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-seedling" style="font-size:3rem; color:#185a9d;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Community Green Projects Map</h3>
-          <p>Discover, join, or start local green projects. Post updates, photos, and track progress!</p>
-          <div class="card-footer">
-            <a href="community-green-projects-map.html" class="btn btn-primary" style="margin-top:8px;">Explore Projects</a>
-          </div>
-        </div>
-       </article>
-       <!-- Card 9: Renewable Energy Tracker -->
-       <article class="feature-card" data-aos="fade-up" data-aos-delay="725">
-        <div class="card-3d-icon" style="background: linear-gradient(135deg, #185a9d 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
-          <i class="fa-solid fa-solar-panel" style="font-size:3rem; color:#43cea2;"></i>
-        </div>
-        <div class="card-content">
-          <h3>Renewable Energy Tracker</h3>
-          <p>Log and visualize your renewable energy usage. Track savings, compare with local averages, and get tips to increase adoption!</p>
-          <div class="card-footer">
-            <a href="renewable-energy-tracker.html" class="btn btn-primary" style="margin-top:8px;">Track Energy</a>
-          </div>
-        </div>
-       </article>
-      <!-- Card 6: E-Waste -->
-      <article class="feature-card" data-aos="fade-up" data-aos-delay="500">
-       <div class="card-3d-icon">
-        <img alt="3D E-Waste Electronics" class="animate-float-3d" loading="lazy" src="assets/images/3d/ewaste.webp"/>
-        <div class="card-overlay">
-         <span class="card-tag">
-          E-Waste
-         </span>
-        </div>
-       </div>
-       <div class="card-content">
-        <h3>
-         E-Waste
-        </h3>
-        <p>
-         E-waste includes discarded electronics like mobiles, batteries,
+              </p>
+              <div class="card-footer">
+                <div class="card-stats">
+                  <i class="fa-solid fa-recycle">
+                  </i>
+                  Recyclables
+                </div>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5.5: Urban Tree Canopy Visualizer -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="450">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-tree-city" style="font-size:3rem; color:#fff;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Urban Tree Canopy Visualizer</h3>
+              <p>See your city's green cover, spot areas needing trees, and join local planting drives!</p>
+              <div class="card-footer">
+                <a href="urban-tree-canopy-visualizer.html" class="btn btn-primary" style="margin-top:8px;">Explore
+                  Visualizer</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5.6: Community Eco-Event Calendar -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="475">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #b3e6ff 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-calendar-days" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Community Eco-Event Calendar</h3>
+              <p>Find, join, and create local eco-friendly events. RSVP and get reminders for cleanups, workshops, and
+                more!</p>
+              <div class="card-footer">
+                <a href="eco-event-calendar.html" class="btn btn-primary" style="margin-top:8px;">Open Calendar</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5.7: Eco-Friendly Business Directory -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #43cea2 0%, #ffe066 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-store" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Eco-Friendly Business Directory</h3>
+              <p>Find, review, and support local green businesses. Search, map, and rate eco-friendly stores, cafes, and
+                more!</p>
+              <div class="card-footer">
+                <a href="eco-business-directory.html" class="btn btn-primary" style="margin-top:8px;">Browse
+                  Directory</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5.8: Wildlife Sighting Tracker -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="525">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #b3e6ff 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-binoculars" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Wildlife Sighting Tracker</h3>
+              <p>Log and share wildlife sightings, upload photos, and explore recent observations on an interactive map!
+              </p>
+              <div class="card-footer">
+                <a href="wildlife-sighting-tracker.html" class="btn btn-primary" style="margin-top:8px;">Track
+                  Sightings</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 5.9: Environmental News Feed -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="550">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #ffe066 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-newspaper" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Environmental News Feed</h3>
+              <p>Read the latest environmental news, research, and policy updates. Filter by topic and region, and
+                bookmark articles!</p>
+              <div class="card-footer">
+                <a href="environmental-news-feed.html" class="btn btn-primary" style="margin-top:8px;">View News
+                  Feed</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6.0: Eco-Achievement Badges -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="575">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #43cea2 0%, #b3e6ff 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-award" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Eco-Achievement Badges</h3>
+              <p>Earn badges for eco-friendly actions like events, sightings, and reviews. Show off your achievements on
+                your profile!</p>
+              <div class="card-footer">
+                <a href="eco-achievement-badges.html" class="btn btn-primary" style="margin-top:8px;">View My Badges</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6.1: Water Footprint Calculator -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #43cea2 0%, #b3e6ff 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-droplet" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Water Footprint Calculator</h3>
+              <p>Track your direct and indirect water use from daily activities, diet, and purchases. Get a detailed
+                breakdown and tips!</p>
+              <div class="card-footer">
+                <a href="water-footprint-calculator.html" class="btn btn-primary" style="margin-top:8px;">Calculate
+                  Now</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6.2: Plastic Footprint Tracker -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="625">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #ffe066 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-recycle" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Plastic Footprint Tracker</h3>
+              <p>Log your plastic use, visualize trends, and set reduction goals. Get tips to reduce your plastic
+                footprint!</p>
+              <div class="card-footer">
+                <a href="plastic-footprint-tracker.html" class="btn btn-primary" style="margin-top:8px;">Track Plastic
+                  Use</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6.3: Eco-Friendly Home Tips Hub -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="650">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #43cea2 0%, #ffe066 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-lightbulb" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Eco-Friendly Home Tips Hub</h3>
+              <p>Browse and save actionable tips for making your home more sustainable. Filter by category and search
+                for ideas!</p>
+              <div class="card-footer">
+                <a href="eco-home-tips-hub.html" class="btn btn-primary" style="margin-top:8px;">Explore Tips</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 7: Sustainable Shopping Guide -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="675">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #185a9d 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-cart-shopping" style="font-size:3rem; color:#43cea2;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Sustainable Shopping Guide</h3>
+              <p>Find eco-friendly products, brands, and stores. Learn about eco-labels and bookmark your favorites!</p>
+              <div class="card-footer">
+                <a href="sustainable-shopping-guide.html" class="btn btn-primary" style="margin-top:8px;">Shop
+                  Sustainably</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 8: Community Green Projects Map -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="700">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-seedling" style="font-size:3rem; color:#185a9d;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Community Green Projects Map</h3>
+              <p>Discover, join, or start local green projects. Post updates, photos, and track progress!</p>
+              <div class="card-footer">
+                <a href="community-green-projects-map.html" class="btn btn-primary" style="margin-top:8px;">Explore
+                  Projects</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 9: Renewable Energy Tracker -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="725">
+            <div class="card-3d-icon"
+              style="background: linear-gradient(135deg, #185a9d 0%, #43cea2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; height: 110px;">
+              <i class="fa-solid fa-solar-panel" style="font-size:3rem; color:#43cea2;"></i>
+            </div>
+            <div class="card-content">
+              <h3>Renewable Energy Tracker</h3>
+              <p>Log and visualize your renewable energy usage. Track savings, compare with local averages, and get tips
+                to increase adoption!</p>
+              <div class="card-footer">
+                <a href="renewable-energy-tracker.html" class="btn btn-primary" style="margin-top:8px;">Track Energy</a>
+              </div>
+            </div>
+          </article>
+          <!-- Card 6: E-Waste -->
+          <article class="feature-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="card-3d-icon">
+              <img alt="3D E-Waste Electronics" class="animate-float-3d" loading="lazy"
+                src="assets/images/3d/ewaste.webp" />
+              <div class="card-overlay">
+                <span class="card-tag">
+                  E-Waste
+                </span>
+              </div>
+            </div>
+            <div class="card-content">
+              <h3>
+                E-Waste
+              </h3>
+              <p>
+                E-waste includes discarded electronics like mobiles, batteries,
                 and laptops. Dispose responsibly.
               </p>
               <div class="card-footer">
@@ -2496,7 +2528,7 @@
     </i>
   </button>
 
-</div>
+  </div>
 
   <!-- Info Modal -->
   <div class="custom-modal-overlay" id="infoModal">
@@ -2536,14 +2568,14 @@
   </script>
   <script src="js/global/optimized-image-loader.js">
   </script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init({
-    once: true,
-    duration: 800,
-    easing: "ease-out-cubic"
-  });
-</script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: "ease-out-cubic"
+    });
+  </script>
 
   <!-- MAIN APP -->
   <script src="js/main.js">
