@@ -3247,11 +3247,98 @@ textarea:focus {
   border: 1px solid var(--border-color);
 }
 
+/* ===========================================
+   FOOTER – COMPACT UI ENHANCEMENT
+   Issue #1863
+   =========================================== */
+
 .eco-footer {
   background: var(--bg-secondary);
   color: var(--text-primary);
   border-top: 1px solid var(--border-color);
+
+  /* reduced padding */
+  padding: 40px 6% 30px;
 }
+
+/* footer grid container */
+.eco-footer .footer-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 30px; /* reduced column gap */
+}
+
+/* footer brand text */
+.eco-footer .footer-brand p {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+/* footer headings */
+.eco-footer h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* footer links list */
+.eco-footer ul {
+  padding: 0;
+  margin: 0;
+}
+
+.eco-footer ul li {
+  margin-bottom: 8px; /* reduced vertical spacing */
+}
+
+.eco-footer ul li a {
+  font-size: 14px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.eco-footer ul li a:hover {
+  opacity: 1;
+}
+
+/* newsletter input */
+.eco-footer .newsletter-input {
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+/* footer bottom */
+.eco-footer .footer-bottom {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* =====================
+   RESPONSIVE FOOTER
+   ===================== */
+
+@media (max-width: 768px) {
+  .eco-footer {
+    padding: 30px 5% 25px;
+  }
+
+  .eco-footer .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eco-footer .footer-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .navbar {
   background: var(--bg-card);
