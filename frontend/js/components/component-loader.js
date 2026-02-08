@@ -57,6 +57,42 @@
     }
 
     /**
+     * Initializes the PreferencesManager before other components
+     * Loads preferences-manager.js script if not already present
+     */
+    function initPreferencesManager() {
+        return new Promise((resolve) => {
+            if (window.PreferencesManager) {
+                window.PreferencesManager.init();
+                resolve();
+                return;
+            }
+
+            if (document.querySelector('script[src*="preferences-manager.js"]')) {
+                // Script exists, wait for it to load
+                const checkInterval = setInterval(() => {
+                    if (window.PreferencesManager) {
+                        clearInterval(checkInterval);
+                        window.PreferencesManager.init();
+                        resolve();
+                    }
+                }, 50);
+                return;
+            }
+
+            const prefScript = document.createElement('script');
+            prefScript.src = prefix + 'js/global/preferences-manager.js';
+            prefScript.onload = () => {
+                if (window.PreferencesManager) {
+                    window.PreferencesManager.init();
+                }
+                resolve();
+            };
+            document.head.appendChild(prefScript);
+        });
+    }
+
+    /**
      * Initializes theme toggle functionality
      * Loads theme-toggle.js script if not already present and initializes theme
      */
@@ -183,12 +219,18 @@
     }
 
     // Run when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Initialize PreferencesManager first (single source of truth)
+        await initPreferencesManager();
+
+        // Set up components
         setupNavbar();
         setupFooter();
         setupCursor();
         initTheme();
-        initFontSizeChanger();
+        if (typeof window.initFontSizeChanger === 'function') {
+            window.initFontSizeChanger();
+        }
 
         // Ensure FontAwesome is available
         if (!document.querySelector('link[href*="font-awesome"]')) {
