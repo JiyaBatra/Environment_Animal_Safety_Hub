@@ -43,8 +43,14 @@ class QuizLoader {
       const quiz = new BaseQuiz(quizConfig);
 
       // Apply custom overrides if provided
+      if (customOverrides.startQuiz) {
+        quiz.startQuiz = customOverrides.startQuiz.bind(quiz);
+      }
       if (customOverrides.loadQuestion) {
         quiz.loadQuestion = customOverrides.loadQuestion.bind(quiz);
+      }
+      if (customOverrides.nextQuestion) {
+        quiz.nextQuestion = customOverrides.nextQuestion.bind(quiz);
       }
       if (customOverrides.showResult) {
         quiz.showResult = customOverrides.showResult.bind(quiz);
