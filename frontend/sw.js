@@ -3,24 +3,24 @@ const STATIC_CACHE = 'ecolife-static-v2.1';
 const DYNAMIC_CACHE = 'ecolife-dynamic-v2.1';
 const IMAGE_CACHE = 'ecolife-images-v2.1';
 
-// Static assets to cache immediately (using original filenames since minified in place)
+// Cache size limits to prevent memory bloat
+const MAX_CACHE_SIZE = 50; // Limit cached items
+const MAX_CACHE_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
+const MAX_IMAGE_CACHE_SIZE = 30; // Limit image cache
+
+// Static assets to cache immediately (reduced list)
 const staticAssets = [
   '/',
   '/index.html',
   '/manifest.json',
-  // Core CSS (minified in place)
+  // Core CSS only
   '/css/global/variables.css',
-  '/css/global/utilities.css',
   '/css/style.css',
   '/css/components/navbar.css',
-  '/css/components/footer.css',
-  // Core JS (minified in place)
+  // Core JS only
   '/js/main.js',
-  '/js/global/main.js',
-  '/js/components/loadComponents.js',
-  // Critical images
-  '/assets/images/others/envirnoment-logo.png',
-  '/assets/images/others/Logo.png'
+  // Critical images only
+  '/assets/images/others/envirnoment-logo.webp'
 ];
 
 // Runtime caching patterns
@@ -72,6 +72,8 @@ self.addEventListener('activate', event => {
           })
         );
       }),
+      // Clean expired cache entries
+      cleanExpiredCache(),
       // Take control of all clients
       self.clients.claim()
     ])
@@ -114,18 +116,38 @@ self.addEventListener('fetch', event => {
   }
 });
 
-// Cache-first strategy (for static assets)
+// Cache-first strategy with size limits
 async function cacheFirst(request) {
   try {
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
-      return cachedResponse;
+      // Check if cache entry is expired
+      const cacheDate = cachedResponse.headers.get('sw-cache-date');
+      if (cacheDate && Date.now() - parseInt(cacheDate) > MAX_CACHE_AGE) {
+        await caches.delete(request);
+      } else {
+        return cachedResponse;
+      }
     }
 
     const networkResponse = await fetch(request);
     if (networkResponse.ok) {
       const cache = await caches.open(STATIC_CACHE);
-      cache.put(request, networkResponse.clone());
+      
+      // Add timestamp header
+      const responseToCache = new Response(networkResponse.body, {
+        status: networkResponse.status,
+        statusText: networkResponse.statusText,
+        headers: {
+          ...Object.fromEntries(networkResponse.headers.entries()),
+          'sw-cache-date': Date.now().toString()
+        }
+      });
+      
+      // Limit cache size
+      await limitCacheSize(cache, MAX_CACHE_SIZE);
+      cache.put(request, responseToCache.clone());
+      return responseToCache;
     }
     return networkResponse;
   } catch (error) {
@@ -134,13 +156,27 @@ async function cacheFirst(request) {
   }
 }
 
-// Network-first strategy (for dynamic content)
+// Network-first strategy with cache limits
 async function networkFirst(request) {
   try {
     const networkResponse = await fetch(request);
     if (networkResponse.ok) {
       const cache = await caches.open(DYNAMIC_CACHE);
-      cache.put(request, networkResponse.clone());
+      
+      // Add timestamp for expiration
+      const responseToCache = new Response(networkResponse.body, {
+        status: networkResponse.status,
+        statusText: networkResponse.statusText,
+        headers: {
+          ...Object.fromEntries(networkResponse.headers.entries()),
+          'sw-cache-date': Date.now().toString()
+        }
+      });
+      
+      // Limit cache size
+      await limitCacheSize(cache, MAX_CACHE_SIZE);
+      cache.put(request, responseToCache.clone());
+      return responseToCache;
     }
     return networkResponse;
   } catch (error) {
@@ -150,14 +186,63 @@ async function networkFirst(request) {
   }
 }
 
-// Stale-while-revalidate strategy
+// Cache size limiter function
+async function limitCacheSize(cache, maxSize) {
+  const keys = await cache.keys();
+  if (keys.length >= maxSize) {
+    // Remove oldest entries (FIFO)
+    const entriesToDelete = keys.length - maxSize + 1;
+    for (let i = 0; i < entriesToDelete; i++) {
+      await cache.delete(keys[i]);
+    }
+  }
+}
+
+// Clean expired cache entries
+async function cleanExpiredCache() {
+  const cacheNames = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE];
+  
+  for (const cacheName of cacheNames) {
+    try {
+      const cache = await caches.open(cacheName);
+      const keys = await cache.keys();
+      
+      for (const request of keys) {
+        const response = await cache.match(request);
+        const cacheDate = response?.headers.get('sw-cache-date');
+        
+        if (cacheDate && Date.now() - parseInt(cacheDate) > MAX_CACHE_AGE) {
+          await cache.delete(request);
+          console.log('Deleted expired cache:', request.url);
+        }
+      }
+    } catch (error) {
+      console.error('Error cleaning cache:', cacheName, error);
+    }
+  }
+}
+
+// Stale-while-revalidate strategy with cache limits
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(DYNAMIC_CACHE);
   const cachedResponse = await cache.match(request);
 
-  const fetchPromise = fetch(request).then(networkResponse => {
+  const fetchPromise = fetch(request).then(async networkResponse => {
     if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone());
+      // Add timestamp
+      const responseToCache = new Response(networkResponse.body, {
+        status: networkResponse.status,
+        statusText: networkResponse.statusText,
+        headers: {
+          ...Object.fromEntries(networkResponse.headers.entries()),
+          'sw-cache-date': Date.now().toString()
+        }
+      });
+      
+      // Limit cache size
+      await limitCacheSize(cache, MAX_CACHE_SIZE);
+      cache.put(request, responseToCache.clone());
+      return responseToCache;
     }
     return networkResponse;
   });
@@ -282,8 +367,8 @@ self.addEventListener('push', event => {
 
     const options = {
       body: data.body || 'You have a new notification',
-      icon: data.icon || '/assets/images/others/envirnoment-logo.png',
-      badge: data.badge || '/assets/images/others/envirnoment-logo.png',
+      icon: data.icon || '/assets/images/others/envirnoment-logo.webp',
+      badge: data.badge || '/assets/images/others/envirnoment-logo.webp',
       image: data.image, // Hero image for rich notifications
       vibrate: data.vibrate || [100, 50, 100],
       data: {

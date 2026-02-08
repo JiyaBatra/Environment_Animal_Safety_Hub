@@ -9,7 +9,7 @@
  * @since 2024
  */
 
-(function() {
+(function () {
     'use strict';
 
     /**
@@ -196,6 +196,14 @@
             fa.rel = 'stylesheet';
             fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css';
             document.head.appendChild(fa);
+        }
+
+        // Initialize Global Progress UI
+        if (!document.querySelector('script[src*="progress-ui.js"]')) {
+            const progressScript = document.createElement('script');
+            progressScript.type = 'module';
+            progressScript.src = prefix + 'js/components/progress-ui.js';
+            document.head.appendChild(progressScript);
         }
     });
 

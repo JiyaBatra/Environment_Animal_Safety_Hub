@@ -50,7 +50,10 @@
             </div>
         </div>
 
-        <button type="button" class="btn-start" id="startGameBtn">▶ Start Game</button>
+        <div class="controls-container" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+            <button type="button" class="btn-start" id="startGameBtn">▶ Start Game</button>
+            <button type="button" class="btn-start btn-pause" id="pauseGameBtn" style="display: none; background: linear-gradient(135deg, #ff9800, #f57c00);">⏸ Pause</button>
+        </div>
         <div class="game-area" id="gameArea"></div>
 
         <div class="bins">
@@ -77,6 +80,17 @@
             <p class="modal-text">You earned <strong id="finalScoreText">0</strong> points</p>
             <div class="modal-buttons">
                 <button class="btn-modal btn-play-again" onclick="location.reload()">Play Again</button>
+                <a href="../../index.html" class="btn-modal btn-home">Home</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="pauseModal">
+        <div class="modal-content">
+            <h2 class="modal-title">⏸ Game Paused</h2>
+            <p class="modal-text">Take a breath, Eco-Warrior!</p>
+            <div class="modal-buttons">
+                <button class="btn-modal btn-play-again" id="resumeGameBtn">Resume</button>
                 <a href="../../index.html" class="btn-modal btn-home">Home</a>
             </div>
         </div>

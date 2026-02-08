@@ -58,13 +58,16 @@
 }
 
 .nav-container {
-  width: 96%;
-  max-width: 1500px;
-
-  padding: 0 20px;
+  width: 95%;
+  /* slightly tighter container */
+  max-width: 1400px;
+  /* prevents edge clipping at 100% zoom */
+  padding: 0 16px;
+  /* reduce side padding */
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
   height: 80px;
   transition: height 0.3s ease;
 }
@@ -116,7 +119,8 @@
   transition: var(--transition-normal);
   margin-bottom: 20px;
   flex-shrink: 0;
-  width: fit-content;            /* ⬅️ content jitni width */
+  width: fit-content;
+  /* ⬅️ content jitni width */
   max-width: fit-content;
 }
 
@@ -213,10 +217,13 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 16px;
+  /* tighter but still readable */
   list-style: none;
   margin: 0;
   padding: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .nav-link {
@@ -274,6 +281,7 @@
 .font-size-increase {
   margin-left: 15px;
 }
+
 /* ===== DROPDOWNS ===== */
 .nav-group {
   position: relative;
@@ -336,12 +344,13 @@
 .nav-auth {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   margin-left: auto;
-  padding-left: 20px;
+  padding-left: 16px;
   border-left: 1px solid rgba(255, 255, 255, 0.3);
-  flex-shrink: 0;
-  /* Prevents squashing */
+  flex-shrink: 1;
+  /* allow slight shrink instead of clipping */
+  min-width: fit-content;
 }
 
 /* Login Button */
@@ -367,7 +376,8 @@
 
 /* Sign Up Button */
 .btn-signup {
-  padding: 8px 20px;
+  padding: 8px 16px;
+  /* slightly tighter */
   background: linear-gradient(135deg, var(--eco-light), var(--eco-primary));
   color: var(--white);
   border-radius: var(--radius-xl);
@@ -377,7 +387,8 @@
   white-space: nowrap;
   text-decoration: none;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  margin-left: 24px;
+  margin-left: 10px;
+  /* ensures it never clips */
 }
 
 .btn-signup:hover {
@@ -389,8 +400,8 @@
 
 /* ===== THEME TOGGLE ===== */
 .theme-toggle-btn {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
   display: flex;
@@ -417,8 +428,8 @@
 }
 
 .font-size-btn {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
   display: flex;
@@ -682,11 +693,11 @@
   }
 
   .nav-left {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  flex: 1;            
-}
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    flex: 1;
+  }
 
   .auth-guest-only {
     width: 100%;
@@ -853,4 +864,43 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Kids Quiz Button Highlight */
+.btn-quiz-highlight {
+  background: var(--eco-primary) !important;
+  color: var(--white) !important;
+  border-radius: var(--radius-xl);
+  padding: 8px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.btn-quiz-highlight:hover {
+  background: var(--white) !important;
+  color: var(--eco-primary) !important;
+  border-color: var(--eco-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(46, 125, 50, 0.4);
+}
+
+/* Quiz Highlight Button */
+.btn-quiz-highlight {
+  background: #c6f6d5;
+  color: #1b4d3e !important;
+  font-weight: 700;
+  border: 2px solid #38a169;
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-quiz-highlight:hover {
+  background: #38a169 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }

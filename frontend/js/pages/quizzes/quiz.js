@@ -220,6 +220,94 @@ window.showReview = () => {
 
       reviewList.appendChild(reviewItem);
     });
+
+    // Restore previous selection if navigating back
+    if (answers[index] === optionIndex) {
+      optionButton.classList.add("selected");
+    }
+
+    optionsEl.appendChild(optionButton);
+  });
+}
+
+// ===== ANSWER SELECTION =====
+/**
+ * Handle user selection of an answer option
+ * @param {HTMLElement} element - The clicked option button
+ * @param {number} optionIndex - Index of the selected option (0-3)
+ */
+function selectOption(element, optionIndex) {
+  // Remove previous selection
+  document.querySelectorAll(".option").forEach(option => option.classList.remove("selected"));
+
+  // Highlight selected option
+  element.classList.add("selected");
+  element.setAttribute("aria-pressed", "true");
+
+  // Store user's answer
+  answers[index] = optionIndex;
+
+  // Save progress after each answer selection
+  progressManager.saveProgress({
+    currentIndex: index,
+    answers: answers,
+    score: score,
+    remainingTime: seconds,
+    quizQuestions: quiz
+  });
+
+  // Provide visual feedback
+  if (optionIndex === quiz[index].a) {
+    element.classList.add("correct");
+    // Add checkmark
+    const check = document.createElement("span");
+    check.textContent = " ✅";
+    element.appendChild(check);
+  } else {
+    element.classList.add("incorrect");
+    const cross = document.createElement("span");
+    cross.textContent = " ❌";
+    element.appendChild(cross);
+
+    // Highlight correct answer
+    const buttons = document.querySelectorAll(".option");
+    if (buttons[quiz[index].a]) {
+      buttons[quiz[index].a].classList.add("correct");
+      const check = document.createElement("span");
+      check.textContent = " ✅";
+      buttons[quiz[index].a].appendChild(check);
+    }
+  }
+
+  // Disable all options to prevent changing answer
+  document.querySelectorAll(".option").forEach(btn => {
+    btn.disabled = true;
+    btn.style.cursor = "default";
+  });
+
+  // Auto-advance after short delay
+  setTimeout(() => {
+    nextQuestion();
+  }, 1500);
+}
+
+// ===== QUESTION NAVIGATION =====
+/**
+ * Advance to the next question or show results if quiz is complete
+ */
+function nextQuestion() {
+  // Check if answer was selected
+  if (answers[index] == null) {
+    // Shake animation for feedback
+    const nextBtn = document.querySelector('.nextBtn');
+    nextBtn.classList.add('shake-it');
+    setTimeout(() => nextBtn.classList.remove('shake-it'), 300);
+    return;
+  }
+
+  // Check answer and update score
+  if (answers[index] === quiz[index].a) {
+    score++;
   }
 };
 
@@ -248,3 +336,10 @@ document.addEventListener('mousemove', (e) => {
     }
   });
 });
+
+// Expose functions to global window object for HTML inline events
+window.startQuiz = startQuiz;
+window.resumeQuiz = resumeQuiz;
+window.nextQuestion = nextQuestion;
+window.showReview = showReview;
+window.selectOption = selectOption; // Though usually called via listener, good to have if needed check

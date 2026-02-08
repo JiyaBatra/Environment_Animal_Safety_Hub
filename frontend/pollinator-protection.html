@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pollinator Protection</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #134e5e, #71b280);
+      color: #ffffff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 15px;
+      color: #ffeb3b;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 22px;
+      border-radius: 14px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .emoji {
+      font-size: 2.2rem;
+    }
+
+    footer {
+      margin-top: 45px;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🐝 Pollinator Protection</h1>
+
+    <p>
+      Pollinators like bees, butterflies, and birds play a crucial role in
+      growing our food and maintaining healthy ecosystems.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="emoji">🌸</div>
+        <h3>Why Pollinators Matter</h3>
+        <p>
+          Over 75% of flowering plants rely on pollinators to reproduce.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🚫🧪</div>
+        <h3>Avoid Pesticides</h3>
+        <p>
+          Harmful chemicals can poison pollinators and destroy habitats.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">🌼</div>
+        <h3>Plant Native Flowers</h3>
+        <p>
+          Native plants provide food and shelter for local pollinators.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="emoji">💧</div>
+        <h3>Provide Water</h3>
+        <p>
+          Small water sources help pollinators survive in hot weather.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      Protecting pollinators today secures our food tomorrow 🌱
+    </footer>
+  </div>
+</body>
+</html>
