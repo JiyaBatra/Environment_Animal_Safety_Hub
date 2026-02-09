@@ -240,7 +240,6 @@ const ECO_FACTS = [
  */
 document.addEventListener("DOMContentLoaded", function () {
   // Core navigation and UI components
-  initNavbar();
   initSmoothScroll();
   initBackToTop();
   initScrollProgress();
@@ -309,52 +308,12 @@ function initAdditionalFeatures() {
  * Handles navbar toggling and smooth scrolling
  */
 function initNavbar() {
-  const setupNavListeners = () => {
-    const navbar = document.getElementById("navbar");
-    const navLinks = document.getElementById("navLinks");
-    const mobileBtn = document.getElementById("navToggle");
-
-    // Mobile Menu Toggle
-    if (mobileBtn && navLinks) {
-      mobileBtn.addEventListener("click", () => {
-        const isExpanded = mobileBtn.getAttribute("aria-expanded") === "true";
-        mobileBtn.setAttribute("aria-expanded", !isExpanded);
-
-        navLinks.classList.toggle("active");
-        mobileBtn.classList.toggle("active");
-        document.body.classList.toggle("no-scroll");
-      });
-
-      // Close menu when clicking a link
-      navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          navLinks.classList.remove("active");
-          mobileBtn.classList.remove("active");
-          mobileBtn.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("no-scroll");
-        });
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener("click", (e) => {
-        if (mobileBtn && navLinks && !mobileBtn.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains("active")) {
-          navLinks.classList.remove("active");
-          mobileBtn.classList.remove("active");
-          mobileBtn.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("no-scroll");
-        }
-      });
-    }
-  };
-
-  // If navbar is already in DOM, setup immediately
-  if (document.getElementById("navToggle")) {
-    setupNavListeners();
-  } else {
-    // Wait for event from component-loader
-    window.addEventListener("navbarLoaded", setupNavListeners);
-  }
+  // Navbar is now fully handled by component-loader.js
+  // This function is intentionally disabled to prevent
+  // duplicate listeners and auto-closing bugs.
+  return;
 }
+
 
 /**
  * Initialize navbar active state based on scroll position

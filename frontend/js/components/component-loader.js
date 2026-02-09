@@ -172,6 +172,93 @@
         window.dispatchEvent(new CustomEvent('navbarLoaded'));
     }
 
+        /**
+     * Initializes mobile navbar interactions
+     * Handles hamburger toggle, submenu expand/collapse, and scroll safety
+     */
+    function initMobileNavbar() {
+    const navbarContainer = document.getElementById('navbar-container');
+    if (!navbarContainer) return;
+
+    const menuToggle = navbarContainer.querySelector('#navToggle');
+    const navMenu = navbarContainer.querySelector('#navLinks');
+
+    if (!menuToggle || !navMenu) return;
+
+    let menuJustOpened = false;
+
+    // ======================
+    // MAIN MENU TOGGLE
+    // ======================
+    menuToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const isOpening = !navMenu.classList.contains('active');
+
+        navMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        document.body.classList.toggle('nav-open');
+
+        if (isOpening) {
+            menuJustOpened = true;
+            requestAnimationFrame(() => {
+                menuJustOpened = false;
+            });
+        }
+    });
+
+    // Prevent clicks inside menu
+    navMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // ======================
+    // OUTSIDE CLICK CLOSE
+    // ======================
+    document.addEventListener('click', (e) => {
+        if (menuJustOpened) return;
+
+        if (
+            navMenu.classList.contains('active') &&
+            !navbarContainer.contains(e.target)
+        ) {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+            document.body.classList.remove('nav-open');
+
+            navbarContainer
+                .querySelectorAll('.nav-group.open')
+                .forEach(item => item.classList.remove('open'));
+        }
+    });
+
+    // ======================
+    // SUBMENU ACCORDION
+    // ======================
+    const submenuButtons = navbarContainer.querySelectorAll('.submenu-toggle');
+
+    submenuButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const parent = button.closest('.nav-group');
+            if (!parent) return;
+
+            const isOpen = parent.classList.contains('open');
+
+            navbarContainer
+                .querySelectorAll('.nav-group.open')
+                .forEach(item => item.classList.remove('open'));
+
+            if (!isOpen) {
+                parent.classList.add('open');
+            }
+        });
+    });
+}
+
     /**
      * Sets up the footer component and loads associated CSS
      * @returns {Promise<void>}
@@ -224,7 +311,8 @@
         await initPreferencesManager();
 
         // Set up components
-        setupNavbar();
+        await setupNavbar();
+        initMobileNavbar();
         setupFooter();
         setupCursor();
         initTheme();

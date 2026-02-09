@@ -34,6 +34,12 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* Lock body scroll when mobile nav is open */
+body.nav-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* ===== NAVBAR BASE ===== */
 .navbar {
   position: fixed;
@@ -247,8 +253,10 @@
   transition: transform 0.3s ease;
 }
 
-.nav-group:hover .nav-link i {
-  transform: rotate(180deg);
+@media (min-width: 1201px) {
+  .nav-group:hover .nav-link i {
+    transform: rotate(180deg);
+  }
 }
 
 /* Premium Underline Animation */
@@ -311,11 +319,14 @@
 }
 
 /* Hover State */
-.nav-group:hover .dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(10px);
+@media (min-width: 1201px) {
+  .nav-group:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(10px);
+  }
 }
+
 
 /* Dropdown Links */
 .dropdown li {
@@ -604,21 +615,22 @@
     display: flex;
   }
 
-  .nav-links {
+    .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
     width: 320px;
-    height: 100vh;
-    /* Solid Green Gradient for Readability on Mobile */
+    height: 100dvh; /* safer on mobile browsers */
     background: linear-gradient(180deg, var(--eco-dark), #0d2e23);
     flex-direction: column;
     align-items: flex-start;
-    padding: 90px 30px;
+    padding: 90px 24px 40px;
     gap: 10px;
-    transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: 0.45s cubic-bezier(0.77, 0, 0.175, 1);
     box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
+    overscroll-behavior: contain;
+    z-index: 1000;
   }
 
   .nav-links.active {
@@ -667,9 +679,9 @@
     padding-left: 15px;
     margin-top: 5px;
   }
-
-  /* Simple show on hover for now, JS toggle recommended for tap */
-  .nav-group:hover .dropdown {
+  
+  /* Mobile submenu controlled by JS */
+  .nav-group.open > .dropdown {
     display: block;
   }
 
