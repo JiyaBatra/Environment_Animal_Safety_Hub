@@ -44,6 +44,9 @@ app.use('/api/pollinator-habitats', require('./category-api'));
 // Community Compost Network API
 app.use('/api/compost-sites', require('./category-api'));
 
+// Eco-Friendly Transportation Mapper API
+app.use('/api/transportation-options', require('./category-api'));
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({

@@ -485,6 +485,62 @@ app.delete('/api/compost-sites/:id', (req, res) => {
   res.status(204).send();
 });
 
+// Eco-Friendly Transportation Mapper API
+let transportationOptions = [
+  {
+    id: 1,
+    name: "Central Park Bike Share",
+    type: "bike-share",
+    region: "north",
+    lat: 40.7851,
+    lng: -73.9683,
+    info: "Bike-sharing station near park entrance."
+  },
+  {
+    id: 2,
+    name: "EV Charging at Union Square",
+    type: "ev-charging",
+    region: "east",
+    lat: 40.7359,
+    lng: -73.9911,
+    info: "Fast EV charging available."
+  },
+  {
+    id: 3,
+    name: "Grand Central Transit Hub",
+    type: "transit-hub",
+    region: "south",
+    lat: 40.7527,
+    lng: -73.9772,
+    info: "Major subway and train hub."
+  }
+];
+
+app.get('/api/transportation-options', (req, res) => {
+  res.json({ success: true, data: transportationOptions });
+});
+
+app.post('/api/transportation-options', (req, res) => {
+  const opt = req.body;
+  opt.id = transportationOptions.length + 1;
+  transportationOptions.push(opt);
+  res.status(201).json({ success: true, data: opt });
+});
+
+app.put('/api/transportation-options/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = transportationOptions.findIndex(o => o.id === id);
+  if (idx === -1) return res.status(404).send('Not found');
+  transportationOptions[idx] = { ...transportationOptions[idx], ...req.body };
+  res.json({ success: true, data: transportationOptions[idx] });
+});
+
+app.delete('/api/transportation-options/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  transportationOptions = transportationOptions.filter(o => o.id !== id);
+  res.status(204).send();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));
