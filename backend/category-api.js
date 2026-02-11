@@ -261,6 +261,62 @@ app.post('/api/projects/auto-categorize', (req, res) => {
     });
 });
 
+// Local Food System Explorer API
+let foodLocations = [
+  {
+    id: 1,
+    name: "Union Square Greenmarket",
+    type: "farmers-market",
+    region: "north",
+    lat: 40.7359,
+    lng: -73.9911,
+    info: "Open Mon, Wed, Fri, Sat."
+  },
+  {
+    id: 2,
+    name: "Brooklyn Grange",
+    type: "community-garden",
+    region: "east",
+    lat: 40.7532,
+    lng: -73.9436,
+    info: "Urban rooftop farm."
+  },
+  {
+    id: 3,
+    name: "Park Slope Food Coop",
+    type: "food-coop",
+    region: "south",
+    lat: 40.6732,
+    lng: -73.9786,
+    info: "Member-owned grocery."
+  }
+];
+
+app.get('/api/food-locations', (req, res) => {
+  res.json({ success: true, data: foodLocations });
+});
+
+app.post('/api/food-locations', (req, res) => {
+  const loc = req.body;
+  loc.id = foodLocations.length + 1;
+  foodLocations.push(loc);
+  res.status(201).json({ success: true, data: loc });
+});
+
+app.put('/api/food-locations/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = foodLocations.findIndex(l => l.id === id);
+  if (idx === -1) return res.status(404).send('Not found');
+  foodLocations[idx] = { ...foodLocations[idx], ...req.body };
+  res.json({ success: true, data: foodLocations[idx] });
+});
+
+app.delete('/api/food-locations/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  foodLocations = foodLocations.filter(l => l.id !== id);
+  res.status(204).send();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));

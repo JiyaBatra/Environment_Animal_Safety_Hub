@@ -32,6 +32,9 @@ app.use((req, res, next) => {
 // API Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 
+// Local Food System Explorer API
+app.use('/api/food-locations', require('./category-api'));
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
