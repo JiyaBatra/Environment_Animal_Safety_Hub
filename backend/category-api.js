@@ -597,6 +597,62 @@ app.delete('/api/tree-sites/:id', (req, res) => {
   res.status(204).send();
 });
 
+// Clean Air Initiative Explorer API
+let airActivities = [
+  {
+    id: 1,
+    name: "Downtown Air Quality Station",
+    type: "monitoring-station",
+    region: "north",
+    lat: 29.7633,
+    lng: -95.3636,
+    info: "Continuous air quality monitoring."
+  },
+  {
+    id: 2,
+    name: "Clean Air Campaign - East Side",
+    type: "campaign",
+    region: "east",
+    lat: 29.7520,
+    lng: -95.3200,
+    info: "Community-led anti-pollution campaign."
+  },
+  {
+    id: 3,
+    name: "Green Roof Project at City Hall",
+    type: "green-infrastructure",
+    region: "west",
+    lat: 29.7600,
+    lng: -95.3700,
+    info: "Green roof installation for air quality improvement."
+  }
+];
+
+app.get('/api/air-activities', (req, res) => {
+  res.json({ success: true, data: airActivities });
+});
+
+app.post('/api/air-activities', (req, res) => {
+  const act = req.body;
+  act.id = airActivities.length + 1;
+  airActivities.push(act);
+  res.status(201).json({ success: true, data: act });
+});
+
+app.put('/api/air-activities/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = airActivities.findIndex(a => a.id === id);
+  if (idx === -1) return res.status(404).send('Not found');
+  airActivities[idx] = { ...airActivities[idx], ...req.body };
+  res.json({ success: true, data: airActivities[idx] });
+});
+
+app.delete('/api/air-activities/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  airActivities = airActivities.filter(a => a.id !== id);
+  res.status(204).send();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));
