@@ -429,6 +429,62 @@ app.delete('/api/pollinator-habitats/:id', (req, res) => {
   res.status(204).send();
 });
 
+// Community Compost Network API
+let compostSites = [
+  {
+    id: 1,
+    name: "Mission Compost Drop-Off",
+    type: "drop-off",
+    region: "south",
+    lat: 37.7599,
+    lng: -122.4148,
+    info: "Open daily, accepts food scraps."
+  },
+  {
+    id: 2,
+    name: "Golden Gate Municipal Facility",
+    type: "municipal",
+    region: "north",
+    lat: 37.7715,
+    lng: -122.4687,
+    info: "Large-scale composting, accepts yard waste."
+  },
+  {
+    id: 3,
+    name: "Bayview Community Compost Initiative",
+    type: "community",
+    region: "east",
+    lat: 37.7294,
+    lng: -122.3826,
+    info: "Neighborhood-run, educational workshops."
+  }
+];
+
+app.get('/api/compost-sites', (req, res) => {
+  res.json({ success: true, data: compostSites });
+});
+
+app.post('/api/compost-sites', (req, res) => {
+  const site = req.body;
+  site.id = compostSites.length + 1;
+  compostSites.push(site);
+  res.status(201).json({ success: true, data: site });
+});
+
+app.put('/api/compost-sites/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = compostSites.findIndex(s => s.id === id);
+  if (idx === -1) return res.status(404).send('Not found');
+  compostSites[idx] = { ...compostSites[idx], ...req.body };
+  res.json({ success: true, data: compostSites[idx] });
+});
+
+app.delete('/api/compost-sites/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  compostSites = compostSites.filter(s => s.id !== id);
+  res.status(204).send();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));

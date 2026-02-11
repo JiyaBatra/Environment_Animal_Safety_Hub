@@ -41,6 +41,9 @@ app.use('/api/water-initiatives', require('./category-api'));
 // Urban Pollinator Pathways Mapper API
 app.use('/api/pollinator-habitats', require('./category-api'));
 
+// Community Compost Network API
+app.use('/api/compost-sites', require('./category-api'));
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
