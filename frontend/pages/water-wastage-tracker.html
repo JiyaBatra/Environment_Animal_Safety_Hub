@@ -13,29 +13,41 @@
   <div class="water-app">
     <!-- Navbar will be injected -->
     <div id="navbar-container"></div>
-
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-content">
+        <div class="hero-tag">
+          <i class="fas fa-users"></i>
+          <span>Join 5,000+ Eco Warriors</span>
+        </div>
         <div class="hero-text">
-          <h1><i class="fas fa-tint"></i> Water Wastage Tracker</h1>
-          <p>Monitor your household water consumption, identify wastage sources, and make every drop count!</p>
+          <h1>Water Wastage <span>Tracker</span></h1>
+          <p>Monitor your household water consumption, identify wastage sources, and make every drop count. Move from
+            learning to doing and make a real-world impact.</p>
+        </div>
+        <div class="hero-actions">
+          <a href="#usageForm" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i> Log Usage
+          </a>
+          <a href="#statsDashboard" class="btn btn-secondary">
+            <i class="fas fa-chart-bar"></i> View Stats
+          </a>
         </div>
         <div class="hero-visual">
           <div class="water-drop-animation">
             <div class="water-drop">
               <svg viewBox="0 0 200 200" class="drop-svg">
-                <path d="M100,20 Q80,60 100,100 Q120,60 100,20 M100,100 Q70,130 100,180 Q130,130 100,100 Z" class="drop-path" fill="url(#waterGradient)" />
+                <path d="M100,20 Q80,60 100,100 Q120,60 100,20 M100,100 Q70,130 100,180 Q130,130 100,100 Z"
+                  class="drop-path" fill="url(#waterGradient)" />
                 <defs>
                   <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
                   </linearGradient>
                 </defs>
               </svg>
               <div class="water-value">
-                <span id="totalWaterUsed">0</span>
-                <span class="unit">L</span>
+                <span id="totalWaterUsed">0</span><span class="unit">L</span>
               </div>
             </div>
             <p class="hero-stat">Total Today</p>
@@ -43,14 +55,12 @@
         </div>
       </div>
     </section>
-
     <!-- Alert Banner -->
     <div id="alertBanner" class="alert-banner hidden">
       <i class="fas fa-exclamation-triangle"></i>
       <span id="alertMessage"></span>
       <button class="alert-close" onclick="closeAlert()">×</button>
     </div>
-
     <!-- Main Container -->
     <div class="container">
       <!-- Quick Stats Dashboard -->
@@ -66,7 +76,6 @@
           </div>
           <div class="stat-badge" id="todayStatus">On Track</div>
         </div>
-
         <div class="stat-card week">
           <div class="stat-icon">
             <i class="fas fa-calendar-week"></i>
@@ -78,7 +87,6 @@
           </div>
           <div class="stat-change" id="weekChange">0%</div>
         </div>
-
         <div class="stat-card month">
           <div class="stat-icon">
             <i class="fas fa-chart-line"></i>
@@ -90,7 +98,6 @@
           </div>
           <div class="stat-comparison" id="comparisonBadge">Below Avg</div>
         </div>
-
         <div class="stat-card goal">
           <div class="stat-icon">
             <i class="fas fa-bullseye"></i>
@@ -107,7 +114,6 @@
           </div>
         </div>
       </section>
-
       <!-- Main Content Grid -->
       <div class="main-grid">
         <!-- Left Column -->
@@ -130,7 +136,6 @@
                   <option value="other">📊 Other</option>
                 </select>
               </div>
-
               <div class="form-row">
                 <div class="form-group">
                   <label for="duration">Duration (minutes)</label>
@@ -141,22 +146,18 @@
                   <input type="number" id="waterAmount" min="1" step="0.1" placeholder="Auto-calculated" />
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="usageTime">Time of Usage</label>
                 <input type="datetime-local" id="usageTime" required />
               </div>
-
               <div class="form-group">
                 <label for="notes">Notes (optional)</label>
                 <textarea id="notes" rows="2" placeholder="Add any additional details..."></textarea>
               </div>
-
               <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> Log Usage
               </button>
             </form>
-
             <!-- Quick Add Buttons -->
             <div class="quick-add-section">
               <h3>Quick Add</h3>
@@ -184,74 +185,77 @@
               </div>
             </div>
           </section>
-
           <!-- Water Footprint Calculator -->
           <section class="card footprint-calculator">
             <h2><i class="fas fa-calculator"></i> Virtual Water Footprint</h2>
             <p class="card-subtitle">Calculate hidden water usage in products you consume</p>
-            
-            <div class="footprint-inputs">
+            <div class="footprint-list">
               <div class="footprint-item">
-                <label>
+                <div class="footprint-label">
                   <i class="fas fa-hamburger"></i>
                   <span>Beef (100g)</span>
-                </label>
-                <input type="number" min="0" max="10" value="0" data-water="1500" class="footprint-input" />
-                <span class="water-equiv">0L</span>
+                </div>
+                <div class="footprint-controls">
+                  <input type="number" min="0" max="10" value="0" data-water="1500" class="footprint-input" />
+                  <span class="water-equiv">0L</span>
+                </div>
               </div>
-              
               <div class="footprint-item">
-                <label>
+                <div class="footprint-label">
                   <i class="fas fa-coffee"></i>
                   <span>Coffee (1 cup)</span>
-                </label>
-                <input type="number" min="0" max="20" value="0" data-water="140" class="footprint-input" />
-                <span class="water-equiv">0L</span>
+                </div>
+                <div class="footprint-controls">
+                  <input type="number" min="0" max="20" value="0" data-water="140" class="footprint-input" />
+                  <span class="water-equiv">0L</span>
+                </div>
               </div>
-
               <div class="footprint-item">
-                <label>
+                <div class="footprint-label">
                   <i class="fas fa-cheese"></i>
                   <span>Cheese (100g)</span>
-                </label>
-                <input type="number" min="0" max="10" value="0" data-water="500" class="footprint-input" />
-                <span class="water-equiv">0L</span>
+                </div>
+                <div class="footprint-controls">
+                  <input type="number" min="0" max="10" value="0" data-water="500" class="footprint-input" />
+                  <span class="water-equiv">0L</span>
+                </div>
               </div>
-
               <div class="footprint-item">
-                <label>
+                <div class="footprint-label">
                   <i class="fas fa-bread-slice"></i>
                   <span>Bread (1 slice)</span>
-                </label>
-                <input type="number" min="0" max="20" value="0" data-water="40" class="footprint-input" />
-                <span class="water-equiv">0L</span>
+                </div>
+                <div class="footprint-controls">
+                  <input type="number" min="0" max="20" value="0" data-water="40" class="footprint-input" />
+                  <span class="water-equiv">0L</span>
+                </div>
               </div>
-
               <div class="footprint-item">
-                <label>
+                <div class="footprint-label">
                   <i class="fas fa-egg"></i>
                   <span>Eggs (1 egg)</span>
-                </label>
-                <input type="number" min="0" max="20" value="0" data-water="200" class="footprint-input" />
-                <span class="water-equiv">0L</span>
+                </div>
+                <div class="footprint-controls">
+                  <input type="number" min="0" max="20" value="0" data-water="200" class="footprint-input" />
+                  <span class="water-equiv">0L</span>
+                </div>
               </div>
-
               <div class="footprint-item">
-                <label>
+                <div class="footprint-label">
                   <i class="fas fa-apple-alt"></i>
                   <span>Apple (1 piece)</span>
-                </label>
-                <input type="number" min="0" max="20" value="0" data-water="70" class="footprint-input" />
-                <span class="water-equiv">0L</span>
+                </div>
+                <div class="footprint-controls">
+                  <input type="number" min="0" max="20" value="0" data-water="70" class="footprint-input" />
+                  <span class="water-equiv">0L</span>
+                </div>
               </div>
             </div>
-
             <div class="footprint-total">
               <strong>Total Virtual Water:</strong>
               <span id="virtualWaterTotal">0 L</span>
             </div>
           </section>
-
           <!-- Conservation Tips -->
           <section class="card tips-card">
             <h2><i class="fas fa-lightbulb"></i> Conservation Tips</h2>
@@ -261,7 +265,6 @@
             </button>
           </section>
         </div>
-
         <!-- Right Column -->
         <div class="right-column">
           <!-- Usage Breakdown -->
@@ -270,7 +273,6 @@
             <canvas id="usageBreakdownChart"></canvas>
             <div class="breakdown-legend" id="breakdownLegend"></div>
           </section>
-
           <!-- Time Heatmap -->
           <section class="card heatmap-card">
             <h2><i class="fas fa-fire"></i> Usage Heatmap</h2>
@@ -281,12 +283,10 @@
             </div>
             <div id="heatmapContainer" class="heatmap-container"></div>
           </section>
-
           <!-- Household Comparison -->
           <section class="card comparison-card">
             <h2><i class="fas fa-home"></i> Household Comparison</h2>
             <p class="card-subtitle">How you compare with average households</p>
-            
             <div class="comparison-chart">
               <div class="comparison-bar">
                 <div class="bar-label">Your Usage</div>
@@ -296,7 +296,6 @@
                   </div>
                 </div>
               </div>
-              
               <div class="comparison-bar">
                 <div class="bar-label">City Average</div>
                 <div class="bar-container">
@@ -305,7 +304,6 @@
                   </div>
                 </div>
               </div>
-              
               <div class="comparison-bar">
                 <div class="bar-label">National Average</div>
                 <div class="bar-container">
@@ -315,54 +313,46 @@
                 </div>
               </div>
             </div>
-
             <div class="comparison-insight" id="comparisonInsight">
               <i class="fas fa-info-circle"></i>
               <p>Start logging your water usage to see how you compare!</p>
             </div>
           </section>
-
           <!-- Goal Setting -->
           <section class="card goal-card">
             <h2><i class="fas fa-target"></i> Conservation Goals</h2>
-            
-            <div class="goal-current">
-              <div class="goal-info">
-                <span>Daily Limit:</span>
-                <strong id="currentGoalDisplay">300 L</strong>
+            <div class="goal-display">
+              <div class="goal-header">
+                <div class="goal-limit">Daily Limit: <strong id="currentGoalDisplay">300 L</strong></div>
+                <button class="btn-edit" onclick="toggleGoalEdit()">
+                  <i class="fas fa-edit"></i>
+                </button>
               </div>
-              <button class="btn-edit" onclick="toggleGoalEdit()">
-                <i class="fas fa-edit"></i>
-              </button>
-            </div>
-
-            <div class="goal-edit-form hidden" id="goalEditForm">
-              <label for="newGoal">Set New Daily Goal (Liters)</label>
-              <input type="number" id="newGoal" min="50" max="1000" step="10" value="300" />
-              <div class="goal-presets">
-                <button onclick="setGoalPreset(200)">Conservative (200L)</button>
-                <button onclick="setGoalPreset(300)">Moderate (300L)</button>
-                <button onclick="setGoalPreset(400)">Flexible (400L)</button>
+              <div class="goal-edit-form hidden" id="goalEditForm">
+                <div class="goal-input-group">
+                  <input type="number" id="newGoal" min="50" max="1000" step="10" value="300"
+                    placeholder="Enter limit" />
+                </div>
+                <div class="goal-presets">
+                  <button onclick="setGoalPreset(200)">Low (200L)</button>
+                  <button onclick="setGoalPreset(300)">Med (300L)</button>
+                  <button onclick="setGoalPreset(400)">High (400L)</button>
+                </div>
+                <div class="goal-actions">
+                  <button class="btn-save" onclick="saveGoal()">Save</button>
+                  <button class="btn-cancel" onclick="toggleGoalEdit()">Cancel</button>
+                </div>
               </div>
-              <div class="goal-actions">
-                <button class="btn btn-primary" onclick="saveGoal()">Save Goal</button>
-                <button class="btn btn-secondary" onclick="toggleGoalEdit()">Cancel</button>
+              <div class="goal-progress-container">
+                <div class="goal-progress-fill" id="goalProgressFill"></div>
               </div>
-            </div>
-
-            <div class="goal-progress">
-              <div class="progress-bar">
-                <div class="progress-fill" id="goalProgressFill"></div>
-              </div>
-              <p class="progress-text" id="goalProgressText">0% of daily goal used</p>
+              <p class="goal-status-text" id="goalProgressText">0% of daily goal used</p>
             </div>
           </section>
-
           <!-- Social Challenge -->
           <section class="card challenge-card">
             <h2><i class="fas fa-trophy"></i> Social Challenges</h2>
             <p class="card-subtitle">Compete with neighbors on water savings</p>
-            
             <div class="challenge-active">
               <div class="challenge-header">
                 <div class="challenge-icon">🏆</div>
@@ -371,7 +361,6 @@
                   <span class="challenge-duration">6 days remaining</span>
                 </div>
               </div>
-              
               <div class="challenge-leaderboard">
                 <div class="leaderboard-item rank-1">
                   <span class="rank">1st</span>
@@ -400,14 +389,12 @@
                 </div>
               </div>
             </div>
-
             <button class="btn btn-primary btn-full" onclick="joinNewChallenge()">
               <i class="fas fa-plus"></i> Join New Challenge
             </button>
           </section>
         </div>
       </div>
-
       <!-- Recent Activity Log -->
       <section class="card activity-log-card">
         <div class="card-header">
@@ -421,7 +408,6 @@
             </button>
           </div>
         </div>
-        
         <div class="filter-panel hidden" id="filterPanel">
           <select id="activityFilter">
             <option value="all">All Activities</option>
@@ -439,7 +425,6 @@
           </select>
           <button class="btn btn-primary" onclick="applyFilter()">Apply</button>
         </div>
-
         <div class="activity-log" id="activityLog">
           <div class="empty-state">
             <i class="fas fa-droplet"></i>
@@ -449,7 +434,6 @@
         </div>
       </section>
     </div>
-
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
@@ -471,7 +455,6 @@
       </div>
     </footer>
   </div>
-
   <!-- Scripts -->
   <script src="../js/water-wastage-tracker.js"></script>
   <script>
@@ -480,7 +463,6 @@
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar-container').innerHTML = data;
-        
         // Initialize navbar functionality
         const script = document.createElement('script');
         script.src = '../js/components/navbar.js';
