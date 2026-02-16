@@ -448,6 +448,7 @@
 .involvement-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
     gap: 30px;
     margin-bottom: 40px;
 }
@@ -717,4 +718,12 @@
         background-clip: initial !important;
         color: black !important;
     }
+}
+
+.involvement-section .section-container {
+    max-width: 1300px;
+}
+
+.involvement-options {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }

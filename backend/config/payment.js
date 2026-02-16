@@ -5,31 +5,36 @@
 
 require('dotenv').config();
 
-// Initialize Stripe only if the secret key is provided to avoid runtime crashes
-let stripe = null;
-if (process.env.STRIPE_SECRET_KEY) {
-    stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-} else {
-    // Helpful warning for developers during local development
-    console.warn('⚠️ STRIPE_SECRET_KEY is not set. Stripe initialization skipped. Set STRIPE_SECRET_KEY in your .env to enable payments.');
+// Graceful Stripe Initialization
+let stripe;
+try {
+    const stripeKey = process.env.STRIPE_SECRET_KEY || 'sk_test_dummy_key_for_development_only';
+    stripe = require('stripe')(stripeKey);
+} catch (error) {
+    console.warn('Stripe initialization failed (likely missing API key). Payment features will be disabled.');
+    stripe = {
+        paymentIntents: {
+            create: async () => { throw new Error('Stripe not configured'); }
+        }
+    };
 }
 
 const paypal = require('@paypal/checkout-server-sdk');
 
 // Stripe Configuration
 const stripeConfig = {
-    secretKey: process.env.STRIPE_SECRET_KEY,
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
-    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+    secretKey: process.env.STRIPE_SECRET_KEY || 'sk_test_dummy',
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_dummy',
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || 'whsec_dummy',
     currency: 'usd',
     stripe: stripe
 };
 
 // PayPal Configuration
 function paypalEnvironment() {
-    const clientId = process.env.PAYPAL_CLIENT_ID;
-    const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-    
+    const clientId = process.env.PAYPAL_CLIENT_ID || 'dummy_client_id';
+    const clientSecret = process.env.PAYPAL_CLIENT_SECRET || 'dummy_client_secret';
+
     // Use sandbox for testing, live for production
     return process.env.NODE_ENV === 'production'
         ? new paypal.core.LiveEnvironment(clientId, clientSecret)
@@ -39,9 +44,9 @@ function paypalEnvironment() {
 const paypalClient = new paypal.core.PayPalHttpClient(paypalEnvironment());
 
 const paypalConfig = {
-    clientId: process.env.PAYPAL_CLIENT_ID,
-    clientSecret: process.env.PAYPAL_CLIENT_SECRET,
-    webhookId: process.env.PAYPAL_WEBHOOK_ID,
+    clientId: process.env.PAYPAL_CLIENT_ID || 'dummy_client_id',
+    clientSecret: process.env.PAYPAL_CLIENT_SECRET || 'dummy_client_secret',
+    webhookId: process.env.PAYPAL_WEBHOOK_ID || 'dummy_webhook_id',
     client: paypalClient
 };
 
