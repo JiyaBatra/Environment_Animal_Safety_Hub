@@ -105,7 +105,7 @@ Environment_Animal_Safety_Hub/
 │   │   └── style-guide.html  # Design system reference
 │   └── index.html            # Main entry point
 ├── backend/                  # Backend server
-├── MD/                       # Documentation
+├── docs/                     # Documentation
 ├── package.json              # Dependencies
 └── README.md                 # Project overview
 ```

@@ -136,7 +136,7 @@ Environment_Animal_Safety_Hub/
 │   ├── 📂 models/             # Database models
 │   └── init-db.js             # Database initialization
 ├── 📂 .github/                # GitHub templates & workflows
-├── 📂 MD/                     # Markdown documentation
+├── 📂 docs/                   # Markdown documentation
 │   ├── CONTRIBUTING.md        # Contribution guidelines
 │   └── [topic]_README.md      # Topic-specific docs
 ├── package.json               # Project dependencies
@@ -243,7 +243,8 @@ We welcome contributions! Please read our contribution guidelines before getting
    git push origin fix-issue-name
    ```
 
-For detailed guidelines, see [CONTRIBUTING.md](MD/CONTRIBUTING.md)
+For detailed guidelines, see [CONTRIBUTING.md](docs/CONTRIBUTING.md)
+
 
 ---
 
