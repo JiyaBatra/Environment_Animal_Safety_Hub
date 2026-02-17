@@ -27,6 +27,8 @@
   /* --- SIZES --- */
   --radius-md: 8px;
   --radius-xl: 50px;
+  --eco-gradient: linear-gradient(135deg, #22c55e, #16a34a);
+  --eco-gradient-hover: linear-gradient(135deg, #16a34a, #15803d);
 }
 
 * {
@@ -55,9 +57,6 @@ body.nav-open {
   transition: var(--transition-normal);
   padding: 5px 0;
 }
-.navbar {
-  height: 70px;
-}
 
 .navbar.scrolled {
   background: rgba(20, 50, 30, 0.95);
@@ -67,33 +66,23 @@ body.nav-open {
 }
 
 .nav-container {
+  width: 100%;
+  padding: 0 30px;
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 100%;     /* remove restriction */
-  margin: 0;
-  padding: 0 20px;     /* balanced left/right spacing */
-}
-
-.navbar.scrolled .nav-container {
   height: 70px;
-  /* Shrink slightly on scroll */
 }
 
 /* ===== LOGO ===== */
 .navbar .logo {
   display: flex;
   align-items: center;
-  gap: 8px;          /* smaller gap */
-  font-size: 1.4rem; /* slightly smaller */
+  gap: 8px;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--white);
   text-decoration: none;
-}
-
-.navbar .logo {
   flex-shrink: 0;
-  margin-right: 30px;   /* space between logo and Home */
 }
 
 .navbar .logo-img {
@@ -121,7 +110,6 @@ body.nav-open {
   font-weight: 500;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: var(--transition-normal);
-  margin-bottom: 20px;
   flex-shrink: 0;
   width: fit-content;
   /* ⬅️ content jitni width */
@@ -162,8 +150,6 @@ body.nav-open {
 .search-container {
   flex: 1;
   max-width: 400px;
-  /* margin: 0 20px; */
-  margin-bottom: 20px;
 }
 
 .search-form {
@@ -221,17 +207,18 @@ body.nav-open {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 10px;      /* slightly tighter */
+  gap: 14px;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 25px;  /* space after logo */
   padding: 0;
+  flex: 1;
 }
 
 .nav-link {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: var(--radius-md);
   transition: var(--transition-normal);
   position: relative;
@@ -240,6 +227,8 @@ body.nav-open {
   display: flex;
   align-items: center;
   gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Icon rotation in links */
@@ -350,9 +339,8 @@ body.nav-open {
 .nav-auth {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   margin-left: auto;
-  padding-left: 12px;
 }
 
 /* Login Button */
@@ -420,8 +408,8 @@ body.nav-open {
 
 /* ===== THEME TOGGLE ===== */
 .theme-toggle-btn {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.15);
   display: flex;
@@ -431,6 +419,11 @@ body.nav-open {
   color: var(--white);
   transition: var(--transition-normal);
   border: 1px solid transparent;
+  margin-left: 12px; /* spacing from Eco Games */
+}
+
+.theme-toggle-btn i {
+  font-size: 0.9rem;
 }
 
 .theme-toggle-btn:hover {
@@ -907,12 +900,10 @@ body.nav-open {
   box-shadow: 0 6px 15px rgba(46, 125, 50, 0.4);
 }
 
-.btn-quiz-highlight:hover {
-  background: #38a169 !important;
-  color: white !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
+/* ========================================= */
+/* ECO GAMES STYLES */
+/* ========================================= */
+
 .nav-eco-games {
     font-weight: 600;
 }
@@ -925,7 +916,8 @@ body.nav-open {
 /* ============================= */
 
 .eco-games-btn {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+    flex-shrink: 0;
+    background: var(--eco-gradient);
     color: #ffffff;
     padding: 8px 16px;
     border-radius: 25px;
@@ -938,7 +930,6 @@ body.nav-open {
 }
 
 .eco-games-btn:hover {
-    background: linear-gradient(135deg, #16a34a, #15803d);
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4);
 }
@@ -947,8 +938,8 @@ body.nav-open {
 /* ============================= */
 
 .eco-games-corner-btn {
-  margin-left: auto;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  flex-shrink: 0;
+  background: var(--eco-gradient);
   color: #ffffff;
   padding: 8px 20px;
   border-radius: 30px;
@@ -960,22 +951,11 @@ body.nav-open {
 }
 
 .eco-games-corner-btn:hover {
-  background: linear-gradient(135deg, #16a34a, #15803d);
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45);
 }
 
-.eco-games-corner-btn:hover {
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    transform: translateY(-50%) scale(1.05);
-    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45);
-}
-
 /* Push Eco Games fully right */
-.nav-eco-wrapper {
-  margin-left: auto;
-  list-style: none;
-}
 
 .nav-right {
   display: flex;
