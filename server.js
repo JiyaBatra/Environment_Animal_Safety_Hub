@@ -10,8 +10,13 @@ const app = express();
 
 // Connect to database
 const startApp = async () => {
-    await connectDB();
-    await initializeDatabase();
+    try {
+        await connectDB();
+        await initializeDatabase();
+        console.log('✅ Database and Initial Data Ready');
+    } catch (err) {
+        console.error('❌ Startup Failed:', err.message);
+    }
 };
 startApp();
 

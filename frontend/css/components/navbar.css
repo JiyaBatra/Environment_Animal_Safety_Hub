@@ -209,7 +209,8 @@ body.nav-open {
   align-items: center;
   gap: 14px;
   list-style: none;
-  margin: 0 0 0 25px;  /* space after logo */
+  margin: 0 0 0 25px;
+  /* space after logo */
   padding: 0;
   flex: 1;
 }
@@ -349,7 +350,8 @@ body.nav-open {
   padding: 8px 16px;
   background-color: var(--white);
   color: var(--eco-dark);
-  border: none; /* Removed border for 3D effect */
+  border: none;
+  /* Removed border for 3D effect */
   border-radius: var(--radius-xl);
   font-weight: 700;
   font-size: 0.85rem;
@@ -358,21 +360,21 @@ body.nav-open {
   text-decoration: none;
   margin-left: 6px;
   position: relative;
-  box-shadow: 0 4px 0 #cccccc, 0 5px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 0 #cccccc, 0 5px 10px rgba(0, 0, 0, 0.1);
   transform: translateY(0);
 }
 
 .btn-login:hover {
   background-color: #f0f0f0;
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #cccccc, 0 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 0 #cccccc, 0 3px 5px rgba(0, 0, 0, 0.1);
   color: var(--eco-dark);
   border-color: transparent;
 }
 
 .btn-login:active {
   transform: translateY(4px);
-  box-shadow: 0 0 0 #cccccc, 0 0 0 rgba(0,0,0,0.1);
+  box-shadow: 0 0 0 #cccccc, 0 0 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Sign Up Button */
@@ -389,20 +391,20 @@ body.nav-open {
   text-decoration: none;
   margin-left: 10px;
   position: relative;
-  box-shadow: 0 4px 0 #1b5e20, 0 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 0 #1b5e20, 0 5px 10px rgba(0, 0, 0, 0.2);
   transform: translateY(0);
 }
 
 .btn-signup:hover {
   background: var(--eco-light);
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #1b5e20, 0 3px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 0 #1b5e20, 0 3px 5px rgba(0, 0, 0, 0.2);
   color: var(--white);
 }
 
 .btn-signup:active {
   transform: translateY(4px);
-  box-shadow: 0 0 0 #1b5e20, 0 0 0 rgba(0,0,0,0.2);
+  box-shadow: 0 0 0 #1b5e20, 0 0 0 rgba(0, 0, 0, 0.2);
 }
 
 
@@ -419,7 +421,8 @@ body.nav-open {
   color: var(--white);
   transition: var(--transition-normal);
   border: 1px solid transparent;
-  margin-left: 12px; /* spacing from Eco Games */
+  margin-left: 12px;
+  /* spacing from Eco Games */
 }
 
 .theme-toggle-btn i {
@@ -617,12 +620,13 @@ body.nav-open {
     display: flex;
   }
 
-    .nav-links {
+  .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
     width: 320px;
-    height: 100dvh; /* safer on mobile browsers */
+    height: 100dvh;
+    /* safer on mobile browsers */
     background: linear-gradient(180deg, var(--eco-dark), #0d2e23);
     flex-direction: column;
     align-items: flex-start;
@@ -681,9 +685,9 @@ body.nav-open {
     padding-left: 15px;
     margin-top: 5px;
   }
-  
+
   /* Mobile submenu controlled by JS */
-  .nav-group.open > .dropdown {
+  .nav-group.open>.dropdown {
     display: block;
   }
 
@@ -905,34 +909,36 @@ body.nav-open {
 /* ========================================= */
 
 .nav-eco-games {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .nav-eco-games:hover {
-    color: #22c55e;
+  color: #22c55e;
 }
+
 /* ============================= */
 /* Eco Games Navbar Button */
 /* ============================= */
 
 .eco-games-btn {
-    flex-shrink: 0;
-    background: var(--eco-gradient);
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-weight: 600;
-    text-decoration: none;
-    margin-right: 15px;
-    display: inline-block;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  flex-shrink: 0;
+  background: var(--eco-gradient);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-right: 15px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
 .eco-games-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4);
 }
+
 /* ============================= */
 /* Eco Games Corner Button */
 /* ============================= */
@@ -962,23 +968,45 @@ body.nav-open {
   align-items: center;
 }
 
+.language-selector-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .language-selector {
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.15);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
   color: white;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  transition: 0.3s ease;
+  outline: none;
+  transition: all 0.3s ease;
+  appearance: none;
+  /* Premium look */
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) center;
+  padding-right: 30px;
+}
+
+.language-selector:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--eco-accent);
 }
 
 .language-selector option {
-  color: #1b4d3e; /* Dark green text for options */
-  background: white; /* Light background for options */
+  background-color: #1b4d3e;
+  /* Dark forest green background for list */
+  color: #ffffff;
+  /* Crisp white text */
+  padding: 10px;
 }
 
-
-.language-selector:hover {
-  background: rgba(255,255,255,0.25);
+/* Specific styling for the actual dropdown part */
+select:focus option {
+  background-color: #1b4d3e;
+  color: white;
 }
