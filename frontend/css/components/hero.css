@@ -1,6 +1,6 @@
 ﻿/* ===== MODERN HERO SECTION REDESIGN ===== */
 :root {
-  --hero-bg-gradient: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  --hero-bg-gradient: linear-gradient(-45deg, #1b5e20 0%, #2e7d32 25%, #43a047 50%, #2e7d32 75%, #1b5e20 100%);
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
@@ -11,6 +11,8 @@
 .hero-section {
   min-height: 100vh;
   background: var(--hero-bg-gradient);
+  background-size: 200% 200%;
+  background-attachment: fixed;
   position: relative;
   display: flex;
   align-items: center;
@@ -18,6 +20,7 @@
   padding: 140px 20px 80px;
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
+  animation: gradientShift 15s ease infinite;
 }
 
 /* ===== ANIMATED BACKGROUND ===== */
@@ -33,30 +36,32 @@
 
 .floating-element {
   position: absolute;
-  color: rgba(255, 255, 255, 0.05);
-  animation: floatBackground 12s infinite linear;
+  color: rgba(255, 255, 255, 0.08);
+  animation: floatBackground 15s infinite ease-in-out;
 }
 
 .leaf1 { top: 10%; left: 5%; font-size: 4rem; animation-delay: 0s; }
-.leaf2 { bottom: 20%; right: 10%; font-size: 3rem; animation-delay: -4s; }
+.leaf2 { bottom: 20%; right: 10%; font-size: 3rem; animation-delay: -5s; }
 
 .shape {
   position: absolute;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
   border-radius: 50%;
 }
-.shape-1 { width: 500px; height: 500px; top: -100px; right: -100px; animation: pulseShape 10s infinite alternate; }
-.shape-2 { width: 300px; height: 300px; bottom: 10%; left: -50px; animation: pulseShape 15s infinite alternate-reverse; }
+.shape-1 { width: 500px; height: 500px; top: -100px; right: -100px; animation: pulseShape 12s infinite alternate; }
+.shape-2 { width: 300px; height: 300px; bottom: 10%; left: -50px; animation: pulseShape 18s infinite alternate-reverse; }
 
 @keyframes pulseShape {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(1.2); opacity: 0.8; }
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(1.3); opacity: 0.6; }
 }
 
 @keyframes floatBackground {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(10deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-30px) translateX(10px) rotate(5deg); }
+  50% { transform: translateY(-50px) translateX(-10px) rotate(10deg); }
+  75% { transform: translateY(-30px) translateX(10px) rotate(5deg); }
+  100% { transform: translateY(0) translateX(0) rotate(0deg); }
 }
 
 /* ===== HERO CONTAINER ===== */
@@ -140,6 +145,29 @@
 
 @keyframes shine {
   to { background-position: 200% center; }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+  25% {
+    background-position: 50% 50%;
+    filter: brightness(1.05);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1);
+  }
+  75% {
+    background-position: 50% 50%;
+    filter: brightness(1.05);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
 }
 
 .hero-subtitle {
