@@ -12,9 +12,9 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="../../css/global/variables.css" />
     <link rel="stylesheet" href="../../css/style.css" />
-    <link rel="stylesheet" href="../../css/components/navbar.css" />
-    <link rel="stylesheet" href="../../css/components/footer.css" />
-    <link rel="stylesheet" href="../../css/components/scrollBar.css" />
+    <link rel="stylesheet" href="../../css/../../components/navbar.css" />
+    <link rel="stylesheet" href="../../css/../../components/footer.css" />
+    <link rel="stylesheet" href="../../css/../../components/scrollBar.css" />
     <link rel="stylesheet" href="../../css/pages/community/eco-swap.css" />
 
     <!-- Google Fonts -->
@@ -448,8 +448,8 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../../js/components/navbar.js"></script>
-    <script src="../../js/components/footer.js"></script>
+    <script src="../../js/../../components/navbar.js"></script>
+    <script src="../../js/../../components/footer.js"></script>
     <script src="../../js/pages/community/eco-swap.js"></script>
      <script>
     // Initialize AOS
@@ -459,7 +459,7 @@
     });
 
     // Load Navbar
-    fetch('../../components/navbar.html')
+    fetch('../../../../components/navbar.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar-container').innerHTML = data;
@@ -478,7 +478,7 @@
       });
 
     // Load Footer
-    fetch('../../components/footer.html')
+    fetch('../../../../components/footer.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('footer-container').innerHTML = data;
