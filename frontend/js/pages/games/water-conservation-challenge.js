@@ -1,3 +1,6 @@
+// Import GameProgressManager from progress-manager.js
+import GameProgressManager from '../components/progress-manager.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Game elements
     const startGameBtn = document.getElementById('startGameBtn');
@@ -19,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const levelScore = document.getElementById('levelScore');
     const dropSound = document.getElementById('dropSound');
     const leakSound = document.getElementById('leakSound');
+    const resumeSection = document.getElementById('resumeSection');
+    const resumeBtn = document.getElementById('resumeBtn');
+    const clearProgressBtn = document.getElementById('clearProgressBtn');
 
     // Game state
     let score = 0;
@@ -32,6 +38,83 @@ document.addEventListener('DOMContentLoaded', function() {
     let containers = [];
     let leaks = [];
     let badgesEarned = [];
+
+    // Initialize GameProgressManager
+    const progressManager = new GameProgressManager('water-conservation-challenge');
+
+    // Check for saved progress on load
+    checkSavedProgress();
+
+    // Function to check for saved progress
+    function checkSavedProgress() {
+        if (progressManager.canResumeGame()) {
+            const savedProgress = progressManager.loadGameProgress();
+            if (savedProgress) {
+                showResumeOption(savedProgress);
+            }
+        }
+    }
+
+    // Show resume option if progress exists
+    function showResumeOption(progress) {
+        if (resumeSection) {
+            resumeSection.style.display = 'block';
+            const resumeInfo = document.getElementById('resumeInfo');
+            if (resumeInfo) {
+                resumeInfo.textContent = `Previous score: ${progress.score} | Level: ${progress.level} | Time left: ${progress.timeLeft}s`;
+            }
+        }
+    }
+
+    // Resume game from saved progress
+    function resumeGame() {
+        const progress = progressManager.loadGameProgress();
+        if (progress) {
+            score = progress.score || 0;
+            level = progress.level || 1;
+            timeLeft = progress.timeLeft || 60;
+            badgesEarned = progress.badgesEarned || [];
+
+            updateUI();
+            showBadges();
+
+            if (resumeSection) {
+                resumeSection.style.display = 'none';
+            }
+        }
+    }
+
+    // Clear saved progress
+    function clearSavedProgress() {
+        progressManager.clearGameProgress();
+        if (resumeSection) {
+            resumeSection.style.display = 'none';
+        }
+    }
+
+    // Add event listeners for resume buttons
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', resumeGame);
+    }
+    if (clearProgressBtn) {
+        clearProgressBtn.addEventListener('click', clearSavedProgress);
+    }
+
+    // Save game progress
+    function saveProgress() {
+        const progressData = {
+            score: score,
+            level: level,
+            timeLeft: timeLeft,
+            gameState: {
+                droplets: droplets.length,
+                containers: containers.length,
+                leaks: leaks.length
+            },
+            badgesEarned: badgesEarned
+        };
+        progressManager.saveGameProgress(progressData);
+    }
 
     // Conservation tips
     const conservationTips = [

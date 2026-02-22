@@ -216,6 +216,67 @@
     background: #45a049;
 }
 
+/* Resume Section Styles */
+.resume-section {
+    background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+    border: 2px solid #4CAF50;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.resume-section h3 {
+    color: #2E7D32;
+    margin-bottom: 10px;
+}
+
+.resume-section p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.resume-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-resume {
+    background: linear-gradient(45deg, #4CAF50, #66BB6A);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-resume:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.btn-clear {
+    background: #f5f5f5;
+    color: #666;
+    border: 2px solid #ddd;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-clear:hover {
+    background: #eee;
+    border-color: #999;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -242,5 +303,13 @@
         width: 150px;
         height: 150px;
         font-size: 4rem;
+    }
+
+    .resume-buttons {
+        flex-direction: column;
+    }
+
+    .btn-resume, .btn-clear {
+        width: 100%;
     }
 }
