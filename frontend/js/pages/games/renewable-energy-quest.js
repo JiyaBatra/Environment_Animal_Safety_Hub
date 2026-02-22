@@ -1,5 +1,8 @@
 // Renewable Energy Quest Game Logic
 
+// Import GameProgressManager from progress-manager.js
+import GameProgressManager from '../components/progress-manager.js';
+
 class RenewableEnergyQuest {
     constructor() {
         this.grid = [];
@@ -11,6 +14,9 @@ class RenewableEnergyQuest {
         this.quizActive = false;
         this.quizCount = 0;
         this.maxQuizCount = 3;
+
+        // Initialize GameProgressManager
+        this.progressManager = new GameProgressManager('renewable-energy-quest');
 
         // Energy sources configuration
         this.sources = {
@@ -48,7 +54,100 @@ class RenewableEnergyQuest {
             }
         ];
 
+        // Check for saved progress on load
+        this.checkSavedProgress();
+
         this.init();
+    }
+
+    // Function to check for saved progress
+    checkSavedProgress() {
+        if (this.progressManager.canResumeGame()) {
+            const savedProgress = this.progressManager.loadGameProgress();
+            if (savedProgress) {
+                this.showResumeOption(savedProgress);
+            }
+        }
+    }
+
+    // Show resume option if progress exists
+    showResumeOption(progress) {
+        const resumeSection = document.getElementById('resumeSection');
+        if (resumeSection) {
+            resumeSection.style.display = 'block';
+            const resumeInfo = document.getElementById('resumeInfo');
+            if (resumeInfo) {
+                resumeInfo.textContent = `Previous score: ${progress.score} | Energy: ${progress.gameState?.energy || 0} MW | Level: ${progress.level}`;
+            }
+        }
+    }
+
+    // Resume game from saved progress
+    resumeGame() {
+        const progress = this.progressManager.loadGameProgress();
+        if (progress) {
+            this.score = progress.score || 0;
+            this.level = progress.level || 1;
+            this.energy = progress.gameState?.energy || 0;
+            this.pollution = progress.gameState?.pollution || 0;
+            this.grid = progress.gameState?.grid || [];
+
+            this.updateDisplay();
+            this.restoreGrid();
+
+            const resumeSection = document.getElementById('resumeSection');
+            if (resumeSection) {
+                resumeSection.style.display = 'none';
+            }
+        }
+    }
+
+    // Restore grid from saved progress
+    restoreGrid() {
+        const gridElement = document.getElementById('cityGrid');
+        gridElement.innerHTML = '';
+
+        for (let i = 0; i < 25; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            cell.dataset.index = i;
+
+            // Restore placed elements
+            if (this.grid[i]) {
+                const source = this.sources[this.grid[i]];
+                cell.textContent = source.emoji;
+                cell.className = `grid-cell ${this.grid[i]}`;
+            }
+
+            cell.addEventListener('click', () => this.placeElement(i));
+            gridElement.appendChild(cell);
+        }
+    }
+
+    // Clear saved progress
+    clearSavedProgress() {
+        this.progressManager.clearGameProgress();
+        const resumeSection = document.getElementById('resumeSection');
+        if (resumeSection) {
+            resumeSection.style.display = 'none';
+        }
+    }
+
+    // Save game progress
+    saveProgress() {
+        const progressData = {
+            score: this.score,
+            level: this.level,
+            timeLeft: 0,
+            gameState: {
+                grid: this.grid,
+                energy: this.energy,
+                pollution: this.pollution,
+                quizCount: this.quizCount
+            },
+            badgesEarned: []
+        };
+        this.progressManager.saveGameProgress(progressData);
     }
 
     init() {
@@ -107,6 +206,9 @@ class RenewableEnergyQuest {
         this.updateDisplay();
         this.checkQuizTrigger();
         this.checkWinCondition();
+        
+        // Save progress after placing element
+        this.saveProgress();
 
         // Play sound
         document.getElementById('placeSound').play();

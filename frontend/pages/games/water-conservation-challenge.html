@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Conservation Challenge</title>
-    <link rel="stylesheet" href="../../css/pages/games/water-conservation-challenge.css">
+    
     <link rel="icon" type="image/png" href="/envirnoment-logo.png">
     <link rel="stylesheet" href="../../css/global/utilities.css" />
     <link rel="stylesheet" href="../../css/global/variables.css" />
-    <link rel="stylesheet" href="../../css/components/navbar.css" />
+    
     <link rel="stylesheet" href="../../css/components/card.css" />
-    <link rel="stylesheet" href="../../css/components/footer.css" />
+    
     <link rel="stylesheet" href="../../css/components/Login_SignUp.css" />
+    <link rel="stylesheet" href="../../css/components/navbar.css" />
+    <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/pages/games/water-conservation-challenge.css">
 </head>
 <body>
     <div id="cursor-container"></div>
@@ -29,6 +32,18 @@
         <div class="header">
             <h1 class="title">💧 Water Conservation Challenge</h1>
             <p class="subtitle">Save water by filling containers while avoiding leaks!</p>
+        </div>
+
+        <!-- Resume Section -->
+        <div class="resume-section" id="resumeSection" style="display: none;">
+            <div class="resume-content">
+                <h3>💾 Continue Your Progress</h3>
+                <p id="resumeInfo">Previous progress found!</p>
+                <div class="resume-buttons">
+                    <button id="resumeBtn" class="btn-resume">Resume</button>
+                    <button id="clearProgressBtn" class="btn-clear">Start Fresh</button>
+                </div>
+            </div>
         </div>
 
         <div class="stats">
@@ -108,10 +123,11 @@
 
     <div class="box">
         <div id="footer-placeholder"></div>
-        <script src="/frontend/js/components/footer-loader.js"></script>
+        <script src="../js/components/footer-loader.js"></script>
     </div>
 
     <script src="../../js/components/component-loader.js"></script>
     <script src="../../js/components/navbar-loader.js"></script>
 </body>
 </html>
+

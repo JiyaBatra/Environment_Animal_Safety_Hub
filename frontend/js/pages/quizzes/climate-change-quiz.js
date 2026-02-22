@@ -10,9 +10,26 @@
  * @since 2024
  */
 
-// Create quiz loader with custom overrides
-const climateChangeLoader = new QuizLoader('climate-change', {
-  customOverrides: {
+// DOM elements
+const elements = {
+  startScreen: document.getElementById('startScreen'),
+  quizScreen: document.getElementById('quizScreen'),
+  resultScreen: document.getElementById('resultScreen'),
+  questionEl: document.getElementById('question'),
+  optionsEl: document.getElementById('options'),
+  timeEl: document.getElementById('time'),
+  scoreEl: document.getElementById('score'),
+  remarkEl: document.getElementById('remark'),
+  progressText: document.querySelector('.progress-metrics span:first-child'),
+  progressFill: document.getElementById('progressFill')
+};
+
+// Load quiz using QuizLoader
+let climateChangeQuiz = null;
+
+async function loadClimateChangeQuiz() {
+  // Custom overrides for climate change specific behavior
+  const customOverrides = {
     // Custom startQuiz to handle time selection
     startQuiz: function() {
       // Check for custom time selection
@@ -44,24 +61,21 @@ const climateChangeLoader = new QuizLoader('climate-change', {
         this.config.elements.remarkEl.textContent = remark;
       }
     }
-  }
-});
+  };
+
+  climateChangeQuiz = await QuizLoader.loadQuiz('climate-change', elements, customOverrides);
+}
 
 // Global functions for HTML onclick handlers
 window.startQuiz = () => {
-  const quiz = climateChangeLoader.getQuiz();
-  if (quiz) quiz.startQuiz();
+  if (climateChangeQuiz) climateChangeQuiz.startQuiz();
 };
 window.resumeQuiz = () => {
-  const quiz = climateChangeLoader.getQuiz();
-  if (quiz) quiz.resumeQuiz();
+  if (climateChangeQuiz) climateChangeQuiz.resumeQuiz();
 };
 window.nextQuestion = () => {
-  const quiz = climateChangeLoader.getQuiz();
-  if (quiz) quiz.nextQuestion();
+  if (climateChangeQuiz) climateChangeQuiz.nextQuestion();
 };
 
 // Load quiz on page load
-document.addEventListener('DOMContentLoaded', () => {
-  climateChangeLoader.loadQuiz();
-});
+document.addEventListener('DOMContentLoaded', loadClimateChangeQuiz);

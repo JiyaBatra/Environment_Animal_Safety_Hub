@@ -47,5 +47,16 @@ async function loadPollutionAwarenessQuiz() {
   pollutionAwarenessQuiz = await QuizLoader.loadQuiz('pollution-awareness', elements, customOverrides);
 }
 
+// Global functions for HTML onclick handlers
+window.startQuiz = () => {
+  if (pollutionAwarenessQuiz) pollutionAwarenessQuiz.startQuiz();
+};
+window.resumeQuiz = () => {
+  if (pollutionAwarenessQuiz) pollutionAwarenessQuiz.resumeQuiz();
+};
+window.nextQuestion = () => {
+  if (pollutionAwarenessQuiz) pollutionAwarenessQuiz.nextQuestion();
+};
+
 // Load quiz on page load
 document.addEventListener('DOMContentLoaded', loadPollutionAwarenessQuiz);

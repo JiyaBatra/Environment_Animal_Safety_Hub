@@ -1,5 +1,8 @@
 // Carbon Footprint Calculator Game Logic
 
+// Import GameProgressManager from progress-manager.js
+import GameProgressManager from '../components/progress-manager.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     const calculateBtn = document.getElementById('calculateBtn');
     const footprintDisplay = document.getElementById('footprint');
@@ -14,10 +17,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const badgesContainer = document.getElementById('badges');
     const badgeModal = document.getElementById('badgeModal');
     const badgeText = document.getElementById('badgeText');
+    const resumeSection = document.getElementById('resumeSection');
+    const resumeBtn = document.getElementById('resumeBtn');
+    const clearProgressBtn = document.getElementById('clearProgressBtn');
 
     let totalFootprint = 0;
     let badgesEarned = [];
     let currentLevel = 'Beginner';
+    let gameState = {
+        transportation: 0,
+        food: 0,
+        energy: 0,
+        calculated: false
+    };
+
+    // Initialize GameProgressManager
+    const progressManager = new GameProgressManager('carbon-footprint-calculator');
+
+    // Check for saved progress on load
+    checkSavedProgress();
 
     // Badge definitions
     const badges = [
@@ -48,6 +66,92 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // Function to check for saved progress
+    function checkSavedProgress() {
+        if (progressManager.canResumeGame()) {
+            const savedProgress = progressManager.loadGameProgress();
+            if (savedProgress && savedProgress.gameState) {
+                showResumeOption(savedProgress);
+            }
+        }
+    }
+
+    // Show resume option if progress exists
+    function showResumeOption(progress) {
+        if (resumeSection) {
+            resumeSection.style.display = 'block';
+            const resumeInfo = document.getElementById('resumeInfo');
+            if (resumeInfo) {
+                resumeInfo.textContent = `Previous score: ${progress.score} | Badges: ${progress.badgesEarned ? progress.badgesEarned.length : 0}`;
+            }
+        }
+    }
+
+    // Resume game from saved progress
+    function resumeGame() {
+        const progress = progressManager.loadGameProgress();
+        if (progress && progress.gameState) {
+            // Restore game state
+            gameState = progress.gameState;
+            totalFootprint = progress.score;
+            badgesEarned = progress.badgesEarned || [];
+            currentLevel = progress.level || 'Beginner';
+
+            // Restore form values
+            const transportationSelect = document.getElementById('transportation');
+            const foodSelect = document.getElementById('food');
+            const energySelect = document.getElementById('energy');
+
+            if (transportationSelect) transportationSelect.value = gameState.transportation;
+            if (foodSelect) foodSelect.value = gameState.food;
+            if (energySelect) energySelect.value = gameState.energy;
+
+            // Update display
+            footprintDisplay.textContent = totalFootprint.toFixed(1) + ' kg CO2';
+            badgesEarnedDisplay.textContent = badgesEarned.length;
+            levelDisplay.textContent = currentLevel;
+
+            // Show previously earned badges
+            if (badgesEarned.length > 0) {
+                badgesSection.style.display = 'block';
+                badgesContainer.innerHTML = '';
+                badgesEarned.forEach(badgeName => {
+                    const badgeElement = document.createElement('div');
+                    badgeElement.className = 'badge';
+                    badgeElement.textContent = badgeName;
+                    badgesContainer.appendChild(badgeElement);
+                });
+            }
+
+            // If previously calculated, show results
+            if (gameState.calculated) {
+                updateVisualization();
+                showSections();
+            }
+
+            // Hide resume section
+            if (resumeSection) {
+                resumeSection.style.display = 'none';
+            }
+        }
+    }
+
+    // Clear saved progress
+    function clearSavedProgress() {
+        progressManager.clearGameProgress();
+        if (resumeSection) {
+            resumeSection.style.display = 'none';
+        }
+    }
+
+    // Add event listeners for resume buttons
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', resumeGame);
+    }
+    if (clearProgressBtn) {
+        clearProgressBtn.addEventListener('click', clearSavedProgress);
+    }
+
     calculateBtn.addEventListener('click', calculateFootprint);
 
     function calculateFootprint() {
@@ -61,6 +165,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Update game state
+        gameState.transportation = transportation;
+        gameState.food = food;
+        gameState.energy = energy;
+        gameState.calculated = true;
+
         totalFootprint = transportation + food + energy;
         footprintDisplay.textContent = totalFootprint.toFixed(1) + ' kg CO2';
 
@@ -70,8 +180,28 @@ document.addEventListener('DOMContentLoaded', function() {
         updateLevel();
         showSections();
 
+        // Save progress
+        saveProgress();
+
+        // Hide resume section after calculation
+        if (resumeSection) {
+            resumeSection.style.display = 'none';
+        }
+
         // Play sound
         document.getElementById('calculateSound').play();
+    }
+
+    // Save game progress
+    function saveProgress() {
+        const progressData = {
+            score: totalFootprint,
+            level: currentLevel,
+            timeLeft: 0,
+            gameState: gameState,
+            badgesEarned: badgesEarned
+        };
+        progressManager.saveGameProgress(progressData);
     }
 
     function updateVisualization() {
@@ -152,4 +282,9 @@ document.addEventListener('DOMContentLoaded', function() {
             badgeModal.style.display = 'none';
         }
     });
+
+    // Make closeModal function globally available
+    window.closeModal = function() {
+        badgeModal.style.display = 'none';
+    };
 });

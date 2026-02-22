@@ -194,3 +194,336 @@ export default ProgressManager;
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = ProgressManager;
 }
+
+/**
+ * GameProgressManager - Extended ProgressManager for Games
+ * 
+ * This extends the base ProgressManager with game-specific functionality.
+ * Can be used interchangeably with ProgressManager for game progress tracking.
+ * 
+ * @class GameProgressManager
+ */
+class GameProgressManager extends ProgressManager {
+  /**
+   * Create a new GameProgressManager instance
+   * @param {string} gameId - Unique identifier for the game (e.g., 'carbon-footprint-calculator')
+   */
+  constructor(gameId) {
+    // Use 'game' prefix to differentiate from quiz progress
+    super(`game_${gameId}`);
+    this.gameId = gameId;
+    this.storageKey = `gameProgress_${gameId}`;
+  }
+
+  /**
+   * Standardized game progress data structure
+   * @typedef {Object} GameProgress
+   * @property {string} gameId - Unique game identifier
+   * @property {number} score - Current score
+   * @property {number} level - Current level
+   * @property {number} timeLeft - Remaining time in seconds (for timed games)
+   * @property {Object} gameState - Game-specific state data
+   * @property {Array} badgesEarned - Array of earned badge names
+   * @property {number} timestamp - Last save timestamp
+   * @property {string} version - Progress data version
+   */
+
+  /**
+   * Save game progress to localStorage
+   * @param {Object} progressData - Game progress data to save
+   * @returns {boolean} True if save was successful
+   */
+  saveGameProgress(progressData) {
+    try {
+      const progress = {
+        gameId: this.gameId,
+        score: progressData.score || 0,
+        level: progressData.level || 1,
+        timeLeft: progressData.timeLeft || 0,
+        gameState: progressData.gameState || {},
+        badgesEarned: progressData.badgesEarned || [],
+        timestamp: Date.now(),
+        version: this.currentVersion
+      };
+
+      // Validate progress data
+      if (!this.validateGameProgress(progress)) {
+        console.error('Invalid game progress data:', progress);
+        return false;
+      }
+
+      localStorage.setItem(this.storageKey, JSON.stringify(progress));
+      return true;
+    } catch (error) {
+      console.error('Error saving game progress:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Load saved game progress from localStorage
+   * @returns {Object|null} Game progress data if available and valid, null otherwise
+   */
+  loadGameProgress() {
+    try {
+      const saved = localStorage.getItem(this.storageKey);
+      if (!saved) return null;
+
+      const progress = JSON.parse(saved);
+
+      // Validate loaded progress
+      if (!this.validateGameProgress(progress)) {
+        console.warn('Invalid saved game progress, clearing:', progress);
+        this.clearGameProgress();
+        return null;
+      }
+
+      // Check if progress is for the correct game
+      if (progress.gameId !== this.gameId) {
+        console.warn('Progress gameId mismatch, clearing');
+        this.clearGameProgress();
+        return null;
+      }
+
+      return progress;
+    } catch (error) {
+      console.error('Error loading game progress:', error);
+      this.clearGameProgress();
+      return null;
+    }
+  }
+
+  /**
+   * Clear saved game progress from localStorage
+   * @returns {boolean} True if clear was successful
+   */
+  clearGameProgress() {
+    try {
+      localStorage.removeItem(this.storageKey);
+      return true;
+    } catch (error) {
+      console.error('Error clearing game progress:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Check if game progress exists and is resumable
+   * @param {number} maxAge - Maximum age in milliseconds (default: 7 days for games)
+   * @returns {boolean} True if game can be resumed
+   */
+  canResumeGame(maxAge = 7 * 24 * 60 * 60 * 1000) {
+    const progress = this.loadGameProgress();
+    if (!progress) return false;
+
+    // Check if progress is too old
+    const age = Date.now() - progress.timestamp;
+    if (age > maxAge) {
+      console.log('Game progress too old, clearing');
+      this.clearGameProgress();
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Validate game progress data structure
+   * @param {Object} progress - Game progress data to validate
+   * @returns {boolean} True if progress is valid
+   */
+  validateGameProgress(progress) {
+    if (!progress || typeof progress !== 'object') return false;
+
+    // Required fields
+    const requiredFields = ['gameId', 'score', 'level', 'timeLeft', 'gameState', 'badgesEarned', 'timestamp', 'version'];
+    for (const field of requiredFields) {
+      if (!(field in progress)) return false;
+    }
+
+    // Type validation
+    if (typeof progress.gameId !== 'string') return false;
+    if (typeof progress.score !== 'number' || progress.score < 0) return false;
+    if (typeof progress.level !== 'number' || progress.level < 1) return false;
+    if (typeof progress.timeLeft !== 'number' || progress.timeLeft < 0) return false;
+    if (typeof progress.gameState !== 'object') return false;
+    if (!Array.isArray(progress.badgesEarned)) return false;
+    if (typeof progress.timestamp !== 'number') return false;
+    if (typeof progress.version !== 'string') return false;
+
+    return true;
+  }
+}
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = GameProgressManager;
+
+/**
+ * GameProgressManager - Extended ProgressManager for Games
+ * 
+ * This extends the base ProgressManager with game-specific functionality.
+ * Can be used interchangeably with ProgressManager for game progress tracking.
+ * 
+ * @class GameProgressManager
+ */
+class GameProgressManager extends ProgressManager {
+  /**
+   * Create a new GameProgressManager instance
+   * @param {string} gameId - Unique identifier for the game (e.g., 'carbon-footprint-calculator')
+   */
+  constructor(gameId) {
+    // Use 'game' prefix to differentiate from quiz progress
+    super(`game_${gameId}`);
+    this.gameId = gameId;
+    this.storageKey = `gameProgress_${gameId}`;
+  }
+
+  /**
+   * Standardized game progress data structure
+   * @typedef {Object} GameProgress
+   * @property {string} gameId - Unique game identifier
+   * @property {number} score - Current score
+   * @property {number} level - Current level
+   * @property {number} timeLeft - Remaining time in seconds (for timed games)
+   * @property {Object} gameState - Game-specific state data
+   * @property {Array} badgesEarned - Array of earned badge names
+   * @property {number} timestamp - Last save timestamp
+   * @property {string} version - Progress data version
+   */
+
+  /**
+   * Save game progress to localStorage
+   * @param {Object} progressData - Game progress data to save
+   * @param {number} progressData.score - Current score
+   * @param {number} progressData.level - Current level
+   * @param {number} progressData.timeLeft - Remaining time in seconds
+   * @param {Object} progressData.gameState - Game-specific state data
+   * @param {Array} progressData.badgesEarned - Array of earned badges
+   * @returns {boolean} True if save was successful
+   */
+  saveGameProgress(progressData) {
+    try {
+      const progress = {
+        gameId: this.gameId,
+        score: progressData.score || 0,
+        level: progressData.level || 1,
+        timeLeft: progressData.timeLeft || 0,
+        gameState: progressData.gameState || {},
+        badgesEarned: progressData.badgesEarned || [],
+        timestamp: Date.now(),
+        version: this.currentVersion
+      };
+
+      // Validate progress data
+      if (!this.validateGameProgress(progress)) {
+        console.error('Invalid game progress data:', progress);
+        return false;
+      }
+
+      localStorage.setItem(this.storageKey, JSON.stringify(progress));
+      return true;
+    } catch (error) {
+      console.error('Error saving game progress:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Load saved game progress from localStorage
+   * @returns {Object|null} Game progress data if available and valid, null otherwise
+   */
+  loadGameProgress() {
+    try {
+      const saved = localStorage.getItem(this.storageKey);
+      if (!saved) return null;
+
+      const progress = JSON.parse(saved);
+
+      // Validate loaded progress
+      if (!this.validateGameProgress(progress)) {
+        console.warn('Invalid saved game progress, clearing:', progress);
+        this.clearGameProgress();
+        return null;
+      }
+
+      // Check if progress is for the correct game
+      if (progress.gameId !== this.gameId) {
+        console.warn('Progress gameId mismatch, clearing');
+        this.clearGameProgress();
+        return null;
+      }
+
+      return progress;
+    } catch (error) {
+      console.error('Error loading game progress:', error);
+      this.clearGameProgress();
+      return null;
+    }
+  }
+
+  /**
+   * Clear saved game progress from localStorage
+   * @returns {boolean} True if clear was successful
+   */
+  clearGameProgress() {
+    try {
+      localStorage.removeItem(this.storageKey);
+      return true;
+    } catch (error) {
+      console.error('Error clearing game progress:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Check if game progress exists and is resumable
+   * @param {number} maxAge - Maximum age in milliseconds (default: 7 days for games)
+   * @returns {boolean} True if game can be resumed
+   */
+  canResumeGame(maxAge = 7 * 24 * 60 * 60 * 1000) {
+    const progress = this.loadGameProgress();
+    if (!progress) return false;
+
+    // Check if progress is too old
+    const age = Date.now() - progress.timestamp;
+    if (age > maxAge) {
+      console.log('Game progress too old, clearing');
+      this.clearGameProgress();
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Validate game progress data structure
+   * @param {Object} progress - Game progress data to validate
+   * @returns {boolean} True if progress is valid
+   */
+  validateGameProgress(progress) {
+    if (!progress || typeof progress !== 'object') return false;
+
+    // Required fields
+    const requiredFields = ['gameId', 'score', 'level', 'timeLeft', 'gameState', 'badgesEarned', 'timestamp', 'version'];
+    for (const field of requiredFields) {
+      if (!(field in progress)) return false;
+    }
+
+    // Type validation
+    if (typeof progress.gameId !== 'string') return false;
+    if (typeof progress.score !== 'number' || progress.score < 0) return false;
+    if (typeof progress.level !== 'number' || progress.level < 1) return false;
+    if (typeof progress.timeLeft !== 'number' || progress.timeLeft < 0) return false;
+    if (typeof progress.gameState !== 'object') return false;
+    if (!Array.isArray(progress.badgesEarned)) return false;
+    if (typeof progress.timestamp !== 'number') return false;
+    if (typeof progress.version !== 'string') return false;
+
+    return true;
+  }
+}
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = GameProgressManager;
