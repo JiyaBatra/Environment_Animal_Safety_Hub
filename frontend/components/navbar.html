@@ -1,305 +1,141 @@
 <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-    <div class="nav-container">
+  <div class="nav-container">
 
-        <a href="/frontend/index.html" class="logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="EcoLife Logo" class="logo-img" />
-            <span>EcoLife</span>
-        </a>
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png"
+           alt="EcoLife Logo"
+           class="logo-img" />
+      <span>EcoLife</span>
+    </a>
 
-        <!-- Hamburger Menu Button -->
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- Hamburger -->
+    <button class="nav-toggle"
+            id="navToggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+
+      <!-- Home -->
+      <li class="nav-group">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+      </li>
+
+      <!-- About -->
+      <li class="nav-group">
+        <a href="pages/about.html" class="nav-link" data-i18n="nav.about">About</a>
+      </li>
+
+      <!-- Actions -->
+      <li class="nav-group has-submenu">
+        <button type="button" class="nav-link submenu-toggle">
+          Actions <i class="fas fa-chevron-down arrow-icon"></i>
+        </button>
+        <ul class="dropdown">
+          <li><a href="pages/community-action-hub.html">🌍 Action Hub</a></li>
+          <li><a href="pages/water-wastage-tracker.html">💧 Water Wastage Tracker</a></li>
+          <li><a href="pages/food-waste-tracker.html">🥗 Food Waste Tracker</a></li>
+          <li><a href="pages/animal-safety/pet-adoption.html">🐶 Adopt Pet</a></li>
+          <li><a href="pages/animal-safety/lost-found-pets.html">😃 Lost & Found</a></li>
+        </ul>
+      </li>
+
+      <!-- Education -->
+      <li class="nav-group has-submenu">
+        <button type="button" class="nav-link submenu-toggle">
+          Education <i class="fas fa-chevron-down arrow-icon"></i>
         </button>
 
-        <ul class="nav-links" id="navLinks">
-
-            <!-- Mobile Search -->
-            <li class="nav-group mobile-search" style="display: none;">
-                <form class="mobile-search-form" id="mobileSearchForm">
-                    <input type="text" id="mobileSearchInput" placeholder="Search...">
-                    <button type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-            </li>
-
-            <li class="nav-group">
-                <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
-            </li>
-
-            <li class="nav-group">
-                <a href="pages/about.html" class="nav-link" data-i18n="nav.about">About</a>
-            </li>
-
-            <li class="nav-group">
-                <a href="pages/urban-green-finder.html" class="nav-link">🌳 Urban Green Finder</a>
-            </li>
-
-            <li class="nav-group has-submenu">
-                <button type="button" class="nav-link submenu-toggle" data-i18n="nav.services">
-                    Actions <i class="fas fa-chevron-down arrow-icon"></i>
-                </button>
-                <ul class="dropdown">
-                    <li><a href="pages/community-action-hub.html">🌍 Action Hub</a></li>
-                    <li><a href="pages/water-wastage-tracker.html">💧 Water Wastage Tracker</a></li>
-                    <li><a href="pages/food-waste-tracker.html">🥗 Food Waste Tracker</a></li>
-                    <li><a href="pages/animal-safety/pet-adoption.html">🐶 Adopt Pet</a></li>
-                    <li><a href="pages/animal-safety/lost-found-pets.html">😃 Lost & Found</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-group has-submenu">
-                <button type="button" class="nav-link submenu-toggle">
-                    Education <i class="fas fa-chevron-down arrow-icon"></i>
-                </button>
-
-                <ul class="dropdown" style="overflow: auto; height: 100vh; width: 200px;">
-
-                    <li><a href="pages/pages/education/educational-resources.html">📚 Educational Resources</a></li>
-
-                    <li><a href="pages/animal-safety/extinct-animals.html">Extinct Animals</a></li>
-
-                    <li><a href="pages/animal-safety/endangered-animals.html">Endangered Animals</a></li>
-
-                    <li><a href="pages/animal-safety/emergency-response.html">Emergency Response</a></li>
-
-                    <li><a href="pages/animal-safety/wildlife-incidents.html">Wildlife Incidents</a></li>
-
-                    <li><a href="pages/animal-safety/animal-poison-prevention.html">Animal Poison
-                            Prevention</a></li>
-
-                    <li><a href="pages/animal-safety/animal-rescue-guide.html">Animal Rescue Guide</a></li>
-
-                    <li><a href="pages/animal-safety/wildlife-safety-tips.html">Wildlife Safety Tips</a></li>
-
-                    <li><a href="pages/animal-safety/pet-owner-responsibilities.html">Pet Owner
-                            Responsibilities</a></li>
-
-                    <li><a href="pages/animal-safety/pet-overbreeding.html">Pet Overbreeding Issues</a></li>
-
-                    <li><a href="pages/animal-safety/emergency-pet-care.html">Emergency Pet Care</a></li>
-
-                    <li><a href="pages/animal-safety/animal-nutrition.html">Animal Nutrition</a></li>
-
-                    <li><a href="pages/animal-safety/exotic-animals.html">Exotic Animals</a></li>
-
-                    <li><a href="pages/animal-safety/anti-poaching.html">Anti-Poaching Efforts</a></li>
-
-                    <li><a href="pages/animal-safety/wildlife-captivity-ethics.html">🎭 Captivity Ethics</a></li>
-
-                    <li><a href="pages/animal-safety/ai-wildlife-monitoring.html">🤖 AI Wildlife Monitoring</a></li>
-
-                    <li><a href="pages/animal-safety/mangrove-forests.html">🌿 Mangrove Forests</a></li>
-
-                    <li><a href="pages/animal-safety/animal-welfare-laws.html">Animal Welfare Laws</a></li>
-
-                    <li><a href="pages/animal-safety/captive-animals-wellbeing.html">🧠 Captive Animals
-                            Well-Being</a></li>
-
-                    <li><a href="pages/animal-safety/animal-therapy.html">Animal Therapy Programs</a></li>
-
-                    <li><a href="pages/animal-safety/wildlife-photography-ethics.html">Wildlife Photography
-                            Ethics</a></li>
-
-                    <li><a href="pages/visual-museum.html">Virtual Museum</a></li>
-
-                    <li><a href="pages/product-scanner.html">Product Scanner</a></li>
-
-                    <li><a href="pages/environment/environment.html">Environment</a></li>
-
-                    <li><a href="pages/environment/ar-climate-visualizer.html">🔮 Future Lens AR</a></li>
-
-                    <li><a href="pages/environment/air-quality-dashboard.html">🌬️ Air Quality Dashboard</a>
-                    </li>
-
-                    <li><a href="pages/environment/endocrine-disruption-pesticides.html">🧪 Endocrine Disruption</a></li>
-
-                    <li><a href="pages/environment/freshwater-salinization.html">🧪 Freshwater Salinization</a></li>
-
-                    <li><a href="pages/environment/trophic-downgrading.html">🐺 Trophic Downgrading</a></li>
-
-                    <li><a href="pages/environment/scavenger-decline.html">🦅 Scavenger Decline & Disease</a></li>
-
-                    <li><a href="pages/environment/soundscape-degradation.html">🔊 Soundscape Degradation</a>
-                    </li>
-
-                    <li><a href="pages/environment/climate-resilient-habitats.html">🛡️ Climate-Resilient
-                            Habitats</a></li>
-
-                    <li><a href="pages/environment/wildlife-habitat.html">Wildlife Habitat Protection</a></li>
-
-                    <li><a href="pages/animal-safety/wildlife-relocation-programs.html">🚚 Wildlife Relocation
-                            Ethics</a></li>
-
-                    <li><a href="pages/urban-green-spaces.html">🌿 Urban Green Spaces</a></li>
-
-                    <li><a href="pages/apex-predators-behavior.html">🦁 Apex Predators Behavior</a></li>
-
-                    <li><a href="pages/environment/habitat-conservation.html">Habitat Conservation</a></li>
-
-                    <li><a href="pages/environment/migratory-stopover-sites.html">🕊️ Migratory Stopover
-                            Sites</a></li>
-
-                    <li><a href="pages/invasive-plant-species.html">🌿 Invasive Plant Species Impact</a></li>
-
-                    <li><a href="pages/post-conflict-conservation.html">🌿 Post-Conflict Conservation</a></li>
-
-                    <li><a href="pages/disease-spillover.html">🦠 Disease Spillover</a></li>
-
-                    <li><a href="pages/scavenger-decline.html">🦅 Scavenger Decline & Disease Risk</a></li>
-
-                    <li><a href="pages/animal-safety/species-deextinction.html">🧬 Species De-Extinction</a>
-                    </li>
-
-                    <li><a href="pages/coral-reef-restoration.html">🪸 Coral Reef Restoration</a></li>
-
-                    <li><a href="pages/artificial-reefs-ecological.html">🪸 Artificial Reefs & Ecology</a>
-                    </li>
-
-                    <li><a href="pages/dark-sky-conservation.html">🌙 Dark Sky Conservation</a></li>
-
-                    <li><a href="pages/light-pollution-nocturnal-wildlife.html">💡 Light Pollution &
-                            Wildlife</a></li>
-
-                    <li><a href="pages/migration-barriers.html">🚧 Migration Barriers</a></li>
-
-                    <li><a href="pages/environmental-impact.html">Environmental Impact of Pets</a></li>
-
-                    <li><a href="pages/freshwater-ecosystems.html">🌊 Freshwater Ecosystems</a></li>
-
-                    <li><a href="pages/pharmaceutical-pollution-freshwater.html">💊 Pharmaceutical
-                            Pollution</a></li>
-
-                    <li><a href="pages/plant-care.html">Plant Care</a></li>
-
-                    <li><a href="pages/eco-travel.html">Eco Travel Planner</a></li>
-
-                    <li><a href="pages/feeding-awareness.html">Feeding Awareness</a></li>
-
-                    <li><a href="pages/eco-chef.html">Eco-Chef Recipes</a></li>
-
-                    <li><a href="pages/permafrost-thaw.html">🧊 Permafrost Thaw</a></li>
-
-                    <li><a href="pages/snowpack-loss-alpine-hydrological-collapse.html">🌨️ Snowpack Loss &
-                            Hydrological Collapse</a></li>
-
-                    <li><a href="pages/ocean-current-shifts-larval-dispersal-failure.html">🌊 Ocean Current
-                            Shifts & Larval Dispersal Failure</a></li>
-
-                    <li><a href="pages/wildlife-exploitation.html">🦎 Wildlife Exploitation in Illegal Pet
-                            Trade</a></li>
-                </ul>
-            </li>
-            <li class="nav-group has-submenu">
-                <button type="button" class="nav-link submenu-toggle" data-i18n="nav.emergency">
-                    Emergency <i class="fas fa-chevron-down arrow-icon"></i>
-                </button>
-                <ul class="dropdown">
-                    <li><a href="pages/report/sos.html">🆘 SOS Emergency</a></li>
-                    <li><a href="pages/report/report.html">Stray Pet</a></li>
-                    <li><a href="pages/report/report-dumping.html">Dumping Waste</a></li>
-                    <li><a href="pages/report/community-reporting.html">Community Reporting</a></li>
-                    <li><a href="pages/contact.html">Contact</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-group has-submenu">
-    <button type="button" class="nav-link submenu-toggle" data-i18n="nav.community">
-        Community <i class="fas fa-chevron-down arrow-icon"></i>
-    </button>
-    <ul class="dropdown">
-        <li><a href="pages/volunteer-opportunities.html">🤝 Volunteer Opportunities</a></li>
-
-        <li><a href="pages/community/index.html">🌍 Community Feed</a></li>
-        <li><a href="pages/community/forums.html">💬 Discussion Forums</a></li>
-        <li><a href="pages/community/groups.html">👥 Community Groups</a></li>
-        <li><a href="pages/community/dashboard.html">📊 My Dashboard</a></li>
-        <li><a href="pages/community/events.html">📅 Community Events</a></li>
-        <li><a href="pages/community/eco-swap.html">🔄 Eco-Swap Marketplace</a></li>
-        <li><a href="pages/blogs/blog.html">📝 Community Blog</a></li>
-        <li><a href="pages/community/chat.html">💬 Community Chat</a></li>
-        <li><a href="pages/community/mentorship.html">🎓 Mentorship</a></li>
-        <li><a href="pages/contributor.html">🌟 Contributors</a></li>
-    </ul>
-</li>
-
-            <li class="nav-group">
-                <a href="pages/games/kids-zone.html" class="nav-link btn-quiz-highlight">
-                    🎮 Eco Games
-                </a>
-            </li>
+        <ul class="dropdown dropdown-scroll">
+          <li><a href="pages/educational-resources.html">📚 Educational Resources</a></li>
+          <li><a href="pages/animal-safety/extinct-animals.html">Extinct Animals</a></li>
+          <li><a href="pages/animal-safety/endangered-animals.html">Endangered Animals</a></li>
+          <li><a href="pages/animal-safety/emergency-response.html">Emergency Response</a></li>
+          <li><a href="pages/animal-safety/wildlife-incidents.html">Wildlife Incidents</a></li>
+          <li><a href="pages/animal-safety/animal-poison-prevention.html">Animal Poison Prevention</a></li>
+          <li><a href="pages/animal-safety/animal-rescue-guide.html">Animal Rescue Guide</a></li>
+          <li><a href="pages/animal-safety/wildlife-safety-tips.html">Wildlife Safety Tips</a></li>
+          <li><a href="pages/urban-green-finder.html">🌳 Urban Green Finder</a></li>
+          <li><a href="pages/environment/environment.html">Environment</a></li>
+          <li><a href="pages/visual-museum.html">Virtual Museum</a></li>
+          <li><a href="pages/product-scanner.html">Product Scanner</a></li>
+          <li><a href="pages/eco-chef.html">Eco-Chef Recipes</a></li>
         </ul>
-        <div class="nav-auth">
-            <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
-                <i class="fa-solid fa-moon"></i>
-            </button>
+      </li>
 
-            <div class="language-selector-wrapper">
-                <select id="languageSelect" class="language-selector" aria-label="Select language"
-                    title="Select Language">
-                    <option value="en">English</option>
-                    <option value="hi">हिन्दी</option>
-                    <option value="bn">বাংলা</option>
-                    <option value="mr">मराठी</option>
-                    <option value="te">తెలుగు</option>
-                    <option value="ta">தமிழ்</option>
-                    <option value="gu">ગુજરાતી</option>
-                    <option value="kn">ಕನ್ನಡ</option>
-                    <option value="ml">മലയാളം</option>
-                    <option value="or">ଓଡ଼ିଆ</option>
-                    <option value="pa">ਪੰਜਾਬੀ</option>
-                    <option value="as">অসমীয়া</option>
-                    <option value="ur">اردو</option>
-                    <option value="sa">संस्कृतम्</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                    <option value="de">Deutsch</option>
-                    <option value="zh">中文</option>
-                    <option value="ar">العربية</option>
-                    <option value="pt">Português</option>
-                    <option value="ru">Русский</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="it">Italiano</option>
-                    <option value="tr">Türkçe</option>
-                    <option value="vi">Tiếng Việt</option>
-                    <option value="pl">Polski</option>
-                    <option value="nl">Nederlands</option>
-                    <option value="th">ไทย</option>
-                    <option value="id">Bahasa Indonesia</option>
-                    <option value="fa">فارسی</option>
-                    <option value="el">Ελληνικά</option>
-                    <option value="he">עברית</option>
-                    <option value="sv">Svenska</option>
-                    <option value="no">Norsk</option>
-                    <option value="da">Dansk</option>
-                    <option value="fi">Suomi</option>
-                    <option value="ro">Română</option>
-                    <option value="hu">Magyar</option>
-                    <option value="cs">Čeština</option>
-                    <option value="sk">Slovenčina</option>
-                    <option value="uk">Українська</option>
-                    <option value="bg">Български</option>
-                    <option value="hr">Hrvatski</option>
-                    <option value="sr">Српски</option>
-                    <option value="ms">Bahasa Melayu</option>
-                    <option value="tl">Filipino</option>
-                    <option value="sw">Kiswahili</option>
-                    <option value="am">አማርኛ</option>
-                    <option value="zu">isiZulu</option>
-                    <option value="af">Afrikaans</option>
-                    <option value="ga">Gaeilge</option>
-                </select>
-            </div>
+      <!-- Emergency -->
+      <li class="nav-group has-submenu">
+        <button type="button" class="nav-link submenu-toggle">
+          Emergency <i class="fas fa-chevron-down arrow-icon"></i>
+        </button>
+        <ul class="dropdown">
+          <li><a href="pages/report/sos.html">🆘 SOS Emergency</a></li>
+          <li><a href="pages/report/report.html">Stray Pet</a></li>
+          <li><a href="pages/report/report-dumping.html">Dumping Waste</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
+      </li>
 
-            <div class="auth-guest-only">
-                <a href="pages/login.html" class="btn-login" data-i18n="nav.login">Login</a>
-                <a href="pages/signup.html" class="btn-signup" data-i18n="nav.signup">Sign Up</a>
-            </div>
+      <!-- Community -->
+      <li class="nav-group has-submenu">
+        <button type="button" class="nav-link submenu-toggle">
+          Community <i class="fas fa-chevron-down arrow-icon"></i>
+        </button>
+        <ul class="dropdown">
+          <li><a href="pages/community/index.html">🌍 Community Feed</a></li>
+          <li><a href="pages/community/forums.html">💬 Discussion Forums</a></li>
+          <li><a href="pages/community/groups.html">👥 Community Groups</a></li>
+          <li><a href="pages/community/events.html">📅 Community Events</a></li>
+          <li><a href="pages/community/chat.html">💬 Community Chat</a></li>
+          <li><a href="pages/blogs/blog.html">📝 Community Blog</a></li>
+        </ul>
+      </li>
 
-            <div class="nav-profile auth-user-only" style="display: none;"></div>
-        </div>
+      <!-- Eco Games -->
+      <li class="nav-group">
+        <a href="pages/games/kids-zone.html" class="nav-link btn-quiz-highlight">
+          🎮 Eco Games
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- Auth Section -->
+    <div class="auth-guest-only">
+      <a href="pages/login.html" class="btn-login">Login</a>
+      <a href="pages/signup.html" class="btn-signup">Sign Up</a>
     </div>
+
+    <div class="nav-profile auth-user-only"></div>
+
+    <!-- Theme & Language -->
+    <div class="nav-auth">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+      <select id="languageSelect"
+              class="language-selector"
+              aria-label="Select language">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="ta">தமிழ்</option>
+        <option value="te">తెలుగు</option>
+        <option value="ml">മലയാളം</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="zh">中文</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+
+  </div>
 </nav>

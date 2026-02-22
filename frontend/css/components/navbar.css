@@ -47,8 +47,9 @@ body.nav-open {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 1000;
+  width:100%;
+  display: flex;
   /* Greenish Glass Background (Default) */
   background: var(--navbar-bg);
   backdrop-filter: blur(12px);
@@ -60,13 +61,11 @@ body.nav-open {
 
 .navbar.scrolled {
   background: rgba(20, 50, 30, 0.95);
-  /* Darker/Solid on scroll */
   box-shadow: var(--shadow-lg);
   padding: 0;
 }
 
 .nav-container {
-  width: 100%;
   padding: 0 30px;
   display: flex;
   align-items: center;
