@@ -3,55 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  
-
-
-<style>
-  body {
-  padding-top: 80px; /* match navbar height */
-}
-</style>
-    <link rel="stylesheet" href="../css/components/navbar.css" />
-    <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/pages/urban-green-finder.css">
+  <title>Urban Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/navbar.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/pages/urban/urban-green-finder.css">
 </head>
-
 <body>
-  <div id="navbar-container"></div>
-<div class="urban-green-finder-container">
-  <div class="urban-green-header">
-    <img src="assets/images/others/map.png" alt="Green Space Finder Logo">
-    <span class="urban-green-title">Urban Green Space Finder</span>
-  </div>
-  <input type="text" class="urban-green-search" id="urbanGreenSearch" placeholder="Search for parks, gardens, or amenities...">
-  <div id="urbanGreenList" class="urban-green-list"></div>
+
+<div id="navbar-container"></div>
+
+<div class="dashboard-container">
+  <a href="./education/urban/urban-corridors.html" class="dashboard-card">
+    <div class="emoji">🏙️</div>
+    <span>Urban Corridors</span>
+  </a>
+  <a href="./education/urban/urban-tree-awareness.html" class="dashboard-card">
+    <div class="emoji">🌳</div>
+    <span>Urban Tree Awareness</span>
+  </a>
+  <a href="./education/urban/urban-green-roofs-ecological-filters.html" class="dashboard-card">
+    <div class="emoji">🌿</div>
+    <span>Green Roofs Filter</span>
+  </a>
+  <a href="./education/urban/urban-green-space-mapper.html" class="dashboard-card">
+    <div class="emoji">🗺️</div>
+    <span>Green Space Mapper</span>
+  </a>
+  <a href="./education/urban/urban-green-spaces.html" class="dashboard-card">
+    <div class="emoji">🌳</div>
+    <span>Urban Green Spaces</span>
+  </a>
+  <a href="./education/urban/urban-stress-evolution.html" class="dashboard-card">
+    <div class="emoji">📈</div>
+    <span>Stress Evolution</span>
+  </a>
+  <a href="./education/urban/urban-tree-canopy-explorer.html" class="dashboard-card">
+    <div class="emoji">🔍</div>
+    <span>Tree Canopy Explorer</span>
+  </a>
+  <a href="./education/urban/urban-tree-canopy-tracker.html" class="dashboard-card">
+    <div class="emoji">📊</div>
+    <span>Tree Canopy Tracker</span>
+  </a>
+  <a href="./education/urban/urban-tree-canopy-visualizer.html" class="dashboard-card">
+    <div class="emoji">👁️‍🗨️</div>
+    <span>Tree Canopy Visualizer</span>
+  </a>
 </div>
- <!-- Footer placeholder -->
-  <div id="footer-container">
-  </div>
-<script>
-    // Load navbar
-    fetch('components/navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-        
-        // Initialize navbar functionality
-        const script = document.createElement('script');
-        script.src = '../js/components/navbar-loader.js';
-        document.body.appendChild(script);
-      });
-  </script>
-  <script>
-  // Load footer
-  fetch('components/footer.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('footer-container').innerHTML = data;
-    });
-</script>
-  <script src="js/urban-green-spaces-data.js"></script>
-  <script src="js/urban-green-finder.js" defer></script>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/components/component-loader.js"></script>
+
 </body>
 </html>
