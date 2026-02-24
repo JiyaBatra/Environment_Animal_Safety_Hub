@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signals of the Wild | EcoLife</title>
     <meta name="description" content="Decode nature's communication systems. Explore how animals, plants, and ecosystems communicate through signals, sounds, and chemical messages.">
-    <link rel="icon" type="image/png" href="../assets/images/others/FAVICON.webp">
+    <link rel="icon" type="image/png" href="assets/images/others/FAVICON.webp">
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/components/navbar.css">
-    <link rel="stylesheet" href="../css/components/footer.css">
-    <link rel="stylesheet" href="../css/pages/signals-wild.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/pages/signals-wild.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -712,19 +712,19 @@
 
     <!-- Audio Elements (Hidden) -->
     <div class="audio-library" style="display: none;">
-        <audio id="whale-song" src="../assets/audio/whale-song.mp3"></audio>
-        <audio id="dolphin-clicks" src="../assets/audio/dolphin-clicks.mp3"></audio>
-        <audio id="dolphin-whistle" src="../assets/audio/dolphin-whistle.mp3"></audio>
-        <audio id="bird-song" src="../assets/audio/bird-song.mp3"></audio>
-        <audio id="elephant-rumble" src="../assets/audio/elephant-rumble.mp3"></audio>
-        <audio id="rainforest" src="../assets/audio/rainforest.mp3"></audio>
+        <audio id="whale-song" src="assets/audio/whale-song.mp3"></audio>
+        <audio id="dolphin-clicks" src="assets/audio/dolphin-clicks.mp3"></audio>
+        <audio id="dolphin-whistle" src="assets/audio/dolphin-whistle.mp3"></audio>
+        <audio id="bird-song" src="assets/audio/bird-song.mp3"></audio>
+        <audio id="elephant-rumble" src="assets/audio/elephant-rumble.mp3"></audio>
+        <audio id="rainforest" src="assets/audio/rainforest.mp3"></audio>
     </div>
 
     <!-- Scripts -->
-    <script src="../js/main.js"></script>
-    <script src="../js/pages/signals-wild.js"></script>
-    <script src="../js/components/navbar-loader.js"></script>
-    <script src="../js/components/footer-loader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pages/signals-wild.js"></script>
+    <script src="js/components/navbar-loader.js"></script>
+    <script src="js/components/footer-loader.js"></script>
 
     <!-- Theme Toggle Script -->
     <script>
@@ -756,7 +756,7 @@
             console.log('DOM loaded, loading components...');
 
             // Load Navbar
-            fetch('../components/navbar.html')
+            fetch('components/navbar.html')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to load navbar');
@@ -778,7 +778,7 @@
                 });
 
             // Load Footer
-            fetch('../components/footer.html')
+            fetch('components/footer.html')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to load footer');

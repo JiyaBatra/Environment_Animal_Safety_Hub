@@ -12,14 +12,14 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
     <!-- Global CSS -->
-    <link rel="stylesheet" href="../../css/global/reset.css">
-    <link rel="stylesheet" href="../../css/global/theme.css">
-    <link rel="stylesheet" href="../../css/global/utilities.css">
-    <link rel="stylesheet" href="../../css/components/navbar.css">
-    <link rel="stylesheet" href="../../css/components/footer.css">
+    <link rel="stylesheet" href="css/global/reset.css">
+    <link rel="stylesheet" href="css/global/theme.css">
+    <link rel="stylesheet" href="css/global/utilities.css">
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/footer.css">
 
     <!-- Page Specific CSS -->
-    <link rel="stylesheet" href="../../css/pages/animal-safety/wildlife-rehabilitation-centers.css">
+    <link rel="stylesheet" href="css/pages/animal-safety/wildlife-rehabilitation-centers.css">
 </head>
 <body>
 
@@ -210,7 +210,7 @@
         // Load Navbar and Footer
         document.addEventListener('DOMContentLoaded', function() {
             // Load Navbar
-            fetch('../../components/navbar.html')
+            fetch('components/navbar.html')
                 .then(response => {
                     if (!response.ok) throw new Error('Navbar not found');
                     return response.text();
@@ -227,7 +227,7 @@
                 });
 
             // Load Footer
-            fetch('../../components/footer.html')
+            fetch('components/footer.html')
                 .then(response => {
                     if (!response.ok) throw new Error('Footer not found');
                     return response.text();
@@ -245,8 +245,8 @@
         });
     </script>
     <!-- Remove these old scripts as they might conflict -->
-    <!-- <script src="../../js/components/navbar-loader.js"></script>
-    <script src="../../js/components/footer-loader.js"></script> -->
-    <script src="../../js/components/cursor.js"></script>
+    <!-- <script src="js/components/navbar-loader.js"></script>
+    <script src="js/components/footer-loader.js"></script> -->
+    <script src="js/components/cursor.js"></script>
 </body>
 </html>
