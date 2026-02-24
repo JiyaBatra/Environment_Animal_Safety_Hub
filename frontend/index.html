@@ -724,96 +724,229 @@
         </div>
       </div>
     </section>
-    <!-- Donation Section -->
-    <section class="donation-section" id="donation">
-      <div class="donation-container">
-        <div class="donation-header">
-          <span class="section-tag">
-            <i class="fa-solid fa-heart">
-            </i>
-            Eco-Fund
-          </span>
-          <h2>
-            Support Environmental Causes
-          </h2>
-          <p>
-            Help verified environmental NGOs, local shelters, and community-led green initiatives through our secure
-            donation platform.
-          </p>
+  <!-- ================= Donation Section ================= -->
+<section class="donation-section" id="donation">
+  <div class="donation-container">
+
+    <div class="donation-header">
+      <span class="section-tag">🌱 Eco-Fund</span>
+      <h2>Support Environmental Causes</h2>
+      <p>Help verified NGOs and community-driven environmental campaigns.</p>
+    </div>
+
+    <!-- Campaign Cards -->
+    <div class="campaigns-grid" id="campaigns-container"></div>
+
+    <!-- Donation Form -->
+    <div class="donation-form">
+      <h3>Make a Donation</h3>
+
+      <form id="donation-form">
+
+        <label>Select Campaign</label>
+        <select id="donation-campaign" required>
+          <option value="">Choose campaign...</option>
+        </select>
+
+        <label>Donation Amount ($)</label>
+
+        <div class="amount-buttons">
+          <button type="button" class="amount-button" data-amount="10">$10</button>
+          <button type="button" class="amount-button" data-amount="25">$25</button>
+          <button type="button" class="amount-button" data-amount="50">$50</button>
+          <button type="button" class="amount-button" data-amount="100">$100</button>
         </div>
-        <div class="campaigns-grid" id="campaigns-container">
-          <!-- Campaigns will be rendered dynamically -->
+
+        <input 
+          type="number" 
+          id="donation-amount"
+          placeholder="Enter custom amount"
+          min="1"
+          required
+        >
+
+        <label>Your Name (optional)</label>
+        <input type="text" id="donor-name" placeholder="Anonymous">
+
+        <button class="donation-btn" type="submit">
+          Donate Securely
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="donation-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-donation-modal">&times;</span>
+      <h3>🎉 Thank You!</h3>
+      <p id="donation-thanks"></p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= Donation JS ================= -->
+<script>
+
+/* ---------------- Campaign Data ---------------- */
+const campaigns = [
+  {
+    id:1,
+    title:"Tree Plantation Drive",
+    targetAmount:2000,
+    currentAmount:1200,
+    donors:["Eco Club","Local School","Green Org"]
+  },
+  {
+    id:2,
+    title:"Ocean Cleanup Initiative",
+    targetAmount:1500,
+    currentAmount:850,
+    donors:["Beach Volunteers","Surf Club"]
+  },
+  {
+    id:3,
+    title:"Wildlife Protection Fund",
+    targetAmount:2500,
+    currentAmount:1400,
+    donors:["Nature Group","Forest Team"]
+  }
+];
+
+/* ---------------- DOM Elements ---------------- */
+let donationModal;
+let donationForm;
+let donationAmountInput;
+let donationCampaignSelect;
+
+/* ---------------- Init ---------------- */
+document.addEventListener("DOMContentLoaded", initializeDonationFeature);
+
+function initializeDonationFeature(){
+
+  donationModal = document.getElementById("donation-modal");
+  donationForm = document.getElementById("donation-form");
+  donationAmountInput = document.getElementById("donation-amount");
+  donationCampaignSelect = document.getElementById("donation-campaign");
+
+  renderCampaigns();
+  populateCampaignDropdown();
+  setupEventListeners();
+}
+
+/* ---------------- Render Campaigns ---------------- */
+function renderCampaigns(){
+
+  const container = document.getElementById("campaigns-container");
+  container.innerHTML = "";
+
+  campaigns.forEach(campaign => {
+
+    const percent = Math.min(
+      100,
+      (campaign.currentAmount / campaign.targetAmount) * 100
+    );
+
+    container.innerHTML += `
+      <div class="campaign-card">
+
+        <h4>${campaign.title}</h4>
+
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${percent}%"></div>
         </div>
-        <div class="donation-form" id="donation-form-container">
-          <h3>
-            Make a Donation
-          </h3>
-          <form id="donation-form">
-            <div class="form-group">
-              <label for="donation-campaign">
-                Select Campaign
-              </label>
-              <select id="donation-campaign" required="">
-                <option value="">
-                  Choose a campaign...
-                </option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="donation-amount">
-                Donation Amount ($)
-              </label>
-              <div class="amount-buttons">
-                <button class="amount-button" data-amount="10" type="button">
-                  $10
-                </button>
-                <button class="amount-button" data-amount="25" type="button">
-                  $25
-                </button>
-                <button class="amount-button" data-amount="50" type="button">
-                  $50
-                </button>
-                <button class="amount-button" data-amount="100" type="button">
-                  $100
-                </button>
-              </div>
-              <input id="donation-amount" min="1" placeholder="Enter custom amount" required="" type="number" />
-            </div>
-            <div class="form-group">
-              <label for="donor-name">
-                Your Name (optional)
-              </label>
-              <input id="donor-name" placeholder="Enter your name for donor wall" type="text" />
-            </div>
-            <button class="donation-btn" type="submit">
-              <i class="fa-solid fa-heart">
-              </i>
-              Donate Securely
-            </button>
-          </form>
-        </div>
+
+        <p>$${campaign.currentAmount} raised of $${campaign.targetAmount}</p>
+
       </div>
-      <div class="modal" id="donation-modal">
-        <div class="modal-content">
-          <span class="close-modal" id="close-donation-modal">
-            ×
-          </span>
-          <div class="donation-success">
-            <i class="fa-solid fa-check-circle">
-            </i>
-          </div>
-          <h3>
-            Thank You for Your Donation!
-          </h3>
-          <p class="donation-thanks" id="donation-thanks">
-            Your contribution makes a real difference!
-          </p>
-          <p>
-            Your donation helps protect our environment and support important causes.
-          </p>
-        </div>
-      </div>
-    </section>
+    `;
+  });
+}
+
+/* ---------------- Dropdown ---------------- */
+function populateCampaignDropdown(){
+
+  campaigns.forEach(c => {
+    const option = document.createElement("option");
+    option.value = c.id;
+    option.textContent = c.title;
+    donationCampaignSelect.appendChild(option);
+  });
+
+}
+
+/* ---------------- Events ---------------- */
+function setupEventListeners(){
+
+  /* Amount Buttons */
+  document.querySelectorAll(".amount-button").forEach(btn=>{
+    btn.addEventListener("click",function(){
+
+      donationAmountInput.value = this.dataset.amount;
+
+      document.querySelectorAll(".amount-button")
+        .forEach(b=>b.classList.remove("active"));
+
+      this.classList.add("active");
+    });
+  });
+
+  /* Close Modal */
+  document.getElementById("close-donation-modal")
+    .addEventListener("click",()=>{
+      donationModal.classList.remove("active");
+    });
+
+  donationModal.addEventListener("click",(e)=>{
+    if(e.target === donationModal){
+      donationModal.classList.remove("active");
+    }
+  });
+
+  /* Form Submit */
+  donationForm.addEventListener("submit",handleDonationSubmit);
+}
+
+/* ---------------- Submit ---------------- */
+function handleDonationSubmit(e){
+
+  e.preventDefault();
+
+  const campaignId = parseInt(donationCampaignSelect.value);
+  const amount = parseFloat(donationAmountInput.value);
+  const name =
+    document.getElementById("donor-name").value || "Anonymous";
+
+  if(!campaignId || !amount || amount <= 0){
+    alert("Please enter valid details");
+    return;
+  }
+
+  const campaign = campaigns.find(c=>c.id === campaignId);
+
+  /* Fake Payment Delay */
+  setTimeout(()=>{
+
+    campaign.currentAmount += amount;
+    campaign.donors.push(name);
+
+    renderCampaigns();
+
+    document.getElementById("donation-thanks").innerHTML =
+      `${name}, thank you for donating $${amount} to ${campaign.title}!`;
+
+    donationModal.classList.add("active");
+
+    donationForm.reset();
+
+  },1000);
+
+}
+
+</script>
     <!-- AI Chatbot
   <div class="chatbot-container">
     <div class="chat-header">🌱 Eco AI Buddy</div>
@@ -2666,6 +2799,8 @@
   <script src="js/main.js">
   </script>
   <!-- PAGE / COMPONENT SCRIPTS -->
+   <script src="js/donation.js">  </script>
+   
   <script src="js/pages/animal-safety/adoption.js">
   </script>
   <script src="js/components/component-loader.js">
