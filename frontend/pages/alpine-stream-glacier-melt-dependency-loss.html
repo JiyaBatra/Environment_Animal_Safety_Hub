@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine Stream Glacier Melt Dependency Loss</title>
+    <link rel="stylesheet" href="alpine-stream-glacier-melt-dependency-loss.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Alpine Stream Glacier Melt Dependency Loss</h1>
+            <p class="nav-subtitle">Analyze Hydrological Regime Transformation</p>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+            <button class="tab-btn" onclick="showTab('impacts')">Impacts</button>
+            <button class="tab-btn" onclick="showTab('solutions')">Solutions</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2>Overview</h2>
+            <p>Alpine streams are experiencing significant transformation due to the loss of glacier meltwater dependency. As glaciers retreat, the hydrological regime of these mountain streams is fundamentally changing, affecting water availability, temperature, and seasonal flow patterns.</p>
+            <div class="chart-container">
+                <canvas id="glacierMeltChart"></canvas>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Glacier Contribution Decline</h3>
+                    <div class="stat-value">45%</div>
+                    <p>Over the past 30 years</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Stream Temperature Increase</h3>
+                    <div class="stat-value">2.8°C</div>
+                    <p>Average rise in alpine streams</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Seasonal Flow Shift</h3>
+                    <div class="stat-value">67%</div>
+                    <p>Change in peak flow timing</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <h2>Analysis</h2>
+            <p>Analysis of alpine stream systems reveals patterns of hydrological transformation across various mountain ranges. Key factors include climate warming, glacier retreat, and changes in precipitation patterns that are reshaping the water cycle in high-elevation ecosystems.</p>
+            <div class="chart-container">
+                <canvas id="hydrologicalRegimeChart"></canvas>
+            </div>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Primary Drivers</h3>
+                    <ul>
+                        <li>Accelerated glacier retreat</li>
+                        <li>Shifting precipitation patterns</li>
+                        <li>Increased evapotranspiration</li>
+                        <li>Permafrost degradation</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3>Regional Variations</h3>
+                    <ul>
+                        <li>European Alps: Rapid transformation</li>
+                        <li>Rocky Mountains: Moderate changes</li>
+                        <li>Andes: Extreme vulnerability</li>
+                        <li>Himalayas: Complex dynamics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="impacts" class="tab-content">
+            <h2>Impacts</h2>
+            <p>The transformation of alpine stream hydrological regimes has cascading effects on ecosystems, water resources, and human communities.</p>
+            <div class="impacts-list">
+                <div class="impact-item">
+                    <h3>Aquatic Ecosystem Disruption</h3>
+                    <p>Changes in water temperature and flow affect fish populations, macroinvertebrates, and riparian vegetation.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Water Resource Availability</h3>
+                    <p>Reduced summer flows impact downstream water supplies for agriculture, hydropower, and municipal use.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Biodiversity Loss</h3>
+                    <p>Cold-water species face habitat loss and increased competition from warm-water species.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Economic Consequences</h3>
+                    <p>Impacts on tourism, fisheries, and water-dependent industries in mountain regions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="solutions" class="tab-content">
+            <h2>Solutions</h2>
+            <p>Addressing alpine stream hydrological transformation requires integrated approaches combining climate action, water management, and ecosystem restoration.</p>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>Climate Change Mitigation</h3>
+                    <p>Reduce greenhouse gas emissions to slow glacier retreat and preserve remaining ice reserves.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Water Storage Systems</h3>
+                    <p>Develop reservoirs and groundwater recharge systems to compensate for reduced glacier melt.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Riparian Restoration</h3>
+                    <p>Restore streamside vegetation to maintain cooler water temperatures and natural flow regulation.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Adaptive Management</h3>
+                    <p>Implement flexible water allocation strategies that account for changing hydrological regimes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="alpine-stream-glacier-melt-dependency-loss.js"></script>
+</body>
+</html>
