@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coastal Mangrove Litter Export Reduction</title>
+    <link rel="stylesheet" href="coastal-mangrove-litter-export-reduction.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Coastal Mangrove Litter Export Reduction</h1>
+            <p class="nav-subtitle">Study Detrital Food Web Disruption</p>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+            <button class="tab-btn" onclick="showTab('impacts')">Impacts</button>
+            <button class="tab-btn" onclick="showTab('solutions')">Solutions</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2>Overview</h2>
+            <p>Coastal mangrove ecosystems are experiencing significant reduction in litter export, disrupting the detrital food web that supports coastal and marine biodiversity. Mangrove litter provides essential organic matter to adjacent ecosystems, and its decline threatens the entire coastal food chain.</p>
+            <div class="chart-container">
+                <canvas id="mangroveLitterChart"></canvas>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Litter Export Decline</h3>
+                    <div class="stat-value">52%</div>
+                    <p>Over the past 20 years</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Mangrove Forest Loss</h3>
+                    <div class="stat-value">35%</div>
+                    <p>Global mangrove coverage</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Detrital Biomass Reduction</h3>
+                    <div class="stat-value">68%</div>
+                    <p>In affected coastal zones</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <h2>Analysis</h2>
+            <p>Analysis of coastal mangrove systems reveals patterns of litter export reduction across tropical and subtropical regions. Key factors include mangrove deforestation, climate change impacts, and coastal development that are disrupting the natural flow of organic matter to marine ecosystems.</p>
+            <div class="chart-container">
+                <canvas id="detritalFoodWebChart"></canvas>
+            </div>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Primary Causes</h3>
+                    <ul>
+                        <li>Mangrove deforestation and conversion</li>
+                        <li>Sea level rise and coastal erosion</li>
+                        <li>Reduced freshwater inflow</li>
+                        <li>Pollution and eutrophication</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3>Regional Impacts</h3>
+                    <ul>
+                        <li>Southeast Asia: Severe deforestation</li>
+                        <li>Caribbean: Coastal development pressure</li>
+                        <li>Africa: Climate change vulnerability</li>
+                        <li>Americas: Agricultural expansion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="impacts" class="tab-content">
+            <h2>Impacts</h2>
+            <p>The reduction of mangrove litter export has cascading effects on coastal and marine ecosystems, disrupting the detrital food web that supports diverse marine life.</p>
+            <div class="impacts-list">
+                <div class="impact-item">
+                    <h3>Marine Food Web Disruption</h3>
+                    <p>Reduced organic matter input affects filter feeders, detritivores, and higher trophic levels in coastal waters.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Coastal Productivity Decline</h3>
+                    <p>Lower nutrient availability impacts fisheries, aquaculture, and coastal ecosystem services.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Biodiversity Loss</h3>
+                    <p>Species dependent on detrital food webs face population declines and habitat degradation.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Economic Consequences</h3>
+                    <p>Impacts on commercial fisheries, tourism, and coastal protection services.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="solutions" class="tab-content">
+            <h2>Solutions</h2>
+            <p>Addressing coastal mangrove litter export reduction requires comprehensive conservation and restoration efforts to maintain detrital food web integrity.</p>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>Mangrove Restoration</h3>
+                    <p>Large-scale mangrove replanting and rehabilitation programs to restore litter production.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Protected Areas</h3>
+                    <p>Establish marine protected areas and coastal zone management to preserve mangrove ecosystems.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Sustainable Land Use</h3>
+                    <p>Implement sustainable aquaculture and agriculture practices that minimize mangrove conversion.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Climate Adaptation</h3>
+                    <p>Develop strategies to enhance mangrove resilience to sea level rise and climate change.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="coastal-mangrove-litter-export-reduction.js"></script>
+</body>
+</html>
