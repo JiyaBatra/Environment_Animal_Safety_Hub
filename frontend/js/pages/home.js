@@ -80,39 +80,26 @@ function initHeroParallax() {
 function initHeroVideoBackground() {
     const heroSection = document.querySelector('.hero-section');
     const video = document.getElementById('hero-background-video');
-    const toggleButton = document.querySelector('.hero-video-toggle');
 
-    if (!heroSection || !video || !toggleButton) {
+    if (!heroSection || !video) {
         return;
     }
 
-    const toggleLabel = toggleButton.querySelector('.hero-video-toggle-text');
-    const toggleIcon = toggleButton.querySelector('i');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    const updateToggleState = (isPlaying) => {
-        toggleButton.setAttribute('aria-pressed', String(isPlaying));
-        toggleButton.setAttribute('aria-label', isPlaying ? 'Pause background video' : 'Play background video');
-        if (toggleLabel) {
-            toggleLabel.textContent = isPlaying ? 'Pause background video' : 'Play background video';
-        }
-        if (toggleIcon) {
-            toggleIcon.className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play';
-        }
-        heroSection.classList.toggle('video-paused', !isPlaying);
-    };
 
     const pauseVideo = () => {
         video.pause();
-        updateToggleState(false);
+        heroSection.classList.add('video-paused');
     };
 
     const playVideo = () => {
         const playPromise = video.play();
         if (playPromise && typeof playPromise.then === 'function') {
-            playPromise.then(() => updateToggleState(true)).catch(() => updateToggleState(false));
+            playPromise
+                .then(() => heroSection.classList.remove('video-paused'))
+                .catch(() => heroSection.classList.add('video-paused'));
         } else {
-            updateToggleState(!video.paused);
+            heroSection.classList.toggle('video-paused', video.paused);
         }
     };
 
@@ -121,14 +108,6 @@ function initHeroVideoBackground() {
     video.addEventListener('canplay', () => {
         heroSection.classList.add('video-ready');
     }, { once: true });
-
-    toggleButton.addEventListener('click', () => {
-        if (video.paused) {
-            playVideo();
-        } else {
-            pauseVideo();
-        }
-    });
 
     const handleMotionPreference = () => {
         if (prefersReducedMotion.matches) {
