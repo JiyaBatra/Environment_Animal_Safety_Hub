@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estuarine Bivalve Filtration Capacity Reduction</title>
+    <link rel="stylesheet" href="estuarine-bivalve-filtration-capacity-reduction.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Estuarine Bivalve Filtration Capacity Reduction</h1>
+            <p class="nav-subtitle">Analyzing Water Clarity Decline</p>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+            <button class="tab-btn" onclick="showTab('impacts')">Impacts</button>
+            <button class="tab-btn" onclick="showTab('solutions')">Solutions</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2>Overview</h2>
+            <p>Estuarine bivalves, such as oysters and clams, play a crucial role in maintaining water clarity through their filtration activities. However, various environmental stressors are reducing their filtration capacity, leading to declining water clarity in estuarine ecosystems.</p>
+            <div class="chart-container">
+                <canvas id="filtrationChart"></canvas>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Filtration Rate Decline</h3>
+                    <div class="stat-value">35%</div>
+                    <p>Over the past decade</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Water Clarity Reduction</h3>
+                    <div class="stat-value">22%</div>
+                    <p>Secchi depth decrease</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Bivalve Population Loss</h3>
+                    <div class="stat-value">45%</div>
+                    <p>In affected estuaries</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <h2>Water Clarity Analysis</h2>
+            <div class="chart-container">
+                <canvas id="clarityChart"></canvas>
+            </div>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Key Factors</h3>
+                    <ul>
+                        <li>Ocean acidification</li>
+                        <li>Salinity changes</li>
+                        <li>Pollutant accumulation</li>
+                        <li>Temperature stress</li>
+                        <li>Habitat degradation</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3>Measurement Methods</h3>
+                    <ul>
+                        <li>Secchi disk depth</li>
+                        <li>Turbidity sensors</li>
+                        <li>Chlorophyll concentration</li>
+                        <li>Suspended solids analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="impacts" class="tab-content">
+            <h2>Environmental Impacts</h2>
+            <div class="impacts-list">
+                <div class="impact-item">
+                    <h3>🌊 Reduced Light Penetration</h3>
+                    <p>Lower water clarity affects photosynthesis and primary production</p>
+                </div>
+                <div class="impact-item">
+                    <h3>🐟 Fish Habitat Degradation</h3>
+                    <p>Impacts spawning grounds and nursery areas</p>
+                </div>
+                <div class="impact-item">
+                    <h3>🌿 Seagrass Decline</h3>
+                    <p>Reduced light availability affects submerged vegetation</p>
+                </div>
+                <div class="impact-item">
+                    <h3>🔄 Nutrient Cycling Disruption</h3>
+                    <p>Altered biogeochemical processes in estuaries</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="solutions" class="tab-content">
+            <h2>Conservation Solutions</h2>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>Restoration Programs</h3>
+                    <p>Reintroduce bivalve populations and restore habitats</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Water Quality Management</h3>
+                    <p>Reduce pollutant inputs and improve wastewater treatment</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Climate Change Mitigation</h3>
+                    <p>Address ocean acidification and temperature rise</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Monitoring Networks</h3>
+                    <p>Establish long-term monitoring of filtration capacity</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="estuarine-bivalve-filtration-capacity-reduction.js"></script>
+</body>
+</html>
