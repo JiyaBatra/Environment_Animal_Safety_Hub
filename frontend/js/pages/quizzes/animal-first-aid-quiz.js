@@ -1,56 +1,110 @@
-/**
- * Animal First Aid Quiz - Emergency Animal Care Assessment
- *
- * An interactive quiz focused on proper first aid procedures for injured animals.
- * Tests knowledge of emergency response, wound treatment, and when to seek professional help.
- *
- * Uses QuizLoader for unified loading and initialization.
- *
- * @author Environment Animal Safety Hub Team
- * @version 3.0.0
- * @since 2024
- */
+/* ---------------- QUESTIONS ---------------- */
 
-// Create quiz loader with custom overrides
-const animalFirstAidLoader = new QuizLoader('animal-first-aid', {
-  customOverrides: {
-    // Custom showResult for animal first aid remarks
-    showResult: function() {
-      // Call parent method
-      BaseQuiz.prototype.showResult.call(this);
+const questions = [
+{
+  question: "What should you do first if an animal is bleeding heavily?",
+  options: ["Apply pressure", "Give food", "Ignore", "Wash with hot water"],
+  answer: 0
+},
+{
+  question: "If an animal is unconscious, what should you check first?",
+  options: ["Weight", "Breathing", "Color", "Age"],
+  answer: 1
+},
+{
+  question: "How should you approach an injured animal?",
+  options: ["Run quickly", "Slowly and calmly", "Shout", "Touch immediately"],
+  answer: 1
+},
+{
+  question: "If an animal has a broken limb?",
+  options: ["Move it", "Keep it stable", "Massage", "Let it run"],
+  answer: 1
+},
+{
+  question: "If an animal is choking?",
+  options: ["Check mouth carefully", "Give water", "Ignore", "Make sleep"],
+  answer: 0
+},
+{
+  question: "If an animal is burned?",
+  options: ["Apply ice", "Cool with water", "Apply oil", "Cover cloth"],
+  answer: 1
+},
+{
+  question: "Serious injury requires?",
+  options: ["Immediate vet help", "Ignore", "Wait days", "Home rest"],
+  answer: 0
+},
+{
+  question: "Animal shock treatment?",
+  options: ["Keep warm", "Feed heavy", "Make walk", "Pour water"],
+  answer: 0
+},
+{
+  question: "Dog bite first step?",
+  options: ["Clean wound", "Ignore", "Cover dirty", "Apply mud"],
+  answer: 0
+},
+{
+  question: "Why stay calm?",
+  options: ["Reduces stress", "No effect", "Slower", "Confuses animal"],
+  answer: 0
+}
+];
 
-      // Custom remarks for animal first aid
-      let remark = "";
-      if (this.score >= 8) {
-        remark = "🌟 Animal Hero!";
-      } else if (this.score >= 5) {
-        remark = "👍 Good Effort!";
-      } else {
-        remark = "🐾 Keep Learning!";
-      }
 
-      if (this.config.elements.remarkEl) {
-        this.config.elements.remarkEl.textContent = remark;
-      }
-    }
+/* ---------------- QUIZ LOGIC ---------------- */
+
+let currentQuestion = 0;
+let score = 0;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const resultScreen = document.getElementById("resultScreen");
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const scoreEl = document.getElementById("score");
+
+window.startQuiz = function () {
+  startScreen.style.display = "none";
+  quizScreen.style.display = "block";
+  loadQuestion();
+};
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+
+  questionEl.textContent = q.question;
+  optionsEl.innerHTML = "";
+
+  q.options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+
+    btn.onclick = () => {
+      if (index === q.answer) score++;
+      nextQuestion();
+    };
+
+    optionsEl.appendChild(btn);
+  });
+}
+
+window.nextQuestion = function () {
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
   }
-});
-
-// Global functions for HTML onclick handlers
-window.startQuiz = () => {
-  const quiz = animalFirstAidLoader.getQuiz();
-  if (quiz) quiz.startQuiz();
-};
-window.resumeQuiz = () => {
-  const quiz = animalFirstAidLoader.getQuiz();
-  if (quiz) quiz.resumeQuiz();
-};
-window.nextQuestion = () => {
-  const quiz = animalFirstAidLoader.getQuiz();
-  if (quiz) quiz.nextQuestion();
 };
 
-// Load quiz on page load
-document.addEventListener('DOMContentLoaded', () => {
-  animalFirstAidLoader.loadQuiz();
-});
+function showResult() {
+  quizScreen.style.display = "none";
+  resultScreen.style.display = "block";
+
+  scoreEl.textContent = `Score: ${score} / ${questions.length}`;
+}
