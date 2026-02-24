@@ -10,10 +10,13 @@
  */
 
 // Initialize all home page features when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initHeroParallax();
+    initHeroVideoBackground();
     initDailyQuote();
     initTestimonialFadeIn();
+    initStatsCounter();
+    initScrollAnimations();
 });
 
 /**
@@ -68,6 +71,80 @@ function initHeroParallax() {
 
     // Initial call to set position
     updateParallax();
+}
+
+/**
+ * Initializes the hero background video with pause/play controls
+ * Respects user's reduced motion preference and keeps audio muted
+ */
+function initHeroVideoBackground() {
+    const heroSection = document.querySelector('.hero-section');
+    const video = document.getElementById('hero-background-video');
+    const toggleButton = document.querySelector('.hero-video-toggle');
+
+    if (!heroSection || !video || !toggleButton) {
+        return;
+    }
+
+    const toggleLabel = toggleButton.querySelector('.hero-video-toggle-text');
+    const toggleIcon = toggleButton.querySelector('i');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const updateToggleState = (isPlaying) => {
+        toggleButton.setAttribute('aria-pressed', String(isPlaying));
+        toggleButton.setAttribute('aria-label', isPlaying ? 'Pause background video' : 'Play background video');
+        if (toggleLabel) {
+            toggleLabel.textContent = isPlaying ? 'Pause background video' : 'Play background video';
+        }
+        if (toggleIcon) {
+            toggleIcon.className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+        }
+        heroSection.classList.toggle('video-paused', !isPlaying);
+    };
+
+    const pauseVideo = () => {
+        video.pause();
+        updateToggleState(false);
+    };
+
+    const playVideo = () => {
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.then === 'function') {
+            playPromise.then(() => updateToggleState(true)).catch(() => updateToggleState(false));
+        } else {
+            updateToggleState(!video.paused);
+        }
+    };
+
+    video.muted = true;
+
+    video.addEventListener('canplay', () => {
+        heroSection.classList.add('video-ready');
+    }, { once: true });
+
+    toggleButton.addEventListener('click', () => {
+        if (video.paused) {
+            playVideo();
+        } else {
+            pauseVideo();
+        }
+    });
+
+    const handleMotionPreference = () => {
+        if (prefersReducedMotion.matches) {
+            pauseVideo();
+        } else {
+            playVideo();
+        }
+    };
+
+    if (typeof prefersReducedMotion.addEventListener === 'function') {
+        prefersReducedMotion.addEventListener('change', handleMotionPreference);
+    } else if (typeof prefersReducedMotion.addListener === 'function') {
+        prefersReducedMotion.addListener(handleMotionPreference);
+    }
+
+    handleMotionPreference();
 }
 
 /**
@@ -180,4 +257,106 @@ function initTestimonialFadeIn() {
 
     // Add scroll listener
     window.addEventListener('scroll', handleScroll, { passive: true });
+}
+
+/**
+ * Initialize stats counter animation
+ * Animates numbers from 0 to target value when scrolled into view
+ */
+function initStatsCounter() {
+    const stats = document.querySelectorAll('.count-up');
+
+    if (stats.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const targetValue = parseInt(target.getAttribute('data-target')) || 0;
+                const duration = 2000; // 2 seconds
+                let startTime = null;
+
+                function animate(currentTime) {
+                    if (!startTime) startTime = currentTime;
+                    const progress = currentTime - startTime;
+                    const percentage = Math.min(progress / duration, 1);
+
+                    // Ease out quart function for smooth slowing down
+                    const ease = 1 - Math.pow(1 - percentage, 4);
+
+                    const currentValue = Math.floor(ease * targetValue);
+
+                    // Format number (e.g. 10,000)
+                    if (targetValue >= 1000) {
+                        target.textContent = (currentValue / 1000).toFixed(1).replace('.0', '') + 'K';
+                        // Or just toLocaleString as requested "0 -> 10,000"
+                        target.textContent = currentValue.toLocaleString();
+                        if (targetValue === 10000 && percentage === 1) target.textContent = "10K"; // Restore original format? 
+                        // The original was "10K+". I modified HTML to be <span class="count-up">0</span>+
+                        // So target text will create number, and + is outside. 
+                        // "0 -> 10,000". So textContent should be number.
+                        target.textContent = currentValue >= 1000 && currentValue < 1000000 ? (currentValue / 1000).toFixed(0) + 'K' : currentValue.toLocaleString();
+                        // Wait, user said "0 -> 10,000". But HTML says "10K+". 
+                        // If I just output number it will be "10000+". 
+                        // Let's stick to simple number formatting.
+                        target.textContent = currentValue.toLocaleString();
+                        if (percentage >= 1 && targetValue === 10000) target.textContent = "10K";
+                    } else {
+                        target.textContent = currentValue;
+                    }
+
+                    if (progress < duration) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+
+                requestAnimationFrame(animate);
+                observer.unobserve(target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => observer.observe(stat));
+}
+
+/**
+ * Initialize scroll animations for content cards
+ * Uses IntersectionObserver for performance
+ */
+function initScrollAnimations() {
+    // Select cards or content sections that should animate
+    const cards = document.querySelectorAll('.card, .service-card, .about-content, .hero-content');
+
+    // Inject CSS for animation if not present
+    if (!document.getElementById('scroll-animation-styles')) {
+        const style = document.createElement('style');
+        style.id = 'scroll-animation-styles';
+        style.textContent = `
+            .fade-in-up-hidden {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .fade-in-up-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in-up-visible');
+                entry.target.classList.remove('fade-in-up-hidden');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    cards.forEach(card => {
+        card.classList.add('fade-in-up-hidden');
+        observer.observe(card);
+    });
 }

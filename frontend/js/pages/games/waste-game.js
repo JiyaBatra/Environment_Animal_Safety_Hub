@@ -83,6 +83,7 @@ const game = {
   score: 0,           // Current player score
   timeLeft: 60,       // Game duration in seconds
   isPlaying: false,   // Game active status
+  isPaused: false,    // Game paused status
   totalAttempts: 0,   // Total items processed
   correctAttempts: 0, // Correctly sorted items
   currentCombo: 0,    // Consecutive correct streak
@@ -103,6 +104,9 @@ const finalScoreEl = document.getElementById('finalScore');
 const finalScoreText = document.getElementById('finalScoreText');
 const bins = document.querySelectorAll('.bin');
 const pointSound = document.getElementById('pointSound');
+const pauseBtn = document.getElementById('pauseGameBtn');
+const pauseModal = document.getElementById('pauseModal');
+const resumeBtn = document.getElementById('resumeGameBtn');
 
 // ===== GAME TIMERS AND INTERVALS =====
 /**
@@ -122,6 +126,22 @@ startBtn.addEventListener('click', function(e) {
   initializeGame();
 });
 
+pauseBtn.addEventListener('click', togglePause);
+resumeBtn.addEventListener('click', togglePause);
+
+function togglePause() {
+  if (!game.isPlaying) return;
+  
+  game.isPaused = !game.isPaused;
+  
+  if (game.isPaused) {
+    pauseModal.style.display = 'flex';
+    // Optional: Stop background music if any
+  } else {
+    pauseModal.style.display = 'none';
+  }
+}
+
 /**
  * Initialize and start a new game session
  * Resets all game state and begins gameplay
@@ -131,6 +151,7 @@ function initializeGame() {
 
   // Reset game state
   game.isPlaying = true;
+  game.isPaused = false;
   game.score = 0;
   game.timeLeft = 60;
   game.totalAttempts = 0;
@@ -148,7 +169,9 @@ function initializeGame() {
 
   // Hide/show UI elements
   startBtn.style.display = 'none';
+  pauseBtn.style.display = 'block';
   modal.style.display = 'none';
+  pauseModal.style.display = 'none';
 
   // Start game systems
   startGameTimer();
@@ -162,6 +185,8 @@ function initializeGame() {
  */
 function startGameTimer() {
   gameTimerInterval = setInterval(() => {
+    if (game.isPaused) return;
+
     game.timeLeft--;
     timerDisplay.innerText = game.timeLeft + 's';
 
@@ -176,7 +201,7 @@ function startGameTimer() {
  * Create and spawn a new waste item that falls from the top of the game area
  */
 function spawnWasteItem() {
-  if (!game.isPlaying) return;
+  if (!game.isPlaying || game.isPaused) return;
 
   // Select random category and item
   const categories = ['recycle', 'compost', 'trash'];
@@ -264,6 +289,8 @@ function animateFall(itemEl) {
       clearInterval(fallInterval);
       return;
     }
+
+    if (game.isPaused) return;
 
     // Only move if not being dragged
     if (!itemEl.classList.contains('dragging')) {
@@ -421,6 +448,7 @@ function endGame() {
   finalScoreText.innerText = game.score;
   modal.style.display = 'flex';
   startBtn.style.display = 'block';
+  pauseBtn.style.display = 'none';
 }
 
 // ===== NAVIGATION =====

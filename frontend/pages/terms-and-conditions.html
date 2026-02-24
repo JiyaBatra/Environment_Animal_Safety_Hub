@@ -79,38 +79,44 @@
     <script src="../js/components/navbar-loader.js"></script>
     <!-- Chatbase Chatbot Script -->
     <script>
-        (function () {
-            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-                window.chatbase = (...arguments) => {
-                    if (!window.chatbase.q) {
-                        window.chatbase.q = []
-                    }
-                    window.chatbase.q.push(arguments)
-                };
-                window.chatbase = new Proxy(window.chatbase, {
-                    get(target, prop) {
-                        if (prop === "q") {
-                            return target.q
-                        }
-                        return (...args) => target(prop, ...args)
-                    }
-                })
-            }
-            const onLoad = function () {
-                const script = document.createElement("script");
-                script.src = "https://www.chatbase.co/embed.min.js";
-                script.id = "ws110ZzXAkEnbVsIy9g8d";
-                script.domain = "www.chatbase.co";
-                document.body.appendChild(script);
-            };
-            if (document.readyState === "complete") {
-                onLoad()
-            } else {
-                window.addEventListener("load", onLoad)
-            }
-        })();
-    </script>
+(function () {
+  // Prevent multiple initializations
+  if (window.chatbase && window.chatbase("getState") === "initialized") {
+    return;
+  }
 
+  // Queue system for commands before script loads
+  window.chatbase = function () {
+    (window.chatbase.q = window.chatbase.q || []).push(arguments);
+  };
+
+  // Load Chatbase script asynchronously
+  function loadChatbase() {
+    const script = document.createElement("script");
+    script.src = "https://www.chatbase.co/embed.min.js";
+    script.async = true;
+    script.defer = true;
+
+    // Your chatbot ID
+    script.id = "ws110ZzXAkEnbVsIy9g8d";
+    script.setAttribute("data-domain", "www.chatbase.co");
+
+    // Error handling
+    script.onerror = function () {
+      console.error("Chatbase failed to load.");
+    };
+
+    document.body.appendChild(script);
+  }
+
+  // Load after DOM ready (faster than waiting full page load)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadChatbase);
+  } else {
+    loadChatbase();
+  }
+})();
+</script>
     <script>
         // ===== THEME MANAGEMENT =====
         const themeToggle = document.getElementById('themeToggle');
@@ -329,10 +335,13 @@
                         collapseIcon.className = 'fas fa-chevron-up';
                     }
 
-                    window.scrollTo({
-                        top: target.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
+                    const navbarHeight = 90;
+
+window.scrollTo({
+  top: target.offsetTop - navbarHeight,
+  behavior: 'smooth'
+});
+
                 }
             });
         });

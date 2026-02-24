@@ -65,6 +65,18 @@ const MODAL_CONTENT = {
     body: `
       <p>Join our movement to combat climate change through local actions and global awareness.</p>
       <p>We organize weekly seminars, school programs, and policy advocacy campaigns to push for greener regulations.</p>
+      <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 15px 0;">
+        <h4 style="color: #856404; margin: 0 0 10px 0;"><i class="fas fa-exclamation-triangle"></i> LEVEL 3 EMERGENCY</h4>
+        <p style="color: #856404; margin: 0;"><strong>Shipping Noise Pollution Crisis:</strong> Marine mammals face critical communication disruption from underwater shipping noise.</p>
+        <a href="./pages/noise-pollution-shipping.html" class="btn btn-warning" style="margin-top: 10px;">
+          <i class="fas fa-volume-up"></i> View Crisis Details
+        </a>
+      </div>
+      <h4>Climate Adaptation Resources:</h4>
+      <ul>
+        <li><a href="./pages/environment/climate-resilient-habitats.html" class="btn btn-primary" style="margin:5px;"> 🛡️ Climate-Resilient Habitats</a></li>
+        <li><a href="./pages/environment/climate-awareness.html" class="btn btn-primary" style="margin:5px;"> 🌡️ Climate Awareness</a></li>
+      </ul>
     `
   },
   'tree-plant': {
@@ -226,9 +238,8 @@ const ECO_FACTS = [
  * Called when DOM content is loaded
  * Initializes all core application features
  */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Core navigation and UI components
-  initNavbar();
   initSmoothScroll();
   initBackToTop();
   initScrollProgress();
@@ -273,7 +284,7 @@ function initAdditionalFeatures() {
   initSurvivalScore();
 
   // Theme and accessibility
-  initThemeToggle();
+  // initThemeToggle(); // Handled by theme-toggle.js
   initScrollBottomButton();
 
   // Earth visualization
@@ -282,6 +293,10 @@ function initAdditionalFeatures() {
   // Wildlife features
   initWildlifeFilter();
   initFlipCards();
+
+  // Crisis alert systems
+  initNoiseCrisisAlert();
+  initIndigenousCrisisAlert();
 }
 
 // ===========================================
@@ -293,25 +308,12 @@ function initAdditionalFeatures() {
  * Handles navbar toggling and smooth scrolling
  */
 function initNavbar() {
-  const navbarToggler = document.querySelector('.navbar-toggler');
-  const navbarCollapse = document.querySelector('.navbar-collapse');
-
-  if (navbarToggler && navbarCollapse) {
-    navbarToggler.addEventListener('click', function() {
-      navbarCollapse.classList.toggle('show');
-    });
-
-    // Close navbar when clicking on a nav link
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (navbarCollapse.classList.contains('show')) {
-          navbarCollapse.classList.remove('show');
-        }
-      });
-    });
-  }
+  // Navbar is now fully handled by component-loader.js
+  // This function is intentionally disabled to prevent
+  // duplicate listeners and auto-closing bugs.
+  return;
 }
+
 
 /**
  * Initialize navbar active state based on scroll position
@@ -324,7 +326,7 @@ function initNavbarActiveState() {
   // Check if elements exist before adding event listener
   if (sections.length === 0 || navLinks.length === 0) return;
 
-  window.addEventListener("scroll", function() {
+  window.addEventListener("scroll", function () {
     let current = "";
     const scrollY = window.pageYOffset;
 
@@ -374,7 +376,7 @@ function initScrollProgress() {
  */
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function(e) {
+    anchor.addEventListener("click", function (e) {
       e.preventDefault();
       const targetId = this.getAttribute("href");
 
@@ -402,7 +404,7 @@ function initBackToTop() {
   const backToTop = document.getElementById("backToTop");
   if (!backToTop) return;
 
-  window.addEventListener("scroll", function() {
+  window.addEventListener("scroll", function () {
     if (window.scrollY > 500) {
       backToTop.classList.add("visible");
     } else {
@@ -410,7 +412,7 @@ function initBackToTop() {
     }
   });
 
-  backToTop.addEventListener("click", function() {
+  backToTop.addEventListener("click", function () {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -489,21 +491,27 @@ function initCounterAnimation() {
 }
 
 /**
- * Initialize particle animation system
+ * Initialize particle animation system - Memory Safe Version
  * Creates floating particles for visual enhancement
  */
 function initParticles() {
   const particlesContainer = document.getElementById("particles");
   if (!particlesContainer) return;
 
-  const particleCount = 50;
+  const particleCount = 30; // Reduced from 50
+  const particles = new Set();
+
   for (let i = 0; i < particleCount; i++) {
-    createParticle(particlesContainer);
+    const particle = createParticle(particlesContainer);
+    particles.add(particle);
   }
+
+  // Store particles for cleanup
+  particlesContainer._particles = particles;
 }
 
 /**
- * Create individual particle element
+ * Create individual particle element - Memory Safe Version
  * @param {HTMLElement} container - Container element for particles
  */
 function createParticle(container) {
@@ -511,11 +519,11 @@ function createParticle(container) {
   particle.className = "particle";
 
   // Random properties
-  const size = Math.random() * 5 + 2;
+  const size = Math.random() * 3 + 1; // Reduced size
   const left = Math.random() * 100;
   const delay = Math.random() * 20;
-  const duration = Math.random() * 20 + 10;
-  const opacity = Math.random() * 0.5 + 0.1;
+  const duration = Math.random() * 15 + 8; // Shorter duration
+  const opacity = Math.random() * 0.3 + 0.1; // Lower opacity
 
   particle.style.cssText = `
     position: absolute;
@@ -526,9 +534,11 @@ function createParticle(container) {
     left: ${left}%;
     bottom: -10px;
     animation: particleFloat ${duration}s linear ${delay}s infinite;
+    pointer-events: none;
   `;
 
   container.appendChild(particle);
+  return particle;
 }
 
 // Add particle animation to stylesheet
@@ -555,7 +565,7 @@ function initFormHandlers() {
   // Report Form
   const reportForm = document.getElementById("reportForm");
   if (reportForm) {
-    reportForm.addEventListener("submit", function(e) {
+    reportForm.addEventListener("submit", function (e) {
       e.preventDefault();
       handleReportSubmit(this);
     });
@@ -564,7 +574,7 @@ function initFormHandlers() {
   // Newsletter Form
   const newsletterForm = document.getElementById("newsletterForm");
   if (newsletterForm) {
-    newsletterForm.addEventListener("submit", function(e) {
+    newsletterForm.addEventListener("submit", function (e) {
       e.preventDefault();
       handleNewsletterSubmit(this);
     });
@@ -573,7 +583,7 @@ function initFormHandlers() {
   // File upload preview
   const fileInput = document.querySelector('.file-upload input[type="file"]');
   if (fileInput) {
-    fileInput.addEventListener("change", function() {
+    fileInput.addEventListener("change", function () {
       const fileName = this.files[0]?.name;
       const label = this.parentElement.querySelector(".file-upload-label span");
       if (fileName && label) {
@@ -699,8 +709,8 @@ function handleCarbonSubmit(e) {
   }
 
   let score = CARBON_CALCULATOR_WEIGHTS.transport[transport] +
-             CARBON_CALCULATOR_WEIGHTS.electricity[electricity] +
-             CARBON_CALCULATOR_WEIGHTS.plastic[plastic];
+    CARBON_CALCULATOR_WEIGHTS.electricity[electricity] +
+    CARBON_CALCULATOR_WEIGHTS.plastic[plastic];
 
   const carbonResult = document.getElementById("carbonResult");
   const carbonScoreEl = document.getElementById("carbonScore");
@@ -875,50 +885,93 @@ function initEcoChallenges() {
  * Initialize modal system for service information
  * Sets up modal dialogs for various environmental services
  */
+/**
+ * Initialize modal system for service information
+ * Sets up modal dialogs for various environmental services with accessibility focus trap
+ */
 function initModalSystem() {
   const modal = document.getElementById('infoModal');
   if (!modal) return;
 
   const closeBtn = document.querySelector('.custom-modal-close');
+  // Use event delegation for open buttons since they might be dynamically added
   const modalButtons = document.querySelectorAll('.open-modal-btn');
+  let lastFocusedElement;
 
-  // Open Modal
-  modalButtons.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const contentId = this.getAttribute('data-id');
-      const content = MODAL_CONTENT[contentId];
+  function trapFocus(e) {
+    if (e.key === 'Tab' || e.keyCode === 9) {
+      const focusableContent = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const firstFocusableElement = focusableContent[0];
+      const lastFocusableElement = focusableContent[focusableContent.length - 1];
 
-      if (content) {
-        // Populate content
-        document.getElementById('modalHeader').innerHTML = `
-          <i class="fa-solid ${content.icon}"></i>
-          <h2>${content.title}</h2>
-        `;
-        document.getElementById('modalBody').innerHTML = content.body;
-
-        // Show modal
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      if (e.shiftKey) { // if shift key pressed for shift + tab combination
+        if (document.activeElement === firstFocusableElement) {
+          lastFocusableElement.focus();
+          e.preventDefault();
+        }
+      } else { // if tab key is pressed
+        if (document.activeElement === lastFocusableElement) {
+          firstFocusableElement.focus();
+          e.preventDefault();
+        }
       }
+    }
+  }
+
+  // Open Modal logic
+  function openModal(btn) {
+    lastFocusedElement = document.activeElement; // Save focus
+    const contentId = btn.getAttribute('data-id');
+    const content = MODAL_CONTENT[contentId];
+
+    if (content) {
+      // Populate content
+      document.getElementById('modalHeader').innerHTML = `
+        <i class="fa-solid ${content.icon}"></i>
+        <h2>${content.title}</h2>
+      `;
+      document.getElementById('modalBody').innerHTML = content.body;
+
+      // Show modal
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+      // Focus management
+      if (closeBtn) {
+        closeBtn.focus();
+      }
+      document.addEventListener('keydown', trapFocus);
+    }
+  }
+
+  // Initialize buttons
+  modalButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openModal(this);
     });
   });
 
   // Close functions
-  window.closeInfoModal = function() {
+  window.closeInfoModal = function () {
     modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+
+    document.removeEventListener('keydown', trapFocus);
+    if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
   }
 
   // Close on overlay click
-  modal.addEventListener('click', function(e) {
+  modal.addEventListener('click', function (e) {
     if (e.target === modal) {
       closeInfoModal();
     }
   });
 
   // Close on Escape key
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
       closeInfoModal();
     }
@@ -1006,7 +1059,7 @@ function initPreloader() {
   const preloader = document.getElementById("preloader");
   if (!preloader) return;
 
-  window.addEventListener("load", function() {
+  window.addEventListener("load", function () {
     setTimeout(() => {
       preloader.style.opacity = "0";
       preloader.style.visibility = "hidden";
@@ -1200,7 +1253,7 @@ function initFutureVisualization() {
    * Show future Earth scenario
    * @param {string} year - Time period to display (present, 2050, 2100)
    */
-  window.showFuture = function(year) {
+  window.showFuture = function (year) {
     if (year === "present") {
       futureDisplay.innerHTML = `
         🌍 <h3>Earth Today</h3>
@@ -1241,7 +1294,7 @@ function initSurvivalScore() {
    * @param {number} water - Water quality percentage
    * @param {number} bio - Biodiversity percentage
    */
-  window.updateSurvivalScore = function(air, water, bio) {
+  window.updateSurvivalScore = function (air, water, bio) {
     const airBar = document.getElementById("airBar");
     const waterBar = document.getElementById("waterBar");
     const bioBar = document.getElementById("bioBar");
@@ -1273,38 +1326,23 @@ function initSurvivalScore() {
 // THEME & ACCESSIBILITY FEATURES
 // ===========================================
 
-/**
- * Initialize theme toggle functionality
- * Handles light/dark theme switching with localStorage persistence
- */
-function initThemeToggle() {
-  if (typeof window.initThemeToggle === 'function') {
-    window.initThemeToggle();
-    return;
+
+
+// ===============================
+// REMOVE DUPLICATE FLOATING THEME TOGGLE
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const navbarToggle = document.getElementById("themeToggle");
+
+  // Common selectors used for floating toggles
+  const floatingToggles = document.querySelectorAll(
+    ".theme-toggle, .floating-theme-toggle, .theme-fab"
+  );
+
+  if (navbarToggle && floatingToggles.length > 0) {
+    floatingToggles.forEach(toggle => toggle.remove());
   }
-
-  // Minimal fallback if global theme-toggle.js is not loaded
-  const toggle = document.getElementById("themeToggle");
-  if (!toggle) return;
-
-  const icon = toggle.querySelector("i");
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-theme");
-    if (icon) icon.classList.replace("fa-moon", "fa-sun");
-  }
-
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-theme");
-    const isDark = document.body.classList.contains("dark-theme");
-
-    if (icon) {
-      icon.classList.toggle("fa-moon", !isDark);
-      icon.classList.toggle("fa-sun", isDark);
-    }
-
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  });
-}
+});
 
 /**
  * Initialize scroll to bottom button
@@ -1346,7 +1384,7 @@ function initEarthVisualization() {
    * Update Earth visualization based on score
    * @param {number} score - Environmental impact score (0-100)
    */
-  window.updateEarth = function(score) {
+  window.updateEarth = function (score) {
     const earthText = document.getElementById("earthText");
     const sun = document.querySelector(".sun-rays");
     const rain = document.querySelector(".rain");
@@ -1432,10 +1470,19 @@ function initWildlifeFilter() {
 function initFlipCards() {
   const flipCards = document.querySelectorAll(".flip-card");
   flipCards.forEach(card => {
-    card.addEventListener("click", function() {
+    card.addEventListener("click", function () {
       this.classList.toggle("flipped");
     });
   });
+}
+
+/**
+ * Initialize noise pollution crisis alert system
+ * Manages Level 3 emergency alerts for shipping noise pollution
+ */
+function initNoiseCrisisAlert() {
+  // Initialize the crisis alert manager
+  window.noiseCrisisManager = new NoiseCrisisAlertManager();
 }
 
 // ===========================================
@@ -1495,6 +1542,180 @@ function isInViewport(element) {
 }
 
 // ===========================================
+// NOISE POLLUTION CRISIS ALERT SYSTEM
+// ===========================================
+
+/**
+ * Noise Pollution Crisis Alert Management
+ * Handles Level 3 emergency alerts for shipping noise pollution
+ */
+class NoiseCrisisAlertManager {
+  constructor() {
+    this.alertBanner = document.getElementById('noise-crisis-alert-banner');
+    this.isDismissed = this.getDismissedStatus();
+    this.init();
+  }
+
+  init() {
+    if (!this.isDismissed && this.shouldShowAlert()) {
+      this.showAlert();
+    }
+  }
+
+  shouldShowAlert() {
+    // Show alert on homepage and relevant pages
+    const currentPath = window.location.pathname;
+    const allowedPages = ['/', '/index.html', ''];
+    return allowedPages.some(page => currentPath.endsWith(page));
+  }
+
+  showAlert() {
+    if (this.alertBanner) {
+      // Add body class for layout adjustments
+      document.body.classList.add('noise-crisis-alert-shown');
+
+      // Show banner with animation
+      this.alertBanner.style.display = 'block';
+      this.alertBanner.style.animation = 'slideDown 0.5s ease-out';
+
+      // Announce to screen readers
+      this.announceToScreenReader('Level 3 Emergency: Shipping noise pollution crisis affecting marine mammals. Critical communication disruption detected.');
+    }
+  }
+
+  hideAlert() {
+    if (this.alertBanner) {
+      this.alertBanner.classList.add('closing');
+      document.body.classList.remove('noise-crisis-alert-shown');
+
+      setTimeout(() => {
+        this.alertBanner.style.display = 'none';
+        this.alertBanner.classList.remove('closing');
+      }, 500);
+    }
+  }
+
+  dismissAlert() {
+    this.setDismissedStatus(true);
+    this.hideAlert();
+  }
+
+  getDismissedStatus() {
+    return localStorage.getItem('noiseCrisisAlertDismissed') === 'true';
+  }
+
+  setDismissedStatus(dismissed) {
+    localStorage.setItem('noiseCrisisAlertDismissed', dismissed.toString());
+  }
+
+  announceToScreenReader(message) {
+    const liveRegion = document.getElementById('status-messages');
+    if (liveRegion) {
+      liveRegion.textContent = message;
+    }
+  }
+}
+
+// INDIGENOUS KNOWLEDGE LOSS CRISIS ALERT SYSTEM
+/**
+ * Indigenous Knowledge Loss Crisis Alert Management
+ * Handles the display and dismissal of Level 3 indigenous knowledge crisis alerts
+ */
+class IndigenousCrisisAlertManager {
+  constructor() {
+    this.alertBanner = document.getElementById('indigenous-crisis-alert-banner');
+    this.isDismissed = this.getDismissedState();
+
+    // Show alert if not dismissed and conditions are met
+    if (!this.isDismissed && this.shouldShowAlert()) {
+      this.showAlert();
+    }
+  }
+
+  shouldShowAlert() {
+    // Always show for Level 3 crisis (can add more complex logic later)
+    return true;
+  }
+
+  showAlert() {
+    if (this.alertBanner) {
+      // Add slide-in animation
+      this.alertBanner.style.display = 'block';
+      this.alertBanner.style.transform = 'translateY(-100%)';
+      this.alertBanner.style.transition = 'transform 0.5s ease-out';
+
+      // Trigger animation
+      setTimeout(() => {
+        this.alertBanner.style.transform = 'translateY(0)';
+      }, 100);
+
+      // Add body class for layout adjustments
+      document.body.classList.add('indigenous-crisis-alert-shown');
+
+      // Announce to screen readers
+      this.announceToScreenReader('Level 3 Emergency: Indigenous ecological knowledge loss crisis. Traditional conservation practices are disappearing, threatening biodiversity and ecosystem resilience.');
+    }
+  }
+
+  dismissAlert() {
+    if (this.alertBanner) {
+      // Add closing animation
+      this.alertBanner.classList.add('closing');
+      this.alertBanner.style.transform = 'translateY(-100%)';
+
+      // Remove body class
+      document.body.classList.remove('indigenous-crisis-alert-shown');
+
+      // Store dismissal state
+      this.setDismissedState(true);
+
+      // Remove the banner after animation completes
+      setTimeout(() => {
+        this.alertBanner.style.display = 'none';
+        this.alertBanner.classList.remove('closing');
+      }, 500);
+    }
+  }
+
+  getDismissedState() {
+    return localStorage.getItem('indigenousCrisisAlertDismissed') === 'true';
+  }
+
+  setDismissedState(dismissed) {
+    localStorage.setItem('indigenousCrisisAlertDismissed', dismissed.toString());
+  }
+
+  announceToScreenReader(message) {
+    const liveRegion = document.getElementById('status-messages');
+    if (liveRegion) {
+      liveRegion.textContent = message;
+    }
+  }
+}
+
+// Global function for close button
+function closeIndigenousCrisisAlert() {
+  if (window.indigenousCrisisManager) {
+    window.indigenousCrisisManager.dismissAlert();
+  }
+}
+
+// Global function for close button
+function closeNoiseCrisisAlert() {
+  if (window.noiseCrisisManager) {
+    window.noiseCrisisManager.dismissAlert();
+  }
+}
+
+/**
+ * Initialize indigenous knowledge loss crisis alert system
+ */
+function initIndigenousCrisisAlert() {
+  // Initialize the crisis alert manager
+  window.indigenousCrisisManager = new IndigenousCrisisAlertManager();
+}
+
+// ===========================================
 // CONSOLE LOGO & DEBUGGING
 // ===========================================
 
@@ -1510,5 +1731,137 @@ console.log(
 );
 
 // ===========================================
-// END OF MAIN.JS
+// CRISIS ALERT FUNCTIONALITY
 // ===========================================
+
+/**
+ * Close the Level 3 Crisis Alert Banner
+ * Stores user preference in localStorage to prevent repeated display
+ */
+function closeCrisisAlert() {
+  const alertBanner = document.getElementById('crisisAlert');
+  if (alertBanner) {
+    // Add closing animation
+    alertBanner.classList.add('closing');
+
+    // Remove crisis alert styling from body
+    document.body.classList.remove('crisis-alert-shown');
+
+    // Remove the banner after animation completes
+    setTimeout(() => {
+      alertBanner.remove();
+    }, 500);
+
+    // Store user preference (optional - can be removed if always want to show alert)
+    localStorage.setItem('fireCrisisAlertClosed', 'true');
+
+    console.log('🚨 Crisis Alert Closed - User has been informed about Level 3 Fire Crisis');
+  }
+}
+
+/**
+ * Initialize Crisis Alert Banner
+ * Checks if user has previously dismissed the alert
+ */
+function initCrisisAlert() {
+  const alertClosed = localStorage.getItem('fireCrisisAlertClosed');
+
+  // For Level 3 Crisis, show alert regardless of previous dismissal
+  // Remove the next 3 lines if you want to respect user's dismissal
+  if (alertClosed === 'true') {
+    // For emergency situations, we want to show the alert again after 24 hours
+    const dismissTime = localStorage.getItem('fireCrisisAlertDismissTime');
+    const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+
+    if (!dismissTime || parseInt(dismissTime) < oneDayAgo) {
+      localStorage.removeItem('fireCrisisAlertClosed');
+      localStorage.setItem('fireCrisisAlertDismissTime', Date.now().toString());
+    }
+  }
+
+  // Show emergency notification after 5 seconds if user hasn't interacted
+  setTimeout(() => {
+    const alertBanner = document.getElementById('crisisAlert');
+    if (alertBanner && !alertBanner.classList.contains('closing')) {
+      showEmergencyNotification();
+    }
+  }, 5000);
+}
+
+/**
+ * Show additional emergency notification for Level 3 Crisis
+ */
+function showEmergencyNotification() {
+  // Create floating emergency notification
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #8B0000, #FF0000);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.6);
+    z-index: 2001;
+    animation: urgentPulse 2s infinite;
+    max-width: 300px;
+    font-weight: 600;
+  `;
+
+  notification.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <i class="fas fa-fire" style="font-size: 1.2rem; animation: urgentFlash 1s infinite;"></i>
+      <div>
+        <strong>URGENT ACTION NEEDED</strong><br>
+        <small>Level 3 Fire Crisis - Wildlife at Risk</small>
+      </div>
+      <button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer; padding: 5px;">×</button>
+    </div>
+  `;
+
+  document.body.appendChild(notification);
+
+  // Auto-remove after 10 seconds
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.remove();
+    }
+  }, 10000);
+
+  console.log('🔥 Emergency notification displayed - Level 3 Crisis requires immediate attention');
+}
+
+// Initialize crisis alert on page load
+document.addEventListener('DOMContentLoaded', initCrisisAlert);
+
+// Make closeCrisisAlert globally available
+window.closeCrisisAlert = closeCrisisAlert;
+function initFlipCards() {
+  const cards = document.querySelectorAll('.myth-card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  });
+}
+
+// ===========================================
+// END OF MAIN.JS
+// ===========================================function closeNoiseCrisisAlert() {
+function closeNoiseCrisisAlert() {
+  const banner = document.getElementById("noise-crisis-alert-banner");
+
+  if (banner) {
+    banner.style.display = "none";
+
+    // Move navbar to top after alert closes
+    const navbar = document.querySelector(".navbar");
+    if (navbar) {
+      navbar.style.top = "0px";
+    }
+
+    // Adjust body padding after alert removal
+    document.body.style.paddingTop = "80px";
+  }
+}

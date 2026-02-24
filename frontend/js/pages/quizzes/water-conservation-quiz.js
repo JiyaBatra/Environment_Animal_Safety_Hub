@@ -10,105 +10,133 @@
  * @since 2024
  */
 
-// Create quiz loader with custom elements and overrides
-const waterConservationLoader = new QuizLoader('water-conservation', {
-  customElements: {
-    startScreen: document.getElementById('readyScreen'),
-    quizScreen: document.getElementById('quizScreen'),
-    resultScreen: document.getElementById('quizScreen'), // Reuse quiz screen for results
-    questionEl: document.getElementById('question'),
-    optionsEl: document.getElementById('options'),
-    timeEl: null, // No timer display
-    scoreEl: document.getElementById('score'),
-    remarkEl: document.getElementById('feedback')
-  },
-  customOverrides: {
-    // Custom loadQuestion to handle option buttons
-    loadQuestion: function() {
-      // Call parent method
-      BaseQuiz.prototype.loadQuestion.call(this);
+const readyScreen = document.getElementById("readyScreen");
+const quizScreen = document.getElementById("quizScreen");
+const startBtn = document.getElementById("startQuizBtn");
 
-      // Custom styling for option buttons
-      const optionButtons = document.querySelectorAll('.option-btn');
-      optionButtons.forEach(button => {
-        button.style.backgroundColor = "#e8f5e9";
-        button.disabled = false;
-      });
-    },
+const questionEl = document.getElementById("question");
+const optionBtns = document.querySelectorAll(".option-btn");
+const feedback = document.getElementById("feedback");
+const scoreEl = document.getElementById("score");
+const nextBtn = document.getElementById("nextBtn");
 
-    // Custom selectOption to handle feedback
-    selectOption: function(element, optionIndex) {
-      // Call parent method
-      BaseQuiz.prototype.selectOption.call(this, element, optionIndex);
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
 
-      // Custom feedback and styling
-      const feedbackEl = document.getElementById('feedback');
-      const nextBtn = document.getElementById('nextBtn');
-      const optionButtons = document.querySelectorAll('.option-btn');
+const quizData = [
+{
+    question: "Which action saves the most water at home?",
+    options: [
+        "Leaving taps open",
+        "Fixing leaking pipes",
+        "Washing cars daily",
+        "Using long showers"
+    ],
+    answer: 1
+},
+{
+    question: "Which irrigation method saves water?",
+    options: [
+        "Flood irrigation",
+        "Drip irrigation",
+        "Overwatering plants",
+        "Using hose pipes continuously"
+    ],
+    answer: 1
+},
+{
+    question: "Turning off the tap while brushing helps to:",
+    options: [
+        "Waste water",
+        "Save water",
+        "Increase pressure",
+        "Clean pipes"
+    ],
+    answer: 1
+},
+{
+    question: "Rainwater harvesting is used to:",
+    options: [
+        "Store rainwater for reuse",
+        "Increase water pollution",
+        "Block drainage",
+        "Waste natural resources"
+    ],
+    answer: 0
+},
+{
+    question: "Which habit helps conserve water daily?",
+    options: [
+        "Taking shorter showers",
+        "Running half-load washing machines",
+        "Ignoring leaks",
+        "Keeping taps open"
+    ],
+    answer: 0
+}
+];
 
-      optionButtons.forEach(b => b.disabled = true);
+startBtn.addEventListener("click", () => {
+    readyScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+    loadQuestion();
+});
 
-      if (element.dataset.correct === "true") {
-        element.style.background = "#a5d6a7";
-        feedbackEl.textContent = "✅ Correct!";
-        feedbackEl.style.color = "green";
-      } else {
-        element.style.background = "#ef9a9a";
-        feedbackEl.textContent = "❌ Not quite right";
-        feedbackEl.style.color = "red";
-      }
+function loadQuestion() {
+    answered = false;
+    feedback.textContent = "";
+    nextBtn.style.display = "none";
 
-      if (nextBtn) nextBtn.disabled = false;
-    },
+    const q = quizData[currentQuestion];
+    questionEl.textContent = q.question;
 
-    // Custom showResult for completion display
-    showResult: function() {
-      // Call parent method
-      BaseQuiz.prototype.showResult.call(this);
+    optionBtns.forEach((btn, index) => {
+        btn.style.display = "block";
+        btn.textContent = q.options[index];
+        btn.style.background = "";
+        btn.disabled = false;
+    });
+}
 
-      // Custom completion display
-      const questionEl = document.getElementById('question');
-      const optionsEl = document.querySelector('.options');
-      const nextBtn = document.getElementById('nextBtn');
-      const feedbackEl = document.getElementById('feedback');
+optionBtns.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+        if (answered) return;
 
-      questionEl.textContent = "🎉 Quiz Completed!";
-      if (optionsEl) optionsEl.style.display = "none";
-      if (nextBtn) nextBtn.style.display = "none";
-      feedbackEl.textContent = `Final score ${this.score}/${this.questions.length}`;
-      feedbackEl.style.color = "#2e7d32";
-    },
+        answered = true;
+        const correctIndex = quizData[currentQuestion].answer;
 
-    // Custom startQuiz for screen transitions
-    startQuiz: function() {
-      // Custom screen transition
-      const readyScreen = document.getElementById('readyScreen');
-      const quizScreen = document.getElementById('quizScreen');
+        optionBtns.forEach(b => b.disabled = true);
 
-      if (readyScreen) readyScreen.classList.add('hidden');
-      if (quizScreen) quizScreen.classList.remove('hidden');
+        if (index === correctIndex) {
+            btn.style.background = "#22c55e";
+            feedback.textContent = "Correct! 🌿";
+            score++;
+            scoreEl.textContent = score;
+        } else {
+            btn.style.background = "#ef4444";
+            optionBtns[correctIndex].style.background = "#22c55e";
+            feedback.textContent = "Wrong! 💧";
+        }
 
-      // Call parent method
-      BaseQuiz.prototype.startQuiz.call(this);
+        nextBtn.style.display = "inline-block";
+    });
+});
+
+nextBtn.addEventListener("click", () => {
+    currentQuestion++;
+
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        showResult();
     }
-  }
 });
 
-// Global functions for HTML onclick handlers
-window.startQuiz = () => {
-  const quiz = waterConservationLoader.getQuiz();
-  if (quiz) quiz.startQuiz();
-};
-window.resumeQuiz = () => {
-  const quiz = waterConservationLoader.getQuiz();
-  if (quiz) quiz.resumeQuiz();
-};
-window.nextQuestion = () => {
-  const quiz = waterConservationLoader.getQuiz();
-  if (quiz) quiz.nextQuestion();
-};
+function showResult() {
+    questionEl.textContent = "Quiz Completed!";
+    feedback.textContent = `Your Score: ${score} / ${quizData.length}`;
 
-// Load quiz on page load
-document.addEventListener('DOMContentLoaded', () => {
-  waterConservationLoader.loadQuiz();
-});
+    optionBtns.forEach(btn => btn.style.display = "none");
+    nextBtn.style.display = "none";
+}

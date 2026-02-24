@@ -1,293 +1,102 @@
 ﻿/**
- * EcoLife Theme Toggle System
+ * EcoLife Theme Toggle – Integrated with PreferencesManager
  *
- * Dynamic light/dark theme switching with system preference detection,
- * accessibility features, and persistent storage for the platform.
- *
- * Features:
- * - Light/dark theme toggle with smooth transitions
- * - System preference detection (prefers-color-scheme)
- * - Local storage persistence
- * - Screen reader announcements
- * - Keyboard accessibility
- * - Visual feedback for interactions
- * - Automatic system theme change detection
+ * Handles theme toggle UI interactions and icon updates.
+ * Delegates state management to PreferencesManager for centralized control.
  *
  * @author Environment & Animal Safety Hub Team
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024
  */
 
 (function () {
-    'use strict';
+  'use strict';
 
-    // Theme constants
-    const THEME_KEY = 'ecolife-theme';
-    const THEME_LIGHT = 'light';
-    const THEME_DARK = 'dark';
+  /**
+   * Get the theme toggle button element
+   * @returns {HTMLElement|null} Theme toggle button
+   */
+  function getToggleBtn() {
+    return document.getElementById('themeToggle');
+  }
 
-    /**
-     * Get preferred theme from localStorage or system preference
-     * @returns {string} Theme name ('light' or 'dark')
-     */
-    function getPreferredTheme() {
-        // Check localStorage first (respects user choice)
-        const storedTheme = localStorage.getItem(THEME_KEY);
-        if (storedTheme && (storedTheme === THEME_LIGHT || storedTheme === THEME_DARK)) {
-            return storedTheme;
-        }
+  /**
+   * Update the theme toggle icon based on current theme
+   * @param {string} theme - Current theme ('light' | 'dark')
+   */
+  function updateIcon(theme) {
+    const toggleBtn = getToggleBtn();
+    if (!toggleBtn) return;
 
-        // Check system preference (prefers-color-scheme)
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return THEME_DARK;
-        }
+    const icon = toggleBtn.querySelector('i');
+    if (!icon) return;
 
-        // Default to light theme
-        return THEME_LIGHT;
-    }
+    icon.classList.remove('fa-sun', 'fa-moon');
+    icon.classList.add(theme === 'dark' ? 'fa-sun' : 'fa-moon');
 
-    /**
-     * Apply theme to the document with optional animation
-     * @param {string} theme - Theme to apply ('light' or 'dark')
-     * @param {boolean} animate - Whether to animate the transition
-     */
-    function applyTheme(theme, animate = true) {
-        const root = document.documentElement;
-        const body = document.body;
+    toggleBtn.setAttribute(
+      'aria-label',
+      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+  }
 
-        // Validate theme value
-        if (theme !== THEME_LIGHT && theme !== THEME_DARK) {
-            console.warn('Invalid theme value:', theme);
-            theme = THEME_LIGHT;
-        }
+  /**
+   * Apply theme transition animation
+   */
+  function animateTransition() {
+    const root = document.documentElement;
+    root.classList.add('theme-transitioning');
+    setTimeout(() => root.classList.remove('theme-transitioning'), 400);
+  }
 
-        // Add transition class for smooth theme switch
-        if (animate && body) {
-            root.classList.add('theme-transitioning');
-            body.classList.add('theme-transitioning');
-            setTimeout(() => {
-                root.classList.remove('theme-transitioning');
-                body.classList.remove('theme-transitioning');
-            }, 400);
-        }
-
-        // Set theme attribute on both html and body for maximum compatibility
-        root.setAttribute('data-theme', theme);
-        if (body) {
-            body.setAttribute('data-theme', theme);
-            // Legacy class support
-            if (theme === THEME_DARK) {
-                body.classList.add('dark-mode');
-            } else {
-                body.classList.remove('dark-mode');
-            }
-        }
-
-        // Update all theme toggle buttons
-        updateToggleButtons(theme);
-
-        // Store in localStorage for persistence across sessions
-        try {
-            localStorage.setItem(THEME_KEY, theme);
-        } catch (e) {
-            console.warn('localStorage not available:', e);
-        }
-
-        // Dispatch custom event for other components to listen to
-        window.dispatchEvent(new CustomEvent('themechange', {
-            detail: { theme, isDark: theme === THEME_DARK }
-        }));
-
-        // Announce theme change to screen readers
-        announceThemeChange(theme);
-
-        // Debug log
-        console.log(`%c🌙 Theme: ${theme}`, `color: ${theme === THEME_DARK ? '#fbbf24' : '#22c55e'};font-weight: bold;`);
-    }
-
-    /**
-     * Announce theme change to screen readers
-     * @param {string} theme - Current theme
-     */
-    function announceThemeChange(theme) {
-        // Find or create announcer element
-        let announcer = document.getElementById('theme-announcer');
-        if (!announcer) {
-            announcer = document.createElement('div');
-            announcer.id = 'theme-announcer';
-            announcer.setAttribute('role', 'status');
-            announcer.setAttribute('aria-live', 'polite');
-            announcer.setAttribute('aria-atomic', 'true');
-            announcer.className = 'sr-only';
-            announcer.style.cssText = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
-            document.body.appendChild(announcer);
-        }
-
-        // Announce the change
-        announcer.textContent = `Theme switched to ${theme} mode`;
-
-        // Clear after announcement
-        setTimeout(() => {
-            announcer.textContent = '';
-        }, 1000);
-    }
-
-    /**
-     * Update theme toggle buttons based on current theme
-     * @param {string} theme - Current theme
-     */
-    function updateToggleButtons(theme) {
-        const toggleSelectors = '#themeToggle, .theme-toggle-btn, .theme-toggle, .theme-btn, [data-theme-toggle]';
-        const toggleButtons = document.querySelectorAll(toggleSelectors);
-
-        toggleButtons.forEach(button => {
-            const icon = button.querySelector('i');
-            const isDark = theme === THEME_DARK;
-
-            if (icon) {
-                // Update icon classes
-                icon.classList.remove('fa-sun', 'fa-moon');
-                icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
-            }
-
-            // Update ARIA attributes for accessibility
-            button.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-            button.setAttribute('title', isDark ? 'Switch to Light Mode (currently Dark)' : 'Switch to Dark Mode (currently Light)');
-            button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-
-            // Update visual state
-            button.classList.toggle('dark-active', isDark);
-
-            // Update icon color for visibility
-            if (icon && isDark) {
-                button.style.color = '#fbbf24'; // Amber for sun icon
-            } else if (icon) {
-                button.style.color = ''; // Reset to default
-            }
-        });
-    }
-
-    /**
-     * Toggle between light and dark themes
-     */
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || THEME_LIGHT;
-        const newTheme = currentTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
-        applyTheme(newTheme, true);
-    }
-
-    /**
-     * Initialize theme toggle functionality
-     */
-    function initThemeToggle() {
-        // Apply saved theme on page load (without animation to prevent flash)
-        const preferredTheme = getPreferredTheme();
-        applyTheme(preferredTheme, false);
-
-        // Get all theme toggle buttons
-        const toggleSelectors = '#themeToggle, .theme-toggle-btn, .theme-toggle, .theme-btn, [data-theme-toggle]';
-        const toggleButtons = document.querySelectorAll(toggleSelectors);
-
-        toggleButtons.forEach(button => {
-            // Ensure accessibility attributes are set
-            button.setAttribute('role', 'button');
-            button.setAttribute('tabindex', '0');
-            button.setAttribute('aria-label', preferredTheme === THEME_DARK ? 'Switch to light mode' : 'Switch to dark mode');
-
-            // Click handler
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleTheme();
-
-                // Add visual feedback animation
-                this.style.transform = 'scale(0.92)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            });
-
-            // Keyboard handler for accessibility (Enter and Space keys)
-            button.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') {
-                    e.preventDefault();
-                    toggleTheme();
-
-                    // Visual feedback
-                    this.style.transform = 'scale(0.92)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                }
-            });
-
-            // Focus styling for keyboard users
-            button.addEventListener('focus', function () {
-                this.style.outline = '2px solid var(--primary-color)';
-                this.style.outlineOffset = '3px';
-            });
-            button.addEventListener('blur', function () {
-                this.style.outline = '';
-                this.style.outlineOffset = '';
-            });
-        });
-
-        // Listen for system preference changes (e.g., user changes OS theme)
-        if (window.matchMedia) {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            const handleSystemThemeChange = (e) => {
-                // Only auto-switch if user hasn't manually set a preference
-                const storedTheme = localStorage.getItem(THEME_KEY);
-                if (!storedTheme) {
-                    applyTheme(e.matches ? THEME_DARK : THEME_LIGHT, true);
-                }
-            };
-
-            // Modern browsers
-            if (mediaQuery.addEventListener) {
-                mediaQuery.addEventListener('change', handleSystemThemeChange);
-            } else if (mediaQuery.addListener) {
-                // Legacy support
-                mediaQuery.addListener(handleSystemThemeChange);
-            }
-        }
-
-        console.log('%c🌗 EcoLife Theme System Initialized', 'color: #22c55e;font-weight: bold;');
-    }
-
-    // Apply theme immediately to prevent flash (runs before DOMContentLoaded)
-    (function () {
-        const savedTheme = getPreferredTheme();
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initThemeToggle);
+  /**
+   * Handle theme toggle click
+   */
+  function handleToggleClick() {
+    if (window.PreferencesManager) {
+      animateTransition();
+      window.PreferencesManager.toggleTheme();
+      console.log('🌗 Theme toggled');
     } else {
-        // DOM already loaded
-        initThemeToggle();
+      console.warn('[ThemeToggle] PreferencesManager not available');
+    }
+  }
+
+  /**
+   * Initialize theme toggle functionality
+   */
+  function init() {
+    // Get current theme from PreferencesManager or fallback
+    const currentTheme = window.PreferencesManager
+      ? window.PreferencesManager.getTheme()
+      : (localStorage.getItem('ecolife_theme') || 'light');
+
+    // Update icon to reflect current theme
+    updateIcon(currentTheme);
+
+    // Subscribe to theme changes from PreferencesManager
+    if (window.PreferencesManager) {
+      window.PreferencesManager.subscribe('theme', (newTheme) => {
+        updateIcon(newTheme);
+      });
     }
 
-    // Handle browser back/forward cache (bfcache)
-    window.addEventListener('pageshow', function (event) {
-        if (event.persisted) {
-            const preferredTheme = getPreferredTheme();
-            applyTheme(preferredTheme, false);
-        }
+    // Set up click handler using event delegation
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('#themeToggle');
+      if (btn) handleToggleClick();
     });
+  }
 
-    // Expose public API for external use
-    window.EcoLifeTheme = {
-        toggle: toggleTheme,
-        setTheme: function (theme) { applyTheme(theme, true); },
-        getTheme: function () { return document.documentElement.getAttribute('data-theme') || THEME_LIGHT; },
-        isDark: function () { return this.getTheme() === THEME_DARK; },
-        isLight: function () { return this.getTheme() === THEME_LIGHT; },
-        LIGHT: THEME_LIGHT,
-        DARK: THEME_DARK
-    };
+  // Wait for DOM and PreferencesManager to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // DOM already loaded, wait a tick for PreferencesManager
+    setTimeout(init, 0);
+  }
 
-    // Make initThemeToggle globally accessible
-    window.initThemeToggle = initThemeToggle;
+  // Expose init function globally for component-loader
+  window.initThemeToggle = init;
+
 })();

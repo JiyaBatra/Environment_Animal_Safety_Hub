@@ -37,19 +37,85 @@ const successMsg = document.getElementById("successMsg");
  * Prevents default submission, shows success message, resets form, and scrolls to message
  * @param {Event} e - Form submit event
  */
-form.addEventListener("submit", function(e) {
-    // Prevent default form submission
-    e.preventDefault();
+if (form) {
+    form.addEventListener("submit", function (e) {
+        // Prevent default form submission
+        e.preventDefault();
 
-    // Display success message
-    successMsg.style.display = "block";
+        // VALDIATION
+        const nameInput = document.getElementById("reporterName");
+        // Note: location/desc don't have IDs in HTML but we can target by type or add IDs.
+        // We know structure: div > label + input/textarea.
+        // Let's get them by selector to be safe.
+        const locationInput = form.querySelector("input[placeholder='Enter location']");
+        const descInput = form.querySelector("textarea");
 
-    // Reset form to clear all input fields
-    form.reset();
+        let isValid = true;
+        let errorMessage = "";
 
-    // Smooth scroll to success message with offset for better visibility
-    window.scrollTo({
-        top: successMsg.offsetTop - 100,
-        behavior: "smooth"
+        if (nameInput && !nameInput.value.trim()) {
+            isValid = false;
+            errorMessage += "Name is required.\n";
+            nameInput.style.borderColor = "red";
+        } else if (nameInput) {
+            nameInput.style.borderColor = "#ddd";
+        }
+
+        if (locationInput && !locationInput.value.trim()) {
+            isValid = false;
+            errorMessage += "Location is required.\n";
+            locationInput.style.borderColor = "red";
+        } else if (locationInput) {
+            locationInput.style.borderColor = "#ddd";
+        }
+
+        if (descInput && !descInput.value.trim()) {
+            isValid = false;
+            errorMessage += "Description is required.\n";
+            descInput.style.borderColor = "red";
+        } else if (descInput) {
+            descInput.style.borderColor = "#ddd";
+        }
+
+        if (!isValid) {
+            alert(errorMessage);
+            return;
+        }
+
+        // Show loading state
+        const submitBtn = form.querySelector("button[type='submit']");
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = "Submitting...";
+        submitBtn.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+            // Restore button
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+
+            // Display success message
+            if (successMsg) {
+                successMsg.style.display = "block";
+                successMsg.textContent = "✅ Report Submitted Successfully! Thank you for your help.";
+
+                // Smooth scroll to success message
+                window.scrollTo({
+                    top: successMsg.offsetTop - 100,
+                    behavior: "smooth"
+                });
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMsg.style.display = "none";
+                }, 5000);
+            } else {
+                alert("Report Submitted Successfully!");
+            }
+
+            // Reset form
+            form.reset();
+
+        }, 1500); // 1.5s delay
     });
-});
+}
