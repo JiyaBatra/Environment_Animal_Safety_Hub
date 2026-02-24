@@ -12,6 +12,7 @@
 // Initialize all home page features when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     initHeroParallax();
+    initHeroVideoBackground();
     initDailyQuote();
     initTestimonialFadeIn();
     initStatsCounter();
@@ -70,6 +71,59 @@ function initHeroParallax() {
 
     // Initial call to set position
     updateParallax();
+}
+
+/**
+ * Initializes the hero background video with pause/play controls
+ * Respects user's reduced motion preference and keeps audio muted
+ */
+function initHeroVideoBackground() {
+    const heroSection = document.querySelector('.hero-section');
+    const video = document.getElementById('hero-background-video');
+
+    if (!heroSection || !video) {
+        return;
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const pauseVideo = () => {
+        video.pause();
+        heroSection.classList.add('video-paused');
+    };
+
+    const playVideo = () => {
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.then === 'function') {
+            playPromise
+                .then(() => heroSection.classList.remove('video-paused'))
+                .catch(() => heroSection.classList.add('video-paused'));
+        } else {
+            heroSection.classList.toggle('video-paused', video.paused);
+        }
+    };
+
+    video.muted = true;
+
+    video.addEventListener('canplay', () => {
+        heroSection.classList.add('video-ready');
+    }, { once: true });
+
+    const handleMotionPreference = () => {
+        if (prefersReducedMotion.matches) {
+            pauseVideo();
+        } else {
+            playVideo();
+        }
+    };
+
+    if (typeof prefersReducedMotion.addEventListener === 'function') {
+        prefersReducedMotion.addEventListener('change', handleMotionPreference);
+    } else if (typeof prefersReducedMotion.addListener === 'function') {
+        prefersReducedMotion.addListener(handleMotionPreference);
+    }
+
+    handleMotionPreference();
 }
 
 /**

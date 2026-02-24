@@ -1,18 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Pollution Awareness Quiz | EcoLife</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <link rel="stylesheet" href="../../css/pages/quizzes/pollution-awareness-quiz.css">
 <link rel="stylesheet" href="../../css/global/utilities.css" />
+
 <link rel="stylesheet" href="../../css/components/navbar.css" />
 <link rel="stylesheet" href="../../css/components/footer.css" />
 <link rel="stylesheet" href="../../css/pages/quizzes/quiz.css">
+
+<!-- WhatsApp Button CSS -->
+<style>
+.whatsapp-btn{
+  background-color:#25D366;
+  color:white;
+  border:none;
+  padding:12px 24px;
+  border-radius:8px;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  transition:all .3s ease;
+  margin:10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-width:200px;
+}
+.whatsapp-btn:hover{
+  background-color:#128C7E;
+  transform:translateY(-2px);
+  box-shadow:0 5px 15px rgba(37,211,102,.3);
+}
+.result-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:20px;
+}
+@media(max-width:768px){
+  .result-buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+}
+</style>
+    <link rel="stylesheet" href="../../css/components/navbar.css" />
+    <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/components/quiz.css">
+
 </head>
 
 <body>

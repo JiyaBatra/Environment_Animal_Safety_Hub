@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arctic Zooplankton Overwintering Failure</title>
+    <link rel="stylesheet" href="arctic-zooplankton-overwintering-failure.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Arctic Zooplankton Overwintering Failure</h1>
+            <p class="nav-subtitle">Examine Survival Threshold Shifts</p>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+            <button class="tab-btn" onclick="showTab('impacts')">Impacts</button>
+            <button class="tab-btn" onclick="showTab('solutions')">Solutions</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2>Overview</h2>
+            <p>Arctic zooplankton populations are experiencing critical overwintering failures due to shifting survival thresholds. As Arctic sea ice declines and water temperatures rise, the delicate balance required for zooplankton to survive the long polar winter is being disrupted, threatening the entire Arctic marine food web.</p>
+            <div class="chart-container">
+                <canvas id="zooplanktonSurvivalChart"></canvas>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Overwintering Success Rate</h3>
+                    <div class="stat-value">38%</div>
+                    <p>Decline in key species</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Sea Ice Extent Loss</h3>
+                    <div class="stat-value">75%</div>
+                    <p>Arctic summer minimum</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Survival Threshold Shift</h3>
+                    <div class="stat-value">2.4°C</div>
+                    <p>Temperature increase</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <h2>Analysis</h2>
+            <p>Analysis of Arctic zooplankton overwintering reveals patterns of survival threshold shifts across polar regions. Key factors include rapid sea ice loss, ocean warming, and changes in stratification that are altering the environmental conditions required for successful overwintering.</p>
+            <div class="chart-container">
+                <canvas id="survivalThresholdChart"></canvas>
+            </div>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Primary Stressors</h3>
+                    <ul>
+                        <li>Rapid sea ice decline</li>
+                        <li>Ocean warming and stratification</li>
+                        <li>Reduced lipid accumulation</li>
+                        <li>Predator-prey dynamics shift</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3>Species Vulnerability</h3>
+                    <ul>
+                        <li>Calanus copepods: High vulnerability</li>
+                        <li>Krill species: Moderate impact</li>
+                        <li>Amphipods: Habitat dependent</li>
+                        <li>Larval stages: Critical thresholds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="impacts" class="tab-content">
+            <h2>Impacts</h2>
+            <p>The failure of Arctic zooplankton overwintering has cascading effects throughout the polar marine ecosystem, disrupting the foundation of the Arctic food web.</p>
+            <div class="impacts-list">
+                <div class="impact-item">
+                    <h3>Marine Food Web Disruption</h3>
+                    <p>Reduced zooplankton biomass affects fish, marine mammals, and seabirds that depend on them.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Carbon Cycle Alteration</h3>
+                    <p>Changes in zooplankton populations affect carbon sequestration and export to deep waters.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Biodiversity Loss</h3>
+                    <p>Species dependent on stable overwintering conditions face population declines and range shifts.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Commercial Fisheries</h3>
+                    <p>Impacts on Arctic fisheries and the species that support commercial fish populations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="solutions" class="tab-content">
+            <h2>Solutions</h2>
+            <p>Addressing Arctic zooplankton overwintering failure requires comprehensive approaches to mitigate climate change impacts and protect critical overwintering habitats.</p>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>Climate Change Mitigation</h3>
+                    <p>Reduce greenhouse gas emissions to slow Arctic warming and sea ice loss.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Marine Protected Areas</h3>
+                    <p>Establish Arctic marine protected areas to preserve critical overwintering habitats.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Research and Monitoring</h3>
+                    <p>Enhanced monitoring of zooplankton populations and overwintering success rates.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Adaptive Management</h3>
+                    <p>Develop flexible fisheries management strategies that account for changing baselines.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="arctic-zooplankton-overwintering-failure.js"></script>
+</body>
+</html>

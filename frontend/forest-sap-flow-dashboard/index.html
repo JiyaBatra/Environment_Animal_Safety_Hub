@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forest Sap Flow Rate Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Forest Sap Flow Rate Dashboard</h1>
+      <p>Monitor drought-related hydraulic stress in forest ecosystems</p>
+      <div class="location-input">
+        <input type="text" id="location" placeholder="Enter forest location or coordinates">
+        <button id="fetch-btn">Get Data</button>
+      </div>
+    </header>
+    <main>
+      <section id="current-sapflow" class="card">
+        <h2>Current Sap Flow Rates</h2>
+        <div id="sapflow-species"></div>
+        <div id="sapflow-values"></div>
+        <div id="stress-level"></div>
+      </section>
+      <section id="trend" class="card">
+        <h2>Sap Flow Trends</h2>
+        <canvas id="sapflow-chart" width="600" height="250"></canvas>
+      </section>
+      <section id="environmental" class="card">
+        <h2>Environmental Factors</h2>
+        <div id="env-data">
+          <div class="env-item">
+            <span class="env-label">Temperature:</span>
+            <span id="temperature">--°C</span>
+          </div>
+          <div class="env-item">
+            <span class="env-label">Humidity:</span>
+            <span id="humidity">--%</span>
+          </div>
+          <div class="env-item">
+            <span class="env-label">Soil Moisture:</span>
+            <span id="soil-moisture">--%</span>
+          </div>
+          <div class="env-item">
+            <span class="env-label">VPD:</span>
+            <span id="vpd">-- kPa</span>
+          </div>
+        </div>
+      </section>
+      <section id="alerts" class="card">
+        <h2>Drought Stress Alerts</h2>
+        <div id="alerts-list"></div>
+      </section>
+      <section id="recommendations" class="card">
+        <h2>Conservation Recommendations</h2>
+        <ul id="recommendations-list"></ul>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Users\Gupta\Downloads\Environment_Animal_Safety_Hub\frontend\forest-sap-flow-dashboard\index.html
