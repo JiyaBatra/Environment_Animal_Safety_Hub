@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Pollinator Nesting Substrate Shortage</title>
+    <link rel="stylesheet" href="urban-pollinator-nesting-substrate-shortage.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Urban Pollinator Nesting Substrate Shortage</h1>
+            <p class="nav-subtitle">Investigate Reproductive Bottlenecks</p>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+            <button class="tab-btn" onclick="showTab('impacts')">Impacts</button>
+            <button class="tab-btn" onclick="showTab('solutions')">Solutions</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2>Overview</h2>
+            <p>Urban areas are experiencing a critical shortage of nesting substrates for pollinators, creating reproductive bottlenecks that threaten bee populations and ecosystem services. This issue affects native bees, butterflies, and other pollinating insects that require specific nesting materials and sites.</p>
+            <div class="chart-container">
+                <canvas id="pollinatorDeclineChart"></canvas>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Nesting Site Loss</h3>
+                    <div class="stat-value">65%</div>
+                    <p>In urban areas over 20 years</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pollinator Diversity Decline</h3>
+                    <div class="stat-value">42%</div>
+                    <p>Species affected by habitat loss</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Reproductive Success Rate</h3>
+                    <div class="stat-value">28%</div>
+                    <p>Reduction in urban bee colonies</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <h2>Analysis</h2>
+            <p>Analysis of urban pollinator populations reveals patterns of nesting substrate shortage across various city environments. Key factors include urbanization, pesticide use, and loss of natural habitats that provide essential nesting materials.</p>
+            <div class="chart-container">
+                <canvas id="nestingHabitatChart"></canvas>
+            </div>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3>Primary Causes</h3>
+                    <ul>
+                        <li>Urban development and soil sealing</li>
+                        <li>Removal of dead wood and natural debris</li>
+                        <li>Pesticide contamination of nesting sites</li>
+                        <li>Climate-driven shifts in phenology</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h3>Urban Habitat Types</h3>
+                    <ul>
+                        <li>Ground-nesting bees: Soil compaction</li>
+                        <li>Cavity-nesting species: Lack of dead wood</li>
+                        <li>Solitary bees: Artificial substrate needs</li>
+                        <li>Butterflies: Host plant availability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="impacts" class="tab-content">
+            <h2>Impacts</h2>
+            <p>The shortage of nesting substrates for urban pollinators has cascading effects on ecosystems, agriculture, and biodiversity.</p>
+            <div class="impacts-list">
+                <div class="impact-item">
+                    <h3>Pollination Service Loss</h3>
+                    <p>Reduced pollination affects urban gardens, parks, and agricultural production in surrounding areas.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Biodiversity Decline</h3>
+                    <p>Many pollinator species face local extinction due to inability to reproduce successfully.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Ecosystem Imbalance</h3>
+                    <p>Disruption of plant-pollinator relationships affects urban green spaces and natural areas.</p>
+                </div>
+                <div class="impact-item">
+                    <h3>Economic Consequences</h3>
+                    <p>Loss of pollination services impacts food production and urban agriculture initiatives.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="solutions" class="tab-content">
+            <h2>Solutions</h2>
+            <p>Addressing urban pollinator nesting substrate shortage requires coordinated efforts combining habitat creation, policy changes, and community engagement.</p>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>Artificial Nesting Structures</h3>
+                    <p>Install bee hotels, nesting blocks, and artificial substrates in urban green spaces.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Urban Habitat Preservation</h3>
+                    <p>Protect existing natural areas and incorporate pollinator-friendly design in urban planning.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Community Gardens</h3>
+                    <p>Promote community gardens with diverse planting and nesting opportunities.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Education and Awareness</h3>
+                    <p>Educate residents about pollinator needs and encourage citizen science monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="urban-pollinator-nesting-substrate-shortage.js"></script>
+</body>
+</html>
