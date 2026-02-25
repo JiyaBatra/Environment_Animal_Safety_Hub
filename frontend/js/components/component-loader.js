@@ -276,10 +276,17 @@
 
                 navbarContainer
                     .querySelectorAll('.nav-group.open')
-                    .forEach(item => item.classList.remove('open'));
+                    .forEach(item => {
+                        item.classList.remove('open');
+                        const btn = item.querySelector('.submenu-toggle');
+                        if (btn) btn.setAttribute('aria-expanded', 'false');
+                    });
 
                 if (!isOpen) {
                     parent.classList.add('open');
+                    button.setAttribute('aria-expanded', 'true');
+                } else {
+                    button.setAttribute('aria-expanded', 'false');
                 }
             });
         });
