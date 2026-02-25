@@ -1,0 +1,31 @@
+<!-- Heat Inequality Mapper -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heat Inequality Mapper</title>
+  <link rel="stylesheet" href="heat-inequality-mapper.css">
+</head>
+<body>
+  <div class="heat-mapper-container">
+    <h1>Heat Inequality Mapper</h1>
+    <div class="heat-mapper-map" id="heatMapperMap">
+      <span>Neighborhood Heat Map Visualization</span>
+    </div>
+    <div class="heat-mapper-visual" id="heatMapperVisual"></div>
+    <div class="heat-mapper-actions" id="heatMapperActions"></div>
+    <div class="heat-mapper-impact" id="heatMapperImpact"></div>
+    <div class="heat-mapper-history" id="heatMapperHistory"></div>
+    <div class="heat-mapper-feedback" id="heatMapperFeedback">
+      <h2>Feedback</h2>
+      <form id="heatFeedbackForm">
+        <textarea id="heatFeedbackInput" placeholder="Share your thoughts..."></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
+      <div id="heatFeedbackList"></div>
+    </div>
+  </div>
+  <script src="heat-inequality-mapper.js"></script>
+</body>
+</html>
