@@ -24,6 +24,8 @@ function showTab(tabName) {
         initOverviewCharts();
     } else if (tabName === 'analysis') {
         initAnalysisCharts();
+    } else if (tabName === 'calculator') {
+        initCalculator();
     }
 }
 
@@ -139,6 +141,87 @@ function initAnalysisCharts() {
             }
         }
     });
+}
+
+// Initialize calculator
+function initCalculator() {
+    // Initialize calculator chart with default data
+    const calculatorCtx = document.getElementById('calculatorChart').getContext('2d');
+    window.calculatorChart = new Chart(calculatorCtx, {
+        type: 'line',
+        data: {
+            labels: ['Current', '10 Years', '20 Years', '30 Years', '40 Years', '50 Years'],
+            datasets: [{
+                label: 'Carbon Burial Rate (g C/m²/year)',
+                data: [45, 42, 38, 33, 27, 20],
+                borderColor: '#5dade2',
+                backgroundColor: 'rgba(93, 173, 226, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Carbon Burial Rate (g C/m²/year)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Projected Carbon Burial Rate Decline'
+                }
+            }
+        }
+    });
+}
+
+// Calculate carbon burial rate
+function calculateBurialRate() {
+    // Get input values
+    const lakeArea = parseFloat(document.getElementById('lakeArea').value);
+    const waterDepth = parseFloat(document.getElementById('waterDepth').value);
+    const productivity = parseFloat(document.getElementById('productivity').value);
+    const sedimentation = parseFloat(document.getElementById('sedimentation').value);
+    const eutrophication = parseFloat(document.getElementById('eutrophication').value);
+    
+    // Base burial rate calculation (simplified model)
+    // Burial rate = f(productivity, sedimentation, eutrophication)
+    const baseRate = (productivity * 0.1) + (sedimentation * 2) - (eutrophication * 20);
+    const currentRate = Math.max(baseRate, 5); // Minimum 5 g C/m²/year
+    
+    // Projected decline over 50 years (simplified model)
+    const declineRate = 0.015; // 1.5% annual decline
+    const projectedRate = currentRate * Math.pow(1 - declineRate, 50);
+    
+    // Calculate loss percentage
+    const lossPercentage = ((currentRate - projectedRate) / currentRate * 100).toFixed(1);
+    
+    // Calculate annual carbon sequestered (tons CO2)
+    // Convert g C/m²/year to tons CO2/year
+    // 1 g C = 3.67 g CO2, lake area in km² = lake area * 1e6 m²
+    const annualSequestered = (currentRate * lakeArea * 1e6 * 3.67 / 1e9).toFixed(2);
+    
+    // Update results
+    document.getElementById('currentRate').textContent = currentRate.toFixed(1) + ' g C/m²/year';
+    document.getElementById('projectedRate').textContent = projectedRate.toFixed(1) + ' g C/m²/year';
+    document.getElementById('lossPercentage').textContent = lossPercentage + '%';
+    document.getElementById('annualSequestered').textContent = annualSequestered + ' tons CO₂/year';
+    
+    // Update chart
+    const projectedData = [];
+    for (let year = 0; year <= 50; year += 10) {
+        projectedData.push(currentRate * Math.pow(1 - declineRate, year));
+    }
+    
+    window.calculatorChart.data.datasets[0].data = projectedData;
+    window.calculatorChart.update();
 }
 
 // Initialize on page load

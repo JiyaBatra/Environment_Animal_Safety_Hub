@@ -19,6 +19,7 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
             <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+            <button class="tab-btn" onclick="showTab('calculator')">Calculator</button>
             <button class="tab-btn" onclick="showTab('impacts')">Impacts</button>
             <button class="tab-btn" onclick="showTab('solutions')">Solutions</button>
         </div>
@@ -74,6 +75,158 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- Additional Analysis Sections -->
+            <div class="detailed-analysis">
+                <h3>Long-term Trends in Carbon Burial</h3>
+                <p>Historical data from sediment cores and monitoring programs show a clear decline in carbon burial rates over the past century. This decline is particularly pronounced in lakes affected by agricultural intensification and urbanization.</p>
+                
+                <div class="data-table-container">
+                    <h4>Carbon Burial Rates by Lake Type (g C/m²/year)</h4>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Lake Type</th>
+                                <th>1950s</th>
+                                <th>1980s</th>
+                                <th>2010s</th>
+                                <th>Decline (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oligotrophic</td>
+                                <td>75-100</td>
+                                <td>65-85</td>
+                                <td>45-65</td>
+                                <td>25-35</td>
+                            </tr>
+                            <tr>
+                                <td>Mesotrophic</td>
+                                <td>100-150</td>
+                                <td>85-120</td>
+                                <td>60-90</td>
+                                <td>30-45</td>
+                            </tr>
+                            <tr>
+                                <td>Eutrophic</td>
+                                <td>150-250</td>
+                                <td>120-180</td>
+                                <td>70-110</td>
+                                <td>45-60</td>
+                            </tr>
+                            <tr>
+                                <td>Reservoirs</td>
+                                <td>80-120</td>
+                                <td>70-100</td>
+                                <td>50-75</td>
+                                <td>25-40</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Regional Variations</h3>
+                <div class="regional-analysis">
+                    <div class="region-card">
+                        <h4>North America</h4>
+                        <p>Great Lakes region shows 35% decline due to agricultural runoff. Western reservoirs affected by drought and sedimentation.</p>
+                        <div class="region-stats">
+                            <span>Average Decline: 32%</span>
+                            <span>Key Drivers: Agriculture, Urbanization</span>
+                        </div>
+                    </div>
+                    <div class="region-card">
+                        <h4>Europe</h4>
+                        <p>Alpine lakes experiencing accelerated decline due to climate warming. Northern European lakes affected by acidification recovery.</p>
+                        <div class="region-stats">
+                            <span>Average Decline: 28%</span>
+                            <span>Key Drivers: Climate Change, Acidification</span>
+                        </div>
+                    </div>
+                    <div class="region-card">
+                        <h4>Asia</h4>
+                        <p>Rapid urbanization and industrial development causing severe eutrophication. Tropical lakes showing complex patterns.</p>
+                        <div class="region-stats">
+                            <span>Average Decline: 45%</span>
+                            <span>Key Drivers: Industrial Pollution, Deforestation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Climate Change Interactions</h3>
+                <p>Climate change exacerbates carbon burial decline through multiple mechanisms:</p>
+                <ul class="climate-impacts">
+                    <li><strong>Temperature Increase:</strong> Warmer waters accelerate organic matter decomposition, reducing burial efficiency</li>
+                    <li><strong>Precipitation Changes:</strong> Altered runoff patterns increase sediment transport and nutrient loading</li>
+                    <li><strong>Stratification Changes:</strong> Modified thermal stratification affects oxygen levels and decomposition rates</li>
+                    <li><strong>Ice Cover Reduction:</strong> Loss of winter ice cover affects sediment-water interactions</li>
+                </ul>
+
+                <div class="chart-container">
+                    <canvas id="climateImpactChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="calculator" class="tab-content">
+            <h2>Carbon Burial Rate Calculator</h2>
+            <p>Use this calculator to estimate carbon burial rates and sequestration loss for inland lakes based on key environmental parameters.</p>
+            
+            <div class="calculator-container">
+                <div class="input-section">
+                    <h3>Lake Parameters</h3>
+                    <div class="input-group">
+                        <label for="lakeArea">Lake Area (km²)</label>
+                        <input type="number" id="lakeArea" value="10" min="0.1" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="waterDepth">Average Water Depth (m)</label>
+                        <input type="number" id="waterDepth" value="5" min="0.1" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="productivity">Lake Productivity (μg/L chlorophyll-a)</label>
+                        <input type="number" id="productivity" value="15" min="0.1" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label for="sedimentation">Sedimentation Rate (mm/year)</label>
+                        <input type="number" id="sedimentation" value="1" min="0.01" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="eutrophication">Eutrophication Level</label>
+                        <select id="eutrophication">
+                            <option value="0.1">Oligotrophic (Low)</option>
+                            <option value="0.5" selected>Mesotrophic (Medium)</option>
+                            <option value="0.9">Eutrophic (High)</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateBurialRate()" class="calculate-btn">Calculate Burial Rate</button>
+                </div>
+                
+                <div class="results-section">
+                    <h3>Results</h3>
+                    <div class="result-card">
+                        <h4>Current Carbon Burial Rate</h4>
+                        <div class="result-value" id="currentRate">-- g C/m²/year</div>
+                    </div>
+                    <div class="result-card">
+                        <h4>Projected Rate (50 years)</h4>
+                        <div class="result-value" id="projectedRate">-- g C/m²/year</div>
+                    </div>
+                    <div class="result-card">
+                        <h4>Sequestration Loss</h4>
+                        <div class="result-value" id="lossPercentage">--%</div>
+                    </div>
+                    <div class="result-card">
+                        <h4>Annual Carbon Sequestered</h4>
+                        <div class="result-value" id="annualSequestered">-- tons CO₂/year</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="calculatorChart"></canvas>
+            </div>
         </div>
 
         <div id="impacts" class="tab-content">
@@ -97,6 +250,81 @@
                     <p>Altered lake conditions affect aquatic species and ecosystem services.</p>
                 </div>
             </div>
+
+            <!-- Detailed Impacts -->
+            <div class="detailed-impacts">
+                <h3>Quantitative Impacts Assessment</h3>
+                <div class="impact-metrics">
+                    <div class="metric-card">
+                        <h4>Global Carbon Sequestration Loss</h4>
+                        <div class="metric-value">0.5-1.2 Pg C/year</div>
+                        <p>Equivalent to 1.8-4.4 Pg CO₂/year lost sequestration capacity</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Atmospheric CO₂ Increase</h4>
+                        <div class="metric-value">2-5 ppm</div>
+                        <p>Additional CO₂ accumulation due to reduced lake burial</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Lake Area Affected</h4>
+                        <div class="metric-value">2.5 million km²</div>
+                        <p>Inland water bodies showing significant burial decline</p>
+                    </div>
+                </div>
+
+                <h3>Ecosystem Consequences</h3>
+                <div class="ecosystem-impacts">
+                    <div class="eco-impact">
+                        <h4>Aquatic Food Webs</h4>
+                        <p>Reduced carbon burial affects nutrient cycling and food web stability. Lower burial rates mean less carbon is retained in sediments, potentially reducing productivity in deeper waters.</p>
+                    </div>
+                    <div class="eco-impact">
+                        <h4>Sediment-Water Interactions</h4>
+                        <p>Changes in sediment carbon content affect nutrient release patterns and water chemistry. This can lead to increased internal nutrient loading and prolonged eutrophication.</p>
+                    </div>
+                    <div class="eco-impact">
+                        <h4>Methane Emissions</h4>
+                        <p>Reduced burial efficiency may increase methane production from sediments, creating a positive feedback loop for climate warming.</p>
+                    </div>
+                </div>
+
+                <h3>Socioeconomic Impacts</h3>
+                <ul class="socio-impacts">
+                    <li><strong>Water Treatment Costs:</strong> Increased eutrophication raises drinking water treatment expenses</li>
+                    <li><strong>Fisheries Productivity:</strong> Altered lake conditions affect commercial and recreational fishing</li>
+                    <li><strong>Recreational Value:</strong> Reduced water quality impacts tourism and property values</li>
+                    <li><strong>Carbon Credit Markets:</strong> Loss of sequestration capacity affects blue carbon accounting</li>
+                    <li><strong>Climate Adaptation:</strong> Communities dependent on lakes face increased vulnerability</li>
+                </ul>
+
+                <div class="case-studies">
+                    <h3>Case Studies</h3>
+                    <div class="case-study">
+                        <h4>Lake Erie, North America</h4>
+                        <p>Carbon burial rates declined by 60% over 50 years due to agricultural nutrient loading. This has contributed to persistent eutrophication and harmful algal blooms.</p>
+                        <div class="case-metrics">
+                            <span>Burial Decline: 60%</span>
+                            <span>Economic Cost: $500M/year</span>
+                        </div>
+                    </div>
+                    <div class="case-study">
+                        <h4>Lake Taihu, China</h4>
+                        <p>Rapid urbanization caused 70% reduction in carbon burial capacity. Severe eutrophication events now occur annually.</p>
+                        <div class="case-metrics">
+                            <span>Burial Decline: 70%</span>
+                            <span>Water Crisis Events: 10+/year</span>
+                        </div>
+                    </div>
+                    <div class="case-study">
+                        <h4>Lake Geneva, Europe</h4>
+                        <p>Climate warming accelerated decomposition, reducing burial by 40%. This has affected the lake's role in regional carbon cycling.</p>
+                        <div class="case-metrics">
+                            <span>Burial Decline: 40%</span>
+                            <span>Temperature Rise: +2.1°C</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="solutions" class="tab-content">
@@ -118,6 +346,144 @@
                 <div class="solution-card">
                     <h3>Climate Adaptation</h3>
                     <p>Develop strategies to enhance lake resilience to climate change impacts.</p>
+                </div>
+            </div>
+
+            <!-- Comprehensive Solutions Framework -->
+            <div class="comprehensive-solutions">
+                <h3>Integrated Management Framework</h3>
+                
+                <div class="solution-categories">
+                    <div class="solution-category">
+                        <h4>Watershed Management</h4>
+                        <ul>
+                            <li><strong>Best Management Practices (BMPs):</strong> Implement agricultural BMPs to reduce nutrient runoff by 40-60%</li>
+                            <li><strong>Buffer Zones:</strong> Establish riparian buffers and wetlands to filter nutrients and sediments</li>
+                            <li><strong>Stormwater Management:</strong> Construct retention basins and green infrastructure in urban areas</li>
+                            <li><strong>Land Use Planning:</strong> Protect watersheds through zoning and conservation easements</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-category">
+                        <h4>Lake Restoration</h4>
+                        <ul>
+                            <li><strong>Biomanipulation:</strong> Manage fish populations to control algal blooms and improve water clarity</li>
+                            <li><strong>Vegetation Restoration:</strong> Plant native aquatic vegetation to stabilize sediments and enhance burial</li>
+                            <li><strong>Sediment Management:</strong> Implement sediment traps and dredging programs where appropriate</li>
+                            <li><strong>Artificial Mixing:</strong> Use oxygenation systems to prevent anoxia and methane release</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-category">
+                        <h4>Monitoring & Research</h4>
+                        <ul>
+                            <li><strong>Long-term Monitoring:</strong> Establish sediment core sampling and burial rate tracking programs</li>
+                            <li><strong>Remote Sensing:</strong> Use satellite imagery for large-scale carbon burial assessment</li>
+                            <li><strong>Modeling:</strong> Develop predictive models for burial rate changes under different scenarios</li>
+                            <li><strong>Research Networks:</strong> Create international collaborations for data sharing and methodology development</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Climate Change Adaptation Strategies</h3>
+                <div class="adaptation-strategies">
+                    <div class="strategy-card">
+                        <h4>Temperature Management</h4>
+                        <p>Implement shading and aeration systems to mitigate warming effects on decomposition rates.</p>
+                        <div class="strategy-details">
+                            <strong>Expected Impact:</strong> 15-25% improvement in burial efficiency<br>
+                            <strong>Cost Range:</strong> $50,000-$200,000 per lake
+                        </div>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Hydrological Stabilization</h4>
+                        <p>Develop water level management plans to maintain stable conditions for carbon accumulation.</p>
+                        <div class="strategy-details">
+                            <strong>Expected Impact:</strong> 20-30% reduction in sediment resuspension<br>
+                            <strong>Cost Range:</strong> $100,000-$500,000 per watershed
+                        </div>
+                    </div>
+                    <div class="strategy-card">
+                        <h4>Resilient Landscaping</h4>
+                        <p>Plant climate-resistant vegetation around lakes to enhance natural filtration and stabilization.</p>
+                        <div class="strategy-details">
+                            <strong>Expected Impact:</strong> 25-35% increase in sediment carbon retention<br>
+                            <strong>Cost Range:</strong> $25,000-$75,000 per kilometer of shoreline
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Policy and Economic Instruments</h3>
+                <div class="policy-solutions">
+                    <div class="policy-item">
+                        <h4>Carbon Credit Programs</h4>
+                        <p>Develop lake carbon sequestration credits to incentivize restoration efforts. Lakes could generate credits based on improved burial rates.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>Regulatory Frameworks</h4>
+                        <p>Establish nutrient loading limits and sediment management standards. Implement adaptive management approaches.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>Economic Incentives</h4>
+                        <p>Provide subsidies for BMP implementation and tax credits for watershed restoration projects.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>International Cooperation</h4>
+                        <p>Develop global standards for lake carbon monitoring and reporting under frameworks like the Paris Agreement.</p>
+                    </div>
+                </div>
+
+                <h3>Implementation Roadmap</h3>
+                <div class="roadmap">
+                    <div class="roadmap-phase">
+                        <h4>Phase 1: Assessment (0-2 years)</h4>
+                        <ul>
+                            <li>Conduct baseline carbon burial assessments</li>
+                            <li>Identify priority watersheds and lakes</li>
+                            <li>Establish monitoring networks</li>
+                            <li>Develop restoration prioritization framework</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-phase">
+                        <h4>Phase 2: Pilot Implementation (2-5 years)</h4>
+                        <ul>
+                            <li>Implement BMPs in priority watersheds</li>
+                            <li>Launch restoration projects in selected lakes</li>
+                            <li>Monitor and evaluate initial results</li>
+                            <li>Refine approaches based on outcomes</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-phase">
+                        <h4>Phase 3: Scaling (5-10 years)</h4>
+                        <ul>
+                            <li>Expand successful programs regionally</li>
+                            <li>Integrate with climate adaptation plans</li>
+                            <li>Develop market-based instruments</li>
+                            <li>Achieve measurable carbon sequestration gains</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Success Metrics and Evaluation</h3>
+                <div class="success-metrics">
+                    <div class="metric-group">
+                        <h4>Environmental Metrics</h4>
+                        <ul>
+                            <li>Carbon burial rate improvement (target: 20-50% increase)</li>
+                            <li>Nutrient load reduction (target: 30-60% decrease)</li>
+                            <li>Water quality improvement (chlorophyll-a reduction)</li>
+                            <li>Biodiversity enhancement (fish and invertebrate indices)</li>
+                        </ul>
+                    </div>
+                    <div class="metric-group">
+                        <h4>Economic Metrics</h4>
+                        <ul>
+                            <li>Cost-benefit ratio (target: >2:1)</li>
+                            <li>Carbon credit value generated</li>
+                            <li>Water treatment cost savings</li>
+                            <li>Recreational value enhancement</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
