@@ -1848,20 +1848,4 @@ function initFlipCards() {
 
 // ===========================================
 // END OF MAIN.JS
-// ===========================================function closeNoiseCrisisAlert() {
-function closeNoiseCrisisAlert() {
-  const banner = document.getElementById("noise-crisis-alert-banner");
-
-  if (banner) {
-    banner.style.display = "none";
-
-    // Move navbar to top after alert closes
-    const navbar = document.querySelector(".navbar");
-    if (navbar) {
-      navbar.style.top = "0px";
-    }
-
-    // Adjust body padding after alert removal
-    document.body.style.paddingTop = "80px";
-  }
-}
+// ===========================================
