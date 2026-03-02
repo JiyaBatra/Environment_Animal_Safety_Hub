@@ -2,34 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Environmental Impact Calculator</title>
     <link rel="stylesheet" href="css/pages/impact-calculator-main.css">
 </head>
 <body>
-    <header>
-        <h1>Environmental Impact Calculator</h1>
-        <p>Estimate your carbon footprint, water usage, and waste generation based on your daily activities.</p>
-    </header>
-    <section id="calculator-section">
-        <form id="impact-form">
+
+<header>
+    <h1>Environmental Impact Calculator</h1>
+    <p>Estimate your carbon footprint, water usage, and waste generation based on your daily activities.</p>
+</header>
+
+<section class="impact-container">
+
+    <!-- LEFT SIDE - INFO CARDS -->
+    <div class="impact-left">
+
+        <div class="impact-card">
+            <h3>🌍 Carbon Impact</h3>
+            <p>Transportation and electricity emissions.</p>
+        </div>
+
+        <div class="impact-card">
+            <h3>💧 Water Usage</h3>
+            <p>Daily water consumption habits.</p>
+        </div>
+
+        <div class="impact-card">
+            <h3>♻️ Waste Generation</h3>
+            <p>Household waste production tracking.</p>
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE - CALCULATOR -->
+    <div class="impact-right">
+
+        <div class="calculator-card">
+
             <h2>Daily Activities</h2>
-            <label>Car travel (km): <input type="number" min="0" id="car-km" value="0"></label>
-            <label>Public transport (km): <input type="number" min="0" id="public-km" value="0"></label>
-            <label>Electricity use (kWh): <input type="number" min="0" id="electricity-kwh" value="0"></label>
-            <label>Water use (liters): <input type="number" min="0" id="water-liters" value="0"></label>
-            <label>Waste generated (kg): <input type="number" min="0" id="waste-kg" value="0"></label>
-            <label>Meat meals per day: <input type="number" min="0" id="meat-meals" value="0"></label>
-            <button type="submit">Calculate Impact</button>
-        </form>
-        <div id="results" class="hidden">
-            <h2>Your Estimated Impact</h2>
+
+            <form id="impact-form">
+
+                <label>
+                    Car travel (km)
+                    <input type="number" id="car-km" value="0">
+                </label>
+
+                <label>
+                    Public transport (km)
+                    <input type="number" id="public-km" value="0">
+                </label>
+
+                <label>
+                    Electricity use (kWh)
+                    <input type="number" id="electricity-kwh" value="0">
+                </label>
+
+                <label>
+                    Water usage (liters)
+                    <input type="number" id="water-liters" value="0">
+                </label>
+
+                <label>
+                    Waste generated (kg)
+                    <input type="number" id="waste-kg" value="0">
+                </label>
+
+                <label>
+                    Meat meals per day
+                    <input type="number" id="meat-meals" value="0">
+                </label>
+
+                <button type="submit">Calculate Impact</button>
+
+            </form>
+
+        </div>
+
+        <!-- RESULTS -->
+        <div id="results" class="results-card hidden">
+            <h2>Your Impact Results</h2>
             <p id="carbon-result"></p>
             <p id="water-result"></p>
             <p id="waste-result"></p>
+
             <div id="tips"></div>
         </div>
-    </section>
+
+    </div>
+
+</section>
+
     <script src="js/pages/impact-calculator-main.js"></script>
 </body>
 </html>
