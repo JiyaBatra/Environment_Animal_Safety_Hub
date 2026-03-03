@@ -2,17 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Living Tips Library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--  CSS Path -->
     <link rel="stylesheet" href="css/pages/tips-library.css">
 </head>
 <body>
-    <header>
-        <h1>Sustainable Living Tips Library</h1>
-        <p>Search and discover practical tips for energy saving, waste reduction, water conservation, and eco-friendly shopping.</p>
-    </header>
-    <section id="tips-section">
+
+<header>
+    <h1>Sustainable Living Tips Library</h1>
+    <p>Search and discover practical sustainability tips.</p>
+</header>
+
+<section class="tips-layout">
+
+    <!-- SEARCH & FILTER CARD -->
+ <div class="filter-card">
+    <h2>Search & Filter</h2>
+
+    <div class="filter-row">
         <input type="text" id="tips-search" placeholder="Search tips...">
+
         <select id="tips-category">
             <option value="all">All Categories</option>
             <option value="energy">Energy Saving</option>
@@ -20,8 +31,17 @@
             <option value="water">Water Conservation</option>
             <option value="shopping">Eco-Friendly Shopping</option>
         </select>
+    </div>
+</div>
+
+    <!-- TIPS GRID -->
+    <div class="tips-cards">
         <ul id="tips-list"></ul>
-    </section>
-    <script src="js/pages/tips-library.js"></script>
+    </div>
+
+</section>
+
+<!--  JS Path -->
+<script src="js/pages/tips-library.js"></script>
 </body>
 </html>

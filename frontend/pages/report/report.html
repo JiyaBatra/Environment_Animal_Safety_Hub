@@ -1,361 +1,293 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>EcoLife | Report Animal</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-/* BASIC STYLING */
-
-body{
-font-family:Poppins;
-margin:0;
-background:#f4f7f6;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-}
-
-.hero{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-align-items:center;
-}
-
-.hero-image{
-background:url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600');
-height:300px;
-background-size:cover;
-border-radius:20px;
-}
-
-.hero h1{
-font-size:32px;
-color:#ff6b6b;
-}
-
-.steps{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-gap:15px;
-margin-top:30px;
-}
-
-.step-card{
-background:white;
-padding:20px;
-border-radius:15px;
-text-align:center;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-}
-
-.step-card:hover{
-transform:translateY(-5px);
-background:#4ecdc4;
-color:white;
-}
-
-.form-card{
-background:white;
-padding:30px;
-margin-top:40px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-
-.field{
-margin-bottom:20px;
-}
-
-input,select{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:1px solid #ccc;
-font-size:16px;
-}
-
-button{
-background:#ff6b6b;
-color:white;
-padding:15px;
-border:none;
-border-radius:50px;
-font-size:18px;
-cursor:pointer;
-width:100%;
-}
-
-button:hover{
-background:#ff4757;
-}
-
-.file-preview{
-display:flex;
-gap:10px;
-margin-top:10px;
-}
-
-.file-preview img{
-width:80px;
-height:80px;
-object-fit:cover;
-border-radius:10px;
-}
-
-.success-message{
-background:#2ed573;
-color:white;
-padding:15px;
-border-radius:10px;
-margin-top:15px;
-text-align:center;
-}
-
-.location-btn{
-margin-top:10px;
-background:#4ecdc4;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Animal | EcoLife - Report Abandoned & Injured Animals</title>
+    <link rel="icon" type="image/png" href="/environment-logo.png">
+    <meta name="description" content="Report abandoned or injured animals. Your action can save lives." />
+    <link rel="stylesheet" href="../../css/global/variables.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/components/navbar.css" />
+    <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/components/scrollBar.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+        :root { --rp: #ff6b6b; --rs: #ee5a24; --ra: #4ecdc4; }
+        .theme-toggle { position:fixed;top:20px;right:20px;width:50px;height:50px;background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1100;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:all .3s; }
+        .theme-toggle:hover { transform:scale(1.1); }
+        body.dark-mode .theme-toggle { background:linear-gradient(135deg,#f39c12,#e67e22); }
+        .report-hero { position:relative;min-height:70vh;display:flex;align-items:center;background:linear-gradient(135deg,#ff6b6b 0%,#ee5a24 100%);padding:40px 0 80px;margin-top:-8px;overflow:hidden; }
+        .hero-bg { position:absolute;inset:0;overflow:hidden;z-index:0; }
+        .hero-shape { position:absolute;border-radius:50%;background:rgba(255,255,255,.1);animation:floatS 20s infinite ease-in-out; }
+        .hero-shape.s1 { width:350px;height:350px;top:-10%;left:-5%;animation-delay:0s; }
+        .hero-shape.s2 { width:200px;height:200px;top:60%;right:10%;animation-delay:3s; }
+        .hero-shape.s3 { width:150px;height:150px;bottom:10%;left:40%;animation-delay:6s; }
+        @keyframes floatS { 0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(180deg)} }
+        .hero-container { position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center; }
+        .hero-badge { display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);color:white;padding:8px 20px;border-radius:50px;font-size:.9rem;font-weight:600;margin-bottom:24px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3); }
+        .report-hero h1 { font-size:3rem;font-weight:800;color:white;line-height:1.2;margin-bottom:20px; }
+        .report-hero h1 .highlight { color:#ffd32a; }
+        .report-hero p { font-size:1.1rem;color:rgba(255,255,255,.9);margin-bottom:32px;line-height:1.7; }
+        .hero-cta { display:flex;gap:16px;flex-wrap:wrap; }
+        .btn-hp { background:white;color:#ff6b6b;padding:14px 32px;border:none;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.2); }
+        .btn-hp:hover { transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.3); }
+        .btn-hs { background:transparent;color:white;padding:14px 32px;border:2px solid rgba(255,255,255,.7);border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:all .3s; }
+        .btn-hs:hover { background:rgba(255,255,255,.15);border-color:white; }
+        .hero-img-wrap { position:relative; }
+        .hero-img-wrap img { width:100%;height:400px;object-fit:cover;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.3); }
+        .hero-badge-ov { position:absolute;bottom:-15px;left:20px;background:white;color:#ff6b6b;padding:12px 20px;border-radius:50px;font-weight:700;font-size:.9rem;box-shadow:0 8px 25px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px; }
+        .steps-section { background:white;padding:60px 40px; }
+        body.dark-mode .steps-section { background:#1a1a2e; }
+        .sec-header { text-align:center;margin-bottom:40px; }
+        .sec-tag { display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,107,.1);color:#ff6b6b;padding:6px 16px;border-radius:50px;font-size:.85rem;font-weight:600;margin-bottom:12px; }
+        .sec-header h2 { font-size:2rem;font-weight:800;color:#1a1a2e;margin-bottom:8px; }
+        body.dark-mode .sec-header h2 { color:#f0f0f0; }
+        .sec-header p { color:#666; }
+        body.dark-mode .sec-header p { color:#aaa; }
+        .steps-grid { max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:20px; }
+        .step-card { background:#f8f9fa;padding:28px 16px;border-radius:16px;text-align:center;cursor:pointer;transition:all .3s;border:2px solid transparent;position:relative; }
+        body.dark-mode .step-card { background:#16213e; }
+        .step-card:hover { transform:translateY(-6px);background:#ff6b6b;color:white;border-color:#ff6b6b; }
+        .step-card:hover .step-icon { background:rgba(255,255,255,.2);color:white; }
+        .step-card:hover h4,.step-card:hover p { color:white; }
+        .step-number { position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#ff6b6b;color:white;width:24px;height:24px;border-radius:50%;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center; }
+        .step-card:hover .step-number { background:white;color:#ff6b6b; }
+        .step-icon { width:60px;height:60px;background:rgba(255,107,107,.1);color:#ff6b6b;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 12px;transition:all .3s; }
+        .step-card h4 { font-size:.95rem;font-weight:700;color:#1a1a2e;margin-bottom:4px; }
+        body.dark-mode .step-card h4 { color:#f0f0f0; }
+        .step-card p { font-size:.8rem;color:#888;margin:0; }
+        .main-section { background:#f4f7f6;padding:80px 40px; }
+        body.dark-mode .main-section { background:#0f0f1a; }
+        .main-grid { max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start; }
+        .form-card { background:white;border-radius:24px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,.08); }
+        body.dark-mode .form-card { background:#1a1a2e; }
+        .form-card h2 { font-size:1.5rem;font-weight:700;color:#1a1a2e;margin-bottom:8px;display:flex;align-items:center;gap:10px; }
+        body.dark-mode .form-card h2 { color:#f0f0f0; }
+        .form-card h2 i { color:#ff6b6b; }
+        .form-card > p { color:#666;margin-bottom:28px;font-size:.95rem; }
+        body.dark-mode .form-card > p { color:#aaa; }
+        .form-row { display:grid;grid-template-columns:1fr 1fr;gap:20px; }
+        .field { margin-bottom:20px; }
+        .field label { display:block;font-size:.9rem;font-weight:600;color:#444;margin-bottom:8px; }
+        body.dark-mode .field label { color:#ccc; }
+        .field input,.field select,.field textarea { width:100%;padding:12px 16px;border:2px solid #e9ecef;border-radius:12px;font-size:.95rem;font-family:Poppins,sans-serif;color:#333;background:#fafafa;transition:all .3s;box-sizing:border-box; }
+        body.dark-mode .field input,body.dark-mode .field select,body.dark-mode .field textarea { background:#16213e;border-color:#2a2a4e;color:#e0e0e0; }
+        .field input:focus,.field select:focus,.field textarea:focus { outline:none;border-color:#ff6b6b;box-shadow:0 0 0 4px rgba(255,107,107,.1);background:white; }
+        body.dark-mode .field input:focus,body.dark-mode .field select:focus,body.dark-mode .field textarea:focus { background:#1a1a2e; }
+        .field textarea { resize:vertical;min-height:100px; }
+        .loc-btn { margin-top:8px;background:#4ecdc4;color:white;padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .3s; }
+        .loc-btn:hover { background:#38b2ac; }
+        .file-upload-area { border:2px dashed #e9ecef;border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .3s;position:relative; }
+        body.dark-mode .file-upload-area { border-color:#2a2a4e; }
+        .file-upload-area:hover { border-color:#ff6b6b;background:rgba(255,107,107,.03); }
+        .file-upload-area input { position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%; }
+        .file-upload-area .upload-icon { font-size:2rem;color:#ff6b6b;margin-bottom:8px; }
+        .file-upload-area p { font-size:.9rem;color:#888;margin:0; }
+        .file-upload-area span { font-size:.8rem;color:#aaa; }
+        .file-preview { display:flex;flex-wrap:wrap;gap:10px;margin-top:12px; }
+        .file-preview img { width:80px;height:80px;object-fit:cover;border-radius:10px;border:2px solid #e9ecef; }
+        .submit-btn { background:linear-gradient(135deg,#ff6b6b 0%,#ee5a24 100%);color:white;padding:16px 32px;border:none;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s;box-shadow:0 4px 15px rgba(255,107,107,.4);margin-top:8px; }
+        .submit-btn:hover { transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,107,107,.5); }
+        .success-msg { display:none;margin-top:16px;background:linear-gradient(135deg,#2ed573,#26de81);color:white;padding:16px 20px;border-radius:12px;align-items:center;gap:10px;font-weight:600; }
+        .sidebar { display:flex;flex-direction:column;gap:20px; }
+        .stats-card { background:white;border-radius:20px;padding:28px;box-shadow:0 10px 40px rgba(0,0,0,.08); }
+        body.dark-mode .stats-card { background:#1a1a2e; }
+        .stats-card h3 { font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:20px;display:flex;align-items:center;gap:8px; }
+        body.dark-mode .stats-card h3 { color:#f0f0f0; }
+        .stats-card h3 i { color:#ff6b6b; }
+        .stat-item { display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #f0f0f0; }
+        body.dark-mode .stat-item { border-color:#2a2a4e; }
+        .stat-item:last-child { border:none;padding-bottom:0; }
+        .stat-icon2 { width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0; }
+        .si-o { background:rgba(255,107,107,.1);color:#ff6b6b; }
+        .si-t { background:rgba(78,205,196,.1);color:#4ecdc4; }
+        .si-y { background:rgba(255,211,42,.1);color:#f39c12; }
+        .si-g { background:rgba(46,213,115,.1);color:#2ed573; }
+        .stat-info .val { font-size:1.4rem;font-weight:800;color:#1a1a2e;line-height:1; }
+        body.dark-mode .stat-info .val { color:#f0f0f0; }
+        .stat-info .lbl { font-size:.8rem;color:#888;margin-top:2px; }
+        .info-card { background:linear-gradient(135deg,#ff6b6b 0%,#ee5a24 100%);border-radius:20px;padding:28px;color:white; }
+        .info-card h3 { font-size:1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px; }
+        .info-item { display:flex;align-items:flex-start;gap:10px;margin-bottom:14px; }
+        .info-item i { margin-top:3px;flex-shrink:0;opacity:.9; }
+        .info-item p { font-size:.85rem;opacity:.9;margin:0;line-height:1.5; }
+        .reports-section { background:white;padding:80px 40px; }
+        body.dark-mode .reports-section { background:#1a1a2e; }
+        .reports-inner { max-width:1200px;margin:0 auto; }
+        .reports-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px; }
+        .reports-header h2 { font-size:1.5rem;font-weight:800;color:#1a1a2e;display:flex;align-items:center;gap:10px; }
+        body.dark-mode .reports-header h2 { color:#f0f0f0; }
+        .reports-header h2 i { color:#ff6b6b; }
+        .clear-btn { background:transparent;border:2px solid #ff6b6b;color:#ff6b6b;padding:8px 20px;border-radius:50px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:6px; }
+        .clear-btn:hover { background:#ff6b6b;color:white; }
+        .reports-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px; }
+        .report-card { background:#f8f9fa;border-radius:16px;padding:20px;border-left:4px solid #ff6b6b;transition:all .3s; }
+        body.dark-mode .report-card { background:#16213e; }
+        .report-card:hover { transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.1); }
+        .rc-header { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px; }
+        .rc-title { font-size:1rem;font-weight:700;color:#1a1a2e; }
+        body.dark-mode .rc-title { color:#f0f0f0; }
+        .ubadge { padding:4px 12px;border-radius:50px;font-size:.75rem;font-weight:700; }
+        .u-h { background:rgba(255,107,107,.15);color:#ff6b6b; }
+        .u-m { background:rgba(255,211,42,.15);color:#f39c12; }
+        .u-e { background:#ff6b6b;color:white; }
+        .rc-meta { font-size:.82rem;color:#888;margin-bottom:10px;display:flex;align-items:center;gap:6px; }
+        .del-btn { background:transparent;border:1px solid #ff6b6b;color:#ff6b6b;padding:6px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:4px; }
+        .del-btn:hover { background:#ff6b6b;color:white; }
+        .empty-rep { text-align:center;padding:60px 20px;color:#aaa;grid-column:1/-1; }
+        .empty-rep i { font-size:3rem;margin-bottom:12px;display:block; }
+        @media(max-width:1024px) { .main-grid{grid-template-columns:1fr} .sidebar{display:grid;grid-template-columns:1fr 1fr} }
+        @media(max-width:768px) { .hero-container{grid-template-columns:1fr;gap:40px} .report-hero h1{font-size:2.2rem} .hero-img-wrap{display:none} .steps-grid{grid-template-columns:repeat(3,1fr)} .main-section,.steps-section,.reports-section{padding:50px 20px} .sidebar{grid-template-columns:1fr} .form-row{grid-template-columns:1fr} .theme-toggle{top:15px;right:15px;width:45px;height:45px;font-size:1rem} }
+        @media(max-width:480px) { .steps-grid{grid-template-columns:repeat(2,1fr)} }
+    </style>
 </head>
 <body>
-
-
-<div class="container">
-
-<div class="hero">
-
-<div class="hero-image"></div>
-
-<div>
-<h1>🐾 Report Abandoned or Injured Animals</h1>
-<p>Your action can save lives ❤️</p>
-</div>
-
-</div>
-
-
-<!-- STEPS -->
-
-<div class="steps">
-
-<div class="step-card" data-step="petType">🐕<br>Found animal</div>
-
-<div class="step-card" data-step="form">📝<br>Fill form</div>
-
-<div class="step-card" data-step="location">📍<br>Add location</div>
-
-<div class="step-card" data-step="photos">📸<br>Upload photo</div>
-
-<div class="step-card" data-step="submit">❤️<br>Submit</div>
-
-</div>
-
-
-<!-- FORM -->
-
-<div class="form-card">
-
-<form id="reportForm">
-
-<div class="field">
-<label>Pet Type</label>
-<select name="petType" required>
-<option value="">Select</option>
-<option>Dog</option>
-<option>Cat</option>
-<option>Other</option>
-</select>
-</div>
-
-
-<div class="field">
-<label>Name</label>
-<input type="text" name="petName">
-</div>
-
-
-<div class="field">
-<label>Location</label>
-<input type="text" name="location" required>
-
-<button type="button" class="location-btn" id="locationBtn">
-Use Current Location
-</button>
-
-</div>
-
-
-<div class="field">
-<label>Situation</label>
-<select name="situation" required>
-<option value="">Select</option>
-<option>Abandoned</option>
-<option>Injured</option>
-<option>Stray</option>
-</select>
-</div>
-
-
-<div class="field">
-<label>Photos</label>
-<input type="file" name="photos" multiple accept="image/*">
-<div class="file-preview" id="preview"></div>
-</div>
-
-
-<button type="submit">Submit Report</button>
-
-</form>
-
-<div id="success"></div>
-
-</div>
-
-</div>
-
-
-
-<script>
-
-/* STEP BUTTON LOGIC */
-
-const steps=document.querySelectorAll(".step-card");
-
-const form=document.getElementById("reportForm");
-
-const map={
-petType:form.petType,
-form:form,
-location:form.location,
-photos:form.photos,
-submit:form.querySelector("button")
-};
-
-steps.forEach(step=>{
-
-step.onclick=()=>{
-
-const target=map[step.dataset.step];
-
-target.scrollIntoView({behavior:"smooth",block:"center"});
-
-target.style.boxShadow="0 0 20px #4ecdc4";
-
-setTimeout(()=>target.style.boxShadow="none",1000);
-
-if(target.focus) target.focus();
-
-};
-
-});
-
-
-
-/* IMAGE PREVIEW */
-
-const fileInput=form.photos;
-
-const preview=document.getElementById("preview");
-
-fileInput.onchange=()=>{
-
-preview.innerHTML="";
-
-[...fileInput.files].forEach(file=>{
-
-const reader=new FileReader();
-
-reader.onload=e=>{
-
-const img=document.createElement("img");
-
-img.src=e.target.result;
-
-preview.appendChild(img);
-
-};
-
-reader.readAsDataURL(file);
-
-});
-
-};
-
-
-
-/* LOCATION BUTTON */
-
-document.getElementById("locationBtn").onclick=()=>{
-
-navigator.geolocation.getCurrentPosition(pos=>{
-
-form.location.value=
-
-pos.coords.latitude.toFixed(5)+","+
-
-pos.coords.longitude.toFixed(5);
-
-});
-
-};
-
-
-
-/* FORM SUBMIT */
-
-form.onsubmit=e=>{
-
-e.preventDefault();
-
-const data={
-
-id:Date.now(),
-
-petType:form.petType.value,
-
-petName:form.petName.value,
-
-location:form.location.value,
-
-situation:form.situation.value,
-
-date:new Date().toLocaleString()
-
-};
-
-let reports=JSON.parse(localStorage.getItem("reports")||"[]");
-
-reports.push(data);
-
-localStorage.setItem("reports",JSON.stringify(reports));
-
-document.getElementById("success").innerHTML=
-
-'<div class="success-message">Report submitted successfully ❤️</div>';
-
-form.reset();
-
-preview.innerHTML="";
-
-};
-
-</script>
-
-
+    <div id="cursor-container"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div id="navbar-container"></div>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+
+    <section class="report-hero">
+        <div class="hero-bg"><div class="hero-shape s1"></div><div class="hero-shape s2"></div><div class="hero-shape s3"></div></div>
+        <div class="hero-container">
+            <div class="hero-content" data-aos="fade-right">
+                <span class="hero-badge"><i class="fas fa-paw"></i> Animal Rescue Portal</span>
+                <h1>Report <span class="highlight">Abandoned</span> or Injured Animals</h1>
+                <p>Your action can save lives. Submit a quick report and help connect animals in need with rescue teams near you.</p>
+                <div class="hero-cta">
+                    <button class="btn-hp" onclick="document.getElementById('report-form').scrollIntoView({behavior:'smooth'})"><i class="fas fa-plus-circle"></i> Submit Report</button>
+                    <button class="btn-hs" onclick="document.getElementById('prev-reports').scrollIntoView({behavior:'smooth'})"><i class="fas fa-list"></i> View Reports</button>
+                </div>
+            </div>
+            <div class="hero-img-wrap" data-aos="fade-left" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="Animal Rescue" />
+                <div class="hero-badge-ov"><i class="fas fa-heart" style="color:#ff6b6b"></i> Saving Lives Every Day</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <div class="sec-header">
+            <span class="sec-tag"><i class="fas fa-list-ol"></i> How It Works</span>
+            <h2>Report in 5 Simple Steps</h2>
+            <p>Quick and easy process to get help for animals in need</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card" data-step="petType"><div class="step-number">1</div><div class="step-icon"><i class="fas fa-paw"></i></div><h4>Found Animal</h4><p>Identify the animal type</p></div>
+            <div class="step-card" data-step="form"><div class="step-number">2</div><div class="step-icon"><i class="fas fa-file-alt"></i></div><h4>Fill Form</h4><p>Describe the situation</p></div>
+            <div class="step-card" data-step="location"><div class="step-number">3</div><div class="step-icon"><i class="fas fa-map-marker-alt"></i></div><h4>Add Location</h4><p>Share exact location</p></div>
+            <div class="step-card" data-step="photos"><div class="step-number">4</div><div class="step-icon"><i class="fas fa-camera"></i></div><h4>Upload Photo</h4><p>Attach visual evidence</p></div>
+            <div class="step-card" data-step="submit"><div class="step-number">5</div><div class="step-icon"><i class="fas fa-paper-plane"></i></div><h4>Submit</h4><p>Help gets dispatched</p></div>
+        </div>
+    </section>
+
+    <section class="main-section" id="report-form">
+        <div class="main-grid">
+            <div class="form-card" data-aos="fade-right">
+                <h2><i class="fas fa-plus-circle"></i> Submit Animal Report</h2>
+                <p>Fill in the details below. All fields marked * are required.</p>
+                <form id="reportForm">
+                    <div class="form-row">
+                        <div class="field"><label>Pet Type *</label><select id="petType" required><option value="">Select type</option><option>Dog</option><option>Cat</option><option>Bird</option><option>Cow</option><option>Other</option></select></div>
+                        <div class="field"><label>Situation *</label><select id="situation" required><option value="">Select situation</option><option>Abandoned</option><option>Injured</option><option>Stray</option><option>Sick</option></select></div>
+                    </div>
+                    <div class="field"><label>Animal Name / Description</label><input type="text" id="petName" placeholder="e.g. Brown dog, limping on left leg"></div>
+                    <div class="field">
+                        <label>Location *</label>
+                        <input type="text" id="locInput" placeholder="Enter address or use GPS" required>
+                        <button type="button" class="loc-btn" id="locationBtn"><i class="fas fa-crosshairs"></i> Use My Location</button>
+                    </div>
+                    <div class="field"><label>Additional Notes</label><textarea id="notesInput" placeholder="Any extra details about the animal's condition, behaviour, etc."></textarea></div>
+                    <div class="field">
+                        <label>Upload Photos</label>
+                        <div class="file-upload-area">
+                            <input type="file" id="photoInput" multiple accept="image/*">
+                            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                            <p>Drag & drop photos or click to browse</p>
+                            <span>PNG, JPG up to 10MB each</span>
+                        </div>
+                        <div class="file-preview" id="preview"></div>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit Report</button>
+                </form>
+                <div id="successMsg" class="success-msg"><i class="fas fa-check-circle"></i> Report submitted successfully! Help is on the way</div>
+            </div>
+            <div class="sidebar" data-aos="fade-left">
+                <div class="stats-card">
+                    <h3><i class="fas fa-chart-bar"></i> Impact Stats</h3>
+                    <div class="stat-item"><div class="stat-icon2 si-o"><i class="fas fa-paw"></i></div><div class="stat-info"><div class="val" id="totalReports">0</div><div class="lbl">Total Reports</div></div></div>
+                    <div class="stat-item"><div class="stat-icon2 si-t"><i class="fas fa-heartbeat"></i></div><div class="stat-info"><div class="val" id="injuredCount">0</div><div class="lbl">Injured Animals</div></div></div>
+                    <div class="stat-item"><div class="stat-icon2 si-y"><i class="fas fa-home"></i></div><div class="stat-info"><div class="val" id="abandonedCount">0</div><div class="lbl">Abandoned</div></div></div>
+                    <div class="stat-item"><div class="stat-icon2 si-g"><i class="fas fa-check-circle"></i></div><div class="stat-info"><div class="val" id="strayCount">0</div><div class="lbl">Strays Reported</div></div></div>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-info-circle"></i> What Happens Next?</h3>
+                    <div class="info-item"><i class="fas fa-search"></i><p>Your report is reviewed by our team within 30 minutes.</p></div>
+                    <div class="info-item"><i class="fas fa-phone"></i><p>Nearest rescue team is contacted immediately.</p></div>
+                    <div class="info-item"><i class="fas fa-truck"></i><p>Rescue team is dispatched to the reported location.</p></div>
+                    <div class="info-item"><i class="fas fa-heart"></i><p>Animal receives proper care and medical attention.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reports-section" id="prev-reports">
+        <div class="reports-inner">
+            <div class="reports-header">
+                <h2><i class="fas fa-history"></i> Previous Reports</h2>
+                <button class="clear-btn" onclick="clearAllReports()"><i class="fas fa-trash"></i> Clear All</button>
+            </div>
+            <div class="reports-grid" id="reportsGrid"></div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../../js/global/theme-toggle.js"></script>
+    <script src="../../js/components/component-loader.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('../../components/navbar.html').then(r=>r.text()).then(d=>{document.getElementById('navbar-container').innerHTML=d;}).catch(()=>{});
+            fetch('../../components/footer.html').then(r=>r.text()).then(d=>{document.getElementById('footer-container').innerHTML=d;}).catch(()=>{});
+            if (typeof AOS !== 'undefined') AOS.init({ duration: 800, once: true, offset: 100 });
+            loadReports(); updateStats();
+        });
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const m = {petType:'petType',form:'reportForm',location:'locInput',photos:'photoInput',submit:'reportForm'};
+                const el = document.getElementById(m[card.dataset.step]);
+                if (el) { el.scrollIntoView({behavior:'smooth',block:'center'}); if(el.focus)el.focus(); }
+            });
+        });
+        document.getElementById('photoInput').addEventListener('change', function () {
+            const p = document.getElementById('preview'); p.innerHTML = '';
+            [...this.files].forEach(f => { const r = new FileReader(); r.onload = e => { const i=document.createElement('img');i.src=e.target.result;p.appendChild(i); }; r.readAsDataURL(f); });
+        });
+        document.getElementById('locationBtn').addEventListener('click', () => {
+            if (!navigator.geolocation) return alert('Geolocation not supported');
+            navigator.geolocation.getCurrentPosition(p => { document.getElementById('locInput').value = p.coords.latitude.toFixed(5)+','+p.coords.longitude.toFixed(5); }, ()=>alert('Location access denied'));
+        });
+        document.getElementById('reportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const data = { id:Date.now(), petType:petType.value, petName:petName.value, location:locInput.value, situation:situation.value, notes:notesInput.value, date:new Date().toLocaleString() };
+            let reps = JSON.parse(localStorage.getItem('animalReports')||'[]'); reps.push(data); localStorage.setItem('animalReports',JSON.stringify(reps));
+            const msg=document.getElementById('successMsg'); msg.style.display='flex'; setTimeout(()=>msg.style.display='none',4000);
+            this.reset(); document.getElementById('preview').innerHTML=''; loadReports(); updateStats();
+        });
+        function loadReports() {
+            const reps=JSON.parse(localStorage.getItem('animalReports')||'[]'), grid=document.getElementById('reportsGrid');
+            if(!reps.length){grid.innerHTML='<div class="empty-rep"><i class="fas fa-inbox"></i><p>No reports yet. Be the first to help an animal!</p></div>';return;}
+            grid.innerHTML=reps.map((r,i)=>`<div class="report-card"><div class="rc-header"><div class="rc-title"><i class="fas fa-paw" style="color:#ff6b6b;margin-right:6px"></i>${r.petType||'Unknown'} - ${r.situation||'Reported'}</div><span class="ubadge ${r.situation==='Injured'?'u-e':'u-m'}">${r.situation||'Reported'}</span></div><div class="rc-meta"><i class="fas fa-map-marker-alt"></i> ${r.location||'No location'}</div><div class="rc-meta"><i class="fas fa-clock"></i> ${r.date}</div>${r.petName?`<div class="rc-meta"><i class="fas fa-info-circle"></i> ${r.petName}</div>`:''}<button class="del-btn" onclick="deleteReport(${i})"><i class="fas fa-trash"></i> Delete</button></div>`).join('');
+        }
+        function deleteReport(i){let r=JSON.parse(localStorage.getItem('animalReports')||'[]');r.splice(i,1);localStorage.setItem('animalReports',JSON.stringify(r));loadReports();updateStats();}
+        function clearAllReports(){if(!confirm('Clear all reports?'))return;localStorage.removeItem('animalReports');loadReports();updateStats();}
+        function updateStats(){const r=JSON.parse(localStorage.getItem('animalReports')||'[]');document.getElementById('totalReports').textContent=r.length;document.getElementById('injuredCount').textContent=r.filter(x=>x.situation==='Injured').length;document.getElementById('abandonedCount').textContent=r.filter(x=>x.situation==='Abandoned').length;document.getElementById('strayCount').textContent=r.filter(x=>x.situation==='Stray').length;}
+    </script>
 </body>
 </html>

@@ -1847,5 +1847,76 @@ function initFlipCards() {
 }
 
 // ===========================================
+// PERMAFROST METHANE CRISIS ALERT SYSTEM
+// ===========================================
+
+class PermafrostCrisisAlertManager {
+  constructor() {
+    this.alertBanner = document.getElementById('permafrost-crisis-alert-banner');
+    this.isDismissed = this.getDismissedState();
+    if (!this.isDismissed && this.shouldShowAlert()) {
+      this.showAlert();
+    }
+  }
+
+  shouldShowAlert() {
+    const currentPath = window.location.pathname;
+    const allowedPages = ['/', '/index.html', ''];
+    return allowedPages.some(page => currentPath.endsWith(page));
+  }
+
+  showAlert() {
+    if (this.alertBanner) {
+      this.alertBanner.style.display = 'block';
+      this.alertBanner.style.animation = 'permafrostSlideDown 0.5s ease-out';
+      document.body.classList.add('permafrost-crisis-alert-shown');
+      this.announceToScreenReader(
+        'Level 3 Emergency: Permafrost Thaw and Methane Time Bomb. 1,500 billion tonnes of carbon at risk from accelerating methane feedback loop.'
+      );
+    }
+  }
+
+  dismissAlert() {
+    if (this.alertBanner) {
+      this.alertBanner.classList.add('closing');
+      document.body.classList.remove('permafrost-crisis-alert-shown');
+      this.setDismissedState(true);
+      setTimeout(() => {
+        this.alertBanner.style.display = 'none';
+        this.alertBanner.classList.remove('closing');
+      }, 500);
+    }
+  }
+
+  getDismissedState() {
+    return localStorage.getItem('permafrostCrisisAlertDismissed') === 'true';
+  }
+
+  setDismissedState(dismissed) {
+    localStorage.setItem('permafrostCrisisAlertDismissed', dismissed.toString());
+  }
+
+  announceToScreenReader(message) {
+    const liveRegion = document.getElementById('status-messages');
+    if (liveRegion) {
+      liveRegion.textContent = message;
+    }
+  }
+}
+
+function closePermafrostCrisisAlert() {
+  if (window.permafrostCrisisManager) {
+    window.permafrostCrisisManager.dismissAlert();
+  }
+}
+
+function initPermafrostCrisisAlert() {
+  window.permafrostCrisisManager = new PermafrostCrisisAlertManager();
+}
+
+window.closePermafrostCrisisAlert = closePermafrostCrisisAlert;
+document.addEventListener('DOMContentLoaded', initPermafrostCrisisAlert);
+
+// ===========================================
 // END OF MAIN.JS
 // ===========================================

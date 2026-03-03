@@ -1,457 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Waste Tracker | EcoLife - Track & Reduce Food Waste</title>
+    <link rel="icon" type="image/png" href="/environment-logo.png">
+    <meta name="description" content="Track food waste, monitor environmental impact, and reduce household waste. Get insights on your food waste patterns." />
 
-<title>EcoLife Professional Food Waste Tracker</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/global/variables.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/navbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/pages/food-waste-tracker.css" />
+    <link rel="stylesheet" href="../css/components/scrollBar.css" />
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<style>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-/* RESET */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
-
-body{
-background:linear-gradient(135deg,#eef5f0,#dff3e6);
-padding:20px;
-color:#333;
-}
-
-/* HEADER */
-
-.header{
-background:linear-gradient(135deg,#27ae60,#2ecc71);
-color:white;
-padding:25px;
-border-radius:12px;
-margin-bottom:20px;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-
-.header h1{
-font-size:28px;
-}
-
-/* DASHBOARD */
-
-.dashboard{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-margin-bottom:20px;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-3px);
-}
-
-.stat{
-font-size:26px;
-font-weight:700;
-color:#27ae60;
-margin-top:5px;
-}
-
-/* FORM */
-
-.form-group{
-margin-bottom:12px;
-}
-
-input,select{
-width:100%;
-padding:10px;
-border-radius:6px;
-border:1px solid #ccc;
-}
-
-button{
-background:#27ae60;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:6px;
-cursor:pointer;
-margin-top:5px;
-margin-right:5px;
-}
-
-button:hover{
-background:#219150;
-}
-
-/* TABLE */
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:10px;
-}
-
-th{
-background:#27ae60;
-color:white;
-padding:10px;
-}
-
-td{
-padding:10px;
-border-bottom:1px solid #eee;
-}
-
-.delete{
-background:#e74c3c;
-}
-
-.delete:hover{
-background:#c0392b;
-}
-
-/* CHART */
-
-.chart-box{
-background:white;
-padding:20px;
-border-radius:12px;
-margin-top:20px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-}
-
-</style>
-
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 <body>
-
-<div class="header">
-<h1>EcoLife Food Waste Tracker</h1>
-<p>Track waste • Save money • Protect planet</p>
-</div>
-
-
-<div class="dashboard">
-
-<div class="card">
-Total Waste
-<div class="stat" id="totalWaste">0 kg</div>
-</div>
-
-<div class="card">
-Money Lost
-<div class="stat" id="moneyLost">₹0</div>
-</div>
-
-<div class="card">
-CO₂ Impact
-<div class="stat" id="co2">0 kg</div>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>Add Entry</h3>
-
-<div class="form-group">
-<select id="category">
-<option>Vegetables</option>
-<option>Fruits</option>
-<option>Dairy</option>
-<option>Meat</option>
-<option>Grains</option>
-<option>Other</option>
-</select>
-</div>
-
-<div class="form-group">
-<input type="number" id="amount" placeholder="Amount (kg)">
-</div>
-
-<div class="form-group">
-<input type="date" id="date">
-</div>
-
-<button onclick="addEntry()">Add Entry</button>
-
-<button onclick="clearAll()">Clear All</button>
-
-<button onclick="exportCSV()">Export CSV</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>Entries</h3>
-
-<table>
-
-<thead>
-<tr>
-<th>Date</th>
-<th>Category</th>
-<th>Amount</th>
-<th>Delete</th>
-</tr>
-</thead>
-
-<tbody id="table"></tbody>
-
-</table>
-
-</div>
-
-
-<div class="chart-box">
-<canvas id="chart"></canvas>
-</div>
-
-
-
-<script>
-
-/* STORAGE */
-
-let entries = JSON.parse(localStorage.getItem("foodWaste")) || []
-
-
-/* COLORS */
-
-function generateColors(count){
-
-let colors=[]
-
-for(let i=0;i<count;i++){
-
-colors.push(`hsl(${i*360/count},70%,50%)`)
-
-}
-
-return colors
-
-}
-
-
-/* ADD ENTRY */
-
-function addEntry(){
-
-let category = document.getElementById("category").value
-
-let amount = parseFloat(document.getElementById("amount").value)
-
-let date = document.getElementById("date").value
-
-if(!amount || !date){
-
-alert("Please enter valid data")
-
-return
-
-}
-
-entries.push({category,amount,date})
-
-save()
-
-}
-
-
-/* SAVE */
-
-function save(){
-
-localStorage.setItem("foodWaste",JSON.stringify(entries))
-
-update()
-
-}
-
-
-/* DELETE */
-
-function deleteEntry(index){
-
-entries.splice(index,1)
-
-save()
-
-}
-
-
-/* CLEAR */
-
-function clearAll(){
-
-if(confirm("Delete all entries?")){
-
-entries=[]
-
-save()
-
-}
-
-}
-
-
-/* EXPORT */
-
-function exportCSV(){
-
-let csv="Date,Category,Amount\n"
-
-entries.forEach(e=>{
-
-csv+=`${e.date},${e.category},${e.amount}\n`
-
-})
-
-let blob=new Blob([csv])
-
-let a=document.createElement("a")
-
-a.href=URL.createObjectURL(blob)
-
-a.download="food_waste_data.csv"
-
-a.click()
-
-}
-
-
-/* UPDATE */
-
-function update(){
-
-let table=document.getElementById("table")
-
-table.innerHTML=""
-
-let total=0
-
-let categoryTotals={}
-
-entries.forEach((e,index)=>{
-
-total+=e.amount
-
-categoryTotals[e.category]=(categoryTotals[e.category]||0)+e.amount
-
-table.innerHTML+=`
-
-<tr>
-
-<td>${e.date}</td>
-
-<td>${e.category}</td>
-
-<td>${e.amount}</td>
-
-<td>
-
-<button class="delete" onclick="deleteEntry(${index})">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`
-
-})
-
-document.getElementById("totalWaste").innerText = total.toFixed(2)+" kg"
-
-document.getElementById("moneyLost").innerText = "₹"+(total*200).toFixed(0)
-
-document.getElementById("co2").innerText = (total*2.5).toFixed(1)+" kg"
-
-updateChart(categoryTotals)
-
-}
-
-
-/* CHART */
-
-let chart=new Chart(document.getElementById("chart"),{
-
-type:"doughnut",
-
-data:{
-
-labels:[],
-
-datasets:[{
-
-data:[],
-
-backgroundColor:[]
-
-}]
-
-},
-
-options:{
-
-responsive:true,
-
-plugins:{
-
-legend:{
-position:"bottom"
-}
-
-}
-
-}
-
-})
-
-
-function updateChart(categoryTotals){
-
-let labels = Object.keys(categoryTotals)
-
-let data = Object.values(categoryTotals)
-
-chart.data.labels = labels
-
-chart.data.datasets[0].data = data
-
-chart.data.datasets[0].backgroundColor = generateColors(labels.length)
-
-chart.update()
-
-}
-
-
-/* INIT */
-
-update()
-
-</script>
-
-
+    <div id="cursor-container"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div id="navbar-container"></div>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- HERO SECTION -->
+    <section class="food-waste-hero">
+        <div class="hero-bg">
+            <div class="hero-shape shape-1"></div>
+            <div class="hero-shape shape-2"></div>
+            <div class="hero-shape shape-3"></div>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <span class="hero-badge">
+                    <i class="fa-solid fa-trash"></i> Smart Food Waste Tracker
+                </span>
+                <h1>
+                    Track Your <span class="gradient-text">Food Waste</span>, Save Resources
+                </h1>
+                <p>
+                    Monitor your household food waste, calculate environmental impact, and discover actionable strategies to reduce waste and save money.
+                </p>
+
+                <div class="hero-stats">
+                    <div class="hero-stat" data-aos="fade-up" data-aos-delay="0">
+                        <span class="hero-stat-number">85%</span>
+                        <span class="stat-label">Waste Reduction Potential</span>
+                    </div>
+                    <div class="hero-stat" data-aos="fade-up" data-aos-delay="100">
+                        <span class="hero-stat-number">₹5000+</span>
+                        <span class="stat-label">Annual Savings</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="document.getElementById('tracker-section').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fa-solid fa-chart-line"></i> Start Tracking
+                    </button>
+                    <a href="#facts" class="btn btn-secondary">
+                        <i class="fa-solid fa-info-circle"></i> Learn More
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" alt="Food Waste" />
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="stat-value" id="totalWaste">0 kg</div>
+                    <div class="stat-label">Total Waste Tracked</div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-money-bills"></i>
+                    </div>
+                    <div class="stat-value" id="moneyLost">₹0</div>
+                    <div class="stat-label">Money Lost</div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <div class="stat-value" id="co2">0 kg</div>
+                    <div class="stat-label">CO₂ Equivalent</div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <div class="stat-value" id="entryCount">0</div>
+                    <div class="stat-label">Entries Logged</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRACKER SECTION -->
+    <section id="tracker-section" class="tracker-section">
+        <div class="section-container">
+            <div class="tracker-content">
+                <div class="tracker-form-wrapper" data-aos="fade-right">
+                    <div class="form-card">
+                        <h2><i class="fa-solid fa-plus-circle"></i> Add Food Waste Entry</h2>
+                        
+                        <form class="tracker-form" id="wasteForm">
+                            <div class="form-group">
+                                <label for="category">Category *</label>
+                                <select id="category" required>
+                                    <option value="">Select category</option>
+                                    <option value="Vegetables">🥬 Vegetables</option>
+                                    <option value="Fruits">🍎 Fruits</option>
+                                    <option value="Dairy">🥛 Dairy</option>
+                                    <option value="Meat/Fish">🍗 Meat/Fish</option>
+                                    <option value="Grains">🌾 Grains</option>
+                                    <option value="Beverages">🥤 Beverages</option>
+                                    <option value="Other">📦 Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="amount">Amount (kg) *</label>
+                                    <input type="number" id="amount" step="0.1" min="0" required placeholder="0.5" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Date *</label>
+                                    <input type="date" id="date" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reason">Reason for Waste</label>
+                                <select id="reason">
+                                    <option value="">Select reason</option>
+                                    <option value="Spoiled">Spoiled</option>
+                                    <option value="Expired">Expired</option>
+                                    <option value="Left at meal">Left at meal</option>
+                                    <option value="Trimming">Trimming/Peel</option>
+                                    <option value="Cooking mistake">Cooking mistake</option>
+                                    <option value="Not eaten">Not eaten</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notes">Notes</label>
+                                <textarea id="notes" placeholder="Add any additional notes..." rows="2"></textarea>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class="fa-solid fa-plus"></i> Add Entry
+                                </button>
+                                <button type="reset" class="btn btn-outline btn-block">
+                                    <i class="fa-solid fa-redo"></i> Clear
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="tracker-insights" data-aos="fade-left">
+                    <div class="chart-wrapper">
+                        <h3><i class="fa-solid fa-chart-pie"></i> Waste by Category</h3>
+                        <canvas id="wasteChart"></canvas>
+                    </div>
+
+                    <div class="quick-stats">
+                        <h3><i class="fa-solid fa-zap"></i> Quick Stats</h3>
+                        <div class="insight-grid">
+                            <div class="insight-card">
+                                <span class="insight-label">Average Daily Waste</span>
+                                <span class="insight-value" id="avgDaily">0 kg</span>
+                            </div>
+                            <div class="insight-card">
+                                <span class="insight-label">Most Wasted Item</span>
+                                <span class="insight-value" id="maxCategory">None</span>
+                            </div>
+                            <div class="insight-card">
+                                <span class="insight-label">Top Reason</span>
+                                <span class="insight-value" id="topReason">None</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATA TABLE SECTION -->
+    <section class="table-section">
+        <div class="section-container">
+            <div class="table-wrapper" data-aos="fade-up">
+                <div class="table-header">
+                    <h2><i class="fa-solid fa-table"></i> Entry History</h2>
+                    <div class="table-actions">
+                        <button class="btn btn-sm btn-outline" onclick="exportCSV()">
+                            <i class="fa-solid fa-download"></i> Export CSV
+                        </button>
+                        <button class="btn btn-sm btn-outline btn-danger" onclick="clearAllEntries()">
+                            <i class="fa-solid fa-trash"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <div class="responsive-table">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Amount (kg)</th>
+                                <th>Reason</th>
+                                <th>Notes</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr class="empty-row">
+                                <td colspan="6" style="text-align: center; padding: 40px;">
+                                    <i class="fa-solid fa-inbox" style="font-size: 2rem; opacity: 0.5;"></i>
+                                    <p style="margin-top: 10px; opacity: 0.7;">No entries yet. Start tracking your food waste!</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIPS SECTION -->
+    <section id="facts" class="tips-section">
+        <div class="section-container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">
+                    <i class="fa-solid fa-lightbulb"></i> Reduction Tips
+                </span>
+                <h2 class="section-title">Reduce Your Food Waste</h2>
+                <p class="section-subtitle">
+                    Practical tips to minimize food waste and maximize your resources.
+                </p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card" data-aos="fade-up">
+                    <div class="tip-icon">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <h3>Plan Your Meals</h3>
+                    <p>Create a weekly meal plan and shopping list dedicated to what you'll actually eat.</p>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tip-icon">
+                        <i class="fa-solid fa-shopping-bag"></i>
+                    </div>
+                    <h3>Smart Shopping</h3>
+                    <p>Buy only what you need. Check expiry dates and use FIFO (First In, First Out) method.</p>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tip-icon">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3>Proper Storage</h3>
+                    <p>Store food correctly at the right temperature to extend shelf life.</p>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tip-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3>Composting</h3>
+                    <p>Start composting organic waste. It's great for your garden and the environment!</p>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="tip-icon">
+                        <i class="fa-solid fa-share-alt"></i>
+                    </div>
+                    <h3>Share Surplus</h3>
+                    <p>Share excess food with neighbors, friends, or donate to local food banks.</p>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="tip-icon">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3>Use Leftovers</h3>
+                    <p>Get creative with leftovers. Transform them into new, delicious meals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+    <style></style>
+
+    <!-- AOS and Main Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/global/theme-toggle.js"></script>
+    <script src="../js/components/component-loader.js"></script>
+
+    <!-- Page-specific script -->
+    <script src="../js/pages/food-waste-tracker.js"></script>
+
+    <!-- Load Navbar and Footer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load Navbar
+            fetch('../components/navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                })
+                .catch(error => console.log('Navbar loading skipped'));
+
+            // Load Footer
+            fetch('../components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                })
+                .catch(error => console.log('Footer loading skipped'));
+
+            // Initialize AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 100
+                });
+            }
+        });
+    </script>
 </body>
 </html>

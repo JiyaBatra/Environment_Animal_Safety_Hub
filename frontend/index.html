@@ -68,6 +68,7 @@
   <link href="css/components/donation.css" rel="stylesheet" />
   <link href="css/components/noise-crisis-alert.css" rel="stylesheet" />
   <link href="css/components/indigenous-crisis-alert.css" rel="stylesheet" />
+  <link href="css/components/permafrost-crisis-alert.css" rel="stylesheet" />
   <link href="css/global/accessibility.css" rel="stylesheet" />
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -197,6 +198,28 @@
     </div>
   </div>
 
+  <!-- Permafrost Methane Crisis Alert Banner -->
+  <div class="permafrost-crisis-alert-banner" id="permafrost-crisis-alert-banner" style="display: none;">
+    <div class="permafrost-crisis-alert-content">
+      <div class="permafrost-crisis-icon">
+        <i class="fas fa-snowflake permafrost-pulse"></i>
+      </div>
+      <div class="permafrost-crisis-text">
+        <div class="permafrost-crisis-level">LEVEL 3 EMERGENCY</div>
+        <div class="permafrost-crisis-title">Permafrost Thaw &amp; Methane Time Bomb</div>
+        <div class="permafrost-crisis-action">1,500 Gt carbon at risk — methane feedback loop accelerating</div>
+      </div>
+      <div class="permafrost-crisis-actions">
+        <a class="permafrost-crisis-btn" href="pages/environment/permafrost-methane-crisis.html">
+          <i class="fas fa-eye"></i> View Crisis Details
+        </a>
+        <button aria-label="Close crisis alert" class="permafrost-crisis-close" onclick="closePermafrostCrisisAlert()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Fire Regime Crisis Alert -->
   <div class="crisis-alert-banner" id="crisisAlert" style="display: none;">
     <div class="crisis-alert-content">
@@ -234,6 +257,39 @@
     </div>
   </div>
     
+  <!-- Permafrost Methane Crisis Alert Banner - Level 3 Emergency (#3128) -->
+  <div class="noise-crisis-alert-banner" id="permafrost-crisis-alert-banner" style="display: none;">
+    <div class="noise-crisis-alert-content">
+      <div class="noise-crisis-icon">
+        <i class="fas fa-snowflake noise-pulse"></i>
+      </div>
+      <div class="noise-crisis-text">
+        <div class="noise-crisis-level">
+          LEVEL 3 EMERGENCY
+        </div>
+        <div class="noise-crisis-title">
+          Permafrost Thaw &amp; The Methane Time Bomb
+        </div>
+        <div class="noise-crisis-action">
+          1,500 billion tons of carbon releasing — devastating feedback loop accelerating
+        </div>
+      </div>
+      <div class="noise-crisis-actions">
+        <a class="indigenous-crisis-btn" href="pages/environment/permafrost-methane-crisis.html">
+          <i class="fas fa-eye"></i>
+          View Crisis Details
+        </a>
+        <button aria-label="Close crisis alert" class="noise-crisis-close" onclick="document.getElementById('permafrost-crisis-alert-banner').style.display='none'">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skip Navigation Link for Keyboard Users -->
+  <a class="skip-link" href="#main-content" id="skip-to-main">
+    Skip to main content
+  </a>
   <!-- Live Regions for Screen Readers -->
   <div aria-atomic="true" aria-live="polite" class="live-region" id="status-messages"></div>
   <div aria-atomic="true" aria-live="assertive" class="live-region" id="error-messages"></div>
@@ -472,21 +528,37 @@
             <div class="service-icon-3d" >
               <img alt="Animal Rescue" loading="lazy" src="assets/images/3d/building_animal_shelter.webp" />
             </div>
-            <h3 >Animal Rescue</h3>
-            <p >We rescue, treat, and rehabilitate injured and abandoned animals, giving them a second chance at life.</p>
-          </div>
-          <div class="service-card-back" >
-            <a class="service-link open-modal-btn" data-id="animal-rescue" href="javascript:void(0)" >Learn More <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-      </article>
+          </article>
 
-      <!-- Waste Management -->
-      <article class="service-card" data-tilt="" >
-        <div class="service-card-inner" >
-          <div class="service-card-front" >
-            <div class="service-icon-3d" >
-              <img alt="Waste Management" loading="lazy" src="assets/images/3d/building_recycling_center.webp" />
+          <!-- Permafrost Methane Crisis -->
+          <article class="service-card" data-tilt="">
+            <div class="service-card-inner">
+              <div class="service-card-front">
+                <div class="service-icon-3d">
+                  <i class="fa-solid fa-snowflake" style="font-size:3rem;color:#06b6d4;"></i>
+                </div>
+                <h3>Permafrost Crisis <span class="crisis-urgent-text" style="color: #ff0000; font-size: 0.8rem; font-weight: 900; text-shadow: 0 0 10px #ff0000;">[LEVEL 3 CRISIS]</span></h3>
+                <p>Permafrost thaw is releasing methane — a greenhouse gas 80× more potent than CO₂. <strong style="color: #ff4500; background: rgba(255,69,0,0.1); padding: 2px 6px; border-radius: 4px;">URGENT: 1,500 Gt carbon at risk</strong></p>
+              </div>
+              <div class="service-card-back">
+                <a class="service-link" href="pages/environment/permafrost-methane-crisis.html" style="background: linear-gradient(45deg, #06b6d4, #3b82f6); color: white; font-weight: bold; text-shadow: 0 0 10px rgba(0,0,0,0.5);" title="View Level 3 Crisis Details">❄️ Crisis Level 3 <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+          
+          <!-- Tree Plantation -->
+          <article class="service-card" data-tilt="">
+            <div class="service-card-inner">
+              <div class="service-card-front">
+                <div class="service-icon-3d">
+                  <img alt="Tree Plantation" loading="lazy" src="assets/images/3d/building_tree_park.webp" />
+                </div>
+                <h3>Tree Plantation</h3>
+                <p>Organizing community drives to plant trees and create urban green spaces.</p>
+              </div>
+              <div class="service-card-back">
+                <a class="service-link open-modal-btn" data-id="tree-plant" href="javascript:void(0)">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
             </div>
             <h3 >Waste Management</h3>
             <p >Promoting proper waste segregation, recycling, and reducing plastic usage in communities.</p>
@@ -1486,7 +1558,11 @@ setInterval(updateSurvivalScore, 8000);
             <div class="feature-item"><i class="fas fa-filter"></i><span>Filter by Status</span></div>
             <div class="feature-item"><i class="fas fa-mobile-alt"></i><span>Mobile Friendly</span></div>
           </div>
-          <a class="explore-btn" href="js/visual-museum.html">🏛️ Visit Museum <i class="fas fa-arrow-right"></i></a>
+          <a class="explore-btn" href="pages/education/visual-museum.html">
+            🏛️ Visit Museum
+            <i class="fas fa-arrow-right">
+            </i>
+          </a>
         </div>
         <div class="museum-visuals">
           <div class="floating-card card-1">

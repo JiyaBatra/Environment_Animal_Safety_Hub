@@ -7,37 +7,60 @@
   <link rel="stylesheet" href="waste-object-passport.css">
 </head>
 <body>
-  <div class="passport-container">
+
+  <header class="page-header">
     <h1>Waste Object Passport</h1>
-    <div class="passport-input">
+    <p>Track lifecycle, reuse potential, and sustainable disposal actions</p>
+  </header>
+
+  <main class="passport-wrapper">
+
+    <!-- Input Section -->
+    <section class="card">
       <h2>Enter or Scan Product</h2>
-      <form id="passportForm">
+
+      <form id="passportForm" class="input-row">
         <input type="text" id="productCode" placeholder="Product code or name" required>
         <button type="submit">Get Passport</button>
       </form>
-      <div id="scanArea"></div>
-    </div>
-    <div class="passport-details">
+
+      <div id="scanArea" class="scan-box">
+        Scan barcode or QR code here
+      </div>
+    </section>
+
+    <!-- Passport Details -->
+    <section class="card">
       <h2>Product Passport</h2>
       <div id="passportDetails"></div>
-    </div>
-    <div class="passport-actions">
+    </section>
+
+    <!-- Recommended Actions -->
+    <section class="card">
       <h2>Recommended Actions</h2>
       <div id="passportActions"></div>
-    </div>
-    <div class="passport-history">
+    </section>
+
+    <!-- History -->
+    <section class="card">
       <h2>My Object History</h2>
       <div id="objectHistory"></div>
-    </div>
-    <div class="passport-feedback">
+    </section>
+
+    <!-- Feedback -->
+    <section class="card">
       <h2>Feedback & Suggestions</h2>
-      <form id="feedbackForm">
+
+      <form id="feedbackForm" class="feedback-form">
         <textarea id="feedbackInput" placeholder="Your feedback..." required></textarea>
         <button type="submit">Submit Feedback</button>
       </form>
+
       <div id="feedbackList"></div>
-    </div>
-  </div>
+    </section>
+
+  </main>
+
   <script src="waste-object-passport.js"></script>
 </body>
 </html>

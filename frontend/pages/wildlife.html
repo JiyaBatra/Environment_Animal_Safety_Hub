@@ -5,124 +5,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wildlife | EcoVerse</title>
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI', sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Arial, sans-serif;
 }
 
 body{
-min-height:100vh;
-background:linear-gradient(-45deg,#134e5e,#71b280,#355c7d,#2c3e50);
-background-size:400% 400%;
-animation:bg 12s ease infinite;
-color:white;
-display:flex;
-flex-direction:column;
-align-items:center;
+    min-height:100vh;
+    background: linear-gradient(135deg, #e8f5e9 0%, #fffde7 100%);
+    color:#2e7d32;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
+/* ================= HEADER ================= */
 header{
-text-align:center;
-padding:60px 20px;
+    background:#388e3c;
+    color:white;
+    padding:2.5rem 1rem;
+    text-align:center;
+    border-bottom-left-radius:30px;
+    border-bottom-right-radius:30px;
+    width:100%;
+    margin-bottom:50px;
 }
 
 header h1{
-font-size:55px;
-text-shadow:0 0 20px #00ffcc;
+    font-size:42px;
+    font-weight:700;
+    margin-bottom:10px;
 }
 
 header p{
-margin-top:15px;
-opacity:0.9;
+    font-size:16px;
+    opacity:0.9;
 }
 
-/* Grid */
-.container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:40px;
-padding:40px;
-width:90%;
-max-width:1200px;
+/* ================= GRID ================= */
+.wildlife-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:30px;
+    width:90%;
+    max-width:1200px;
 }
 
-/* Flip Card */
-.card{
-perspective:1000px;
+/* ================= CARD ================= */
+.wildlife-card{
+    perspective:1000px;
+    height:260px;
 }
 
 .card-inner{
-position:relative;
-width:100%;
-height:260px;
-transition:transform 0.8s;
-transform-style:preserve-3d;
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform 0.8s;
+    transform-style:preserve-3d;
 }
 
-.card:hover .card-inner{
-transform:rotateY(180deg);
+.wildlife-card:hover .card-inner{
+    transform:rotateY(180deg);
 }
 
 .card-front, .card-back{
-position:absolute;
-width:100%;
-height:100%;
-backface-visibility:hidden;
-border-radius:20px;
-padding:25px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-backdrop-filter:blur(10px);
-background:rgba(255,255,255,0.15);
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:18px;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    backface-visibility:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-.card-front h2{
-margin-bottom:10px;
+/* FRONT */
+.card-front{
+    background:white;
 }
 
+.card-front i{
+    font-size:32px;
+    margin-bottom:15px;
+    color:#388e3c;
+}
+
+.card-front h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+/* BACK */
 .card-back{
-transform:rotateY(180deg);
-background:rgba(0,0,0,0.6);
+    background:#388e3c;
+    color:white;
+    transform:rotateY(180deg);
+    font-size:15px;
 }
 
+/* ================= BUTTON ================= */
 .btn{
-margin:40px;
-padding:12px 30px;
-border-radius:30px;
-background:linear-gradient(45deg,#00f5d4,#00bbf9);
-color:black;
-font-weight:bold;
-text-decoration:none;
-transition:0.4s;
+    margin:60px 0;
+    padding:12px 30px;
+    border-radius:30px;
+    background:#388e3c;
+    color:white;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.3s;
 }
 
 .btn:hover{
-transform:scale(1.1);
-box-shadow:0 0 20px #00f5d4;
+    background:#1976d2;
 }
 
+/* ================= FOOTER ================= */
 footer{
-padding:20px;
-opacity:0.7;
+    padding:20px;
+    opacity:0.6;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1000px){
+    .wildlife-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
 @media(max-width:600px){
-header h1{
-font-size:40px;
-}
+    .wildlife-grid{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -130,66 +154,102 @@ font-size:40px;
 <body>
 
 <header>
-<h1>🐯 Wildlife</h1>
-<p>Preserving biodiversity and natural habitats</p>
+    <h1>Wildlife</h1>
+    <p>Preserving biodiversity and protecting natural ecosystems</p>
 </header>
 
-<section class="container">
+<section class="wildlife-grid">
 
-<div class="card">
-<div class="card-inner">
-<div class="card-front">
-<h2>🦁 Endangered Species</h2>
-<p>Hover to learn more</p>
-</div>
-<div class="card-back">
-<p>Many species face extinction due to habitat destruction and poaching. Conservation efforts are critical.</p>
-</div>
-</div>
-</div>
+    <!-- 1 -->
+    <div class="wildlife-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <i class="fas fa-paw"></i>
+                <h3>Endangered Species</h3>
+                <p>Hover to learn more</p>
+            </div>
+            <div class="card-back">
+                Many species face extinction due to habitat destruction, poaching, and climate change.
+            </div>
+        </div>
+    </div>
 
-<div class="card">
-<div class="card-inner">
-<div class="card-front">
-<h2>🌲 Habitat Loss</h2>
-<p>Hover to learn more</p>
-</div>
-<div class="card-back">
-<p>Urban expansion and deforestation reduce natural habitats for wildlife.</p>
-</div>
-</div>
-</div>
+    <!-- 2 -->
+    <div class="wildlife-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <i class="fas fa-tree"></i>
+                <h3>Habitat Loss</h3>
+                <p>Hover to learn more</p>
+            </div>
+            <div class="card-back">
+                Urban expansion and deforestation reduce natural habitats for wildlife survival.
+            </div>
+        </div>
+    </div>
 
-<div class="card">
-<div class="card-inner">
-<div class="card-front">
-<h2>🛡 Conservation</h2>
-<p>Hover to learn more</p>
-</div>
-<div class="card-back">
-<p>Wildlife reserves, anti-poaching laws, and awareness campaigns protect biodiversity.</p>
-</div>
-</div>
-</div>
+    <!-- 3 -->
+    <div class="wildlife-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Conservation</h3>
+                <p>Hover to learn more</p>
+            </div>
+            <div class="card-back">
+                Wildlife reserves, anti-poaching laws, and awareness campaigns protect biodiversity.
+            </div>
+        </div>
+    </div>
 
-<div class="card">
-<div class="card-inner">
-<div class="card-front">
-<h2>🌍 Biodiversity</h2>
-<p>Hover to learn more</p>
-</div>
-<div class="card-back">
-<p>Biodiversity ensures ecosystem stability and resilience.</p>
-</div>
-</div>
-</div>
+    <!-- 4 -->
+    <div class="wildlife-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <i class="fas fa-globe"></i>
+                <h3>Biodiversity</h3>
+                <p>Hover to learn more</p>
+            </div>
+            <div class="card-back">
+                Biodiversity ensures ecosystem stability and environmental resilience.
+            </div>
+        </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="wildlife-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <i class="fas fa-temperature-high"></i>
+                <h3>Climate Impact</h3>
+                <p>Hover to learn more</p>
+            </div>
+            <div class="card-back">
+                Climate change affects wildlife migration, breeding cycles, and food chains.
+            </div>
+        </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="wildlife-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <i class="fas fa-scale-balanced"></i>
+                <h3>Protection Laws</h3>
+                <p>Hover to learn more</p>
+            </div>
+            <div class="card-back">
+                Environmental protection laws regulate hunting, land use, and conservation efforts.
+            </div>
+        </div>
+    </div>
 
 </section>
 
-<a href="index.html" class="btn">⬅ Back to Home</a>
+<a href="index.html" class="btn">Back to Home</a>
 
 <footer>
-© 2026 EcoVerse | Wildlife 3D Flip Page
+© 2026 EcoVerse | Wildlife Page
 </footer>
 
 </body>
